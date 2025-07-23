@@ -8,17 +8,19 @@
     <style>
         .password-container {
             position: relative;
+            width: 100%;
         }
 
         .password-container input {
             width: 100%;
-            padding-right: 40px; /* espaço pro ícone */
+            padding-right: 44px; /* espaço para o botão dentro do campo */
+            box-sizing: border-box;
         }
 
         .toggle-password {
             position: absolute;
             top: 50%;
-            right: 10px;
+            right: 12px;
             transform: translateY(-50%);
             cursor: pointer;
             background: none;
@@ -47,7 +49,7 @@
             <div class="password-container">
                 <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
                 <button type="button" class="toggle-password" onclick="togglePassword(this, 'password')">
-                    <svg id="icon-password" viewBox="0 0 24 24"><path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 
+                    <svg viewBox="0 0 24 24"><path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 
                     5 2.239 5 5-2.239 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
                 </button>
             </div>
@@ -56,7 +58,7 @@
             <div class="password-container">
                 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Digite sua senha" required>
                 <button type="button" class="toggle-password" onclick="togglePassword(this, 'confirmPassword')">
-                    <svg id="icon-confirm" viewBox="0 0 24 24"><path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 
+                    <svg viewBox="0 0 24 24"><path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 
                     5 2.239 5 5-2.239 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
                 </button>
             </div>
@@ -93,4 +95,4 @@
 
     <script type="module" src="script.js"></script>
 </body>
-    </html>
+                                                 </html>
