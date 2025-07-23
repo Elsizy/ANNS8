@@ -1,16 +1,16 @@
-import { ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-import { auth, db } from './firebase-config.js'; // agora também importa `db`
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { auth } from './firebase-config.js';
 
-// Evento de clique no botão login
-document.getElementById("loginBtn").addEventListener("click", login);
+const db = getDatabase();
 
-async function login() {
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
+// Ao clicar no botão "Entrar"
+document.getElementById("loginBtn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value.trim();
+  const senha = document.getElementById("senha").value.trim();
 
   if (!email || !senha) {
-    alert("Preencha todos os campos");
+    alert("Preencha todos os campos!");
     return;
   }
 
@@ -18,16 +18,16 @@ async function login() {
     const userCredential = await signInWithEmailAndPassword(auth, email, senha);
     const user = userCredential.user;
 
-    const dbRef = ref(db);
-    const snapshot = await get(child(dbRef, `usuarios/${user.uid}`));
-
+    // Verifica se o usuário existe no Realtime Database
+    const snapshot = await get(child(ref(db), `usuarios/${user.uid}`));
     if (snapshot.exists()) {
+      // Redireciona para a página principal
       window.location.href = "pagina-principal.html";
     } else {
       alert("Usuário não encontrado no banco de dados.");
     }
   } catch (error) {
-    console.error("Erro ao fazer login:", error);
+    console.error(error);
     alert("Erro ao fazer login: " + error.message);
   }
-}
+});
