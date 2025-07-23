@@ -1,3 +1,9 @@
+// ✅ IMPORTS no topo
+import { auth, db } from './firebase-config.js';
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// ✅ EVENTO DE CADASTRO
 document.getElementById("signupForm").addEventListener("submit", async function (event) {
   event.preventDefault();
 
