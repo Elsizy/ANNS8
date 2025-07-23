@@ -14,7 +14,7 @@ function fazerLogin() {
     .then((userCredential) => {
       // Login bem-sucedido
       alert("Login realizado com sucesso!");
-      window.location.href = "index.html"; // Redirecionar para a página principal
+      window.location.href = "pagina-principal.html"; // Redirecionar para a página principal
     })
     .catch((error) => {
       console.error(error);
