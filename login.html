@@ -13,24 +13,28 @@
 
     .password-container input {
       width: 100%;
-      padding-right: 40px; /* Espaço para o botão */
+      padding-right: 44px; /* espaço para o botão dentro do campo */
       box-sizing: border-box;
     }
 
     .toggle-password {
       position: absolute;
       top: 50%;
-      right: 10px;
+      right: 12px;
       transform: translateY(-50%);
+      cursor: pointer;
       background: none;
       border: none;
-      cursor: pointer;
-      font-size: 16px;
-      color: #666;
+      outline: none;
+      padding: 0;
+      height: 24px;
+      width: 24px;
     }
 
-    .toggle-password:focus {
-      outline: none;
+    .toggle-password svg {
+      width: 24px;
+      height: 24px;
+      fill: #888;
     }
   </style>
 </head>
@@ -44,7 +48,14 @@
 
     <div class="password-container">
       <input type="password" id="senha" placeholder="Digite sua senha" required />
-      <button type="button" class="toggle-password" onclick="toggleSenha()">👁️</button>
+      <button type="button" class="toggle-password" onclick="togglePassword(this, 'senha')">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 
+            12c-2.761 0-5-2.239-5-5s2.239-5 5-5 
+            5 2.239 5 5-2.239 5-5 5zm0-8a3 3 0 
+            100 6 3 3 0 000-6z"/>
+        </svg>
+      </button>
     </div>
 
     <button id="loginBtn">Entrar</button>
@@ -53,9 +64,17 @@
   </div>
 
   <script>
-    function toggleSenha() {
-      const senha = document.getElementById("senha");
-      senha.type = senha.type === "password" ? "text" : "password";
+    function togglePassword(btn, id) {
+      const input = document.getElementById(id);
+      const svg = btn.querySelector("svg");
+      const isPassword = input.type === "password";
+
+      input.type = isPassword ? "text" : "password";
+
+      svg.innerHTML = isPassword
+        ? '<path d="M12 5c-7 0-11 7-11 7s4 7 11 7c2.5 0 4.7-.8 6.5-2.2l2.4 2.4 1.4-1.4-18-18-1.4 1.4 2.4 2.4C4.8 7.3 2.4 10.6 1 12c0 0 4 7 11 7 2.5 0 4.8-.8 6.6-2.2l1.5 1.5 1.4-1.4-18-18-1.4 1.4 1.5 1.5C3.2 7.5 0 12 0 12s4 7 12 7 12-7 12-7-4-7-12-7z"/>'
+        : '<path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 \
+        5 2.239 5 5-2.239 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/>';
     }
   </script>
 
