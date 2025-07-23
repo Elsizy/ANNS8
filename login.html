@@ -13,7 +13,8 @@
 
     .password-container input {
       width: 100%;
-      padding-right: 40px;
+      padding-right: 40px; /* Espaço para o botão do olho */
+      box-sizing: border-box;
     }
 
     .toggle-password {
@@ -24,8 +25,10 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 14px;
-      color: #333;
+      font-size: 18px;
+      color: #666;
+      padding: 0;
+      margin: 0;
     }
   </style>
 </head>
@@ -41,7 +44,7 @@
     <!-- Campo de senha com botão de mostrar -->
     <div class="password-container">
       <input type="password" id="senha" placeholder="Digite sua senha" required />
-      <button type="button" class="toggle-password" onclick="toggleSenha()">Mostrar</button>
+      <button type="button" class="toggle-password" onclick="toggleSenha()">👁️</button>
     </div>
 
     <button id="loginBtn">Entrar</button>
@@ -49,20 +52,20 @@
     <p>Não tem conta? <a href="index.html">Cadastre-se</a></p>
   </div>
 
-  <!-- ✅ Login script como módulo -->
+  <!-- Script de login -->
   <script type="module" src="js/login.js"></script>
 
-  <!-- Script do botão mostrar senha -->
+  <!-- Script para mostrar/ocultar senha -->
   <script>
     function toggleSenha() {
       const input = document.getElementById("senha");
       const btn = document.querySelector(".toggle-password");
       if (input.type === "password") {
         input.type = "text";
-        btn.textContent = "Ocultar";
+        btn.textContent = "🙈";
       } else {
         input.type = "password";
-        btn.textContent = "Mostrar";
+        btn.textContent = "👁️";
       }
     }
   </script>
