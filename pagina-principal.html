@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página Principal - ANNS8</title>
+  <link rel="stylesheet" href="pagina-principal.css" />
+  <script type="module" src="pagina-principal.js"></script>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="top-panel">
+      <div class="card saldo">
+        <p class="label">Saldo Disponível</p>
+        <p class="valor" id="saldo">Kz0.00</p>
+      </div>
+      <div class="card investimento">
+        <p class="label" id="nex-nome">Nenhum produto</p>
+        <p class="valor" id="nex-valor">Kz0.00</p>
+      </div>
+      <div class="card comissao">
+        <p class="label">Comissão diária</p>
+        <p class="valor" id="comissao">Kz0.00</p>
+      </div>
+    </div>
+
+    <div class="menu-links">
+      <a href="deposito.html">Depósito</a>
+      <a href="retirada.html">Sacar</a>
+      <a href="suporte.html">Suporte</a>
+      <a href="conta.html">Conta</a>
+    </div>
+
+    <h2>Produtos Nex</h2>
+    <div class="produtos-container" id="produtos-container"></div>
+  </div>
+</body>
+</html>
