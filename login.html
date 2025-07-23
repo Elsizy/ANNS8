@@ -9,8 +9,10 @@
     .login-container input[type="email"],
     .password-container input {
       width: 100%;
-      padding: 10px 12px;
+      height: 48px; /* altura uniforme */
+      padding: 0 12px;
       font-size: 16px;
+      line-height: 48px; /* ajuda a centralizar verticalmente o texto */
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 12px;
@@ -23,24 +25,23 @@
     }
 
     .password-container input {
-      padding-right: 44px;
+      padding-right: 44px; /* espaço para o ícone */
     }
 
     .toggle-password {
       position: absolute;
-      top: 0;
-      bottom: 0;
+      top: 50%;
       right: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      transform: translateY(-50%);
+      cursor: pointer;
       background: none;
       border: none;
       outline: none;
-      padding: 0;
-      height: 100%;
-      width: 40px;
-      cursor: pointer;
+      height: 24px;
+      width: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .toggle-password svg {
