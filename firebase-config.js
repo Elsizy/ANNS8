@@ -1,15 +1,19 @@
+// firebase-config.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// Substitua com as tuas credenciais do Firebase
 const firebaseConfig = {
-  apiKey: "TUA_API_KEY",
-  authDomain: "TEU_DOMINIO.firebaseapp.com",
-  projectId: "TEU_PROJECT_ID",
-  storageBucket: "TEU_BUCKET.appspot.com",
-  messagingSenderId: "TUA_MESSAGING_ID",
-  appId: "TEU_APP_ID",
-  databaseURL: "https://TEU_PROJECT_ID.firebaseio.com"
+  apiKey: "AIzaSyBj-MK1oOk6lIJZT8KrSsllwSqoMHfUkzQ",
+  authDomain: "anns8-5fc26.firebaseapp.com",
+  projectId: "anns8-5fc26",
+  storageBucket: "anns8-5fc26.firebasestorage.app",
+  messagingSenderId: "259361189676",
+  appId: "1:259361189676:web:a9d54cee391b9f0f468689"
 };
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const database = firebase.database();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { auth, db };
