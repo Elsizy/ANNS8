@@ -1,62 +1,75 @@
 body {
-  background: linear-gradient(to right, #141e30, #243b55);
+  background: linear-gradient(120deg, #0f0f0f, #1a1a1a);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   margin: 0;
+  color: #fff;
 }
+
 .login-container {
-  background-color: white;
+  background-color: #222;
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
   width: 90%;
   max-width: 400px;
   text-align: center;
 }
+
 h2 {
   margin-bottom: 1.5rem;
-  color: #243b55;
+  color: #FFD700;
 }
+
 input {
   width: 100%;
   padding: 0.75rem;
   margin: 0.5rem 0;
   border-radius: 0.5rem;
-  border: 1px solid #ccc;
+  border: none;
+  outline: none;
 }
+
 button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #243b55;
-  color: white;
+  background-color: #FFD700;
+  color: #000;
   border: none;
   border-radius: 0.5rem;
   font-size: 1rem;
   cursor: pointer;
   margin-top: 1rem;
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
+
 button:hover {
-  background-color: #141e30;
+  background-color: #e6c200;
 }
+
 footer {
   margin-top: 1.5rem;
-  color: #555;
+  color: #ccc;
   font-size: 0.9rem;
 }
+
 .slogan {
   text-align: center;
   font-size: 14px;
-  color: #666;
+  color: #ccc;
   margin-bottom: 20px;
   font-style: italic;
 }
+
 a {
-  color: #243b55;
+  color: #FFD700;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }
