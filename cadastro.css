@@ -30,7 +30,7 @@ form {
     flex-direction: column;
 }
 
-input[type="tel"],
+input[type="email"],
 input[type="password"],
 input[type="text"] {
     padding: 12px;
