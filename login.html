@@ -11,10 +11,18 @@
       width: 100%;
     }
 
+    input[type="email"],
     .password-container input {
       width: 100%;
-      padding-right: 44px; /* espaço para o botão dentro do campo */
+      padding: 10px 12px;
+      font-size: 16px;
       box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .password-container input {
+      padding-right: 44px; /* espaço para o botão dentro do campo */
     }
 
     .toggle-password {
@@ -29,11 +37,14 @@
       padding: 0;
       height: 24px;
       width: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .toggle-password svg {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       fill: #888;
     }
   </style>
@@ -46,7 +57,7 @@
 
     <input type="email" id="email" placeholder="Digite seu email" required />
 
-    <div class="password-container">
+    <div class="password-container" style="margin-top: 12px;">
       <input type="password" id="senha" placeholder="Digite sua senha" required />
       <button type="button" class="toggle-password" onclick="togglePassword(this, 'senha')">
         <svg viewBox="0 0 24 24">
@@ -58,7 +69,7 @@
       </button>
     </div>
 
-    <button id="loginBtn">Entrar</button>
+    <button id="loginBtn" style="margin-top: 16px;">Entrar</button>
     
     <p>Não tem conta? <a href="index.html">Cadastre-se</a></p>
   </div>
