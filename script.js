@@ -51,6 +51,7 @@ document.getElementById("signupForm").addEventListener("submit", async function(
 
     alert("Conta criada com sucesso!");
     document.getElementById("signupForm").reset();
+    window.location.href = "login.html";
   } catch (error) {
     console.error(error);
     alert("Erro ao criar conta: " + error.message);
