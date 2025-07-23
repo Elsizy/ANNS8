@@ -53,3 +53,10 @@ footer {
   margin-bottom: 20px;
   font-style: italic;
 }
+a {
+  color: #243b55;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
