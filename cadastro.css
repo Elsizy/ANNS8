@@ -1,27 +1,27 @@
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(120deg, #0f0f0f, #1a1a1a);
-  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #141e30, #243b55);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  color: #fff;
 }
 
 .container {
-  background-color: #222;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   width: 90%;
   max-width: 400px;
 }
 
 h2 {
   text-align: center;
-  color: #FFD700;
+  color: #243b55;
+  margin-bottom: 1.5rem;
 }
 
 form {
@@ -31,45 +31,47 @@ form {
 
 input[type="email"],
 input[type="password"],
-input[type="text"],
-input[type="tel"] {
-  padding: 12px;
-  margin-bottom: 15px;
-  border: none;
-  border-radius: 8px;
-  outline: none;
+input[type="text"] {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
 }
 
 button {
-  padding: 12px;
-  background-color: #FFD700;
+  padding: 0.75rem;
+  background-color: #243b55;
+  color: white;
   border: none;
-  border-radius: 8px;
-  color: #000;
-  font-weight: bold;
+  border-radius: 0.5rem;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  font-weight: bold;
 }
 
 button:hover {
-  background-color: #e6c200;
+  background-color: #141e30;
 }
 
 .terms {
-  font-size: 0.9em;
-  margin-bottom: 15px;
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 .login-link {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 1rem;
 }
 
-a {
-  color: #FFD700;
+.login-link a {
+  color: #243b55;
   text-decoration: none;
+  font-weight: bold;
 }
 
-a:hover {
+.login-link a:hover {
   text-decoration: underline;
-}
+                              }
