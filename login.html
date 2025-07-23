@@ -6,23 +6,24 @@
   <title>Login - ANNS8</title>
   <link rel="stylesheet" href="login.css" />
   <style>
-    .password-container {
-      position: relative;
-      width: 100%;
-    }
-
-    input[type="email"],
+    .login-container input[type="email"],
     .password-container input {
       width: 100%;
       padding: 10px 12px;
       font-size: 16px;
       box-sizing: border-box;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 12px; /* ✔️ bordas mais arredondadas */
+    }
+
+    .password-container {
+      position: relative;
+      width: 100%;
+      margin-top: 12px;
     }
 
     .password-container input {
-      padding-right: 44px; /* espaço para o botão dentro do campo */
+      padding-right: 44px; /* espaço para o ícone */
     }
 
     .toggle-password {
@@ -52,12 +53,12 @@
 <body>
   <div class="login-container">
     <p class="slogan">Bem-vindo à <strong>ANNS8</strong> – A tecnologia do futuro.</p>
-    
+
     <h2>Entrar na Conta</h2>
 
     <input type="email" id="email" placeholder="Digite seu email" required />
 
-    <div class="password-container" style="margin-top: 12px;">
+    <div class="password-container">
       <input type="password" id="senha" placeholder="Digite sua senha" required />
       <button type="button" class="toggle-password" onclick="togglePassword(this, 'senha')">
         <svg viewBox="0 0 24 24">
@@ -70,7 +71,7 @@
     </div>
 
     <button id="loginBtn" style="margin-top: 16px;">Entrar</button>
-    
+
     <p>Não tem conta? <a href="index.html">Cadastre-se</a></p>
   </div>
 
