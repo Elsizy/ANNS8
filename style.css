@@ -1,0 +1,66 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg, #0f0f0f, #1a1a1a);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+.container {
+    background-color: #222;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+    width: 90%;
+    max-width: 400px;
+}
+
+h2 {
+    text-align: center;
+    color: #FFD700;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="tel"],
+input[type="password"],
+input[type="text"] {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+}
+
+button {
+    padding: 12px;
+    background-color: #FFD700;
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #e6c200;
+}
+
+.terms {
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 10px;
+}

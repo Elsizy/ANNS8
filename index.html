@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - ANNS8</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Criar Conta</h2>
+        <form id="signupForm">
+            <label for="phone">Número (+244)</label>
+            <input type="tel" id="phone" name="phone" placeholder="912 345 678" required>
+
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirmPassword">Repetir Senha</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+            <label for="referral">Código de Convite (opcional)</label>
+            <input type="text" id="referral" name="referral" placeholder="Ex: ABC123">
+
+            <div class="terms">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">Concordo com os <a href="#">termos e condições</a>.</label>
+            </div>
+
+            <button type="submit">Criar Conta</button>
+
+            <p class="login-link">Já tem conta? <a href="#">Entrar</a></p>
+        </form>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
