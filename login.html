@@ -5,6 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - ANNS8</title>
   <link rel="stylesheet" href="login.css" />
+  <style>
+    .password-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .password-container input {
+      width: 100%;
+      padding-right: 40px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
   <div class="login-container">
@@ -14,7 +37,13 @@
 
     <!-- Formulário de Login -->
     <input type="email" id="email" placeholder="Digite seu email" required />
-    <input type="password" id="senha" placeholder="Digite sua senha" required />
+
+    <!-- Campo de senha com botão de mostrar -->
+    <div class="password-container">
+      <input type="password" id="senha" placeholder="Digite sua senha" required />
+      <button type="button" class="toggle-password" onclick="toggleSenha()">Mostrar</button>
+    </div>
+
     <button id="loginBtn">Entrar</button>
     
     <p>Não tem conta? <a href="index.html">Cadastre-se</a></p>
@@ -22,5 +51,20 @@
 
   <!-- ✅ Login script como módulo -->
   <script type="module" src="js/login.js"></script>
+
+  <!-- Script do botão mostrar senha -->
+  <script>
+    function toggleSenha() {
+      const input = document.getElementById("senha");
+      const btn = document.querySelector(".toggle-password");
+      if (input.type === "password") {
+        input.type = "text";
+        btn.textContent = "Ocultar";
+      } else {
+        input.type = "password";
+        btn.textContent = "Mostrar";
+      }
+    }
+  </script>
 </body>
 </html>
