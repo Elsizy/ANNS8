@@ -6,22 +6,43 @@ import { PRODUTOS } from "./products.js";
 
 const DAY_MS = 24 * 60 * 60 * 1000; // 24h
 
+// --- Função para exibir/ocultar skeleton ---
+function showSkeleton(show) {
+  const sk = document.getElementById("produtos-skeleton");
+  const list = document.getElementById("produtos-container");
+  if (!sk || !list) return;
+
+  if (show) {
+    sk.classList.remove("hidden");
+    list.classList.add("hidden");
+  } else {
+    sk.classList.add("hidden");
+    list.classList.remove("hidden");
+  }
+}
+
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "login.html";
     return;
   }
 
+  showSkeleton(true); // Mostra skeleton ao iniciar
+
   const uid = user.uid;
   const userRef = ref(db, `usuarios/${uid}`);
   const snap = await get(userRef);
-  if (!snap.exists()) return;
+  if (!snap.exists()) {
+    showSkeleton(false);
+    return;
+  }
 
   const data = snap.val();
   const saldo = data.saldo || 0;
   document.getElementById("saldo-disponivel").textContent = formatKz(saldo);
 
   renderProdutosComprados(data.compras || {});
+  showSkeleton(false); // Esconde skeleton quando renderizar
 });
 
 function renderProdutosComprados(compras) {
@@ -95,4 +116,4 @@ function formatCountdown(ms) {
   const m = String(Math.floor(totalSec / 60)).padStart(2, "0");
   const s = String(totalSec % 60).padStart(2, "0");
   return `${h}:${m}:${s}`;
-}
+                                           }
