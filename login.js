@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Persistência LOCAL (sessão permanece após fechar o browser)
   try {
     await setPersistence(auth, browserLocalPersistence);
   } catch (e) {
@@ -26,8 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   btn.addEventListener("click", login);
-
-  // fallback para você poder digitar window.login() no console
+  // fallback para testes no console
   window.login = login;
 });
 
@@ -41,14 +39,17 @@ async function login() {
   }
 
   try {
+    console.log("Tentando autenticar:", email);
     const userCredential = await signInWithEmailAndPassword(auth, email, senha);
     const user = userCredential.user;
+    console.log("Autenticado. UID:", user.uid);
 
-    // Confirma que o usuário existe no Realtime Database
     const snapshot = await get(child(ref(db), `usuarios/${user.uid}`));
+    console.log("Snapshot existe?", snapshot.exists());
+
     if (snapshot.exists()) {
       alert("Login feito com sucesso!");
-      window.location.href = "pagina-principal.html";
+      window.location.href = "home.html"; // <<< ALTERADO AQUI
     } else {
       alert("Usuário não encontrado no banco de dados.");
     }
