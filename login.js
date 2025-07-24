@@ -1,8 +1,9 @@
 // login.js
 import { auth, db } from "./firebase-config.js";
 import {
+  setPersistence,
+  browserLocalPersistence,
   signInWithEmailAndPassword,
-  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   ref,
@@ -10,19 +11,29 @@ import {
   child
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const btn = document.getElementById("loginBtn");
-  if (btn) btn.addEventListener("click", login);
+  if (!btn) {
+    console.error("loginBtn não encontrado no DOM.");
+    return;
+  }
 
-  // Se já está logado, manda direto para home.html
-  onAuthStateChanged(auth, (user) => {
-    if (user) window.location.href = "home.html";
-  });
+  // Persistência LOCAL (sessão permanece após fechar o browser)
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+  } catch (e) {
+    console.warn("Não foi possível configurar persistência LOCAL:", e);
+  }
+
+  btn.addEventListener("click", login);
+
+  // fallback para você poder digitar window.login() no console
+  window.login = login;
 });
 
 async function login() {
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value.trim();
+  const email = document.getElementById("email")?.value.trim();
+  const senha = document.getElementById("senha")?.value.trim();
 
   if (!email || !senha) {
     alert("Preencha todos os campos!");
@@ -30,18 +41,19 @@ async function login() {
   }
 
   try {
-    const cred = await signInWithEmailAndPassword(auth, email, senha);
-    const user = cred.user;
+    const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+    const user = userCredential.user;
 
-    const snap = await get(child(ref(db), `usuarios/${user.uid}`));
-    if (snap.exists()) {
+    // Confirma que o usuário existe no Realtime Database
+    const snapshot = await get(child(ref(db), `usuarios/${user.uid}`));
+    if (snapshot.exists()) {
       alert("Login feito com sucesso!");
-      window.location.href = "home.html";
+      window.location.href = "pagina-principal.html";
     } else {
       alert("Usuário não encontrado no banco de dados.");
     }
-  } catch (err) {
-    console.error("LOGIN ERROR =>", err);
-    alert("Erro ao fazer login: " + err.message);
+  } catch (error) {
+    console.error("LOGIN ERROR =>", error.code, error.message);
+    alert("Erro ao fazer login: " + error.message);
   }
 }
