@@ -10,13 +10,45 @@ import {
   get,
   update,
   push,
-  child,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO, REF_PERC } from "./products.js";
 
 /** 24h em ms */
 const DAY_MS = 24 * 60 * 60 * 1000;
+
+/* ======= HELPERS para mostrar/ocultar ======= */
+const MASKED_TEXT = "Kz ••••";
+
+function setFieldValue(id, formatted) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.dataset.formatted = formatted; // guarda o valor real já formatado
+  if (isHidden(id)) {
+    el.textContent = MASKED_TEXT;
+  } else {
+    el.textContent = formatted;
+  }
+}
+
+function toggleField(id, btn) {
+  const hidden = isHidden(id);
+  localStorage.setItem(`hide_${id}`, hidden ? "0" : "1");
+  applyVisibility(id, btn);
+}
+
+function isHidden(id) {
+  return localStorage.getItem(`hide_${id}`) === "1";
+}
+
+function applyVisibility(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const hidden = isHidden(id);
+  el.textContent = hidden ? MASKED_TEXT : (el.dataset.formatted || el.textContent);
+  if (btn) btn.textContent = hidden ? "🙈" : "👁️";
+}
+/* =========================================== */
 
 /* ------------------------------------------------------------------
    Inicialização de persistência (sem await solto no topo do módulo)
@@ -67,9 +99,17 @@ const DAY_MS = 24 * 60 * 60 * 1000;
       }
     }
 
-    document.getElementById("saldo").textContent = formatKz(data.saldo || 0);
-    document.getElementById("investimento-total").textContent = formatKz(totalInvestido || 0);
-    document.getElementById("comissao-total").textContent = formatKz(totalComissaoDiaria || 0);
+    // ====== setando valores com suporte a ocultar/mostrar ======
+    setFieldValue("saldo", formatKz(data.saldo || 0));
+    setFieldValue("investimento-total", formatKz(totalInvestido || 0));
+    setFieldValue("comissao-total", formatKz(totalComissaoDiaria || 0));
+
+    // aplica estado dos olhos + listeners
+    document.querySelectorAll(".eye-btn").forEach(btn => {
+      const targetId = btn.dataset.target;
+      applyVisibility(targetId, btn);
+      btn.onclick = () => toggleField(targetId, btn);
+    });
 
     renderProdutos({
       uid,
@@ -258,7 +298,6 @@ async function creditDailyCommissionIfNeeded(uid) {
     updates[`usuarios/${uid}/lastDailyCheckAt`] = now;
     await update(ref(db), updates);
   } else {
-    // só registra o momento da checagem (opcional)
     await update(ref(db), { [`usuarios/${uid}/lastDailyCheckAt`]: now });
   }
 }
@@ -350,4 +389,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-                         }
+        }
