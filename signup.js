@@ -1,20 +1,39 @@
 // signup.js
 import { auth, db } from "./firebase-config.js";
 import {
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   ref,
-  set
+  set,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+/**
+ * Timeout helper – se o set() demorar demais (ex.: regra do DB ou rede),
+ * a gente não trava a UI; avisa e redireciona mesmo assim.
+ */
+function withTimeout(promise, ms, onTimeoutMessage = "Timeout") {
+  return new Promise((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error(onTimeoutMessage)), ms);
+    promise
+      .then((v) => {
+        clearTimeout(t);
+        resolve(v);
+      })
+      .catch((e) => {
+        clearTimeout(t);
+        reject(e);
+      });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("[SIGNUP] DOM pronto. db?", db);
   const form = document.getElementById("signupForm");
   if (!form) {
-    console.error("[SIGNUP] Form #signupForm não encontrado.");
+    console.error("[SIGNUP] Form não encontrado no DOM.");
     return;
   }
+
   form.addEventListener("submit", onSubmit);
 });
 
@@ -42,10 +61,9 @@ async function onSubmit(e) {
 
   disableBtn(btn, "Criando conta...");
 
-  let user = null;
-
+  let user;
   try {
-    console.log("[SIGNUP] Criando usuário no Auth…", email);
+    console.log("[SIGNUP] Criando usuário no Auth…");
     const cred = await createUserWithEmailAndPassword(auth, email, password);
     user = cred.user;
     console.log("[SIGNUP] Auth OK. UID:", user.uid);
@@ -57,28 +75,39 @@ async function onSubmit(e) {
   }
 
   try {
-    console.log("[SIGNUP] Salvando no RTDB em usuarios/" + user.uid);
-    await set(ref(db, `usuarios/${user.uid}`), {
-      uid: user.uid,
-      email,
-      codigoConvite: referral || null,
-      saldo: 0,
-      comissao: 0,
-      investimento: 0,
-      produto: null,
-      criadoEm: new Date().toISOString()
-    });
-    console.log("[SIGNUP] Salvo com sucesso no RTDB");
+    console.log("[SIGNUP] Gravando no RTDB em usuarios/" + user.uid);
+
+    // Dá no máx. 5s para escrever no DB; se estourar, seguimos a vida.
+    await withTimeout(
+      set(ref(db, `usuarios/${user.uid}`), {
+        uid: user.uid,
+        email,
+        codigoConvite: referral || null,
+        saldo: 0,
+        comissao: 0,
+        investimento: 0,
+        produto: null,
+        criadoEm: new Date().toISOString(),
+      }),
+      5000,
+      "Timeout ao gravar no Realtime Database (5s)"
+    );
+
+    console.log("[SIGNUP] Dados gravados com sucesso.");
     alert("Conta criada com sucesso!");
     window.location.href = "login.html";
   } catch (err) {
-    console.error("[SIGNUP][DB ERROR]", err.code, err.message);
+    console.error("[SIGNUP][DB ERROR]", err);
     alert(
-      "Conta criada no Auth, mas falhou ao salvar no banco de dados.\n" +
-      "Detalhes: " + (err?.message || err)
+      "Sua conta foi criada no Auth, mas houve um problema ao salvar seus dados.\n" +
+        "Você poderá tentar fazer login agora.\n\n" +
+        "Detalhes: " +
+        (err?.message || err)
     );
+    window.location.href = "login.html";
   } finally {
-    // Se por algum motivo não redirecionar, reabilita o botão
+    // Se por algum motivo não redirecionar (ex.: bloqueio do navegador),
+    // o botão volta ao normal.
     enableBtn(btn);
   }
 }
@@ -87,7 +116,7 @@ function disableBtn(btn, text) {
   if (!btn) return;
   btn.disabled = true;
   btn.dataset.originalText = btn.textContent;
-  btn.textContent = text || "Processando...";
+  btn.textContent = text || "Processando…";
 }
 function enableBtn(btn) {
   if (!btn) return;
@@ -106,4 +135,4 @@ function mapFirebaseError(error) {
     default:
       return "Erro ao criar conta: " + (error?.message || "desconhecido");
   }
-}
+  }
