@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background: linear-gradient(to bottom, #1c2e4a 0%, #ffffff 100%);
+  background: linear-gradient(to bottom, #1c2e4a 0%, #294d61 60%, #f0f0f0 100%);
   color: #fff;
 }
 .dashboard {
