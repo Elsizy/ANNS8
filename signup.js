@@ -11,13 +11,13 @@ import {
 /* =========================
    CONFIG
 ========================= */
-const SAVE_TIMEOUT_MS = 15000; // ↑ de 5000 para 15000 (15s). Se quiser remover o timeout: defina como null.
+const SAVE_TIMEOUT_MS = 15000; // aumentamos para 15s. Coloque null para desativar.
 
 /* =========================
    HELPERS
 ========================= */
 function withTimeout(promise, ms, onTimeoutMessage = "Timeout") {
-  if (!ms) return promise; // se quiser "desligar" o timeout, basta passar null/0 e ele não será aplicado
+  if (!ms) return promise; // se ms for null/0, não aplica timeout
   return new Promise((resolve, reject) => {
     const t = setTimeout(() => reject(new Error(onTimeoutMessage)), ms);
     promise
@@ -79,7 +79,7 @@ async function onSubmit(e) {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
-  const referral = document.getElementById("referral").value.trim();
+  const referral = document.getElementById("referral").value.trim(); // <- usado como invitedBy
   const termsAccepted = document.getElementById("terms").checked;
 
   if (!termsAccepted) {
@@ -110,19 +110,35 @@ async function onSubmit(e) {
   try {
     console.log("[SIGNUP] Gravando no RTDB em usuarios/" + user.uid);
 
-    // Se quiser remover o timeout por completo, troque a linha abaixo por:
-    // await set(ref(db, `usuarios/${user.uid}`), { ... })
+    // Estrutura NOVA + campos legados para não quebrar nada do projeto atual
+    const payload = {
+      // básicos
+      uid: user.uid,
+      email,
+      invitedBy: referral || null,          // <- novo
+      codigoConvite: referral || null,      // mantém o que você já tinha
+
+      // saldos e totais
+      saldo: 0,
+      totalInvestido: 0,                    // <- novo
+      totalComissaoDiaria: 0,               // <- novo
+
+      // controle de cálculo diário
+      lastDailyCheckAt: Date.now(),         // <- novo
+
+      // compras de Nex (estrutura flexível p/ múltiplas compras)
+      compras: {},                          // <- novo
+
+      // *** LEGADO (para não quebrar nada que ainda use estes nomes) ***
+      investimento: 0,
+      comissao: 0,
+      produto: null,
+
+      criadoEm: new Date().toISOString(),
+    };
+
     await withTimeout(
-      set(ref(db, `usuarios/${user.uid}`), {
-        uid: user.uid,
-        email,
-        codigoConvite: referral || null,
-        saldo: 0,
-        comissao: 0,
-        investimento: 0,
-        produto: null,
-        criadoEm: new Date().toISOString(),
-      }),
+      set(ref(db, `usuarios/${user.uid}`), payload),
       SAVE_TIMEOUT_MS,
       `Timeout ao gravar no Realtime Database (${SAVE_TIMEOUT_MS / 1000}s)`
     );
@@ -142,4 +158,4 @@ async function onSubmit(e) {
   } finally {
     enableBtn(btn);
   }
-            }
+          }
