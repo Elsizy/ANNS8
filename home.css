@@ -87,3 +87,46 @@ h2 {
   background: #bbb;
   cursor: not-allowed;
   }
+/* ==== Aviso rolante (ticker) ==== */
+.info-ticker {
+  margin: 8px 0 18px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.info-ticker .icon {
+  flex: 0 0 auto;
+  font-size: 18px;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.2));
+}
+
+.ticker-track {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.ticker-text {
+  display: inline-block;
+  animation: ticker-move 18s linear infinite;
+  /* leve transparência para integrar melhor com o fundo */
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+}
+
+@keyframes ticker-move {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+  }
