@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Total da Equipa - ANNS8</title>
+  <link rel="stylesheet" href="total-equipa.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <header class="header">
+      <a class="back" href="home.html">← Voltar</a>
+      <h1>Total da Equipa</h1>
+    </header>
+
+    <!-- Link de afiliado do usuário logado -->
+    <section class="affiliate-box">
+      <p class="title">Seu link de afiliado</p>
+      <div class="link-row">
+        <input id="affiliate-link" type="text" readonly />
+        <button id="copy-link">Copiar</button>
+      </div>
+      <small class="hint">
+        Copie o seu link e convide amigos para ganhar recompensas: 30% / 3% / 1%
+      </small>
+    </section>
+
+    <!-- Skeleton enquanto carrega -->
+    <section id="skeleton" class="skeleton">
+      <div class="sk-title"></div>
+      <div class="sk-row"></div>
+      <div class="sk-title"></div>
+      <div class="sk-row"></div>
+      <div class="sk-title"></div>
+      <div class="sk-row"></div>
+    </section>
+
+    <!-- Dados reais -->
+    <section id="teams" class="teams hidden">
+      <div class="team-block">
+        <h2>Nível A (30%)</h2>
+        <div class="team-header">
+          <span class="badge">Total convidados: <span id="count-a">0</span></span>
+          <span class="badge orange">Total ganhos: <span id="total-a">Kz 0,00</span></span>
+        </div>
+        <div class="list" id="list-a"></div>
+      </div>
+
+      <div class="team-block">
+        <h2>Nível B (3%)</h2>
+        <div class="team-header">
+          <span class="badge">Total convidados: <span id="count-b">0</span></span>
+          <span class="badge orange">Total ganhos: <span id="total-b">Kz 0,00</span></span>
+        </div>
+        <div class="list" id="list-b"></div>
+      </div>
+
+      <div class="team-block">
+        <h2>Nível C (1%)</h2>
+        <div class="team-header">
+          <span class="badge">Total convidados: <span id="count-c">0</span></span>
+          <span class="badge orange">Total ganhos: <span id="total-c">Kz 0,00</span></span>
+        </div>
+        <div class="list" id="list-c"></div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./total-equipa.js"></script>
+</body>
+</html>
