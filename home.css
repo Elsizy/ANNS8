@@ -163,3 +163,26 @@ h2 {
     grid-template-rows: auto auto auto;
   }
 }
+/* ===== Skeleton loader ===== */
+.produtos-skeleton {
+  display: block;
+}
+
+.skeleton-item {
+  height: 72px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.08) 0%,
+    rgba(255,255,255,0.15) 50%,
+    rgba(255,255,255,0.08) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
