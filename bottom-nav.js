@@ -1,14 +1,18 @@
 // bottom-nav.js
-(function () {
-  const map = {
-    "home.html": "home",
-    "comprarproduto.html": "produtos",
-    "equipa.html": "equipa",
-    "pessoal.html": "pessoal",
-  };
 
-  const path = location.pathname.split("/").pop().toLowerCase() || "home.html";
-  const key = map[path] || "home";
-  const el = document.querySelector(`.bottom-nav .nav-item[data-key="${key}"]`);
-  if (el) el.classList.add("active");
-})();
+// Função para marcar a aba atual baseada na URL
+function highlightActiveTab() {
+  const currentPage = window.location.pathname.split("/").pop(); 
+  const items = document.querySelectorAll(".bottom-nav .nav-item");
+
+  items.forEach(item => {
+    item.classList.remove("active");
+    const href = item.getAttribute("href");
+    if (href === currentPage) {
+      item.classList.add("active");
+    }
+  });
+}
+
+// Executa ao carregar a página
+document.addEventListener("DOMContentLoaded", highlightActiveTab);
