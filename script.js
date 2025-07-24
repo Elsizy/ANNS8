@@ -1,9 +1,5 @@
-// script.js
-import { auth, db } from './firebase-config.js';
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-document.getElementById("signupForm").addEventListener("submit", async (event) => {
+// script.js (Cadastro - Firebase v8)
+document.getElementById("signupForm").addEventListener("submit", (event) => {
   event.preventDefault();
 
   const email = document.getElementById("email").value.trim();
@@ -22,26 +18,27 @@ document.getElementById("signupForm").addEventListener("submit", async (event) =
     return;
   }
 
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-
-    await set(ref(db, `usuarios/${user.uid}`), {
-      uid: user.uid,
-      email,
-      codigoConvite: referral || null,
-      saldo: 0,
-      comissao: 0,
-      investimento: 0,
-      produto: null,
-      criadoEm: new Date().toISOString()
+  auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      return db.ref("usuarios/" + user.uid).set({
+        uid: user.uid,
+        email,
+        codigoConvite: referral || null,
+        saldo: 0,
+        comissao: 0,
+        investimento: 0,
+        produto: null,
+        criadoEm: new Date().toISOString()
+      });
+    })
+    .then(() => {
+      alert("Conta criada com sucesso!");
+      document.getElementById("signupForm").reset();
+      window.location.href = "login.html";
+    })
+    .catch((error) => {
+      console.error(error);
+      alert("Erro ao criar conta: " + error.message);
     });
-
-    alert("Conta criada com sucesso!");
-    document.getElementById("signupForm").reset();
-    window.location.href = "login.html";
-  } catch (error) {
-    console.error(error);
-    alert("Erro ao criar conta: " + error.message);
-  }
 });
