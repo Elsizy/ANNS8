@@ -1,57 +1,87 @@
-// home.js
+// login.js
 import { auth, db } from "./firebase-config.js";
 import {
+  setPersistence,
+  browserLocalPersistence,
+  signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   ref,
   get,
-  update
+  child
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import { renderProdutos } from "./produtos.js";
 
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "login.html";
+const DESTINO = "home.html"; // troque para "home.html" se for o seu caso
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const btn = document.getElementById("loginBtn");
+  const emailEl = document.getElementById("email");
+  const senhaEl = document.getElementById("senha");
+
+  if (!btn) {
+    console.error("loginBtn não encontrado no DOM.");
     return;
   }
 
-  const userRef = ref(db, `usuarios/${user.uid}`);
-  const snap = await get(userRef);
-
-  if (!snap.exists()) return;
-
-  const data = snap.val();
-
-  document.getElementById("saldo").textContent = "Kz " + (data.saldo || 0).toFixed(2);
-  document.getElementById("nex-nome").textContent = data.produto || "Nenhum produto";
-  document.getElementById("nex-valor").textContent = "Kz " + (data.investimento || 0).toFixed(2);
-  document.getElementById("comissao").textContent = "Kz " + (data.comissao || 0).toFixed(2);
-
-  renderProdutos({
-    saldo: data.saldo || 0,
-    userId: user.uid,
-    db,
-    onCompraOk: async ({ novoSaldo, produto }) => {
-      await update(userRef, {
-        saldo: novoSaldo,
-        produto: produto.nome,
-        investimento: produto.preco,
-        comissao: produto.comissao,
-        tempoCompra: Date.now()
-      });
-      alert("Produto comprado com sucesso!");
-      window.location.reload();
+  // Se já estiver autenticado, manda direto pra home
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.location.href = DESTINO;
     }
   });
 
-  // Botão logout (opcional)
-  const btnLogout = document.getElementById("logout");
-  if (btnLogout) {
-    btnLogout.addEventListener("click", async () => {
-      await signOut(auth);
-      window.location.href = "login.html";
-    });
+  // Persistência LOCAL
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+  } catch (e) {
+    console.warn("Não foi possível configurar persistência LOCAL:", e);
   }
+
+  btn.addEventListener("click", login);
+
+  // Enter para submeter
+  [emailEl, senhaEl].forEach((el) =>
+    el?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        login();
+      }
+    })
+  );
+
+  // fallback para debug no console
+  window.login = login;
 });
+
+async function login() {
+  const btn = document.getElementById("loginBtn");
+  const email = document.getElementById("email")?.value.trim();
+  const senha = document.getElementById("senha")?.value.trim();
+
+  if (!email || !senha) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  try {
+    btn.disabled = true;
+    btn.textContent = "Entrando...";
+
+    const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+    const user = userCredential.user;
+
+    const snapshot = await get(child(ref(db), `usuarios/${user.uid}`));
+    if (snapshot.exists()) {
+      alert("Login feito com sucesso!");
+      window.location.href = DESTINO;
+    } else {
+      alert("Usuário não encontrado no banco de dados.");
+    }
+  } catch (error) {
+    console.error("LOGIN ERROR =>", error.code, error.message);
+    alert("Erro ao fazer login: " + error.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Entrar";
+  }
+}
