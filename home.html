@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home - ANNS8</title>
   <link rel="stylesheet" href="home.css" />
+  <link rel="stylesheet" href="bottom-nav.css" />
 </head>
 <body>
   <div class="dashboard">
@@ -67,10 +68,33 @@
     <!-- Lista real -->
     <div class="produtos-container" id="produtos-container"></div>
   </div>
+  <!-- Barra inferior fixa -->
+<nav class="bottom-nav">
+  <a href="home.html" class="nav-item" data-key="home">
+    <span class="icon">🏠</span>
+    <span class="label">Início</span>
+  </a>
+
+  <a href="comprarproduto.html" class="nav-item" data-key="produtos">
+    <span class="icon">🛒</span>
+    <span class="label">Produtos</span>
+  </a>
+
+  <a href="equipa.html" class="nav-item" data-key="equipa">
+    <span class="icon">👥</span>
+    <span class="label">Equipa</span>
+  </a>
+
+  <a href="pessoal.html" class="nav-item" data-key="pessoal">
+    <span class="icon">👤</span>
+    <span class="label">Pessoal</span>
+  </a>
+</nav>
 
   <!-- Módulos -->
   <script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./products.js"></script>
   <script type="module" src="./home.js"></script>
+  <script type="module" src="bottom-nav.js"></script>
 </body>
                                                                                                </html>
