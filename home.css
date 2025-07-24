@@ -191,3 +191,21 @@ h2 {
   }
   .stats::after { display: none; }
 }
+/* ========= Encolher os 3 cards do topo (~40%) ========= */
+.stats {
+  gap: 8px; /* era 12px */
+  grid-template-rows: repeat(2, minmax(66px, auto)); /* era 110px */
+}
+
+/* Afeta apenas os cards dentro de .stats */
+.stats .card {
+  padding: 8px 10px; /* era 14px 16px */
+}
+
+.stats .card .label {
+  font-size: 12px; /* era 14px */
+}
+
+.stats .card .valor {
+  font-size: clamp(16px, 4.2vw, 22px); /* era clamp(20px, 5vw, 28px) */
+  }
