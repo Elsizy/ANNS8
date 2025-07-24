@@ -4,19 +4,16 @@
   --card: #472b91;
 }
 
-* { box-sizing: border-box; }
-
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, var(--bg-top) 0%, #324d6c 40%, #edf1f7 85%, var(--bg-bottom) 100%);
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
   color: #fff;
 }
 
 .dashboard {
   padding: 20px 16px 60px;
-  max-width: 1100px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -38,40 +35,33 @@ body {
   border-radius: 6px;
 }
 
-.affiliate-box {
-  background: var(--card);
+.team-block {
+  background: rgba(255,255,255,0.05);
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   margin-bottom: 18px;
 }
-.affiliate-box .title {
+.team-block h2 {
   margin: 0 0 8px;
-  font-weight: bold;
+  font-size: 18px;
 }
-.link-row {
-  display: flex;
-  gap: 8px;
-}
-.link-row input {
-  flex: 1;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 10px;
-}
-.link-row button {
-  border: none;
-  border-radius: 8px;
+
+.list .item {
   background: #fff;
-  color: #1c2e4a;
-  font-weight: bold;
+  color: #000;
+  border-radius: 8px;
   padding: 8px 12px;
-  cursor: pointer;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.hint {
-  display: block;
-  margin-top: 4px;
-  opacity: 0.8;
-  font-size: 12px;
+.list .item .name {
+  font-weight: bold;
+}
+.list .item .deposito {
+  color: #ff6f00;
+  font-weight: bold;
 }
 
 /* Skeleton */
@@ -80,7 +70,7 @@ body {
   display: none;
 }
 .skeleton .sk-title {
-  width: 40%;
+  width: 30%;
   height: 18px;
   border-radius: 6px;
   margin: 14px 0 6px;
@@ -100,57 +90,3 @@ body {
   50% { opacity: 1; }
   100% { opacity: .7; }
 }
-
-/* Lists */
-.team-block {
-  background: rgba(255,255,255,0.05);
-  border-radius: 14px;
-  padding: 12px 14px;
-  margin-bottom: 18px;
-}
-.team-block h2 {
-  margin: 0 0 8px;
-  font-size: 18px;
-}
-.team-header {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-.badge {
-  background: rgba(255,255,255,0.15);
-  border-radius: 8px;
-  padding: 4px 8px;
-  font-size: 13px;
-}
-.badge.orange {
-  background: #ffa726;
-  color: #1c2e4a;
-  font-weight: bold;
-}
-
-.list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 10px;
-}
-.item {
-  background: #fff;
-  color: #000;
-  border-radius: 10px;
-  padding: 10px 12px;
-}
-.item p {
-  margin: 2px 0;
-}
-.item .email {
-  font-weight: bold;
-}
-.item .deposito {
-  color: #ff6f00;
-  font-weight: bold;
-}
-
-/* util */
-.hidden { display: none; }
