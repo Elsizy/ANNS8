@@ -9,42 +9,47 @@
 </head>
 <body class="has-bottom-nav">
   <div class="dashboard">
-
-    <!-- Cabeçalho -->
     <header class="header">
       <h1>Seus Produtos</h1>
-      <div class="balance-row">
-        <div class="balance-box">
-          <p class="label">Comissão Total</p>
-          <p class="value" id="total-comissao">Kz 0.00</p>
-        </div>
-        <div class="balance-box">
-          <p class="label">Saldo Disponível</p>
-          <p class="value" id="saldo-disponivel">Kz 0.00</p>
-        </div>
-      </div>
     </header>
 
-    <!-- Lista de Produtos -->
-    <section id="produtos-container" class="produtos-container">
-      <!-- Produtos serão carregados dinamicamente -->
+    <!-- Comissão Total + Saldo -->
+    <section class="summary-box">
+      <div class="two-col">
+        <div class="left">
+          <p class="small-label">Comissão Total</p>
+          <p class="big-value" id="total-comissao">Kz 0.00</p>
+        </div>
+        <div class="right">
+          <p class="small-label">Saldo Disponível</p>
+          <p class="big-value" id="saldo-disponivel">Kz 0.00</p>
+        </div>
+      </div>
     </section>
+
+    <!-- Lista de Produtos Comprados -->
+    <div class="produtos-container" id="produtos-container">
+      <!-- Produtos gerados pelo JS -->
+    </div>
   </div>
 
-  <!-- Barra inferior -->
+  <!-- Barra inferior fixa -->
   <nav class="bottom-nav">
     <a href="home.html" class="nav-item" data-key="home">
       <span class="icon">🏠</span>
       <span class="label">Início</span>
     </a>
+
     <a href="comprarproduto.html" class="nav-item" data-key="produtos">
       <span class="icon">🛒</span>
       <span class="label">Produtos</span>
     </a>
+
     <a href="equipa.html" class="nav-item" data-key="equipa">
       <span class="icon">👥</span>
       <span class="label">Equipa</span>
     </a>
+
     <a href="pessoal.html" class="nav-item" data-key="pessoal">
       <span class="icon">👤</span>
       <span class="label">Pessoal</span>
@@ -55,4 +60,4 @@
   <script type="module" src="./comprarproduto.js"></script>
   <script src="bottom-nav.js" defer></script>
 </body>
-</html>
+      </html>
