@@ -1,17 +1,12 @@
-// firebase-config.js
+// firebase-config.js (SDK modular v10)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getAuth,
   setPersistence,
-  browserLocalPersistence, // <- mantém a sessão após fechar o navegador
+  browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
-  getDatabase,
-  ref,
-  get,
-  set,
-  update,
-  child,
+  getDatabase
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
@@ -26,16 +21,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-setPersistence(auth, browserLocalPersistence); // persiste a sessão
+await setPersistence(auth, browserLocalPersistence); // mantém o usuário logado
 const db = getDatabase(app);
 
-export {
-  app,
-  auth,
-  db,
-  ref,
-  get,
-  set,
-  update,
-  child,
-};
+export { app, auth, db };
