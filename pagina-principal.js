@@ -1,31 +1,30 @@
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+// pagina-principal.js
+import { auth, db } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { ref, get, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const auth = getAuth();
-const db = getDatabase();
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const userId = user.uid;
-    const userRef = ref(db, 'usuarios/' + userId);
-
-    get(userRef).then(snapshot => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        document.getElementById("saldo").textContent = "Kz " + data.saldo.toFixed(2);
-        document.getElementById("nex-nome").textContent = data.produto || "Nenhum produto";
-        document.getElementById("nex-valor").textContent = "Kz " + (data.investimento || 0).toFixed(2);
-        document.getElementById("comissao").textContent = "Kz " + (data.comissao || 0).toFixed(2);
-        renderProdutos(data.saldo, userId);
-      }
-    });
-  } else {
-    // Sem sessão ativa, redireciona para o login
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
     window.location.href = "login.html";
+    return;
   }
+
+  const userId = user.uid;
+  const userRef = ref(db, `usuarios/${userId}`);
+
+  const snapshot = await get(userRef);
+  if (!snapshot.exists()) return;
+
+  const data = snapshot.val();
+
+  document.getElementById("saldo").textContent = "Kz " + (data.saldo || 0).toFixed(2);
+  document.getElementById("nex-nome").textContent = data.produto || "Nenhum produto";
+  document.getElementById("nex-valor").textContent = "Kz " + (data.investimento || 0).toFixed(2);
+  document.getElementById("comissao").textContent = "Kz " + (data.comissao || 0).toFixed(2);
+
+  renderProdutos(data.saldo || 0, userId);
 });
 
-// Função para renderizar os produtos
 function renderProdutos(saldo, userId) {
   const produtos = [
     { nome: "Nex 1", preco: 5000, comissao: 750 },
@@ -53,38 +52,36 @@ function renderProdutos(saldo, userId) {
     container.appendChild(div);
   });
 
-  // Evento de compra
-  const botoes = document.querySelectorAll(".comprar-btn");
-  botoes.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const i = parseInt(btn.getAttribute("data-index"));
-      const produtoSelecionado = produtos[i];
+  document.querySelectorAll(".comprar-btn").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      const i = parseInt(e.target.getAttribute("data-index"));
+      const p = produtos[i];
 
-      if (saldo >= produtoSelecionado.preco) {
-        const confirmacao = confirm(`Você vai usar Kz ${produtoSelecionado.preco.toLocaleString()} para comprar o ${produtoSelecionado.nome}. Confirmar?`);
-        if (!confirmacao) return;
-
-        const novoSaldo = saldo - produtoSelecionado.preco;
-        const updates = {
-          saldo: novoSaldo,
-          produto: produtoSelecionado.nome,
-          investimento: produtoSelecionado.preco,
-          comissao: produtoSelecionado.comissao,
-          tempoCompra: Date.now()
-        };
-
-        const userRef = ref(db, 'usuarios/' + userId);
-        update(userRef, updates)
-          .then(() => {
-            alert("Produto comprado com sucesso!");
-            window.location.reload();
-          })
-          .catch(error => {
-            console.error("Erro ao comprar produto:", error);
-          });
-      } else {
+      if (saldo < p.preco) {
         alert("Saldo insuficiente para esta compra.");
+        window.location.href = "deposito.html";
+        return;
+      }
+
+      const confirma = confirm(`Vai usar Kz ${p.preco.toLocaleString()} para comprar ${p.nome}. Confirmar?`);
+      if (!confirma) return;
+
+      const novoSaldo = saldo - p.preco;
+
+      try {
+        await update(ref(db, `usuarios/${userId}`), {
+          saldo: novoSaldo,
+          produto: p.nome,
+          investimento: p.preco,
+          comissao: p.comissao,
+          tempoCompra: Date.now()
+        });
+        alert("Produto comprado com sucesso!");
+        window.location.reload();
+      } catch (err) {
+        console.error("Erro ao comprar produto:", err);
+        alert("Erro ao comprar produto.");
       }
     });
   });
-      }
+                         }
