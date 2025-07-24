@@ -2,17 +2,23 @@
 import { auth, db } from "./firebase-config.js";
 import {
   onAuthStateChanged,
-  signOut,
+  setPersistence,
+  browserLocalPersistence,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   ref,
   get,
-  set,
   update,
+  push,
+  child,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import { PRODUCTS } from "./products.js";
 
-const MS_DAY = 24 * 60 * 60 * 1000;
+import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO, REF_PERC } from "./products.js";
+
+/** 24h em ms */
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+await setPersistence(auth, browserLocalPersistence);
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -21,210 +27,292 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   const uid = user.uid;
+  const userRef = ref(db, `usuarios/${uid}`);
 
-  try {
-    let snap = await get(ref(db, `usuarios/${uid}`));
-    if (!snap.exists()) {
-      // inicializa estrutura pensada para múltiplos Nex
-      await set(ref(db, `usuarios/${uid}`), {
-        saldo: 0,
-        compras: {},                 // { "1": { id, quantidade, firstBuyAt, lastCommissionAt } ... }
-        totalComissoesRecebidas: 0,
-        lastSettlementAt: null       // opcional: quando fizemos o último settlement global
-      });
-      snap = await get(ref(db, `usuarios/${uid}`));
-    }
+  // Acredita comissões diárias pendentes antes de renderizar
+  await creditDailyCommissionIfNeeded(uid);
 
-    let data = snap.val();
+  const snap = await get(userRef);
+  if (!snap.exists()) return;
+  const data = snap.val();
 
-    // 1) Liquidar comissões pendentes (todas as compras)
-    data = await settleAllCommissions(uid, data);
+  const totalInvestido = calcTotalInvestido(data);
+  const totalComissaoDiaria = calcTotalComissaoDiaria(data);
 
-    // 2) Renderizar
-    renderTopCards(data);
-    renderProducts(uid, data);
-    wireLogout();
-  } catch (err) {
-    console.error("Erro ao carregar home:", err);
-    alert("Erro ao carregar dados. Tente novamente.");
-  }
+  document.getElementById("saldo").textContent = formatKz(data.saldo || 0);
+  document.getElementById("investimento-total").textContent = formatKz(totalInvestido);
+  document.getElementById("comissao-total").textContent = formatKz(totalComissaoDiaria);
+
+  renderProdutos({
+    uid,
+    saldo: data.saldo || 0,
+    compras: data.compras || {}
+  });
 });
 
 /**
- * Faz o settlement de TODAS as compras do usuário (múltiplos Nex),
- * somando as comissões pendentes (por dia completo) ao saldo.
+ * Renderiza cards de produtos,
+ * mostra quantas vezes o usuário já comprou cada Nex
+ * e limita a 3 compras por produto.
  */
-async function settleAllCommissions(uid, data) {
-  const compras = data.compras || {};
-  if (!Object.keys(compras).length) return data;
-
-  const now = Date.now();
-  let saldo = data.saldo || 0;
-  let totalRecebidas = data.totalComissoesRecebidas || 0;
-
-  // vamos acumular os updates para dar 1 update só no final
-  const updates = {};
-  let houveCredito = false;
-
-  for (const idStr of Object.keys(compras)) {
-    const compra = compras[idStr]; // { id, quantidade, firstBuyAt, lastCommissionAt }
-    const produto = PRODUCTS.find(p => p.id === compra.id);
-    if (!produto) continue;
-
-    const last = compra.lastCommissionAt || compra.firstBuyAt || now;
-    const diffDays = Math.floor((now - last) / MS_DAY);
-    if (diffDays <= 0) continue;
-
-    const diaria = produto.comissao * compra.quantidade;
-    const credit = diaria * diffDays;
-
-    saldo += credit;
-    totalRecebidas += credit;
-    houveCredito = true;
-
-    // prepara update específico desta compra
-    updates[`usuarios/${uid}/compras/${idStr}/lastCommissionAt`] = last + diffDays * MS_DAY;
-  }
-
-  if (houveCredito) {
-    updates[`usuarios/${uid}/saldo`] = saldo;
-    updates[`usuarios/${uid}/totalComissoesRecebidas`] = totalRecebidas;
-    updates[`usuarios/${uid}/lastSettlementAt`] = now;
-    await update(ref(db), updates);
-
-    // devolve data ajustada
-    return {
-      ...data,
-      saldo,
-      totalComissoesRecebidas: totalRecebidas,
-      lastSettlementAt: now,
-      compras: {
-        ...data.compras,
-        ...Object.keys(compras).reduce((acc, idStr) => {
-          acc[idStr] = {
-            ...compras[idStr],
-            lastCommissionAt:
-              updates[`usuarios/${uid}/compras/${idStr}/lastCommissionAt`] ??
-              compras[idStr].lastCommissionAt
-          };
-          return acc;
-        }, {})
-      }
-    };
-  }
-
-  return data;
-}
-
-// ======= Renderização dos cards superiores =======
-function renderTopCards(data) {
-  const saldoEl = document.getElementById("saldo");
-  const invEl = document.getElementById("investimento-total");
-  const comissaoTotEl = document.getElementById("comissao-total");
-
-  const compras = data.compras || {};
-  let totalInvest = 0;
-  let comissaoTotal = 0;
-
-  for (const idStr of Object.keys(compras)) {
-    const c = compras[idStr];
-    const p = PRODUCTS.find(x => x.id === c.id);
-    if (!p) continue;
-    totalInvest += p.preco * c.quantidade;
-    comissaoTotal += p.comissao * c.quantidade;
-  }
-
-  saldoEl.textContent = "Kz " + (data.saldo || 0).toLocaleString(undefined, { minimumFractionDigits: 2 });
-  invEl.textContent   = "Kz " + totalInvest.toLocaleString();
-  comissaoTotEl.textContent = "Kz " + comissaoTotal.toLocaleString();
-}
-
-// ======= Lista de produtos =======
-function renderProducts(uid, data) {
+function renderProdutos({ uid, saldo, compras }) {
   const container = document.getElementById("produtos-container");
   container.innerHTML = "";
 
-  const compras = data.compras || {};
-  const saldo = data.saldo || 0;
-
-  PRODUCTS.forEach((prod) => {
-    const compraAtual = compras[prod.id]?.quantidade || 0; // 0..3
-    const disabled = compraAtual >= 3;
+  PRODUTOS.forEach((p) => {
+    const infoCompra = compras?.[p.id];
+    const count = infoCompra?.count || 0;
+    const disabled = count >= MAX_COMPRAS_POR_PRODUTO;
 
     const div = document.createElement("div");
     div.className = "produto";
-
-    const comissaoTxt = `Comissão diária: Kz ${prod.comissao.toLocaleString()} (15%)`;
-    const precoTxt = `Kz ${prod.preco.toLocaleString()}`;
-
-    let statusMsg = "";
-    if (disabled) statusMsg = "Limite de 3 compras atingido para este Nex.";
-
     div.innerHTML = `
       <div class="produto-info">
-        <p><strong>${prod.nome}</strong> ${compraAtual ? `(x${compraAtual})` : ""}</p>
-        <p>${comissaoTxt}</p>
-        <p style="color: orange">${precoTxt}</p>
-        ${statusMsg ? `<p class="status">${statusMsg}</p>` : ""}
+        <p><strong>${p.nome}</strong></p>
+        <p>Comissão diária: ${formatKz(p.comissao)} (15%)</p>
+        <p style="color: orange">${formatKz(p.preco)}</p>
+        <p class="status">Compras: ${count}/${MAX_COMPRAS_POR_PRODUTO}</p>
       </div>
-      <button ${disabled ? "disabled" : ""} data-id="${prod.id}">Comprar</button>
+      <button class="btn-buy" ${disabled ? "disabled" : ""} data-id="${p.id}">
+        ${disabled ? "Limite atingido" : "Comprar"}
+      </button>
     `;
-
-    const btn = div.querySelector("button");
-    btn.addEventListener("click", () => handleBuy(uid, data, prod, saldo, compraAtual));
     container.appendChild(div);
   });
+
+  container.querySelectorAll(".btn-buy").forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      const productId = e.currentTarget.dataset.id;
+      const product = PRODUTOS.find(x => x.id === productId);
+      if (!product) return;
+
+      // Atualiza dados do usuário do DB (evita usar 'saldo' antigo)
+      const uSnap = await get(ref(db, `usuarios/${uid}`));
+      if (!uSnap.exists()) return alert("Usuário não encontrado no DB.");
+
+      const userData = uSnap.val();
+      const saldoAtual = userData.saldo || 0;
+      const comprasAtuais = userData.compras || {};
+      const countAtual = comprasAtuais[productId]?.count || 0;
+
+      if (countAtual >= MAX_COMPRAS_POR_PRODUTO) {
+        alert("Você já atingiu o limite de 3 compras para este produto.");
+        return;
+      }
+
+      if (saldoAtual < product.preco) {
+        alert("Saldo insuficiente para esta compra.");
+        window.location.href = "deposito.html";
+        return;
+      }
+
+      const ok = confirm(`Vai usar ${formatKz(product.preco)} para comprar ${product.nome}. Confirmar?`);
+      if (!ok) return;
+
+      try {
+        // Monta a compra
+        const compraRef = ref(db, `usuarios/${uid}/compras/${productId}/items`);
+        const newItemRef = push(compraRef);
+        const agora = Date.now();
+
+        const updates = {};
+
+        // saldo
+        const novoSaldo = saldoAtual - product.preco;
+        updates[`usuarios/${uid}/saldo`] = novoSaldo;
+
+        // atualiza contagem do produto
+        const novoCount = countAtual + 1;
+        updates[`usuarios/${uid}/compras/${productId}/count`] = novoCount;
+        updates[`usuarios/${uid}/compras/${productId}/items/${newItemRef.key}`] = {
+          preco: product.preco,
+          comissao: product.comissao,
+          compradoEm: agora,
+          lastPayAt: agora
+        };
+
+        // recomputa os totais
+        const totalInvestido = calcTotalInvestido({
+          ...userData,
+          compras: {
+            ...comprasAtuais,
+            [productId]: {
+              count: novoCount,
+              items: {
+                ...(comprasAtuais[productId]?.items || {}),
+                [newItemRef.key]: { preco: product.preco, comissao: product.comissao }
+              }
+            }
+          }
+        });
+
+        const totalComissaoDiaria = calcTotalComissaoDiaria({
+          ...userData,
+          compras: {
+            ...comprasAtuais,
+            [productId]: {
+              count: novoCount,
+              items: {
+                ...(comprasAtuais[productId]?.items || {}),
+                [newItemRef.key]: { preco: product.preco, comissao: product.comissao }
+              }
+            }
+          }
+        });
+
+        updates[`usuarios/${uid}/totalInvestido`] = totalInvestido;
+        updates[`usuarios/${uid}/totalComissaoDiaria`] = totalComissaoDiaria;
+
+        // efetua o update em lote
+        await update(ref(db), updates);
+
+        // paga comissão de rede (A/B/C) no ato da compra
+        await payReferralCommissions(uid, product);
+
+        alert("Produto comprado com sucesso!");
+        window.location.reload();
+      } catch (err) {
+        console.error("Erro ao comprar produto:", err);
+        alert("Erro ao comprar produto.");
+      }
+    });
+  });
 }
 
-// ======= Fluxo de compra =======
-async function handleBuy(uid, data, produto, saldoAtual, quantidadeAtual) {
-  if (quantidadeAtual >= 3) {
-    alert("Você já atingiu o limite de 3 compras para este Nex.");
-    return;
-  }
-
-  if (saldoAtual < produto.preco) {
-    alert("Saldo insuficiente!");
-    window.location.href = "deposito.html";
-    return;
-  }
-
-  const ok = confirm(`Vai usar Kz ${produto.preco.toLocaleString()} para comprar ${produto.nome}. Confirmar?`);
-  if (!ok) return;
-
-  const novaQuantidade = quantidadeAtual + 1;
-  const novoSaldo = saldoAtual - produto.preco;
+/**
+ * Se já passou 1 ou mais dias desde o último pagamento
+ * de cada compra, acredita (n * comissao) no saldo do usuário.
+ */
+async function creditDailyCommissionIfNeeded(uid) {
+  const userRef = ref(db, `usuarios/${uid}`);
+  const snap = await get(userRef);
+  if (!snap.exists()) return;
+  const data = snap.val();
 
   const compras = data.compras || {};
-  const compraAnterior = compras[produto.id] || null;
-
-  const payloadCompra = {
-    id: produto.id,
-    quantidade: novaQuantidade,
-    firstBuyAt: compraAnterior?.firstBuyAt || Date.now(),
-    lastCommissionAt: compraAnterior?.lastCommissionAt || Date.now(),
-  };
+  let saldo = data.saldo || 0;
+  let anyCredit = false;
 
   const updates = {};
-  updates[`usuarios/${uid}/saldo`] = novoSaldo;
-  updates[`usuarios/${uid}/compras/${produto.id}`] = payloadCompra;
 
-  try {
+  const now = Date.now();
+
+  Object.entries(compras).forEach(([prodId, prodData]) => {
+    if (!prodData?.items) return;
+
+    Object.entries(prodData.items).forEach(([itemId, item]) => {
+      const lastPayAt = item.lastPayAt || item.compradoEm || now;
+      const diff = now - lastPayAt;
+
+      if (diff >= DAY_MS) {
+        const dias = Math.floor(diff / DAY_MS);
+
+        // Creditar dias * comissao
+        const credit = (item.comissao || 0) * dias;
+        if (credit > 0) {
+          saldo += credit;
+          anyCredit = true;
+
+          // atualiza lastPayAt
+          const newLast = lastPayAt + (dias * DAY_MS);
+          updates[`usuarios/${uid}/compras/${prodId}/items/${itemId}/lastPayAt`] = newLast;
+        }
+      }
+    });
+  });
+
+  if (anyCredit) {
+    updates[`usuarios/${uid}/saldo`] = saldo;
+    updates[`usuarios/${uid}/lastDailyCheckAt`] = now;
     await update(ref(db), updates);
-    alert("Produto comprado com sucesso!");
-    window.location.reload();
-  } catch (err) {
-    console.error("Erro ao comprar produto:", err);
-    alert("Erro ao comprar produto.");
+  } else {
+    // só atualiza o lastDailyCheckAt para sinalizar que checamos agora (opcional)
+    await update(ref(db), { [`usuarios/${uid}/lastDailyCheckAt`]: now });
   }
 }
 
-// ======= Logout =======
-function wireLogout() {
-  const btn = document.getElementById("logout");
-  if (!btn) return;
-  btn.addEventListener("click", async () => {
-    await signOut(auth);
-    window.location.href = "login.html";
-  });
+/**
+ * Paga comissão de rede (A/B/C) com base na comissão diária do produto.
+ * - A: 30%
+ * - B: 3%
+ * - C: 1%
+ */
+async function payReferralCommissions(buyerUid, product) {
+  try {
+    const buyerSnap = await get(ref(db, `usuarios/${buyerUid}`));
+    if (!buyerSnap.exists()) return;
+
+    const buyer = buyerSnap.val();
+    const comissaoBase = product.comissao || 0;
+
+    // nivel A
+    const uidA = buyer.invitedBy;
+    if (!uidA) return; // sem A, sem B, sem C
+
+    const creditA = Math.floor(comissaoBase * REF_PERC.A);
+    if (creditA > 0) {
+      await addToSaldo(uidA, creditA);
+    }
+
+    // nivel B
+    const snapA = await get(ref(db, `usuarios/${uidA}`));
+    const userA = snapA.exists() ? snapA.val() : null;
+    const uidB = userA?.invitedBy;
+    if (uidB) {
+      const creditB = Math.floor(comissaoBase * REF_PERC.B);
+      if (creditB > 0) {
+        await addToSaldo(uidB, creditB);
       }
+
+      // nivel C
+      const snapB = await get(ref(db, `usuarios/${uidB}`));
+      const userB = snapB.exists() ? snapB.val() : null;
+      const uidC = userB?.invitedBy;
+      if (uidC) {
+        const creditC = Math.floor(comissaoBase * REF_PERC.C);
+        if (creditC > 0) {
+          await addToSaldo(uidC, creditC);
+        }
+      }
+    }
+  } catch (e) {
+    console.error("Erro ao pagar comissões de rede:", e);
+  }
+}
+
+async function addToSaldo(uid, amount) {
+  const uRef = ref(db, `usuarios/${uid}`);
+  const snap = await get(uRef);
+  if (!snap.exists()) return;
+  const saldoAtual = snap.val().saldo || 0;
+  await update(uRef, { saldo: saldoAtual + amount });
+}
+
+/** Helpers */
+function calcTotalInvestido(userData) {
+  let total = 0;
+  const compras = userData.compras || {};
+  Object.values(compras).forEach((prod) => {
+    if (!prod?.items) return;
+    Object.values(prod.items).forEach((item) => {
+      total += item.preco || 0;
+    });
+  });
+  return total;
+}
+
+function calcTotalComissaoDiaria(userData) {
+  let total = 0;
+  const compras = userData.compras || {};
+  Object.values(compras).forEach((prod) => {
+    if (!prod?.items) return;
+    Object.values(prod.items).forEach((item) => {
+      total += item.comissao || 0;
+    });
+  });
+  return total;
+}
+
+function formatKz(v) {
+  return `Kz ${Number(v || 0).toLocaleString("pt-PT", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+              }
