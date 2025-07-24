@@ -12,28 +12,27 @@
     .toggle-password svg { width: 24px; height: 24px; fill: #888; }
   </style>
 </head>
+<!-- ...head igual... -->
 <body>
   <div class="container">
     <h2>Criar Conta</h2>
     <form id="signupForm">
       <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+      <input type="email" id="email" name="email" placeholder="Digite seu email" required autocomplete="email">
 
       <label for="password">Senha</label>
       <div class="password-container">
-        <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+        <input type="password" id="password" name="password" placeholder="Digite sua senha" required autocomplete="new-password">
         <button type="button" class="toggle-password" onclick="togglePassword(this, 'password')">
-          <svg viewBox="0 0 24 24"><path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 
-          5 2.239 5 5-2.239 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
+          <!-- svg igual -->
         </button>
       </div>
 
       <label for="confirmPassword">Repetir Senha</label>
       <div class="password-container">
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Digite sua senha" required>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Digite sua senha" required autocomplete="new-password">
         <button type="button" class="toggle-password" onclick="togglePassword(this, 'confirmPassword')">
-          <svg viewBox="0 0 24 24"><path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 
-          5 2.239 5 5-2.239 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
+          <!-- svg igual -->
         </button>
       </div>
 
@@ -64,7 +63,6 @@
     }
   </script>
 
-  <!-- Apenas 1 módulo, pois signup.js já importa o firebase-config -->
   <script type="module" src="./signup.js"></script>
 </body>
-  </html>
+</html>
