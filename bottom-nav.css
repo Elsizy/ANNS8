@@ -1,0 +1,59 @@
+/* bottom-nav.css */
+:root {
+  --nav-bg: #472b91;
+  --nav-bg-active: linear-gradient(to right, #5f67ff, #8759e3);
+  --nav-text: #d9d9ff;
+  --nav-text-active: #ffffff;
+  --nav-icon-size: 22px;
+  --nav-height: 64px;
+}
+
+.has-bottom-nav {
+  padding-bottom: calc(var(--nav-height) + 12px); /* evita que o conteúdo fique atrás da barra */
+}
+
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--nav-height);
+  background: var(--nav-bg);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  box-shadow: 0 -4px 18px rgba(0,0,0,.18);
+  z-index: 9999;
+}
+
+.bottom-nav .nav-item {
+  height: 100%;
+  color: var(--nav-text);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 12px;
+  transition: all .18s;
+}
+
+.bottom-nav .nav-item .icon {
+  font-size: var(--nav-icon-size);
+  line-height: 1;
+}
+
+.bottom-nav .nav-item.active {
+  background: var(--nav-bg-active);
+  color: var(--nav-text-active);
+  font-weight: 600;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.bottom-nav .nav-item.active .icon {
+  transform: translateY(-1px);
+}
