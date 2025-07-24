@@ -1,10 +1,9 @@
-// ✅ IMPORTS no topo
+// script.js
 import { auth, db } from './firebase-config.js';
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// ✅ EVENTO DE CADASTRO
-document.getElementById("signupForm").addEventListener("submit", async function (event) {
+document.getElementById("signupForm").addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const email = document.getElementById("email").value.trim();
@@ -27,11 +26,14 @@ document.getElementById("signupForm").addEventListener("submit", async function 
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    await setDoc(doc(db, "usuarios", user.uid), {
+    await set(ref(db, `usuarios/${user.uid}`), {
       uid: user.uid,
-      email: email,
+      email,
       codigoConvite: referral || null,
       saldo: 0,
+      comissao: 0,
+      investimento: 0,
+      produto: null,
       criadoEm: new Date().toISOString()
     });
 
