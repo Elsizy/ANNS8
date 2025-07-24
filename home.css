@@ -1,3 +1,4 @@
+/* home.css */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -5,50 +6,65 @@ body {
   color: #fff;
 }
 .dashboard {
-  padding: 20px;
+  padding: 20px 16px 60px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 .top-panel {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 10px;
 }
 .card {
-  flex: 1;
-  min-width: 30%;
   background: #472b91;
   border-radius: 14px;
-  padding: 12px;
-  text-align: center;
+  padding: 12px 14px;
+  text-align: left;
+  position: relative;
 }
 .card .label {
   font-size: 14px;
   opacity: 0.8;
+  margin: 0 0 4px;
 }
 .card .valor {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
+  margin: 0;
 }
 .menu-links {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 20px 0 8px;
 }
 .menu-links a {
   background: #fff;
   color: #1c2e4a;
-  padding: 10px 20px;
+  padding: 10px 8px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+}
+#logout {
+  margin: 8px 0 18px;
+  background: #ff5252;
+  border: none;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
 }
 h2 {
-  margin-top: 20px;
+  margin: 18px 0 12px;
 }
 .produtos-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 .produto {
   display: flex;
@@ -59,23 +75,26 @@ h2 {
   padding: 12px;
   border-radius: 14px;
 }
-.produto img {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-}
 .produto-info {
-  flex-grow: 1;
-  margin: 0 10px;
+  flex: 1;
+  margin: 0 12px;
 }
 .produto-info p {
   margin: 2px 0;
 }
-button.comprar {
+.produto .status {
+  font-size: 12px;
+  color: #666;
+}
+.produto button {
   background: linear-gradient(to right, #5f67ff, #8759e3);
   color: white;
   border: none;
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
+}
+.produto button:disabled {
+  background: #bbb;
+  cursor: not-allowed;
 }
