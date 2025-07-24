@@ -18,29 +18,27 @@ body {
   margin: 0 auto;
 }
 
-/* === AGORA: 3 LINHAS (1 card por linha) + ~40% menor === */
+/* === 3 LINHAS (1 card por linha) ~40% menor, como ficou por último === */
 .stats {
   display: grid;
-  grid-template-columns: 1fr;                         /* 1 coluna */
-  grid-template-rows: repeat(3, minmax(66px, auto));  /* 3 linhas, mais baixas */
-  gap: 8px;                                           /* era 12px */
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, minmax(66px, auto));
+  gap: 8px;
   position: relative;
   margin-bottom: 16px;
 }
 
-/* removemos o traço diagonal (oculto) */
 .stats::after { display: none; }
 
 .card {
   background: #472b91;
   border-radius: 14px;
-  padding: 8px 10px;       /* era 14px 16px */
+  padding: 8px 10px;
   text-align: left;
   position: relative;
   overflow: hidden;
 }
 
-/* removemos os spans de grid — cada card ocupa sua própria linha */
 .card-saldo,
 .card-invest,
 .card-comissao {
@@ -49,14 +47,32 @@ body {
 }
 
 .card .label {
-  font-size: 12px; /* era 14px */
+  font-size: 12px;
   opacity: 0.85;
   margin: 0 0 4px;
 }
 .card .valor {
-  font-size: clamp(16px, 4.2vw, 22px); /* era 20–28px */
+  font-size: clamp(16px, 4.2vw, 22px);
   font-weight: bold;
   margin: 0;
+  display: flex;              /* <- para alinhar o olho */
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* Botão do olho */
+.eye-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 4px;
+}
+.eye-btn:focus {
+  outline: none;
 }
 
 /* Menu Links */
@@ -156,18 +172,10 @@ h2 {
   cursor: not-allowed;
 }
 
-/* Responsivo (já fica 1 por linha naturalmente, então nada muda) */
-@media (max-width: 680px) {
-  .stats {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-  }
-}
-/* ===== Skeleton loader ===== */
+/* Skeleton loader */
 .produtos-skeleton {
   display: block;
 }
-
 .skeleton-item {
   height: 72px;
   border-radius: 14px;
@@ -181,8 +189,15 @@ h2 {
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.4s ease-in-out infinite;
 }
-
 @keyframes skeleton-shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
+
+/* Responsivo */
+@media (max-width: 680px) {
+  .stats {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  }
