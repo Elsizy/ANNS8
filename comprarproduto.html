@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produtos - ANNS8</title>
+  <link rel="stylesheet" href="comprarproduto.css" />
+  <link rel="stylesheet" href="bottom-nav.css" />
+</head>
+<body class="has-bottom-nav">
+  <div class="dashboard">
+
+    <!-- Cabeçalho -->
+    <header class="header">
+      <h1>Seus Produtos</h1>
+      <div class="balance-row">
+        <div class="balance-box">
+          <p class="label">Comissão Total</p>
+          <p class="value" id="total-comissao">Kz 0.00</p>
+        </div>
+        <div class="balance-box">
+          <p class="label">Saldo Disponível</p>
+          <p class="value" id="saldo-disponivel">Kz 0.00</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Lista de Produtos -->
+    <section id="produtos-container" class="produtos-container">
+      <!-- Produtos serão carregados dinamicamente -->
+    </section>
+  </div>
+
+  <!-- Barra inferior -->
+  <nav class="bottom-nav">
+    <a href="home.html" class="nav-item" data-key="home">
+      <span class="icon">🏠</span>
+      <span class="label">Início</span>
+    </a>
+    <a href="comprarproduto.html" class="nav-item" data-key="produtos">
+      <span class="icon">🛒</span>
+      <span class="label">Produtos</span>
+    </a>
+    <a href="equipa.html" class="nav-item" data-key="equipa">
+      <span class="icon">👥</span>
+      <span class="label">Equipa</span>
+    </a>
+    <a href="pessoal.html" class="nav-item" data-key="pessoal">
+      <span class="icon">👤</span>
+      <span class="label">Pessoal</span>
+    </a>
+  </nav>
+
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./comprarproduto.js"></script>
+  <script src="bottom-nav.js" defer></script>
+</body>
+</html>
