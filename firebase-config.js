@@ -1,5 +1,5 @@
-// firebase-config.js (Firebase v8)
-const firebaseConfig = {
+// firebase-config.js
+var firebaseConfig = {
   apiKey: "AIzaSyBj-MK1oOk6lIJZT8KrSsllwSqoMHfUkzQ",
   authDomain: "anns8-5fc26.firebaseapp.com",
   databaseURL: "https://anns8-5fc26-default-rtdb.firebaseio.com",
@@ -9,7 +9,5 @@ const firebaseConfig = {
   appId: "1:259361189676:web:a9d54cee391b9f0f468689"
 };
 
+// Inicializa o Firebase v8
 firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const db = firebase.database();
