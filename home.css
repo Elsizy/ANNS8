@@ -1,8 +1,7 @@
-/* home.css */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background: linear-gradient(to bottom, #1c2e4a, #294d61);
+  background: linear-gradient(to bottom, #1c2e4a 0%, #ffffff 100%);
   color: #fff;
 }
 .dashboard {
@@ -48,16 +47,6 @@ body {
   text-align: center;
   font-size: 14px;
 }
-#logout {
-  margin: 8px 0 18px;
-  background: #ff5252;
-  border: none;
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
 h2 {
   margin: 18px 0 12px;
 }
@@ -97,4 +86,4 @@ h2 {
 .produto button:disabled {
   background: #bbb;
   cursor: not-allowed;
-}
+  }
