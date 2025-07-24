@@ -1,66 +1,92 @@
 :root {
   --bg-top: #1c2e4a;
   --bg-bottom: #f9fafc;
+  --card: #472b91;
 }
 
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, var(--bg-top) 0%, #324d6c 40%, #edf1f7 85%, var(--bg-bottom) 100%);
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
   color: #fff;
 }
 
 .dashboard {
   padding: 20px 16px 60px;
-  max-width: 950px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.header h1 {
+  margin: 0;
+  font-size: 20px;
+}
+.header .back {
   color: #fff;
+  text-decoration: none;
+  background: rgba(255,255,255,0.15);
+  padding: 6px 10px;
+  border-radius: 6px;
 }
 
-.section {
-  margin-bottom: 20px;
+.team-block {
+  background: rgba(255,255,255,0.05);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 18px;
 }
-
-.section h2 {
+.team-block h2 {
+  margin: 0 0 8px;
   font-size: 18px;
-  background: #472b91;
+}
+
+.list .item {
+  background: #fff;
+  color: #000;
+  border-radius: 8px;
   padding: 8px 12px;
-  border-radius: 10px;
-  color: #fff;
-}
-
-.list {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 10px;
-  margin-top: 8px;
-}
-
-.list-item {
+  margin-bottom: 6px;
   display: flex;
   justify-content: space-between;
-  padding: 8px 10px;
-  background: rgba(255, 255, 255, 0.15);
-  margin-bottom: 6px;
-  border-radius: 8px;
-  color: #fff;
+  align-items: center;
+}
+.list .item .name {
+  font-weight: bold;
+}
+.list .item .deposito {
+  color: #ff6f00;
+  font-weight: bold;
 }
 
-.btn-back {
-  display: block;
-  text-align: center;
-  margin: 30px auto 0;
-  background: linear-gradient(to right, #5f67ff, #8759e3);
-  color: white;
-  padding: 10px 16px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  width: 200px;
+/* Skeleton */
+.skeleton.hidden,
+.teams.hidden {
+  display: none;
+}
+.skeleton .sk-title {
+  width: 30%;
+  height: 18px;
+  border-radius: 6px;
+  margin: 14px 0 6px;
+  background: rgba(255,255,255,0.15);
+  animation: pulse 1.4s infinite ease-in-out;
+}
+.skeleton .sk-row {
+  width: 100%;
+  height: 64px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  margin-bottom: 10px;
+  animation: pulse 1.4s infinite ease-in-out;
+}
+@keyframes pulse {
+  0% { opacity: .7; }
+  50% { opacity: 1; }
+  100% { opacity: .7; }
 }
