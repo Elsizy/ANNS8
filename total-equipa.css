@@ -1,14 +1,21 @@
 :root {
-  --bg-top: #1c2e4a;
-  --bg-bottom: #f9fafc;
-  --card: #472b91;
+  --bg: #1c2e4a;         /* fundo sólido do projeto */
+  --card: #472b91;       /* roxo dos cards principais */
+  --card-soft: rgba(255,255,255,0.05);
+  --text: #ffffff;
+  --accent: #ff6f00;
+  --border-soft: rgba(255,255,255,0.08);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
-  color: #fff;
+  background-color: var(--bg); /* ← sem transição/gradiente */
+  color: var(--text);
 }
 
 .dashboard {
@@ -30,38 +37,49 @@ body {
 .header .back {
   color: #fff;
   text-decoration: none;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.12);
   padding: 6px 10px;
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: background .15s;
+}
+.header .back:hover {
+  background: rgba(255,255,255,0.2);
 }
 
+/* Bloco de cada nível */
 .team-block {
-  background: rgba(255,255,255,0.05);
+  background: var(--card-soft);
+  border: 1px solid var(--border-soft);
   border-radius: 14px;
-  padding: 12px 14px;
+  padding: 14px 16px;
   margin-bottom: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 .team-block h2 {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   font-size: 18px;
+  font-weight: 600;
 }
 
+/* Lista de usuários */
 .list .item {
   background: #fff;
   color: #000;
   border-radius: 8px;
-  padding: 8px 12px;
-  margin-bottom: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .list .item .name {
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 14px;
 }
 .list .item .deposito {
-  color: #ff6f00;
+  color: var(--accent);
   font-weight: bold;
+  font-size: 14px;
 }
 
 /* Skeleton */
@@ -69,12 +87,13 @@ body {
 .teams.hidden {
   display: none;
 }
+
 .skeleton .sk-title {
-  width: 30%;
+  width: 35%;
   height: 18px;
   border-radius: 6px;
   margin: 14px 0 6px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.12);
   animation: pulse 1.4s infinite ease-in-out;
 }
 .skeleton .sk-row {
@@ -86,7 +105,7 @@ body {
   animation: pulse 1.4s infinite ease-in-out;
 }
 @keyframes pulse {
-  0% { opacity: .7; }
+  0% { opacity: .65; }
   50% { opacity: 1; }
-  100% { opacity: .7; }
-}
+  100% { opacity: .65; }
+  }
