@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,41 +8,41 @@
 </head>
 <body>
   <div class="dashboard">
-    <header class="header">
-      <a class="back" href="equipa.html">← Voltar</a>
+    <div class="header">
+      <a href="equipa.html" class="back">← Voltar</a>
       <h1>Total da Equipa</h1>
-    </header>
+    </div>
 
-    <!-- Skeleton enquanto carrega -->
-    <section id="skeleton" class="skeleton">
-      <div class="sk-title"></div>
-      <div class="sk-row"></div>
-      <div class="sk-title"></div>
-      <div class="sk-row"></div>
-      <div class="sk-title"></div>
-      <div class="sk-row"></div>
-    </section>
-
-    <!-- Conteúdo carregado -->
-    <section id="teams" class="teams hidden">
+    <div id="teams" class="teams hidden">
+      <!-- Nível A -->
       <div class="team-block">
-        <h2>Nível A (30%)</h2>
+        <h2>Nível A</h2>
         <div class="list" id="list-a"></div>
       </div>
 
+      <!-- Nível B -->
       <div class="team-block">
-        <h2>Nível B (3%)</h2>
+        <h2>Nível B</h2>
         <div class="list" id="list-b"></div>
       </div>
 
+      <!-- Nível C -->
       <div class="team-block">
-        <h2>Nível C (1%)</h2>
+        <h2>Nível C</h2>
         <div class="list" id="list-c"></div>
       </div>
-    </section>
+    </div>
+
+    <div class="skeleton" id="skeleton">
+      <div class="sk-title"></div>
+      <div class="sk-row"></div>
+      <div class="sk-title"></div>
+      <div class="sk-row"></div>
+      <div class="sk-title"></div>
+      <div class="sk-row"></div>
+    </div>
   </div>
 
-  <script type="module" src="./firebase-config.js"></script>
-  <script type="module" src="./total-equipa.js"></script>
+  <script type="module" src="total-equipa.js"></script>
 </body>
 </html>
