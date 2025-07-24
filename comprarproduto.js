@@ -1,7 +1,10 @@
+// comprarproduto.js
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { PRODUTOS } from "./products.js";
+
+const DAY_MS = 24 * 60 * 60 * 1000; // 24h
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -24,14 +27,20 @@ onAuthStateChanged(auth, async (user) => {
 function renderProdutosComprados(compras) {
   const container = document.getElementById("produtos-container");
   container.innerHTML = "";
-  let totalComissao = 0;
+
+  let totalComissaoGerada = 0;
 
   Object.entries(compras).forEach(([prodId, prodData]) => {
     const produto = PRODUTOS.find(p => p.id === prodId);
     if (!produto) return;
 
     Object.values(prodData.items || {}).forEach((item) => {
-      totalComissao += item.comissao || 0;
+      // ===== NOVA LÓGICA: comissão total já gerada/paga =====
+      const compradoEm = item.compradoEm || 0;
+      const lastPayAt = item.lastPayAt || compradoEm;
+      const diasCreditados = Math.max(0, Math.floor((lastPayAt - compradoEm) / DAY_MS));
+      const earned = diasCreditados * (item.comissao || 0);
+      totalComissaoGerada += earned;
 
       const card = document.createElement("div");
       card.className = "produto";
@@ -40,15 +49,17 @@ function renderProdutosComprados(compras) {
           <p><strong>${produto.nome}</strong></p>
           <p>Comissão diária: ${formatKz(produto.comissao)}</p>
           <p style="color: orange">${formatKz(produto.preco)}</p>
-          <p class="status">Comprado em: ${formatDate(item.compradoEm)}</p>
-          <p class="timer" data-lastpay="${item.lastPayAt}">00:00:00</p>
+          <p class="status">Comprado em: ${formatDate(compradoEm)}</p>
+          <p class="timer" data-lastpay="${lastPayAt}">00:00:00</p>
         </div>
       `;
       container.appendChild(card);
     });
   });
 
-  document.getElementById("total-comissao").textContent = formatKz(totalComissao);
+  // Mostra o total que JÁ FOI GERADO
+  document.getElementById("total-comissao").textContent = formatKz(totalComissaoGerada);
+
   startTimers();
 }
 
@@ -59,7 +70,7 @@ function startTimers() {
       const lastPay = parseInt(timer.dataset.lastpay, 10);
       const now = Date.now();
       const elapsed = now - lastPay;
-      const remaining = 24 * 60 * 60 * 1000 - elapsed;
+      const remaining = DAY_MS - elapsed;
       if (remaining > 0) {
         timer.textContent = formatCountdown(remaining);
       } else {
