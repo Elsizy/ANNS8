@@ -11,6 +11,9 @@ import {
   child
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+const HOME_PAGE = "home.html"; // <- troque para "pagina-principal.html" se for o seu caso
+const REDIRECIONAR_MESMO_SE_NAO_EXISTIR_NO_DB = true; // fallback
+
 document.addEventListener("DOMContentLoaded", async () => {
   const btn = document.getElementById("loginBtn");
   if (!btn) {
@@ -20,12 +23,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     await setPersistence(auth, browserLocalPersistence);
+    console.log("[login] Persistência LOCAL configurada.");
   } catch (e) {
-    console.warn("Não foi possível configurar persistência LOCAL:", e);
+    console.warn("[login] Não foi possível configurar persistência LOCAL:", e);
   }
 
   btn.addEventListener("click", login);
-  // fallback para testes no console
+
+  // fallback para você poder chamar manualmente no console
   window.login = login;
 });
 
@@ -33,28 +38,38 @@ async function login() {
   const email = document.getElementById("email")?.value.trim();
   const senha = document.getElementById("senha")?.value.trim();
 
+  console.log("[login] Clique no botão. Email digitado:", email);
+
   if (!email || !senha) {
     alert("Preencha todos os campos!");
     return;
   }
 
   try {
-    console.log("Tentando autenticar:", email);
     const userCredential = await signInWithEmailAndPassword(auth, email, senha);
     const user = userCredential.user;
-    console.log("Autenticado. UID:", user.uid);
+    console.log("[login] Autenticado com sucesso. UID:", user.uid);
 
-    const snapshot = await get(child(ref(db), `usuarios/${user.uid}`));
-    console.log("Snapshot existe?", snapshot.exists());
+    const path = `usuarios/${user.uid}`;
+    const snapshot = await get(child(ref(db), path));
+    console.log("[login] Buscando no RTDB em:", path, "exists?", snapshot.exists());
 
     if (snapshot.exists()) {
       alert("Login feito com sucesso!");
-      window.location.href = "home.html"; // <<< ALTERADO AQUI
+      window.location.href = HOME_PAGE;
     } else {
-      alert("Usuário não encontrado no banco de dados.");
+      const msg = "Usuário autenticado, mas não encontrado no banco de dados.";
+      console.warn("[login]", msg);
+
+      if (REDIRECIONAR_MESMO_SE_NAO_EXISTIR_NO_DB) {
+        alert(msg + "\nVocê será redirecionado mesmo assim.");
+        window.location.href = HOME_PAGE;
+      } else {
+        alert(msg);
+      }
     }
   } catch (error) {
-    console.error("LOGIN ERROR =>", error.code, error.message);
+    console.error("[login] ERROR =>", error.code, error.message);
     alert("Erro ao fazer login: " + error.message);
   }
 }
