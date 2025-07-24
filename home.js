@@ -323,6 +323,7 @@ async function payReferralCommissions(buyerUid, product) {
     const creditA = Math.floor(comissaoBase * REF_PERC.A);
     if (creditA > 0) {
       await addToSaldo(uidA, creditA);
+      await incrementRefTotal(uidA, "A", creditA); // <- NOVO
     }
 
     // nivel B
@@ -333,6 +334,7 @@ async function payReferralCommissions(buyerUid, product) {
       const creditB = Math.floor(comissaoBase * REF_PERC.B);
       if (creditB > 0) {
         await addToSaldo(uidB, creditB);
+        await incrementRefTotal(uidB, "B", creditB); // <- NOVO
       }
 
       // nivel C
@@ -343,6 +345,7 @@ async function payReferralCommissions(buyerUid, product) {
         const creditC = Math.floor(comissaoBase * REF_PERC.C);
         if (creditC > 0) {
           await addToSaldo(uidC, creditC);
+          await incrementRefTotal(uidC, "C", creditC); // <- NOVO
         }
       }
     }
@@ -357,6 +360,19 @@ async function addToSaldo(uid, amount) {
   if (!snap.exists()) return;
   const saldoAtual = snap.val().saldo || 0;
   await update(uRef, { saldo: saldoAtual + amount });
+}
+
+/** NOVO: acumula o total ganho por nível (A/B/C) no nó refTotals */
+async function incrementRefTotal(uid, level, amount) {
+  if (!amount) return;
+  const uRef = ref(db, `usuarios/${uid}/refTotals/${level}/amount`);
+  const snap = await get(uRef);
+  const prev = snap.exists() ? snap.val() : 0;
+  const novo = prev + amount;
+  // atualiza nesse caminho
+  await update(ref(db, `usuarios/${uid}/refTotals`), {
+    [`${level}/amount`]: novo
+  });
 }
 
 /** Helpers */
@@ -389,4 +405,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-        }
+}
