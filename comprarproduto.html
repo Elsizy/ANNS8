@@ -27,10 +27,15 @@
       </div>
     </section>
 
-    <!-- Lista de Produtos Comprados -->
-    <div class="produtos-container" id="produtos-container">
-      <!-- Produtos gerados pelo JS -->
-    </div>
+    <!-- 🔹 Skeleton enquanto carrega -->
+    <section id="produtos-skeleton" class="produtos-skeleton">
+      <div class="sk-card"></div>
+      <div class="sk-card"></div>
+      <div class="sk-card"></div>
+    </section>
+
+    <!-- 🔹 Lista real -->
+    <div class="produtos-container hidden" id="produtos-container"></div>
   </div>
 
   <!-- Barra inferior fixa -->
@@ -60,4 +65,4 @@
   <script type="module" src="./comprarproduto.js"></script>
   <script src="bottom-nav.js" defer></script>
 </body>
-      </html>
+</html>
