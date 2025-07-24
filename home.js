@@ -76,6 +76,10 @@ const DAY_MS = 24 * 60 * 60 * 1000;
       saldo: data.saldo || 0,
       compras: data.compras || {}
     });
+
+    // 🔹 esconder skeleton aqui
+    const sk = document.getElementById("produtos-skeleton");
+    if (sk) sk.style.display = "none";
   });
 })();
 
@@ -346,4 +350,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-        }
+                         }
