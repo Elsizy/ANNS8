@@ -17,17 +17,14 @@
       border: 1px solid #ccc;
       border-radius: 12px;
     }
-
     .password-container {
       position: relative;
       width: 100%;
       margin-top: 12px;
     }
-
     .password-container input {
-      padding-right: 44px; /* espaço para o ícone */
+      padding-right: 44px;
     }
-
     .toggle-password {
       position: absolute;
       top: 50%;
@@ -43,7 +40,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .toggle-password svg {
       width: 22px;
       height: 22px;
@@ -54,11 +50,8 @@
 <body>
   <div class="login-container">
     <p class="slogan">Bem-vindo à <strong>ANNS8</strong> – A tecnologia do futuro.</p>
-
     <h2>Entrar na Conta</h2>
-
     <input type="email" id="email" placeholder="Digite seu email" required />
-
     <div class="password-container">
       <input type="password" id="senha" placeholder="Digite sua senha" required />
       <button type="button" class="toggle-password" onclick="togglePassword(this, 'senha')">
@@ -70,21 +63,16 @@
         </svg>
       </button>
     </div>
-
     <button id="loginBtn" style="margin-top: 16px;">Entrar</button>
-
     <p>Não tem conta? <a href="index.html">Cadastre-se</a></p>
   </div>
 
   <script>
-    // apenas para o botão de mostrar/ocultar senha
     function togglePassword(btn, id) {
       const input = document.getElementById(id);
       const svg = btn.querySelector("svg");
       const isPassword = input.type === "password";
-
       input.type = isPassword ? "text" : "password";
-
       svg.innerHTML = isPassword
         ? '<path d="M12 5c-7 0-11 7-11 7s4 7 11 7c2.5 0 4.7-.8 6.5-2.2l2.4 2.4 1.4-1.4-18-18-1.4 1.4 2.4 2.4C4.8 7.3 2.4 10.6 1 12c0 0 4 7 11 7 2.5 0 4.8-.8 6.6-2.2l1.5 1.5 1.4-1.4-18-18-1.4 1.4 1.5 1.5C3.2 7.5 0 12 0 12s4 7 12 7 12-7 12-7-4-7-12-7z"/>'
         : '<path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 \
@@ -92,7 +80,11 @@
     }
   </script>
 
-  <!-- IMPORTANTE: está tudo na raiz, então use ./login.js -->
-  <script type="module" src="./login.js"></script>
+  <!-- Firebase v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="./firebase-config.js"></script>
+  <script src="./login.js"></script>
 </body>
 </html>
