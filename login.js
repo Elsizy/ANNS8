@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("loginBtn");
   if (btn) btn.addEventListener("click", login);
 
-  // Se já está logado, manda para a página principal
+  // Se já está logado, manda direto para home.html
   onAuthStateChanged(auth, (user) => {
-    if (user) window.location.href = "pagina-principal.html";
+    if (user) window.location.href = "home.html";
   });
 });
 
@@ -36,7 +36,7 @@ async function login() {
     const snap = await get(child(ref(db), `usuarios/${user.uid}`));
     if (snap.exists()) {
       alert("Login feito com sucesso!");
-      window.location.href = "pagina-principal.html";
+      window.location.href = "home.html";
     } else {
       alert("Usuário não encontrado no banco de dados.");
     }
