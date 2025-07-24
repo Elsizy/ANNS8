@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Página Principal - ANNS8</title>
-  <link rel="stylesheet" href="pagina-principal.css" />
+  <title>Home - ANNS8</title>
+  <link rel="stylesheet" href="home.css" />
 </head>
 <body>
   <div class="dashboard">
     <div class="top-panel">
       <div class="card saldo">
-        <p class="label">Saldo Disponível</p>
-        <p class="valor" id="saldo">Kz0.00</p>
+        <p class="label">Saldo disponível</p>
+        <p class="valor" id="saldo">Kz 0.00</p>
       </div>
       <div class="card investimento">
-        <p class="label" id="nex-nome">Nenhum produto</p>
-        <p class="valor" id="nex-valor">Kz0.00</p>
+        <p class="label">Investimento total</p>
+        <p class="valor" id="investimento-total">Kz 0.00</p>
       </div>
       <div class="card comissao">
-        <p class="label">Comissão diária</p>
-        <p class="valor" id="comissao">Kz0.00</p>
+        <p class="label">Comissão diária total</p>
+        <p class="valor" id="comissao-total">Kz 0.00</p>
       </div>
     </div>
 
@@ -28,16 +28,17 @@
       <a href="retirada.html">Sacar</a>
       <a href="suporte.html">Suporte</a>
       <a href="conta.html">Conta</a>
-      <button id="logout">Sair</button>
     </div>
+
+    <button id="logout">Sair</button>
 
     <h2>Produtos Nex</h2>
     <div class="produtos-container" id="produtos-container"></div>
   </div>
 
-  <!-- Firebase v10 -->
+  <!-- Módulos -->
   <script type="module" src="./firebase-config.js"></script>
-  <script type="module" src="./produtos.js"></script>
+  <script type="module" src="./products.js"></script>
   <script type="module" src="./home.js"></script>
 </body>
 </html>
