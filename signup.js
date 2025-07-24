@@ -8,11 +8,16 @@ import {
   set,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-/**
- * Timeout helper – se o set() demorar demais (ex.: regra do DB ou rede),
- * a gente não trava a UI; avisa e redireciona mesmo assim.
- */
+/* =========================
+   CONFIG
+========================= */
+const SAVE_TIMEOUT_MS = 15000; // ↑ de 5000 para 15000 (15s). Se quiser remover o timeout: defina como null.
+
+/* =========================
+   HELPERS
+========================= */
 function withTimeout(promise, ms, onTimeoutMessage = "Timeout") {
+  if (!ms) return promise; // se quiser "desligar" o timeout, basta passar null/0 e ele não será aplicado
   return new Promise((resolve, reject) => {
     const t = setTimeout(() => reject(new Error(onTimeoutMessage)), ms);
     promise
@@ -27,6 +32,34 @@ function withTimeout(promise, ms, onTimeoutMessage = "Timeout") {
   });
 }
 
+function disableBtn(btn, text) {
+  if (!btn) return;
+  btn.disabled = true;
+  btn.dataset.originalText = btn.textContent;
+  btn.textContent = text || "Processando…";
+}
+function enableBtn(btn) {
+  if (!btn) return;
+  btn.disabled = false;
+  btn.textContent = btn.dataset.originalText || "Criar Conta";
+}
+
+function mapFirebaseError(error) {
+  switch (error?.code) {
+    case "auth/email-already-in-use":
+      return "Este email já está em uso.";
+    case "auth/invalid-email":
+      return "Email inválido.";
+    case "auth/weak-password":
+      return "A senha é muito fraca (mínimo 6 caracteres).";
+    default:
+      return "Erro ao criar conta: " + (error?.message || "desconhecido");
+  }
+}
+
+/* =========================
+   MAIN
+========================= */
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("signupForm");
   if (!form) {
@@ -77,7 +110,8 @@ async function onSubmit(e) {
   try {
     console.log("[SIGNUP] Gravando no RTDB em usuarios/" + user.uid);
 
-    // Dá no máx. 5s para escrever no DB; se estourar, seguimos a vida.
+    // Se quiser remover o timeout por completo, troque a linha abaixo por:
+    // await set(ref(db, `usuarios/${user.uid}`), { ... })
     await withTimeout(
       set(ref(db, `usuarios/${user.uid}`), {
         uid: user.uid,
@@ -89,8 +123,8 @@ async function onSubmit(e) {
         produto: null,
         criadoEm: new Date().toISOString(),
       }),
-      5000,
-      "Timeout ao gravar no Realtime Database (5s)"
+      SAVE_TIMEOUT_MS,
+      `Timeout ao gravar no Realtime Database (${SAVE_TIMEOUT_MS / 1000}s)`
     );
 
     console.log("[SIGNUP] Dados gravados com sucesso.");
@@ -106,33 +140,6 @@ async function onSubmit(e) {
     );
     window.location.href = "login.html";
   } finally {
-    // Se por algum motivo não redirecionar (ex.: bloqueio do navegador),
-    // o botão volta ao normal.
     enableBtn(btn);
   }
-}
-
-function disableBtn(btn, text) {
-  if (!btn) return;
-  btn.disabled = true;
-  btn.dataset.originalText = btn.textContent;
-  btn.textContent = text || "Processando…";
-}
-function enableBtn(btn) {
-  if (!btn) return;
-  btn.disabled = false;
-  btn.textContent = btn.dataset.originalText || "Criar Conta";
-}
-
-function mapFirebaseError(error) {
-  switch (error?.code) {
-    case "auth/email-already-in-use":
-      return "Este email já está em uso.";
-    case "auth/invalid-email":
-      return "Email inválido.";
-    case "auth/weak-password":
-      return "A senha é muito fraca (mínimo 6 caracteres).";
-    default:
-      return "Erro ao criar conta: " + (error?.message || "desconhecido");
-  }
-  }
+            }
