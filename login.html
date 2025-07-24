@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
@@ -9,22 +9,25 @@
     .login-container input[type="email"],
     .password-container input {
       width: 100%;
-      height: 48px;
+      height: 48px; /* altura uniforme */
       padding: 0 12px;
       font-size: 16px;
-      line-height: 48px;
+      line-height: 48px; /* ajuda a centralizar verticalmente o texto */
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 12px;
     }
+
     .password-container {
       position: relative;
       width: 100%;
       margin-top: 12px;
     }
+
     .password-container input {
-      padding-right: 44px;
+      padding-right: 44px; /* espaço para o ícone */
     }
+
     .toggle-password {
       position: absolute;
       top: 50%;
@@ -40,6 +43,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .toggle-password svg {
       width: 22px;
       height: 22px;
@@ -50,6 +54,7 @@
 <body>
   <div class="login-container">
     <p class="slogan">Bem-vindo à <strong>ANNS8</strong> – A tecnologia do futuro.</p>
+
     <h2>Entrar na Conta</h2>
 
     <input type="email" id="email" placeholder="Digite seu email" required />
@@ -86,61 +91,6 @@
     }
   </script>
 
-  <script type="module">
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-  import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBj-MK1oOk6lIJZT8KrSsllwSqoMHfUkzQ",
-    authDomain: "anns8-5fc26.firebaseapp.com",
-    databaseURL: "https://anns8-5fc26-default-rtdb.firebaseio.com",
-    projectId: "anns8-5fc26",
-    storageBucket: "anns8-5fc26.appspot.com",
-    messagingSenderId: "259361189676",
-    appId: "1:259361189676:web:a9d54cee391b9f0f468689"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getDatabase(app);
-
-  const btn = document.getElementById("loginBtn");
-  if (!btn) {
-    alert("Erro: botão loginBtn não encontrado!");
-  } else {
-    btn.addEventListener("click", login);
-    alert("Botão conectado!");
-  }
-
-  async function login() {
-    alert("Clique detectado!");
-    const email = document.getElementById("email")?.value.trim();
-    const senha = document.getElementById("senha")?.value.trim();
-
-    if (!email || !senha) {
-      alert("Preencha todos os campos!");
-      return;
-    }
-
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-      alert("Auth OK: " + userCredential.user.uid);
-
-      const user = userCredential.user;
-      const snapshot = await get(child(ref(db), `usuarios/${user.uid}`));
-
-      if (snapshot.exists()) {
-        alert("Login feito com sucesso!");
-        window.location.href = "pagina-principal.html";
-      } else {
-        alert("Usuário não encontrado no banco de dados.");
-      }
-    } catch (error) {
-      alert("Erro de login: " + error.message);
-    }
-  }
-   </script>
+  <script type="module" src="login.js"></script>
 </body>
 </html>
