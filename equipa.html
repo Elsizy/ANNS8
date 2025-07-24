@@ -1,0 +1,91 @@
+<!-- equipa.html -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Equipa - ANNS8</title>
+  <link rel="stylesheet" href="equipa.css" />
+</head>
+<body>
+  <div class="dashboard">
+
+    <h1>Sua Equipa</h1>
+
+    <!-- Link de afiliado -->
+    <section class="affiliate-box">
+      <p class="title">Seu link de afiliado</p>
+      <p class="subtitle">Copie e compartilhe para criar sua equipa e receber recompensas generosas.</p>
+
+      <div class="link-row">
+        <input type="text" id="affiliate-link" readonly />
+        <button id="copy-link">Copiar</button>
+      </div>
+      <small id="copy-feedback" class="hide">Link copiado!</small>
+    </section>
+
+    <!-- Nível A -->
+    <section class="level-card">
+      <div class="level-header">
+        <span class="level-tag">Nível A</span>
+        <span class="level-desc">Desconto por indicação 30%</span>
+      </div>
+
+      <div class="two-col">
+        <div class="left">
+          <p class="small-label">Total ganho (A)</p>
+          <p class="big-value" id="earned-A">Kz 0.00</p>
+        </div>
+        <div class="right">
+          <p class="small-label">Total convidados (A)</p>
+          <p class="big-value" id="count-A">0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nível B -->
+    <section class="level-card">
+      <div class="level-header">
+        <span class="level-tag">Nível B</span>
+        <span class="level-desc">Desconto por indicação 3%</span>
+      </div>
+
+      <div class="two-col">
+        <div class="left">
+          <p class="small-label">Total ganho (B)</p>
+          <p class="big-value" id="earned-B">Kz 0.00</p>
+        </div>
+        <div class="right">
+          <p class="small-label">Total convidados (B)</p>
+          <p class="big-value" id="count-B">0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nível C -->
+    <section class="level-card">
+      <div class="level-header">
+        <span class="level-tag">Nível C</span>
+        <span class="level-desc">Desconto por indicação 1%</span>
+      </div>
+
+      <div class="two-col">
+        <div class="left">
+          <p class="small-label">Total ganho (C)</p>
+          <p class="big-value" id="earned-C">Kz 0.00</p>
+        </div>
+        <div class="right">
+          <p class="small-label">Total convidados (C)</p>
+          <p class="big-value" id="count-C">0</p>
+        </div>
+      </div>
+    </section>
+
+    <a class="btn-full" href="total-equipa.html">Total da equipa</a>
+
+  </div>
+
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./equipa.js"></script>
+</body>
+</html>
