@@ -1,26 +1,29 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background: linear-gradient(to bottom, #1c2e4a, #ffffff);
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #1c2e4a, #2e3d5c, #ffffff);
+  background-attachment: fixed;
+  background-size: cover;
   color: #fff;
   position: relative;
-  min-height: 100vh;
-  overflow-x: hidden;
 }
 
-/* ====== Marca d'água tecnológica ====== */
+/* Ícones de tecnologia como marca d'água */
 body::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.06) 0, transparent 60%),
-    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.04) 0, transparent 60%),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02), transparent 80%);
-  opacity: 0.5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://i.ibb.co/tKDn8Yh/tech-bg.png'),
+                    url('https://i.ibb.co/tKDn8Yh/tech-bg.png');
+  background-repeat: no-repeat;
+  background-position: 20% 30%, 80% 70%;
+  background-size: 180px, 200px;
+  opacity: 0.05;
   pointer-events: none;
-  animation: bgFloat 16s ease-in-out infinite alternate;
-  z-index: 0;
 }
 
 .dashboard {
@@ -72,6 +75,7 @@ body::before {
 
 h2 {
   margin-top: 20px;
+  color: #1c2e4a;
 }
 
 .produtos-container {
@@ -112,13 +116,4 @@ button.comprar {
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
-}
-
-@keyframes bgFloat {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-10px);
-  }
   }
