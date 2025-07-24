@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Equipa - ANNS8</title>
   <link rel="stylesheet" href="equipa.css" />
+  <link rel="stylesheet" href="bottom-nav.css" /> <!-- Importando barra -->
 </head>
 <body>
   <div class="dashboard">
@@ -82,10 +83,30 @@
     </section>
 
     <a class="btn-full" href="total-equipa.html">Total da equipa</a>
-
   </div>
+
+  <!-- Barra de navegação fixa -->
+  <nav class="bottom-nav">
+    <a href="home.html" class="nav-item" data-key="home">
+      <span class="icon">🏠</span>
+      <span class="label">Início</span>
+    </a>
+    <a href="comprarproduto.html" class="nav-item" data-key="produtos">
+      <span class="icon">🛒</span>
+      <span class="label">Produtos</span>
+    </a>
+    <a href="equipa.html" class="nav-item" data-key="equipa">
+      <span class="icon">👥</span>
+      <span class="label">Equipa</span>
+    </a>
+    <a href="pessoal.html" class="nav-item" data-key="pessoal">
+      <span class="icon">👤</span>
+      <span class="label">Pessoal</span>
+    </a>
+  </nav>
 
   <script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./equipa.js"></script>
+  <script type="module" src="./bottom-nav.js"></script>
 </body>
-</html>
+          </html>
