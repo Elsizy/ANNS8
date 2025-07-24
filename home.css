@@ -18,11 +18,14 @@ body {
   margin: 0 auto;
 }
 
-/* === GRID 2 LINHAS COM DIVISÃO CHIQUE === */
+/* === GRID 2 LINHAS (saldo ocupa 2) — usando ÁREAS para garantir o layout === */
 .stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(2, minmax(110px, auto));
+  grid-template-areas:
+    "saldo invest"
+    "saldo comissao";
   gap: 12px;
   position: relative;
   margin-bottom: 16px;
@@ -36,7 +39,7 @@ body {
   height: 100%;
   width: 0;
   border-left: 1px dashed rgba(255, 255, 255, 0.08);
-  transform: skewY(-3deg); /* só ajustei levemente o ângulo */
+  transform: skewY(-3deg);
   pointer-events: none;
 }
 
@@ -49,23 +52,18 @@ body {
   overflow: hidden;
 }
 
-/* Saldo ocupa duas linhas na esquerda */
+/* Mapeamento das áreas */
 .card-saldo {
-  grid-column: 1 / 2;
-  grid-row: 1 / 3;
+  grid-area: saldo;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-
 .card-invest {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
+  grid-area: invest;
 }
-
 .card-comissao {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
+  grid-area: comissao;
 }
 
 .card .label {
@@ -181,13 +179,10 @@ h2 {
   .stats {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
-  }
-  .card-saldo {
-    grid-column: 1 / 2;
-    grid-row: auto;
-  }
-  .card-invest, .card-comissao {
-    grid-column: 1 / 2;
+    grid-template-areas:
+      "saldo"
+      "invest"
+      "comissao";
   }
   .stats::after { display: none; }
   }
