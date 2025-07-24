@@ -1,19 +1,16 @@
 // signup.js
 import { auth, db } from "./firebase-config.js";
 import {
-  createUserWithEmailAndPassword,
+  createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   ref,
-  set,
+  set
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("signupForm");
-  if (!form) {
-    console.error("signupForm não encontrado no DOM.");
-    return;
-  }
+  if (!form) return;
 
   form.addEventListener("submit", onSubmit);
 });
@@ -40,15 +37,26 @@ async function onSubmit(e) {
     return;
   }
 
+  disableBtn(btn, "Criando conta...");
+
+  let user = null;
+
+  // 1) Cria usuário no Auth
   try {
-    btn.disabled = true;
-    btn.textContent = "Criando conta...";
-
-    console.log("Criando usuário…");
+    console.log("[SIGNUP] Tentando criar usuário no Auth…");
     const cred = await createUserWithEmailAndPassword(auth, email, password);
-    const user = cred.user;
+    user = cred.user;
+    console.log("[SIGNUP] Usuário criado no Auth. UID:", user.uid);
+  } catch (err) {
+    console.error("[SIGNUP][AUTH ERROR]", err.code, err.message);
+    alert(mapFirebaseError(err));
+    enableBtn(btn);
+    return;
+  }
 
-    console.log("Gravando usuário no Realtime Database…");
+  // 2) Salva o perfil no Realtime Database
+  try {
+    console.log("[SIGNUP] Gravando no Realtime DB em usuarios/" + user.uid);
     await set(ref(db, `usuarios/${user.uid}`), {
       uid: user.uid,
       email,
@@ -57,33 +65,44 @@ async function onSubmit(e) {
       comissao: 0,
       investimento: 0,
       produto: null,
-      criadoEm: new Date().toISOString(),
+      criadoEm: new Date().toISOString()
     });
-
-    alert("Conta criada com sucesso!");
-    window.location.href = "login.html";
+    console.log("[SIGNUP] Gravado com sucesso no Realtime DB");
   } catch (err) {
-    console.error("Erro ao criar conta:", err);
-    alert(mapFirebaseError(err));
-  } finally {
-    // Se não redirecionou ainda, reabilita o botão
-    btn.disabled = false;
-    btn.textContent = "Criar Conta";
+    console.error("[SIGNUP][DB ERROR]", err.code, err.message);
+    alert(
+      "Conta criada no Auth, mas falhou ao salvar no banco de dados.\n" +
+      "Detalhes: " + (err?.message || err)
+    );
+    enableBtn(btn);
+    return;
   }
+
+  alert("Conta criada com sucesso!");
+  window.location.href = "login.html";
+}
+
+function disableBtn(btn, text) {
+  if (!btn) return;
+  btn.disabled = true;
+  btn.dataset.originalText = btn.textContent;
+  btn.textContent = text || "Processando...";
+}
+function enableBtn(btn) {
+  if (!btn) return;
+  btn.disabled = false;
+  btn.textContent = btn.dataset.originalText || "Criar Conta";
 }
 
 function mapFirebaseError(error) {
-  if (!error?.code) return "Erro desconhecido ao criar conta.";
-  switch (error.code) {
+  switch (error?.code) {
     case "auth/email-already-in-use":
       return "Este email já está em uso.";
     case "auth/invalid-email":
       return "Email inválido.";
     case "auth/weak-password":
       return "A senha é muito fraca (mínimo 6 caracteres).";
-    case "auth/network-request-failed":
-      return "Falha de rede. Verifique sua conexão e tente novamente.";
     default:
-      return "Erro ao criar conta: " + (error.message || error.code);
+      return "Erro ao criar conta: " + (error?.message || "desconhecido");
   }
-}
+      }
