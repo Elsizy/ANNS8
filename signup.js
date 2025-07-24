@@ -9,9 +9,12 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("[SIGNUP] DOM pronto. db?", db);
   const form = document.getElementById("signupForm");
-  if (!form) return;
-
+  if (!form) {
+    console.error("[SIGNUP] Form #signupForm não encontrado.");
+    return;
+  }
   form.addEventListener("submit", onSubmit);
 });
 
@@ -41,12 +44,11 @@ async function onSubmit(e) {
 
   let user = null;
 
-  // 1) Cria usuário no Auth
   try {
-    console.log("[SIGNUP] Tentando criar usuário no Auth…");
+    console.log("[SIGNUP] Criando usuário no Auth…", email);
     const cred = await createUserWithEmailAndPassword(auth, email, password);
     user = cred.user;
-    console.log("[SIGNUP] Usuário criado no Auth. UID:", user.uid);
+    console.log("[SIGNUP] Auth OK. UID:", user.uid);
   } catch (err) {
     console.error("[SIGNUP][AUTH ERROR]", err.code, err.message);
     alert(mapFirebaseError(err));
@@ -54,9 +56,8 @@ async function onSubmit(e) {
     return;
   }
 
-  // 2) Salva o perfil no Realtime Database
   try {
-    console.log("[SIGNUP] Gravando no Realtime DB em usuarios/" + user.uid);
+    console.log("[SIGNUP] Salvando no RTDB em usuarios/" + user.uid);
     await set(ref(db, `usuarios/${user.uid}`), {
       uid: user.uid,
       email,
@@ -67,19 +68,19 @@ async function onSubmit(e) {
       produto: null,
       criadoEm: new Date().toISOString()
     });
-    console.log("[SIGNUP] Gravado com sucesso no Realtime DB");
+    console.log("[SIGNUP] Salvo com sucesso no RTDB");
+    alert("Conta criada com sucesso!");
+    window.location.href = "login.html";
   } catch (err) {
     console.error("[SIGNUP][DB ERROR]", err.code, err.message);
     alert(
       "Conta criada no Auth, mas falhou ao salvar no banco de dados.\n" +
       "Detalhes: " + (err?.message || err)
     );
+  } finally {
+    // Se por algum motivo não redirecionar, reabilita o botão
     enableBtn(btn);
-    return;
   }
-
-  alert("Conta criada com sucesso!");
-  window.location.href = "login.html";
 }
 
 function disableBtn(btn, text) {
@@ -105,4 +106,4 @@ function mapFirebaseError(error) {
     default:
       return "Erro ao criar conta: " + (error?.message || "desconhecido");
   }
-    }
+}
