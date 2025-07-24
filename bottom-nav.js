@@ -1,18 +1,23 @@
 // bottom-nav.js
+(function () {
+  function normalize(file) {
+    if (!file) return "home.html";
+    // pega só o último segmento, remove query/hash e coloca em minúsculas
+    return file.split("/").pop().split("?")[0].split("#")[0].toLowerCase();
+  }
 
-// Função para marcar a aba atual baseada na URL
-function highlightActiveTab() {
-  const currentPage = window.location.pathname.split("/").pop(); 
-  const items = document.querySelectorAll(".bottom-nav .nav-item");
+  function highlight() {
+    const current = normalize(location.pathname);
+    const links = document.querySelectorAll(".bottom-nav .nav-item");
 
-  items.forEach(item => {
-    item.classList.remove("active");
-    const href = item.getAttribute("href");
-    if (href === currentPage) {
-      item.classList.add("active");
-    }
-  });
-}
+    links.forEach((link) => {
+      const hrefFile = normalize(link.getAttribute("href"));
+      link.classList.toggle("active", hrefFile === current);
+    });
+  }
 
-// Executa ao carregar a página
-document.addEventListener("DOMContentLoaded", highlightActiveTab);
+  // quando a página carrega normalmente
+  window.addEventListener("DOMContentLoaded", highlight);
+  // quando volta do histórico (bfcache), garante reavaliar
+  window.addEventListener("pageshow", highlight);
+})();
