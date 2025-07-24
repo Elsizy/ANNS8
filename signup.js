@@ -105,4 +105,4 @@ function mapFirebaseError(error) {
     default:
       return "Erro ao criar conta: " + (error?.message || "desconhecido");
   }
-      }
+    }
