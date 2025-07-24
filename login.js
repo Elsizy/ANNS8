@@ -1,11 +1,11 @@
-// login.js (Firebase v8)
+// login.js
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("loginBtn");
-  if (!btn) {
-    console.error("loginBtn não encontrado no DOM.");
-    return;
+  if (btn) {
+    btn.addEventListener("click", login);
+  } else {
+    console.error("loginBtn não encontrado!");
   }
-  btn.addEventListener("click", login);
 });
 
 function login() {
@@ -17,20 +17,21 @@ function login() {
     return;
   }
 
-  auth.signInWithEmailAndPassword(email, senha)
-    .then((userCredential) => {
+  firebase.auth().signInWithEmailAndPassword(email, senha)
+    .then(userCredential => {
       const user = userCredential.user;
-      db.ref("usuarios/" + user.uid).once("value")
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            window.location.href = "pagina-principal.html";
-          } else {
-            alert("Usuário não encontrado no banco de dados.");
-          }
-        });
+      return firebase.database().ref('usuarios/' + user.uid).once('value');
     })
-    .catch((error) => {
-      console.error("LOGIN ERROR =>", error.code, error.message);
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        alert("Login feito com sucesso!");
+        window.location.href = "pagina-principal.html";
+      } else {
+        alert("Usuário não encontrado no banco de dados.");
+      }
+    })
+    .catch(error => {
       alert("Erro ao fazer login: " + error.message);
+      console.error(error);
     });
 }
