@@ -1,87 +1,73 @@
-// login.js
-import { auth, db } from "./firebase-config.js";
-import {
-  setPersistence,
-  browserLocalPersistence,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  ref,
-  get,
-  child
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+// home.js
+import { auth, db, ref, get, update } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { PRODUTOS } from "./products.js";
 
-const DESTINO = "home.html"; // troque para "home.html" se for o seu caso
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const btn = document.getElementById("loginBtn");
-  const emailEl = document.getElementById("email");
-  const senhaEl = document.getElementById("senha");
-
-  if (!btn) {
-    console.error("loginBtn não encontrado no DOM.");
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "login.html";
     return;
   }
 
-  // Se já estiver autenticado, manda direto pra home
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      window.location.href = DESTINO;
-    }
-  });
+  const uid = user.uid;
+  const userRef = ref(db, `usuarios/${uid}`);
+  const snapshot = await get(userRef);
+  if (!snapshot.exists()) return;
 
-  // Persistência LOCAL
-  try {
-    await setPersistence(auth, browserLocalPersistence);
-  } catch (e) {
-    console.warn("Não foi possível configurar persistência LOCAL:", e);
-  }
+  const data = snapshot.val();
 
-  btn.addEventListener("click", login);
+  document.getElementById("saldo").textContent = "Kz" + (data.saldo || 0).toFixed(2);
+  document.getElementById("nex-nome").textContent = data.produto || "Nenhum produto";
+  document.getElementById("nex-valor").textContent = "Kz" + (data.investimento || 0).toFixed(2);
+  document.getElementById("comissao").textContent = "Kz" + (data.comissao || 0).toFixed(2);
 
-  // Enter para submeter
-  [emailEl, senhaEl].forEach((el) =>
-    el?.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        login();
-      }
-    })
-  );
-
-  // fallback para debug no console
-  window.login = login;
+  renderProdutos(data.saldo || 0, uid);
 });
 
-async function login() {
-  const btn = document.getElementById("loginBtn");
-  const email = document.getElementById("email")?.value.trim();
-  const senha = document.getElementById("senha")?.value.trim();
+function renderProdutos(saldo, uid) {
+  const container = document.getElementById("produtos-container");
+  container.innerHTML = "";
 
-  if (!email || !senha) {
-    alert("Preencha todos os campos!");
-    return;
-  }
+  PRODUTOS.forEach((p, i) => {
+    const div = document.createElement("div");
+    div.classList.add("produto");
+    div.innerHTML = `
+      <h3>${p.nome}</h3>
+      <p>Comissão diária: Kz ${p.comissao.toLocaleString()} (15%)</p>
+      <p style="color: orange;">Kz ${p.preco.toLocaleString()}</p>
+      <button class="comprar-btn" data-index="${i}">Comprar</button>
+    `;
+    container.appendChild(div);
+  });
 
-  try {
-    btn.disabled = true;
-    btn.textContent = "Entrando...";
+  document.querySelectorAll(".comprar-btn").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      const index = parseInt(e.target.getAttribute("data-index"));
+      const produto = PRODUTOS[index];
 
-    const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-    const user = userCredential.user;
+      if (saldo < produto.preco) {
+        alert("Saldo insuficiente para esta compra.");
+        window.location.href = "deposito.html";
+        return;
+      }
 
-    const snapshot = await get(child(ref(db), `usuarios/${user.uid}`));
-    if (snapshot.exists()) {
-      alert("Login feito com sucesso!");
-      window.location.href = DESTINO;
-    } else {
-      alert("Usuário não encontrado no banco de dados.");
-    }
-  } catch (error) {
-    console.error("LOGIN ERROR =>", error.code, error.message);
-    alert("Erro ao fazer login: " + error.message);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = "Entrar";
-  }
-}
+      const ok = confirm(`Vai usar Kz ${produto.preco.toLocaleString()} para comprar ${produto.nome}. Confirmar?`);
+      if (!ok) return;
+
+      try {
+        await update(ref(db, `usuarios/${uid}`), {
+          saldo: saldo - produto.preco,
+          produto: produto.nome,
+          investimento: produto.preco,
+          comissao: produto.comissao,
+          tempoCompra: Date.now()
+        });
+        alert("Produto comprado com sucesso!");
+        window.location.reload();
+      } catch (err) {
+        console.error("Erro ao comprar produto:", err);
+        alert("Erro ao comprar produto.");
+      }
+    });
+  });
+                 }
