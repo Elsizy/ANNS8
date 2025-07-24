@@ -10,22 +10,31 @@
 <body>
   <div class="dashboard">
     <div class="stats">
-      <!-- Coluna esquerda (Saldo maior, 2 linhas) -->
+      <!-- Saldo -->
       <div class="card card-saldo">
         <p class="label">Saldo disponível</p>
-        <p class="valor" id="saldo">Kz 0.00</p>
+        <p class="valor">
+          <span id="saldo">Kz 0.00</span>
+          <button class="eye-btn" data-target="saldo" aria-label="Ocultar/mostrar">👁️</button>
+        </p>
       </div>
 
-      <!-- Direita topo -->
+      <!-- Investimento total -->
       <div class="card card-invest">
         <p class="label">Investimento total</p>
-        <p class="valor" id="investimento-total">Kz 0.00</p>
+        <p class="valor">
+          <span id="investimento-total">Kz 0.00</span>
+          <button class="eye-btn" data-target="investimento-total" aria-label="Ocultar/mostrar">👁️</button>
+        </p>
       </div>
 
-      <!-- Direita baixo -->
+      <!-- Comissão diária total -->
       <div class="card card-comissao">
         <p class="label">Comissão diária total</p>
-        <p class="valor" id="comissao-total">Kz 0.00</p>
+        <p class="valor">
+          <span id="comissao-total">Kz 0.00</span>
+          <button class="eye-btn" data-target="comissao-total" aria-label="Ocultar/mostrar">👁️</button>
+        </p>
       </div>
     </div>
 
@@ -48,14 +57,14 @@
 
     <h2>Produtos Nex</h2>
 
-    <!-- 🔹 Loader Skeleton -->
+    <!-- Loader Skeleton -->
     <div class="produtos-skeleton" id="produtos-skeleton">
       <div class="skeleton-item"></div>
       <div class="skeleton-item"></div>
       <div class="skeleton-item"></div>
     </div>
 
-    <!-- 🔹 Lista real -->
+    <!-- Lista real -->
     <div class="produtos-container" id="produtos-container"></div>
   </div>
 
@@ -64,4 +73,4 @@
   <script type="module" src="./products.js"></script>
   <script type="module" src="./home.js"></script>
 </body>
-  </html>
+                                                                                               </html>
