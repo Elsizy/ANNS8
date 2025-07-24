@@ -1,13 +1,7 @@
-// firebase-config.js (SDK modular v10)
+// firebase-config.js (modular)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getAuth,
-  setPersistence,
-  browserLocalPersistence
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  getDatabase
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBj-MK1oOk6lIJZT8KrSsllwSqoMHfUkzQ",
@@ -21,7 +15,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-await setPersistence(auth, browserLocalPersistence); // mantém o usuário logado
 const db = getDatabase(app);
 
-export { app, auth, db };
+export { auth, db };
