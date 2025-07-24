@@ -87,58 +87,60 @@
   </script>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    // ---- Firebase inline ----
-    const firebaseConfig = {
-      apiKey: "AIzaSyBj-MK1oOk6lIJZT8KrSsllwSqoMHfUkzQ",
-      authDomain: "anns8-5fc26.firebaseapp.com",
-      databaseURL: "https://anns8-5fc26-default-rtdb.firebaseio.com",
-      projectId: "anns8-5fc26",
-      storageBucket: "anns8-5fc26.appspot.com",
-      messagingSenderId: "259361189676",
-      appId: "1:259361189676:web:a9d54cee391b9f0f468689"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyBj-MK1oOk6lIJZT8KrSsllwSqoMHfUkzQ",
+    authDomain: "anns8-5fc26.firebaseapp.com",
+    databaseURL: "https://anns8-5fc26-default-rtdb.firebaseio.com",
+    projectId: "anns8-5fc26",
+    storageBucket: "anns8-5fc26.appspot.com",
+    messagingSenderId: "259361189676",
+    appId: "1:259361189676:web:a9d54cee391b9f0f468689"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getDatabase(app);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
 
-    // ---- Lógica de login ----
-    document.getElementById("loginBtn").addEventListener("click", login);
+  const btn = document.getElementById("loginBtn");
+  if (!btn) {
+    alert("Erro: botão loginBtn não encontrado!");
+  } else {
+    btn.addEventListener("click", login);
+    alert("Botão conectado!");
+  }
 
-    async function login() {
-      const email = document.getElementById("email")?.value.trim();
-      const senha = document.getElementById("senha")?.value.trim();
+  async function login() {
+    alert("Clique detectado!");
+    const email = document.getElementById("email")?.value.trim();
+    const senha = document.getElementById("senha")?.value.trim();
 
-      console.log("Clique no login…", email);
-
-      if (!email || !senha) {
-        alert("Preencha todos os campos!");
-        return;
-      }
-
-      try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-        console.log("Auth OK:", userCredential.user.uid);
-
-        const user = userCredential.user;
-        const snapshot = await get(child(ref(db), `usuarios/${user.uid}`));
-        console.log("DB snapshot exists?", snapshot.exists());
-
-        if (snapshot.exists()) {
-          alert("Login feito com sucesso!");
-          window.location.href = "pagina-principal.html";
-        } else {
-          alert("Usuário não encontrado no banco de dados.");
-        }
-      } catch (error) {
-        console.error("LOGIN ERROR =>", error.code, error.message);
-        alert("Erro ao fazer login: " + error.message);
-      }
+    if (!email || !senha) {
+      alert("Preencha todos os campos!");
+      return;
     }
-  </script>
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+      alert("Auth OK: " + userCredential.user.uid);
+
+      const user = userCredential.user;
+      const snapshot = await get(child(ref(db), `usuarios/${user.uid}`));
+
+      if (snapshot.exists()) {
+        alert("Login feito com sucesso!");
+        window.location.href = "pagina-principal.html";
+      } else {
+        alert("Usuário não encontrado no banco de dados.");
+      }
+    } catch (error) {
+      alert("Erro de login: " + error.message);
+    }
+  }
+   </script>
 </body>
 </html>
