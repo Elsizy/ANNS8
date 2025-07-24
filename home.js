@@ -18,37 +18,66 @@ import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO, REF_PERC } from "./products.js";
 /** 24h em ms */
 const DAY_MS = 24 * 60 * 60 * 1000;
 
-await setPersistence(auth, browserLocalPersistence);
-
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "login.html";
-    return;
+/* ------------------------------------------------------------------
+   Inicialização de persistência (sem await solto no topo do módulo)
+-------------------------------------------------------------------*/
+(async () => {
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+  } catch (e) {
+    console.warn("Não foi possível configurar persistência LOCAL:", e);
   }
 
-  const uid = user.uid;
-  const userRef = ref(db, `usuarios/${uid}`);
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+      return;
+    }
 
-  // Acredita comissões diárias pendentes antes de renderizar
-  await creditDailyCommissionIfNeeded(uid);
+    const uid = user.uid;
+    const userRef = ref(db, `usuarios/${uid}`);
 
-  const snap = await get(userRef);
-  if (!snap.exists()) return;
-  const data = snap.val();
+    // Acredita comissões diárias pendentes antes de renderizar
+    await creditDailyCommissionIfNeeded(uid);
 
-  const totalInvestido = calcTotalInvestido(data);
-  const totalComissaoDiaria = calcTotalComissaoDiaria(data);
+    const snap = await get(userRef);
+    if (!snap.exists()) return;
+    const data = snap.val();
 
-  document.getElementById("saldo").textContent = formatKz(data.saldo || 0);
-  document.getElementById("investimento-total").textContent = formatKz(totalInvestido);
-  document.getElementById("comissao-total").textContent = formatKz(totalComissaoDiaria);
+    // ---------------------------
+    // BACKFILL de totais (NOVO)
+    // ---------------------------
+    const needsBackfill =
+      typeof data.totalInvestido === "undefined" ||
+      typeof data.totalComissaoDiaria === "undefined";
 
-  renderProdutos({
-    uid,
-    saldo: data.saldo || 0,
-    compras: data.compras || {}
+    let totalInvestido = data.totalInvestido;
+    let totalComissaoDiaria = data.totalComissaoDiaria;
+
+    if (needsBackfill) {
+      totalInvestido = calcTotalInvestido(data);
+      totalComissaoDiaria = calcTotalComissaoDiaria(data);
+      try {
+        await update(userRef, {
+          totalInvestido,
+          totalComissaoDiaria,
+        });
+      } catch (e) {
+        console.warn("Falha ao fazer backfill dos totais:", e);
+      }
+    }
+
+    document.getElementById("saldo").textContent = formatKz(data.saldo || 0);
+    document.getElementById("investimento-total").textContent = formatKz(totalInvestido || 0);
+    document.getElementById("comissao-total").textContent = formatKz(totalComissaoDiaria || 0);
+
+    renderProdutos({
+      uid,
+      saldo: data.saldo || 0,
+      compras: data.compras || {}
+    });
   });
-});
+})();
 
 /**
  * Renderiza cards de produtos,
@@ -194,7 +223,6 @@ async function creditDailyCommissionIfNeeded(uid) {
   let anyCredit = false;
 
   const updates = {};
-
   const now = Date.now();
 
   Object.entries(compras).forEach(([prodId, prodData]) => {
@@ -226,7 +254,7 @@ async function creditDailyCommissionIfNeeded(uid) {
     updates[`usuarios/${uid}/lastDailyCheckAt`] = now;
     await update(ref(db), updates);
   } else {
-    // só atualiza o lastDailyCheckAt para sinalizar que checamos agora (opcional)
+    // só registra o momento da checagem (opcional)
     await update(ref(db), { [`usuarios/${uid}/lastDailyCheckAt`]: now });
   }
 }
@@ -314,5 +342,8 @@ function calcTotalComissaoDiaria(userData) {
 }
 
 function formatKz(v) {
-  return `Kz ${Number(v || 0).toLocaleString("pt-PT", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-              }
+  return `Kz ${Number(v || 0).toLocaleString("pt-PT", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })}`;
+        }
