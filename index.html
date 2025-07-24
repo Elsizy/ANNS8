@@ -85,7 +85,6 @@
 
             input.type = isPassword ? "text" : "password";
 
-            // Alternar ícone olho aberto/fechado
             svg.innerHTML = isPassword
                 ? '<path d="M12 5c-7 0-11 7-11 7s4 7 11 7c2.5 0 4.7-.8 6.5-2.2l2.4 2.4 1.4-1.4-18-18-1.4 1.4 2.4 2.4C4.8 7.3 2.4 10.6 1 12c0 0 4 7 11 7 2.5 0 4.8-.8 6.6-2.2l1.5 1.5 1.4-1.4-18-18-1.4 1.4 1.5 1.5C3.2 7.5 0 12 0 12s4 7 12 7 12-7 12-7-4-7-12-7z"/>'
                 : '<path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 \
@@ -93,6 +92,11 @@
         }
     </script>
 
-    <script type="module" src="script.js"></script>
+    <!-- Firebase v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="./firebase-config.js"></script>
+    <script src="./script.js"></script>
 </body>
-                                                 </html>
+</html>
