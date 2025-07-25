@@ -5,6 +5,7 @@
   --white: #fff;
   --text-dark: #222;
   --muted: #777;
+  --gradient-card: linear-gradient(135deg, #5f67ff, #8759e3);
 }
 
 body {
@@ -22,7 +23,7 @@ body {
 }
 
 .dashboard {
-  padding: 20px 16px 80px; /* espaço para a bottom-nav */
+  padding: 20px 16px calc(80px + 16px); /* espaço para a bottom-nav */
   max-width: 950px;
   margin: 0 auto;
 }
@@ -36,12 +37,16 @@ body {
 }
 
 .avatar {
-  background: var(--purple);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
   color: #fff;
-  border-radius: 12px;
-  padding: 10px 12px;
-  font-weight: bold;
-  font-size: 14px;
 }
 
 .user-info .user-line {
@@ -53,34 +58,49 @@ body {
   opacity: 0.85;
 }
 
-.logout {
+.logout-btn {
   margin-left: auto;
   color: #ffdf5e;
   text-decoration: none;
   font-size: 13px;
+  border: 1px solid rgba(255, 223, 94, 0.4);
+  border-radius: 8px;
+  padding: 6px 10px;
+  transition: background .15s, color .15s;
+}
+.logout-btn:hover {
+  background: rgba(255, 223, 94, 0.08);
 }
 
-/* Saldos */
-.balances {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-.balance-box {
+/* Card único de saldos */
+.summary-card {
   background: var(--purple);
   border-radius: 14px;
   padding: 14px 16px;
+  margin-bottom: 18px;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
 }
-.balance-box .label {
+
+.summary-item .label {
   margin: 0 0 4px;
   font-size: 12px;
   opacity: 0.85;
 }
-.balance-box .value {
+.summary-item .value {
   margin: 0;
   font-size: 18px;
   font-weight: bold;
+}
+
+.summary-card .divider {
+  width: 1px;
+  height: 42px;
+  background: rgba(255,255,255,0.25);
+  justify-self: center;
 }
 
 /* Lista de ações */
@@ -98,7 +118,7 @@ body {
   gap: 10px;
   color: var(--text-dark);
   text-decoration: none;
-  padding: 12px 16px;
+  padding: 14px 16px;
   border-bottom: 1px solid #eee;
   transition: background .15s;
 }
@@ -114,9 +134,10 @@ body {
 }
 .action-item .text {
   flex: 1;
+  font-size: 15px;
 }
 .action-item .chevron {
   color: var(--muted);
 }
 
-/* bottom-nav vem do bottom-nav.css */
+/* bottom-nav: vem do bottom-nav.css */
