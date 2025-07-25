@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contas Bancárias • ANNS8</title>
+
+  <link rel="stylesheet" href="conta.css" />
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="header">
+      <a href="pessoal.html" class="back-btn">← Voltar</a>
+      <h1>Contas bancárias</h1>
+    </header>
+
+    <!-- Formulário -->
+    <section class="card form-card">
+      <h2>Adicionar conta</h2>
+
+      <div class="form-group">
+        <label for="bank-name">Banco</label>
+        <button id="open-bank-picker" class="picker-btn">
+          <span id="bank-name">Selecionar banco</span>
+          <span class="chev">▾</span>
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label for="holder">Nome do titular</label>
+        <input type="text" id="holder" placeholder="Ex.: João António" autocomplete="name" />
+      </div>
+
+      <div class="form-group">
+        <label for="iban">IBAN (21 dígitos)</label>
+        <input
+          type="text"
+          id="iban"
+          placeholder="Somente números"
+          maxlength="21"
+          inputmode="numeric"
+          autocomplete="off"
+        />
+        <small class="hint">Apenas números serão aceites. Máximo 21 dígitos.</small>
+      </div>
+
+      <button id="save-account" class="btn-primary">Salvar conta</button>
+    </section>
+
+    <!-- Lista -->
+    <section class="card list-card">
+      <h2>Suas contas</h2>
+      <div id="accounts-list" class="accounts-list empty">
+        <p class="empty-text">Nenhuma conta cadastrada.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal de escolha de banco -->
+  <div id="bank-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Escolha o banco</h3>
+      <ul class="bank-list" id="bank-list">
+        <!-- preenchido pelo JS -->
+      </ul>
+      <button id="close-bank-modal" class="btn-secondary">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Firebase + JS -->
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./conta.js"></script>
+</body>
+          </html>
