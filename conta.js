@@ -45,19 +45,21 @@ function maskIban(iban) {
 }
 
 function clearForm() {
-  formEl.dataset.editing = ""; // vazio => criando novo
-  holderEl.value = "";
-  ibanEl.value = "";
-  bankSelectedEl.textContent = "Escolher banco";
-  bankSelectedEl.dataset.bank = "";
+  if (formEl) formEl.dataset.editing = ""; // vazio => criando novo
+  if (holderEl) holderEl.value = "";
+  if (ibanEl) ibanEl.value = "";
+  if (bankSelectedEl) {
+    bankSelectedEl.textContent = "Escolher banco";
+    bankSelectedEl.dataset.bank = "";
+  }
 }
 
 /**
- * *** ÚNICA MUDANÇA IMPORTANTE ***
- * Garante que ao colar (com pontos, espaços etc.) o campo
- * fique somente com números e com no máximo 21 dígitos.
+ * *** Mudança pedida ***
+ * Mantém apenas números, com no máximo 21 dígitos (não “come” números ao colar).
  */
 function sanitizeIbanInput() {
+  if (!ibanEl) return;
   let v = (ibanEl.value || "").replace(/\D+/g, "");
   if (v.length > IBAN_MAX) v = v.slice(0, IBAN_MAX);
   ibanEl.value = v;
@@ -75,27 +77,42 @@ backBtn?.addEventListener("click", (e) => {
 
 // abre modal de seleção de banco
 bankSelectBtn?.addEventListener("click", () => {
-  bankSelectModal?.classList.add("show");
+  if (!bankSelectModal) return;
+  bankSelectModal.classList.add("show");
 });
 
-// escolhe banco
+// escolhe banco (listeners diretos)
 bankOptions.forEach(opt => {
   opt.addEventListener("click", () => {
     const bank = opt.dataset.bank;
-    bankSelectedEl.textContent = bank;
-    bankSelectedEl.dataset.bank = bank;
+    if (bankSelectedEl) {
+      bankSelectedEl.textContent = bank;
+      bankSelectedEl.dataset.bank = bank;
+    }
     bankSelectModal?.classList.remove("show");
   });
 });
 
-// fecha modal ao clicar no overlay (se houver)
+// (fallback) delegação: se por algum motivo as .bank-option forem renderizadas depois
+document.addEventListener("click", (e) => {
+  const el = e.target.closest?.(".bank-option");
+  if (!el) return;
+  const bank = el.dataset.bank;
+  if (bankSelectedEl) {
+    bankSelectedEl.textContent = bank;
+    bankSelectedEl.dataset.bank = bank;
+  }
+  bankSelectModal?.classList.remove("show");
+});
+
+// fecha modal ao clicar no overlay
 bankSelectModal?.addEventListener("click", (e) => {
   if (e.target === bankSelectModal) {
     bankSelectModal.classList.remove("show");
   }
 });
 
-// *** aplica sanitização no input e no paste ***
+// sanitização IBAN
 ibanEl?.addEventListener("input", sanitizeIbanInput);
 ibanEl?.addEventListener("paste", () => setTimeout(sanitizeIbanInput, 0));
 
@@ -111,9 +128,9 @@ saveBtn?.addEventListener("click", async (e) => {
   e.preventDefault();
   if (!currentUid) return;
 
-  const bank = bankSelectedEl.dataset.bank || "";
-  const holder = holderEl.value.trim();
-  const iban = ibanEl.value.trim();
+  const bank = bankSelectedEl?.dataset.bank || "";
+  const holder = holderEl?.value.trim() || "";
+  const iban = ibanEl?.value.trim() || "";
 
   if (!bank) {
     alert("Selecione um banco.");
@@ -128,7 +145,7 @@ saveBtn?.addEventListener("click", async (e) => {
     return;
   }
 
-  const editingId = formEl.dataset.editing;
+  const editingId = formEl?.dataset.editing;
   const baseRef = ref(db, `usuarios/${currentUid}/bankAccounts`);
 
   try {
@@ -163,6 +180,7 @@ async function loadAccounts(uid) {
   const snap = await get(ref(db, `usuarios/${uid}/bankAccounts`));
   const data = snap.exists() ? snap.val() : {};
 
+  if (!listEl) return;
   listEl.innerHTML = "";
 
   const keys = Object.keys(data);
@@ -195,11 +213,13 @@ async function loadAccounts(uid) {
       const id = btn.dataset.id;
       const acc = data[id];
       if (!acc) return;
-      formEl.dataset.editing = id;
-      bankSelectedEl.textContent = acc.bank;
-      bankSelectedEl.dataset.bank = acc.bank;
-      holderEl.value = acc.holder || "";
-      ibanEl.value = acc.iban || "";
+      if (formEl) formEl.dataset.editing = id;
+      if (bankSelectedEl) {
+        bankSelectedEl.textContent = acc.bank;
+        bankSelectedEl.dataset.bank = acc.bank;
+      }
+      if (holderEl) holderEl.value = acc.holder || "";
+      if (ibanEl) ibanEl.value = acc.iban || "";
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   });
