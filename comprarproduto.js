@@ -1,31 +1,10 @@
 // comprarproduto.js
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { ref, get, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { PRODUTOS } from "./products.js";
 
 const DAY_MS = 24 * 60 * 60 * 1000; // 24h
-
-/* ===== CACHE ===== */
-const CACHE_MAX_AGE = 60_000;
-const CACHE_KEY = (uid) => `compras_user_${uid}`;
-
-function saveCache(key, data) {
-  try {
-    localStorage.setItem(key, JSON.stringify({ t: Date.now(), data }));
-  } catch (_) {}
-}
-function loadCache(key, maxAge = CACHE_MAX_AGE) {
-  try {
-    const raw = localStorage.getItem(key);
-    if (!raw) return null;
-    const obj = JSON.parse(raw);
-    if (!obj?.t || Date.now() - obj.t > maxAge) return null;
-    return obj.data;
-  } catch {
-    return null;
-  }
-}
 
 // --- Função para exibir/ocultar skeleton ---
 function showSkeleton(show) {
@@ -42,26 +21,21 @@ function showSkeleton(show) {
   }
 }
 
+let currentUser = null;
+let userData = null;
+
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "login.html";
     return;
   }
+  currentUser = user;
+  showSkeleton(true); // Mostra skeleton ao iniciar
+  await loadUserData();
+});
 
-  const uid = user.uid;
-  const key = CACHE_KEY(uid);
-
-  // 1) tenta cache primeiro
-  const cache = loadCache(key);
-  if (cache) {
-    document.getElementById("saldo-disponivel").textContent = formatKz(cache.saldo || 0);
-    renderProdutosComprados(cache.compras || {});
-    showSkeleton(false);
-  } else {
-    showSkeleton(true);
-  }
-
-  // 2) busca dados frescos
+async function loadUserData() {
+  const uid = currentUser.uid;
   const userRef = ref(db, `usuarios/${uid}`);
   const snap = await get(userRef);
   if (!snap.exists()) {
@@ -69,15 +43,12 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
-  const data = snap.val();
-  const saldo = data.saldo || 0;
-  document.getElementById("saldo-disponivel").textContent = formatKz(saldo);
+  userData = snap.val();
+  document.getElementById("saldo-disponivel").textContent = formatKz(userData.saldo || 0);
 
-  renderProdutosComprados(data.compras || {});
-  saveCache(key, data);
-
-  showSkeleton(false);
-});
+  renderProdutosComprados(userData.compras || {});
+  showSkeleton(false); // Esconde skeleton quando renderizar
+}
 
 function renderProdutosComprados(compras) {
   const container = document.getElementById("produtos-container");
@@ -89,7 +60,9 @@ function renderProdutosComprados(compras) {
     const produto = PRODUTOS.find(p => p.id === prodId);
     if (!produto) return;
 
-    Object.values(prodData.items || {}).forEach((item) => {
+    Object.entries(prodData.items || {}).forEach((itemEntry) => {
+      const [itemId, item] = itemEntry;
+
       const compradoEm = item.compradoEm || 0;
       const lastPayAt = item.lastPayAt || compradoEm;
       const diasCreditados = Math.max(0, Math.floor((lastPayAt - compradoEm) / DAY_MS));
@@ -104,7 +77,9 @@ function renderProdutosComprados(compras) {
           <p>Comissão diária: ${formatKz(produto.comissao)}</p>
           <p style="color: orange">${formatKz(produto.preco)}</p>
           <p class="status">Comprado em: ${formatDate(compradoEm)}</p>
-          <p class="timer" data-lastpay="${lastPayAt}">00:00:00</p>
+          <p class="timer" data-prod="${prodId}" data-item="${itemId}" data-lastpay="${lastPayAt}" data-comissao="${item.comissao}">
+            00:00:00
+          </p>
         </div>
       `;
       container.appendChild(card);
@@ -112,25 +87,66 @@ function renderProdutosComprados(compras) {
   });
 
   document.getElementById("total-comissao").textContent = formatKz(totalComissaoGerada);
-
   startTimers();
 }
 
 function startTimers() {
   const timers = document.querySelectorAll(".timer");
-  setInterval(() => {
-    timers.forEach(timer => {
+  setInterval(async () => {
+    for (let timer of timers) {
+      const prodId = timer.dataset.prod;
+      const itemId = timer.dataset.item;
       const lastPay = parseInt(timer.dataset.lastpay, 10);
+      const comissao = parseFloat(timer.dataset.comissao || 0);
       const now = Date.now();
       const elapsed = now - lastPay;
       const remaining = DAY_MS - elapsed;
+
       if (remaining > 0) {
         timer.textContent = formatCountdown(remaining);
       } else {
-        timer.textContent = "Pronto para sacar!";
+        // Credita comissão automaticamente
+        await creditItemComissao(prodId, itemId, lastPay, comissao);
+        // Atualiza data-lastpay do timer para reiniciar contagem
+        const newLast = Date.now();
+        timer.dataset.lastpay = newLast;
+        timer.textContent = formatCountdown(DAY_MS);
       }
-    });
+    }
   }, 1000);
+}
+
+/**
+ * Credita comissão de um item específico no saldo e atualiza total-comissao na tela.
+ */
+async function creditItemComissao(prodId, itemId, lastPayAt, comissao) {
+  try {
+    const uid = currentUser.uid;
+    const userRef = ref(db, `usuarios/${uid}`);
+    const snap = await get(userRef);
+    if (!snap.exists()) return;
+    const data = snap.val();
+
+    let saldo = data.saldo || 0;
+    saldo += comissao;
+
+    // Atualiza no Firebase
+    await update(ref(db), {
+      [`usuarios/${uid}/saldo`]: saldo,
+      [`usuarios/${uid}/compras/${prodId}/items/${itemId}/lastPayAt`]: lastPayAt + DAY_MS
+    });
+
+    // Atualiza na tela
+    document.getElementById("saldo-disponivel").textContent = formatKz(saldo);
+
+    // Atualiza total de comissão (só para interface, somando +comissão)
+    const totalComissaoEl = document.getElementById("total-comissao");
+    const currentTotal = parseFloat((totalComissaoEl.textContent || "0").replace(/[^\d,.-]/g, "").replace(",", "."));
+    const newTotal = (currentTotal || 0) + comissao;
+    totalComissaoEl.textContent = formatKz(newTotal);
+  } catch (e) {
+    console.error("Erro ao creditar comissão automática:", e);
+  }
 }
 
 function formatKz(value) {
@@ -148,4 +164,4 @@ function formatCountdown(ms) {
   const m = String(Math.floor(totalSec / 60)).padStart(2, "0");
   const s = String(totalSec % 60).padStart(2, "0");
   return `${h}:${m}:${s}`;
-}
+                      }
