@@ -7,19 +7,18 @@ import {
   ref,
   set,
   get,
-  update,
   runTransaction,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 /* =========================
    CONFIG
 ========================= */
-const SAVE_TIMEOUT_MS = 15000; // 15s (coloque null para desativar)
-const LOCK_REFERRAL_IF_URL = true; // travar o input se veio via URL
+const SAVE_TIMEOUT_MS = 15000; // 15s
+const LOCK_REFERRAL_IF_URL = true; // trava o input se veio via URL
 const REF_CODE_LEN = 8; // tamanho do código curto
 
 /* =========================
-   HELPERS GERAIS
+   HELPERS
 ========================= */
 function withTimeout(promise, ms, onTimeoutMessage = "Timeout") {
   if (!ms) return promise;
@@ -62,16 +61,13 @@ function mapFirebaseError(error) {
   }
 }
 
-/* =========================
-   HELPERS DE REFERÊNCIA
-========================= */
+// ?ref=... ou ?codigo=...
 function getReferralFromURL() {
   const qs = new URLSearchParams(window.location.search);
-  // aceitamos ?ref=... ou ?codigo=...
-  const raw = qs.get("ref") || qs.get("codigo") || "";
-  return (raw || "").trim();
+  return (qs.get("ref") || qs.get("codigo") || "").trim();
 }
 
+// gera um código curto aleatório (8 chars)
 function genRefCode(len = REF_CODE_LEN) {
   const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"; // sem I, l, 1, O, 0
   let out = "";
@@ -91,7 +87,7 @@ async function createUniqueRefCode(uid) {
   return code;
 }
 
-// pega shortId incremental (612334, 612335, ...)
+// gera shortId incremental (612334, 612335, ...)
 async function getNextShortId() {
   const counterRef = ref(db, "counters/shortIdNext");
   const res = await runTransaction(counterRef, (current) => {
@@ -101,15 +97,14 @@ async function getNextShortId() {
   return res.snapshot.val();
 }
 
-// resolve o "ref" vindo da URL (pode ser UID antigo ou refCode novo) para UID
+// resolve o código digitado/URL (refCode ou uid antigo) para o UID real do patrocinador
 async function resolveInviterUid(refParamRaw) {
   const refParam = (refParamRaw || "").trim();
   if (!refParam) return null;
 
-  // 1) tenta como código curto (sempre upper para ficar consistente)
-  const maybeCode = refParam.toUpperCase();
+  // 1) tenta como código curto
   try {
-    const codeSnap = await get(ref(db, `codes/${maybeCode}`));
+    const codeSnap = await get(ref(db, `codes/${refParam.toUpperCase()}`));
     if (codeSnap.exists() && codeSnap.val()?.uid) {
       return codeSnap.val().uid;
     }
@@ -117,7 +112,7 @@ async function resolveInviterUid(refParamRaw) {
     console.warn("Erro lendo codes/<refCode>:", e);
   }
 
-  // 2) fallback: talvez seja um UID antigo
+  // 2) fallback: talvez seja UID
   try {
     const userSnap = await get(ref(db, `usuarios/${refParam}`));
     if (userSnap.exists()) return refParam;
@@ -143,7 +138,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Pré-preenche o referral vindo por URL (se houver)
   const refFromURL = getReferralFromURL();
   if (refFromURL) {
-    referralInput.value = refFromURL; // pode ser code curto ou uid
+    referralInput.value = refFromURL; // pode ser code curto OU uid
     if (LOCK_REFERRAL_IF_URL) referralInput.readOnly = true;
   }
 
@@ -159,7 +154,7 @@ async function onSubmit(e) {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
-  const referralRaw = document.getElementById("referral").value.trim(); // pode ser code curto OU uid
+  const referralRaw = document.getElementById("referral").value.trim();
   const termsAccepted = document.getElementById("terms").checked;
 
   if (!termsAccepted) {
@@ -176,54 +171,39 @@ async function onSubmit(e) {
 
   let user;
   try {
-    console.log("[SIGNUP] Criando usuário no Auth…");
     const cred = await createUserWithEmailAndPassword(auth, email, password);
     user = cred.user;
-    console.log("[SIGNUP] Auth OK. UID:", user.uid);
   } catch (err) {
-    console.error("[SIGNUP][AUTH ERROR]", err.code, err.message);
     alert(mapFirebaseError(err));
     enableBtn(btn);
     return;
   }
 
   try {
-    console.log("[SIGNUP] Resolvendo inviter (se houver)...");
-    const inviterUid = await resolveInviterUid(referralRaw);
-
-    console.log("[SIGNUP] Gerando shortId & refCode…");
+    const inviterUid = await resolveInviterUid(referralRaw); // sempre UID real (ou null)
     const shortId = await getNextShortId();
     const refCode  = await createUniqueRefCode(user.uid);
 
-    console.log("[SIGNUP] Gravando no RTDB em usuarios/" + user.uid);
-
     const payload = {
       uid: user.uid,
-      shortId,                       // novo
-      refCode,                       // novo
-      invitedBy: inviterUid || null, // UID real do patrocinador (se houver)
-      referralCodeUsed: referralRaw || null, // o que o usuário digitou/clicou (auditoria)
-      email,
+      shortId,
+      refCode,
+      invitedBy: inviterUid || null,       // <-- SEMPRE UID
+      referralCodeUsed: referralRaw || null,
 
-      // saldos e totais
+      email,
       saldo: 0,
       totalInvestido: 0,
       totalComissaoDiaria: 0,
-
-      // controle de cálculo diário
       lastDailyCheckAt: Date.now(),
-
-      // compras
       compras: {},
-
-      // totais de indicação
       refTotals: {
         A: { amount: 0 },
         B: { amount: 0 },
         C: { amount: 0 },
       },
 
-      // LEGADO para não quebrar nada
+      // legado
       codigoConvite: referralRaw || null,
       investimento: 0,
       comissao: 0,
@@ -238,19 +218,17 @@ async function onSubmit(e) {
       `Timeout ao gravar no Realtime Database (${SAVE_TIMEOUT_MS / 1000}s)`
     );
 
-    console.log("[SIGNUP] Dados gravados com sucesso.");
     alert("Conta criada com sucesso!");
     window.location.href = "login.html";
   } catch (err) {
     console.error("[SIGNUP][DB ERROR]", err);
     alert(
       "Sua conta foi criada no Auth, mas houve um problema ao salvar seus dados.\n" +
-        "Você poderá tentar fazer login agora.\n\n" +
-        "Detalhes: " +
-        (err?.message || err)
+      "Você poderá tentar fazer login agora.\n\n" +
+      "Detalhes: " + (err?.message || err)
     );
     window.location.href = "login.html";
   } finally {
     enableBtn(btn);
   }
-                }
+}
