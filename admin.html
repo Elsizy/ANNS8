@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel do Admin • ANNS8</title>
+
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <h2>ANNS8 • Admin</h2>
+      <nav>
+        <a href="#" data-section="dashboard" class="active">Dashboard</a>
+        <a href="#" data-section="deposits">Depósitos</a>
+        <a href="#" data-section="withdrawals">Retiradas</a>
+        <a href="#" data-section="banks">Bancos</a>
+      </nav>
+      <button id="logout" class="btn-logout">Sair</button>
+    </aside>
+
+    <main class="content">
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="section active">
+        <h1>Dashboard</h1>
+
+        <div class="cards">
+          <div class="card">
+            <p class="label">Usuários</p>
+            <p class="value" id="stat-users">0</p>
+          </div>
+          <div class="card">
+            <p class="label">Depósitos pendentes</p>
+            <p class="value" id="stat-dep-pending">0</p>
+          </div>
+          <div class="card">
+          <p class="label">Retiradas pendentes</p>
+            <p class="value" id="stat-wd-pending">0</p>
+          </div>
+          <div class="card">
+            <p class="label">Total depositado (concluído)</p>
+            <p class="value" id="stat-dep-done">Kz 0,00</p>
+          </div>
+          <div class="card">
+            <p class="label">Total retirado líquido (concluído)</p>
+            <p class="value" id="stat-wd-done">Kz 0,00</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEPÓSITOS -->
+      <section id="deposits" class="section">
+        <h1>Depósitos pendentes</h1>
+        <div id="deposits-list" class="list"></div>
+      </section>
+
+      <!-- RETIRADAS -->
+      <section id="withdrawals" class="section">
+        <h1>Retiradas pendentes</h1>
+        <div id="withdrawals-list" class="list"></div>
+      </section>
+
+      <!-- BANCOS -->
+      <section id="banks" class="section">
+        <h1>Bancos para Depósito (visíveis no SF-Pay)</h1>
+
+        <form id="bank-form" class="bank-form">
+          <input type="text" id="bank-name" placeholder="Nome do Banco (ex: BAI)" required />
+          <input type="text" id="bank-holder" placeholder="Titular" required />
+          <input type="text" id="bank-iban" placeholder="IBAN" required />
+          <button type="submit" class="btn-primary">Salvar</button>
+          <button id="bank-cancel" type="button" class="btn-secondary hidden">Cancelar edição</button>
+        </form>
+
+        <div id="banks-list" class="list"></div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./admin.js"></script>
+</body>
+  </html>
