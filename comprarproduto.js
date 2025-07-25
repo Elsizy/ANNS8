@@ -6,6 +6,27 @@ import { PRODUTOS } from "./products.js";
 
 const DAY_MS = 24 * 60 * 60 * 1000; // 24h
 
+/* ===== CACHE ===== */
+const CACHE_MAX_AGE = 60_000;
+const CACHE_KEY = (uid) => `compras_user_${uid}`;
+
+function saveCache(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify({ t: Date.now(), data }));
+  } catch (_) {}
+}
+function loadCache(key, maxAge = CACHE_MAX_AGE) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const obj = JSON.parse(raw);
+    if (!obj?.t || Date.now() - obj.t > maxAge) return null;
+    return obj.data;
+  } catch {
+    return null;
+  }
+}
+
 // --- Função para exibir/ocultar skeleton ---
 function showSkeleton(show) {
   const sk = document.getElementById("produtos-skeleton");
@@ -27,9 +48,20 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
-  showSkeleton(true); // Mostra skeleton ao iniciar
-
   const uid = user.uid;
+  const key = CACHE_KEY(uid);
+
+  // 1) tenta cache primeiro
+  const cache = loadCache(key);
+  if (cache) {
+    document.getElementById("saldo-disponivel").textContent = formatKz(cache.saldo || 0);
+    renderProdutosComprados(cache.compras || {});
+    showSkeleton(false);
+  } else {
+    showSkeleton(true);
+  }
+
+  // 2) busca dados frescos
   const userRef = ref(db, `usuarios/${uid}`);
   const snap = await get(userRef);
   if (!snap.exists()) {
@@ -42,7 +74,9 @@ onAuthStateChanged(auth, async (user) => {
   document.getElementById("saldo-disponivel").textContent = formatKz(saldo);
 
   renderProdutosComprados(data.compras || {});
-  showSkeleton(false); // Esconde skeleton quando renderizar
+  saveCache(key, data);
+
+  showSkeleton(false);
 });
 
 function renderProdutosComprados(compras) {
@@ -56,7 +90,6 @@ function renderProdutosComprados(compras) {
     if (!produto) return;
 
     Object.values(prodData.items || {}).forEach((item) => {
-      // ===== NOVA LÓGICA: comissão total já gerada/paga =====
       const compradoEm = item.compradoEm || 0;
       const lastPayAt = item.lastPayAt || compradoEm;
       const diasCreditados = Math.max(0, Math.floor((lastPayAt - compradoEm) / DAY_MS));
@@ -78,7 +111,6 @@ function renderProdutosComprados(compras) {
     });
   });
 
-  // Mostra o total que JÁ FOI GERADO
   document.getElementById("total-comissao").textContent = formatKz(totalComissaoGerada);
 
   startTimers();
@@ -116,4 +148,4 @@ function formatCountdown(ms) {
   const m = String(Math.floor(totalSec / 60)).padStart(2, "0");
   const s = String(totalSec % 60).padStart(2, "0");
   return `${h}:${m}:${s}`;
-                                           }
+}
