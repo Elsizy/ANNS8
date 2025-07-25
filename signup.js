@@ -6,17 +6,19 @@ import {
 import {
   ref,
   set,
-  get,          // NEW
+  get,
+  update,
+  runTransaction,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 /* =========================
    CONFIG
 ========================= */
 const SAVE_TIMEOUT_MS = 15000; // aumentamos para 15s. Coloque null para desativar.
-const LOCK_REFERRAL_IF_URL = true; // NEW: travar o input se veio via URL
+const LOCK_REFERRAL_IF_URL = true; // travar o input se veio via URL
 
 /* =========================
-   HELPERS
+   HELPERS GERAIS
 ========================= */
 function withTimeout(promise, ms, onTimeoutMessage = "Timeout") {
   if (!ms) return promise; // se ms for null/0, não aplica timeout
@@ -60,27 +62,68 @@ function mapFirebaseError(error) {
 }
 
 /* =========================
-   NEW: referral helpers
+   HELPERS DE REFERÊNCIA
 ========================= */
+
+// pega ?ref=... ou ?codigo=...
 function getReferralFromURL() {
   const qs = new URLSearchParams(window.location.search);
-  // aceitamos ?ref=... ou ?codigo=...
   return qs.get("ref") || qs.get("codigo") || "";
 }
 
-/**
- * (Opcional) Valida se o UID informado realmente existe em /usuarios.
- * Se não existir, limpamos o campo.
- */
-async function validateReferral(uid) {
-  if (!uid) return null;
-  try {
-    const snap = await get(ref(db, `usuarios/${uid}`));
-    return snap.exists() ? uid : null;
-  } catch (e) {
-    console.warn("Falha validando referral:", e);
-    return null;
+// gera um código curto aleatório (8 chars)
+function genRefCode(len = 8) {
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"; // sem I, l, 1, O, 0
+  let out = "";
+  for (let i = 0; i < len; i++) out += chars[Math.floor(Math.random() * chars.length)];
+  return out;
+}
+
+// cria refCode único e grava /codes/{refCode} -> { uid }
+async function createUniqueRefCode(uid) {
+  let code = genRefCode();
+  let exists = await get(ref(db, `codes/${code}`));
+  while (exists.exists()) {
+    code = genRefCode();
+    exists = await get(ref(db, `codes/${code}`));
   }
+  await set(ref(db, `codes/${code}`), { uid });
+  return code;
+}
+
+// pega shortId incremental (612334, 612335, ...)
+async function getNextShortId() {
+  const counterRef = ref(db, "counters/shortIdNext");
+  const res = await runTransaction(counterRef, (current) => {
+    if (!current || current < 612334) return 612334;
+    return current + 1;
+  });
+  return res.snapshot.val();
+}
+
+// resolve o "ref" vindo da URL (pode ser UID antigo ou refCode novo) para UID
+async function resolveInviterUid(refParam) {
+  if (!refParam) return null;
+
+  // 1) tenta como código curto (codes/{code} -> uid)
+  try {
+    const codeSnap = await get(ref(db, `codes/${refParam}`));
+    if (codeSnap.exists() && codeSnap.val()?.uid) {
+      return codeSnap.val().uid;
+    }
+  } catch (e) {
+    console.warn("Erro lendo codes/<refCode>:", e);
+  }
+
+  // 2) fallback: talvez seja um UID antigo
+  try {
+    const userSnap = await get(ref(db, `usuarios/${refParam}`));
+    if (userSnap.exists()) return refParam;
+  } catch (e) {
+    console.warn("Erro validando ref como UID:", e);
+  }
+
+  return null;
 }
 
 /* =========================
@@ -93,17 +136,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // NEW: pré-preenche o referral a partir da URL (se existir)
   const referralInput = document.getElementById("referral");
+
+  // Pré-preenche o referral vindo por URL (se houver)
   const refFromURL = getReferralFromURL();
   if (refFromURL) {
-    const valid = await validateReferral(refFromURL);
-    if (valid) {
-      referralInput.value = valid;
-      if (LOCK_REFERRAL_IF_URL) referralInput.readOnly = true;
-    } else {
-      console.warn("Referral da URL não é válido (usuário não encontrado).");
-    }
+    referralInput.value = refFromURL; // mostra o que veio (código curto ou uid)
+    if (LOCK_REFERRAL_IF_URL) referralInput.readOnly = true;
   }
 
   form.addEventListener("submit", onSubmit);
@@ -118,7 +157,7 @@ async function onSubmit(e) {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
-  const referral = document.getElementById("referral").value.trim(); // <- usado como invitedBy
+  const referralRaw = document.getElementById("referral").value.trim(); // pode ser code curto OU uid
   const termsAccepted = document.getElementById("terms").checked;
 
   if (!termsAccepted) {
@@ -147,28 +186,42 @@ async function onSubmit(e) {
   }
 
   try {
+    console.log("[SIGNUP] Resolvendo inviter (se houver)...");
+    const inviterUid = await resolveInviterUid(referralRaw);
+
+    console.log("[SIGNUP] Gerando shortId & refCode…");
+    const shortId = await getNextShortId();
+    const refCode  = await createUniqueRefCode(user.uid);
+
     console.log("[SIGNUP] Gravando no RTDB em usuarios/" + user.uid);
 
-    // Estrutura NOVA + campos legados para não quebrar nada do projeto atual
     const payload = {
-      // básicos
       uid: user.uid,
+      shortId,                 // novo
+      refCode,                 // novo
+      invitedBy: inviterUid || null, // sempre UID real
       email,
-      invitedBy: referral || null,          // <- novo
-      codigoConvite: referral || null,      // mantém o que você já tinha
 
       // saldos e totais
       saldo: 0,
-      totalInvestido: 0,                    // <- novo
-      totalComissaoDiaria: 0,               // <- novo
+      totalInvestido: 0,
+      totalComissaoDiaria: 0,
 
       // controle de cálculo diário
-      lastDailyCheckAt: Date.now(),         // <- novo
+      lastDailyCheckAt: Date.now(),
 
-      // compras de Nex (estrutura flexível p/ múltiplas compras)
-      compras: {},                          // <- novo
+      // compras
+      compras: {},
 
-      // *** LEGADO (para não quebrar nada que ainda use estes nomes) ***
+      // totais de indicação (opcional iniciar zerado)
+      refTotals: {
+        A: { amount: 0 },
+        B: { amount: 0 },
+        C: { amount: 0 },
+      },
+
+      // LEGADO para não quebrar nada
+      codigoConvite: referralRaw || null, // mantém como você já usava
       investimento: 0,
       comissao: 0,
       produto: null,
