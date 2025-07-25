@@ -24,7 +24,7 @@ onAuthStateChanged(auth, async (user) => {
   if (!meSnap.exists()) return;
   const me = meSnap.val();
 
-  // Link curto para compartilhar (refCode), mas a contagem usa UID
+  // Link curto (refCode) para compartilhamento
   const myCode = me.refCode || uid;
   const link = `${location.origin}/index.html?ref=${myCode}`;
   const linkInput = document.getElementById("affiliate-link");
@@ -43,15 +43,11 @@ onAuthStateChanged(auth, async (user) => {
   });
 
   // Totais de ganhos por nível
-  const earnedA = me?.refTotals?.A?.amount || 0;
-  const earnedB = me?.refTotals?.B?.amount || 0;
-  const earnedC = me?.refTotals?.C?.amount || 0;
+  document.getElementById("earned-A").textContent = formatKz(me?.refTotals?.A?.amount || 0);
+  document.getElementById("earned-B").textContent = formatKz(me?.refTotals?.B?.amount || 0);
+  document.getElementById("earned-C").textContent = formatKz(me?.refTotals?.C?.amount || 0);
 
-  document.getElementById("earned-A").textContent = formatKz(earnedA);
-  document.getElementById("earned-B").textContent = formatKz(earnedB);
-  document.getElementById("earned-C").textContent = formatKz(earnedC);
-
-  // >>> Contando por UID (compatível com o que signup salva) <<<
+  // Contagem da rede por UID
   const { countA, countB, countC } = await countNetworkByUid(uid);
   document.getElementById("count-A").textContent = countA;
   document.getElementById("count-B").textContent = countB;
@@ -62,43 +58,25 @@ onAuthStateChanged(auth, async (user) => {
  * Conta níveis A/B/C usando invitedBy == UID.
  */
 async function countNetworkByUid(rootUid) {
-  const levelA = await getUsersByInvitedByUid(rootUid);
-  const countA = levelA.length;
+  const allUsersSnap = await get(ref(db, "usuarios"));
+  if (!allUsersSnap.exists()) return { countA: 0, countB: 0, countC: 0 };
 
-  let levelB = [];
-  for (const a of levelA) {
-    const b = await getUsersByInvitedByUid(a.uid);
-    levelB = levelB.concat(b);
-  }
-  const countB = levelB.length;
+  const users = allUsersSnap.val();
 
-  let levelC = [];
-  for (const b of levelB) {
-    const c = await getUsersByInvitedByUid(b.uid);
-    levelC = levelC.concat(c);
-  }
-  const countC = levelC.length;
+  // Nível A
+  const levelA = Object.keys(users).filter(uid => users[uid]?.invitedBy === rootUid);
 
-  return { countA, countB, countC };
-}
+  // Nível B
+  const levelB = Object.keys(users).filter(uid => levelA.includes(users[uid]?.invitedBy));
 
-/**
- * Busca usuários cujo invitedBy == someUid
- */
-async function getUsersByInvitedByUid(someUid) {
-  const q = query(
-    ref(db, "usuarios"),
-    orderByChild("invitedBy"),
-    equalTo(someUid)
-  );
-  const snap = await get(q);
-  if (!snap.exists()) return [];
-  const list = [];
-  snap.forEach(child => {
-    const val = child.val();
-    list.push({ uid: val.uid, email: val.email });
-  });
-  return list;
+  // Nível C
+  const levelC = Object.keys(users).filter(uid => levelB.includes(users[uid]?.invitedBy));
+
+  return {
+    countA: levelA.length,
+    countB: levelB.length,
+    countC: levelC.length
+  };
 }
 
 function formatKz(v) {
@@ -106,4 +84,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-}
+    }
