@@ -1,3 +1,4 @@
+// total-equipa.js
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -17,18 +18,10 @@ onAuthStateChanged(auth, async (user) => {
   const myUid = user.uid;
 
   try {
-    const meSnap = await get(ref(db, `usuarios/${myUid}`));
-    if (!meSnap.exists()) {
-      toggleLoading(false);
-      return;
-    }
-    const me = meSnap.val();
-    const myCode = me.refCode || myUid; // funciona para antigos e novos
-
     const snap = await get(ref(db, "usuarios"));
     const users = snap.exists() ? snap.val() : {};
 
-    const { levelA, levelB, levelC } = splitLevels(myCode, users);
+    const { levelA, levelB, levelC } = splitLevelsByUid(myUid, users);
 
     fillList("list-a", levelA, users);
     fillList("list-b", levelB, users);
@@ -42,47 +35,37 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 /**
- * Divide por níveis usando invitedBy. Agora invitedBy pode ser um refCode (novo)
- * ou um uid (antigo). Por isso, comparamos sempre com (refCode || uid).
+ * Divide por níveis usando invitedBy **apenas como UID**:
+ *  - A: invitedBy == myUid
+ *  - B: invitedBy == uid de alguém do nível A
+ *  - C: invitedBy == uid de alguém do nível B
  */
-function splitLevels(myCode, users) {
+function splitLevelsByUid(myUid, users) {
   const levelA = [], levelB = [], levelC = [];
   const A_UIDs = new Set(), B_UIDs = new Set();
 
-  // ----- Nível A: invitedBy == myCode -----
+  // Nível A
   for (const [uid, u] of Object.entries(users)) {
-    if (!u) continue;
-    if (u.invitedBy === myCode) {
+    if (u?.invitedBy === myUid) {
       levelA.push(uid);
       A_UIDs.add(uid);
     }
   }
 
-  // ----- Nível B: invitedBy == code/uid de cada A -----
+  // Nível B
   for (const [uid, u] of Object.entries(users)) {
     if (!u) continue;
-    // checa se o convidador desse usuário (u.invitedBy) é algum A (refCode ou uid)
-    for (const aUid of A_UIDs) {
-      const a = users[aUid];
-      const aCode = a?.refCode || aUid;
-      if (u.invitedBy === aCode) {
-        levelB.push(uid);
-        B_UIDs.add(uid);
-        break;
-      }
+    if (A_UIDs.has(u.invitedBy)) {
+      levelB.push(uid);
+      B_UIDs.add(uid);
     }
   }
 
-  // ----- Nível C: invitedBy == code/uid de cada B -----
+  // Nível C
   for (const [uid, u] of Object.entries(users)) {
     if (!u) continue;
-    for (const bUid of B_UIDs) {
-      const b = users[bUid];
-      const bCode = b?.refCode || bUid;
-      if (u.invitedBy === bCode) {
-        levelC.push(uid);
-        break;
-      }
+    if (B_UIDs.has(u.invitedBy)) {
+      levelC.push(uid);
     }
   }
 
@@ -117,6 +100,7 @@ function fillList(containerId, uids, users) {
 
 function getFirstDeposit(userObj) {
   if (!userObj) return 0;
+
   if (typeof userObj.firstDeposit === "number") return userObj.firstDeposit;
   if (typeof userObj.firstDepositAmount === "number") return userObj.firstDepositAmount;
 
@@ -135,4 +119,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-             }
+}
