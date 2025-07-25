@@ -128,4 +128,78 @@ body {
   color: var(--muted);
 }
 
-/* bottom-nav vem do bottom-nav.css */
+/* =========================
+   MODAL - Alterar palavra-passe
+========================= */
+.modal-overlay[hidden] {
+  display: none !important;
+}
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20000;
+}
+.modal {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  color: #111;
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.2);
+  padding: 18px 16px 16px;
+}
+.modal h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  color: #472b91;
+}
+.modal-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+.modal-label input {
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+.modal-error {
+  color: #d93025;
+  font-size: 13px;
+  margin: 8px 0 0;
+}
+.modal-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.btn-cancel {
+  background: #eee;
+  color: #111;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn-save {
+  background: linear-gradient(to right, #5f67ff, #8759e3);
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn-save[disabled] {
+  opacity: .6;
+  cursor: not-allowed;
+}
