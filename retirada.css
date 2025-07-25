@@ -1,0 +1,216 @@
+:root {
+  --bg-top: #1c2e4a;
+  --bg-bottom: #f9fafc;
+  --purple: #472b91;
+  --white: #fff;
+  --text-dark: #222;
+  --muted: #777;
+  --accent: linear-gradient(to right, #5f67ff, #8759e3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    var(--bg-top) 0%,
+    #324d6c 40%,
+    #edf1f7 85%,
+    var(--bg-bottom) 100%
+  );
+  color: #fff;
+}
+
+.dashboard {
+  padding: 20px 16px 40px;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.header h1 {
+  margin: 0;
+  font-size: 20px;
+  flex: 1;
+  text-align: center;
+}
+.header .back,
+.header .history {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+.header .history svg {
+  vertical-align: middle;
+}
+
+/* Saldo */
+.saldo-card {
+  background: var(--purple);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.saldo-card .label {
+  margin: 0 0 4px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+.saldo-card .value {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Card branco */
+.card {
+  background: var(--white);
+  color: var(--text-dark);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+.card h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group label {
+  font-size: 13px;
+  color: #555;
+}
+.form-group input {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+.form-group input:focus {
+  border-color: #8759e3;
+}
+
+/* Picker de banco */
+.picker-btn {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #f9fafc;
+  padding: 10px 12px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.picker-btn .chev {
+  opacity: .6;
+}
+
+/* Resumo */
+.resume {
+  border-top: 1px dashed #eee;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.resume .row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+.resume .row.total {
+  font-weight: bold;
+}
+
+/* Botões */
+.btn-primary {
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 8px;
+}
+.btn-secondary {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #ccc;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Notas */
+.notes {
+  margin-top: 14px;
+  font-size: 13px;
+  color: #444;
+}
+.notes p {
+  margin: 4px 0;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  z-index: 9999;
+}
+.modal.hidden {
+  display: none;
+}
+.modal .modal-content {
+  background: #fff;
+  color: #222;
+  border-radius: 12px;
+  padding: 16px;
+  width: 100%;
+  max-width: 420px;
+}
+.modal .modal-content h3 {
+  margin: 0 0 10px;
+}
+.bank-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+}
+.bank-list li {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background .12s;
+}
+.bank-list li:hover {
+  background: #f6f7fb;
+        }
