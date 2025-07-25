@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alterar palavra-passe - ANNS8</title>
+
+  <link rel="stylesheet" href="alterarpasse.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <header class="header">
+      <a href="pessoal.html" class="back-btn">← Voltar</a>
+      <h1>Alterar palavra‑passe</h1>
+    </header>
+
+    <section class="card">
+      <form id="changePassForm">
+        <div class="form-group">
+          <label for="oldPassword">Senha atual</label>
+          <input type="password" id="oldPassword" autocomplete="current-password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="newPassword">Nova senha</label>
+          <input type="password" id="newPassword" autocomplete="new-password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar nova senha</label>
+          <input type="password" id="confirmPassword" autocomplete="new-password" required />
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-primary">Alterar palavra‑passe</button>
+        <p id="feedback" class="feedback hide"></p>
+      </form>
+    </section>
+  </div>
+
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./alterarpasse.js"></script>
+</body>
+</html>
