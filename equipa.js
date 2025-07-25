@@ -24,10 +24,9 @@ onAuthStateChanged(auth, async (user) => {
   if (!meSnap.exists()) return;
   const me = meSnap.val();
 
-  // Monta link de afiliado (pode continuar usando refCode para ficar curto)
+  // Link curto para compartilhar (refCode), mas a contagem usa UID
   const myCode = me.refCode || uid;
   const link = `${location.origin}/index.html?ref=${myCode}`;
-
   const linkInput = document.getElementById("affiliate-link");
   linkInput.value = link;
 
@@ -43,7 +42,7 @@ onAuthStateChanged(auth, async (user) => {
     }
   });
 
-  // Seus totais de ganhos por nível (gravados no home.js)
+  // Totais de ganhos por nível
   const earnedA = me?.refTotals?.A?.amount || 0;
   const earnedB = me?.refTotals?.B?.amount || 0;
   const earnedC = me?.refTotals?.C?.amount || 0;
@@ -52,7 +51,7 @@ onAuthStateChanged(auth, async (user) => {
   document.getElementById("earned-B").textContent = formatKz(earnedB);
   document.getElementById("earned-C").textContent = formatKz(earnedC);
 
-  // >>> Agora contamos por UID, que é o que está salvo em invitedBy <<<
+  // >>> Contando por UID (compatível com o que signup salva) <<<
   const { countA, countB, countC } = await countNetworkByUid(uid);
   document.getElementById("count-A").textContent = countA;
   document.getElementById("count-B").textContent = countB;
@@ -60,11 +59,7 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 /**
- * Conta níveis A/B/C usando invitedBy como UID (compatível com o que o signup salva hoje).
- *
- * - A: quem tem invitedBy == uid
- * - B: quem tem invitedBy == qualquer A.uid
- * - C: quem tem invitedBy == qualquer B.uid
+ * Conta níveis A/B/C usando invitedBy == UID.
  */
 async function countNetworkByUid(rootUid) {
   const levelA = await getUsersByInvitedByUid(rootUid);
@@ -111,4 +106,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-                   }
+}
