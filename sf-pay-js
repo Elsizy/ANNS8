@@ -1,0 +1,50 @@
+// sf-pay.js
+const DRAFT_KEY = "deposit_draft_v1";
+const BANKS = ["BAI", "BFA", "BIC", "Atlântico", "BPC"];
+
+const bankListEl = document.getElementById("bank-list");
+const goNextBtn = document.getElementById("go-next");
+
+let draft = null;
+let selectedBank = null;
+
+(function init() {
+  const raw = sessionStorage.getItem(DRAFT_KEY);
+  if (!raw) {
+    alert("Sessão expirada. Volte e inicie o depósito novamente.");
+    window.location.href = "deposito.html";
+    return;
+  }
+  draft = JSON.parse(raw);
+
+  // Monta lista de bancos
+  BANKS.forEach((b) => {
+    const li = document.createElement("li");
+    li.textContent = b;
+    li.style.display = "flex";
+    li.style.justifyContent = "space-between";
+    li.style.alignItems = "center";
+
+    li.addEventListener("click", () => {
+      // marca visualmente
+      Array.from(bankListEl.children).forEach(el => el.classList.remove("active"));
+      li.classList.add("active");
+
+      selectedBank = b;
+      goNextBtn.disabled = false;
+    });
+
+    bankListEl.appendChild(li);
+  });
+
+  goNextBtn.addEventListener("click", () => {
+    draft.bank = selectedBank;
+    // por enquanto, o admin ainda não cadastrou IBANs reais => placeholders
+    draft.bankData = {
+      titular: "xxxx",
+      iban: "xxxxxxxxxxxxxxxxxxxxx" // 21 dígitos depois virão do admin
+    };
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    window.location.href = "sf-pay-set.html";
+  });
+})();
