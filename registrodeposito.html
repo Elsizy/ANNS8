@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registros de Depósitos • ANNS8</title>
+
+  <link rel="stylesheet" href="registrodeposito.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a href="deposito.html" class="back">← Voltar</a>
+      <h1>Registros de Depósitos</h1>
+      <span style="width:32px;"></span>
+    </header>
+
+    <section class="card">
+      <div id="skeleton">
+        <div class="sk-row"></div>
+        <div class="sk-row"></div>
+        <div class="sk-row"></div>
+      </div>
+
+      <div id="list" class="list hidden"></div>
+    </section>
+  </div>
+
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./registrodeposito.js"></script>
+</body>
+</html>
