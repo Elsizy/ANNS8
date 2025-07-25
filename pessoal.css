@@ -1,0 +1,122 @@
+:root {
+  --bg-top: #1c2e4a;
+  --bg-bottom: #f9fafc;
+  --purple: #472b91;
+  --white: #fff;
+  --text-dark: #222;
+  --muted: rgba(255,255,255,0.7);
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, var(--bg-top) 0%, #324d6c 40%, #edf1f7 85%, var(--bg-bottom) 100%);
+  color: #fff;
+}
+
+.dashboard {
+  padding: 20px 16px 80px; /* espaço para a bottom-nav fixa */
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-info {
+  flex: 1;
+}
+.user-line {
+  font-weight: bold;
+}
+.user-sub {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.logout {
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255,255,255,0.15);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Balances */
+.balances {
+  background: var(--purple);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.balance-box .label {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.balance-box .value {
+  margin: 2px 0 0;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Actions list */
+.actions {
+  background: rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 6px 0;
+}
+.action-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  color: #fff;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.action-item:last-child {
+  border-bottom: none;
+}
+.action-item .icon {
+  margin-right: 10px;
+  font-size: 18px;
+  line-height: 1;
+}
+.action-item .text {
+  flex: 1;
+}
+.action-item .chevron {
+  opacity: 0.5;
+  font-size: 18px;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .balances {
+    grid-template-columns: 1fr;
+  }
+}
