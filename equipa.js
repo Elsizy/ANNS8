@@ -51,8 +51,8 @@ onAuthStateChanged(auth, async (user) => {
   document.getElementById("earned-B").textContent = formatKz(earnedB);
   document.getElementById("earned-C").textContent = formatKz(earnedC);
 
-  // Contar A, B, C
-  const { countA, countB, countC } = await countNetwork(myCode);
+  // Contar A, B, C (usando UID real)
+  const { countA, countB, countC } = await countNetwork(uid);
   document.getElementById("count-A").textContent = countA;
   document.getElementById("count-B").textContent = countB;
   document.getElementById("count-C").textContent = countC;
@@ -60,24 +60,24 @@ onAuthStateChanged(auth, async (user) => {
 
 /**
  * Conta:
- * - A: direto de code
+ * - A: direto de UID
  * - B: quem foi convidado pelos A
  * - C: quem foi convidado pelos B
  */
-async function countNetwork(myCode) {
-  const levelA = await getUsersByInvitedBy(myCode);
+async function countNetwork(uid) {
+  const levelA = await getUsersByInvitedBy(uid);
   const countA = levelA.length;
 
   let levelB = [];
   for (const a of levelA) {
-    const b = await getUsersByInvitedBy(a.refCode || a.uid);
+    const b = await getUsersByInvitedBy(a.uid);
     levelB = levelB.concat(b);
   }
   const countB = levelB.length;
 
   let levelC = [];
   for (const b of levelB) {
-    const c = await getUsersByInvitedBy(c.refCode || c.uid);
+    const c = await getUsersByInvitedBy(b.uid);
     levelC = levelC.concat(c);
   }
   const countC = levelC.length;
@@ -86,10 +86,10 @@ async function countNetwork(myCode) {
 }
 
 /**
- * Busca usuários cujo invitedBy == code
+ * Busca usuários cujo invitedBy == UID
  */
-async function getUsersByInvitedBy(code) {
-  const q = query(ref(db, "usuarios"), orderByChild("invitedBy"), equalTo(code));
+async function getUsersByInvitedBy(uid) {
+  const q = query(ref(db, "usuarios"), orderByChild("invitedBy"), equalTo(uid));
   const snap = await get(q);
   if (!snap.exists()) return [];
   const list = [];
@@ -105,4 +105,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-}
+                           }
