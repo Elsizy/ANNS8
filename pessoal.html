@@ -1,71 +1,125 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pessoal</title>
+  <title>Pessoal - ANNS8</title>
+
+  <!-- Estilos da página -->
   <link rel="stylesheet" href="pessoal.css" />
+
+  <!-- Bottom nav -->
+  <link rel="stylesheet" href="bottom-nav.css" />
 </head>
-<body>
+<body class="has-bottom-nav">
   <div class="dashboard">
-    <div class="user-box">
+    <!-- Header / Perfil -->
+    <header class="header">
+      <div class="avatar" id="avatar-letter">A</div>
       <div class="user-info">
-        <div class="avatar">V</div>
-        <div>
-          <p class="user-phone" id="user-phone">+244 900000000</p>
-          <p class="user-uid">UID: <span id="user-uid">123456</span></p>
+        <div class="user-line" id="user-main">—</div>
+        <div class="user-sub">
+          Uid: <span id="user-shortid">—</span>
         </div>
       </div>
       <a href="#" id="logout" class="logout">Sair da conta</a>
-    </div>
+    </header>
 
-    <div class="saldo-card">
-      <div class="saldo-item">
+    <!-- Card de saldos -->
+    <section class="balances">
+      <div class="balance-box">
         <p class="label">Saldo disponível</p>
-        <p class="value" id="saldo-disponivel">Kz 0,00</p>
+        <p class="value" id="saldo">Kz 0,00</p>
       </div>
-      <div class="saldo-item">
+      <div class="balance-box">
         <p class="label">Retirada total</p>
         <p class="value" id="retirada-total">Kz 0,00</p>
       </div>
-    </div>
+    </section>
 
-    <div class="menu">
-      <a href="deposito.html" class="menu-item">
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M3 21h18"/></svg>
-        <span>Depósito</span>
+    <!-- Lista de ações -->
+    <nav class="actions">
+      <a href="deposito.html" class="action-item">
+        <span class="icon svg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M3 21h18"/></svg>
+        </span>
+        <span class="text">Depósito</span>
+        <span class="chevron">›</span>
       </a>
-      <a href="retirada.html" class="menu-item">
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21V9m0 0 4 4m-4-4-4 4M3 3h18"/></svg>
-        <span>Retirada</span>
+
+      <a href="retirada.html" class="action-item">
+        <span class="icon svg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21V9m0 0 4 4m-4-4-4 4M3 3h18"/></svg>
+        </span>
+        <span class="text">Retirada</span>
+        <span class="chevron">›</span>
       </a>
-      <a href="conta.html" class="menu-item">
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 10h18M4 6h16l2 4v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8l2-4z"/></svg>
-        <span>Conta Bancária</span>
+
+      <a href="conta.html" class="action-item">
+        <span class="icon svg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 10h18M4 6h16l2 4v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8l2-4z"/></svg>
+        </span>
+        <span class="text">Conta bancária</span>
+        <span class="chevron">›</span>
       </a>
-      <a href="movimentos.html" class="menu-item">
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-        <span>Registro de Movimentos</span>
+
+      <a href="movimentos.html" class="action-item">
+        <span class="icon svg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </span>
+        <span class="text">Registros de movimentos</span>
+        <span class="chevron">›</span>
       </a>
-      <a href="equipe.html" class="menu-item">
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        <span>Equipe</span>
+
+      <a href="equipa.html" class="action-item">
+        <span class="icon svg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Z"/></svg>
+        </span>
+        <span class="text">Equipa</span>
+        <span class="chevron">›</span>
       </a>
-      <a href="alterarpasse.html" class="menu-item">
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path fill-rule="evenodd" d="M5 8V6a5 5 0 0 1 10 0v2h1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h1zm2-2v2h6V6a3 3 0 0 0-6 0z"/></svg>
-        <span>Alterar palavra-passe</span>
+
+      <a href="download.html" class="action-item">
+        <span class="icon svg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M3 21h18"/></svg>
+        </span>
+        <span class="text">Descarregar a APP</span>
+        <span class="chevron">›</span>
       </a>
-    </div>
+
+      <a href="alterarpasse.html" class="action-item">
+        <span class="icon svg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M5 8V6a5 5 0 0 1 10 0v2h1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h1zm2-2v2h6V6a3 3 0 0 0-6 0z"/><circle cx="12" cy="15" r="2"/></svg>
+        </span>
+        <span class="text">Alterar a palavra-passe</span>
+        <span class="chevron">›</span>
+      </a>
+    </nav>
   </div>
 
+  <!-- Bottom nav fixa -->
   <nav class="bottom-nav">
-    <a href="home.html" class="nav-item">Início</a>
-    <a href="pedidos.html" class="nav-item">Pedidos</a>
-    <a href="afiliados.html" class="nav-item">Recomendar</a>
-    <a href="equipe.html" class="nav-item">Equipe</a>
-    <a href="pessoal.html" class="nav-item active">Utilizador</a>
+    <a href="home.html" class="nav-item" data-key="home">
+      <span class="icon">🏠</span>
+      <span class="label">Início</span>
+    </a>
+    <a href="comprarproduto.html" class="nav-item" data-key="produtos">
+      <span class="icon">🛒</span>
+      <span class="label">Produtos</span>
+    </a>
+    <a href="equipa.html" class="nav-item" data-key="equipa">
+      <span class="icon">👥</span>
+      <span class="label">Equipa</span>
+    </a>
+    <a href="pessoal.html" class="nav-item active" data-key="pessoal">
+      <span class="icon">👤</span>
+      <span class="label">Pessoal</span>
+    </a>
   </nav>
 
-  <script src="pessoal.js" type="module"></script>
+  <!-- Firebase + scripts -->
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./pessoal.js"></script>
+  <script src="bottom-nav.js" defer></script>
 </body>
-        </html>
+</html>
