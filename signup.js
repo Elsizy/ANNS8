@@ -14,14 +14,15 @@ import {
 /* =========================
    CONFIG
 ========================= */
-const SAVE_TIMEOUT_MS = 15000; // aumentamos para 15s. Coloque null para desativar.
+const SAVE_TIMEOUT_MS = 15000; // 15s (coloque null para desativar)
 const LOCK_REFERRAL_IF_URL = true; // travar o input se veio via URL
+const REF_CODE_LEN = 8; // tamanho do código curto
 
 /* =========================
    HELPERS GERAIS
 ========================= */
 function withTimeout(promise, ms, onTimeoutMessage = "Timeout") {
-  if (!ms) return promise; // se ms for null/0, não aplica timeout
+  if (!ms) return promise;
   return new Promise((resolve, reject) => {
     const t = setTimeout(() => reject(new Error(onTimeoutMessage)), ms);
     promise
@@ -64,15 +65,14 @@ function mapFirebaseError(error) {
 /* =========================
    HELPERS DE REFERÊNCIA
 ========================= */
-
-// pega ?ref=... ou ?codigo=...
 function getReferralFromURL() {
   const qs = new URLSearchParams(window.location.search);
-  return qs.get("ref") || qs.get("codigo") || "";
+  // aceitamos ?ref=... ou ?codigo=...
+  const raw = qs.get("ref") || qs.get("codigo") || "";
+  return (raw || "").trim();
 }
 
-// gera um código curto aleatório (8 chars)
-function genRefCode(len = 8) {
+function genRefCode(len = REF_CODE_LEN) {
   const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"; // sem I, l, 1, O, 0
   let out = "";
   for (let i = 0; i < len; i++) out += chars[Math.floor(Math.random() * chars.length)];
@@ -87,7 +87,7 @@ async function createUniqueRefCode(uid) {
     code = genRefCode();
     exists = await get(ref(db, `codes/${code}`));
   }
-  await set(ref(db, `codes/${code}`), { uid });
+  await set(ref(db, `codes/${code}`), { uid, createdAt: Date.now() });
   return code;
 }
 
@@ -102,12 +102,14 @@ async function getNextShortId() {
 }
 
 // resolve o "ref" vindo da URL (pode ser UID antigo ou refCode novo) para UID
-async function resolveInviterUid(refParam) {
+async function resolveInviterUid(refParamRaw) {
+  const refParam = (refParamRaw || "").trim();
   if (!refParam) return null;
 
-  // 1) tenta como código curto (codes/{code} -> uid)
+  // 1) tenta como código curto (sempre upper para ficar consistente)
+  const maybeCode = refParam.toUpperCase();
   try {
-    const codeSnap = await get(ref(db, `codes/${refParam}`));
+    const codeSnap = await get(ref(db, `codes/${maybeCode}`));
     if (codeSnap.exists() && codeSnap.val()?.uid) {
       return codeSnap.val().uid;
     }
@@ -141,7 +143,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Pré-preenche o referral vindo por URL (se houver)
   const refFromURL = getReferralFromURL();
   if (refFromURL) {
-    referralInput.value = refFromURL; // mostra o que veio (código curto ou uid)
+    referralInput.value = refFromURL; // pode ser code curto ou uid
     if (LOCK_REFERRAL_IF_URL) referralInput.readOnly = true;
   }
 
@@ -197,9 +199,10 @@ async function onSubmit(e) {
 
     const payload = {
       uid: user.uid,
-      shortId,                 // novo
-      refCode,                 // novo
-      invitedBy: inviterUid || null, // sempre UID real
+      shortId,                       // novo
+      refCode,                       // novo
+      invitedBy: inviterUid || null, // UID real do patrocinador (se houver)
+      referralCodeUsed: referralRaw || null, // o que o usuário digitou/clicou (auditoria)
       email,
 
       // saldos e totais
@@ -213,7 +216,7 @@ async function onSubmit(e) {
       // compras
       compras: {},
 
-      // totais de indicação (opcional iniciar zerado)
+      // totais de indicação
       refTotals: {
         A: { amount: 0 },
         B: { amount: 0 },
@@ -221,7 +224,7 @@ async function onSubmit(e) {
       },
 
       // LEGADO para não quebrar nada
-      codigoConvite: referralRaw || null, // mantém como você já usava
+      codigoConvite: referralRaw || null,
       investimento: 0,
       comissao: 0,
       produto: null,
@@ -250,4 +253,4 @@ async function onSubmit(e) {
   } finally {
     enableBtn(btn);
   }
-}
+                }
