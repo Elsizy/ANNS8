@@ -6,12 +6,14 @@ import {
 import {
   ref,
   set,
+  get,          // NEW
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 /* =========================
    CONFIG
 ========================= */
 const SAVE_TIMEOUT_MS = 15000; // aumentamos para 15s. Coloque null para desativar.
+const LOCK_REFERRAL_IF_URL = true; // NEW: travar o input se veio via URL
 
 /* =========================
    HELPERS
@@ -58,13 +60,50 @@ function mapFirebaseError(error) {
 }
 
 /* =========================
+   NEW: referral helpers
+========================= */
+function getReferralFromURL() {
+  const qs = new URLSearchParams(window.location.search);
+  // aceitamos ?ref=... ou ?codigo=...
+  return qs.get("ref") || qs.get("codigo") || "";
+}
+
+/**
+ * (Opcional) Valida se o UID informado realmente existe em /usuarios.
+ * Se não existir, limpamos o campo.
+ */
+async function validateReferral(uid) {
+  if (!uid) return null;
+  try {
+    const snap = await get(ref(db, `usuarios/${uid}`));
+    return snap.exists() ? uid : null;
+  } catch (e) {
+    console.warn("Falha validando referral:", e);
+    return null;
+  }
+}
+
+/* =========================
    MAIN
 ========================= */
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const form = document.getElementById("signupForm");
   if (!form) {
     console.error("[SIGNUP] Form não encontrado no DOM.");
     return;
+  }
+
+  // NEW: pré-preenche o referral a partir da URL (se existir)
+  const referralInput = document.getElementById("referral");
+  const refFromURL = getReferralFromURL();
+  if (refFromURL) {
+    const valid = await validateReferral(refFromURL);
+    if (valid) {
+      referralInput.value = valid;
+      if (LOCK_REFERRAL_IF_URL) referralInput.readOnly = true;
+    } else {
+      console.warn("Referral da URL não é válido (usuário não encontrado).");
+    }
   }
 
   form.addEventListener("submit", onSubmit);
@@ -158,4 +197,4 @@ async function onSubmit(e) {
   } finally {
     enableBtn(btn);
   }
-          }
+}
