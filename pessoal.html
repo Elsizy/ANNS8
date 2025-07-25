@@ -16,25 +16,22 @@
     <!-- Header / Perfil -->
     <header class="header">
       <div class="avatar" id="avatar-letter">A</div>
-
       <div class="user-info">
         <div class="user-line" id="user-main">—</div>
         <div class="user-sub">
           Uid: <span id="user-shortid">—</span>
         </div>
       </div>
-
-      <a href="#" id="logout" class="logout-btn">Sair da conta</a>
+      <a href="#" id="logout" class="logout">Sair da conta</a>
     </header>
 
-    <!-- Card único com os 2 saldos -->
-    <section class="summary-card">
-      <div class="summary-item">
+    <!-- Card de saldos (5% maior) -->
+    <section class="balances">
+      <div class="balance-box">
         <p class="label">Saldo disponível</p>
         <p class="value" id="saldo">Kz 0,00</p>
       </div>
-      <div class="divider"></div>
-      <div class="summary-item">
+      <div class="balance-box">
         <p class="label">Retirada total</p>
         <p class="value" id="retirada-total">Kz 0,00</p>
       </div>
@@ -45,9 +42,7 @@
       <a href="deposito.html" class="action-item">
         <span class="icon svg">
           <!-- Depósito -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 1 1 1.414 1.414l-4 4-.094.083a1 1 0 0 1-1.32-.083l-4-4a1 1 0 1 1 1.414-1.414L11 12.586V3a1 1 0 0 1 1-1ZM4 18h16a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2Z"/>
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M3 21h18"/></svg>
         </span>
         <span class="text">Depósito</span>
         <span class="chevron">›</span>
@@ -56,9 +51,7 @@
       <a href="retirada.html" class="action-item">
         <span class="icon svg">
           <!-- Retirada -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 22a1 1 0 0 1-1-1v-9.586l-2.293 2.293a1 1 0 0 1-1.414-1.414l4-4 .094-.083a1 1 0 0 1 1.32.083l4 4a1 1 0 1 1-1.414 1.414L13 11.414V21a1 1 0 0 1-1 1ZM4 4h16a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2Z"/>
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21V9m0 0 4 4m-4-4-4 4M3 3h18"/></svg>
         </span>
         <span class="text">Retirada</span>
         <span class="chevron">›</span>
@@ -67,9 +60,7 @@
       <a href="conta.html" class="action-item">
         <span class="icon svg">
           <!-- Conta bancária -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M2 10a1 1 0 0 1 .553-.894l9-4.5a1 1 0 0 1 .894 0l9 4.5a1 1 0 0 1 .553.894V19a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9Zm2 1v7h16v-7H4Z"/>
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 10h18M4 6h16l2 4v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8l2-4z"/></svg>
         </span>
         <span class="text">Conta bancária</span>
         <span class="chevron">›</span>
@@ -78,9 +69,7 @@
       <a href="movimentos.html" class="action-item">
         <span class="icon svg">
           <!-- Registros -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M6 2a2 2 0 0 0-2 2v16l4-2 4 2 4-2 4 2V4a2 2 0 0 0-2-2H6Zm0 2h12v13.764l-3-1.5-4 2-4-2-3 1.5V4Zm2 3v2h8V7H8Zm0 4v2h6v-2H8Z"/>
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
         </span>
         <span class="text">Registros de movimentos</span>
         <span class="chevron">›</span>
@@ -89,20 +78,26 @@
       <a href="equipa.html" class="action-item">
         <span class="icon svg">
           <!-- Equipa -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M7 8a4 4 0 1 1 8 0A4 4 0 0 1 7 8Zm-2 9a6 6 0 1 1 12 0v3H5v-3Zm14-7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-1 7.338A7.95 7.95 0 0 1 20 17v3h-2v-2.662Z"/>
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Z"/></svg>
         </span>
         <span class="text">Equipa</span>
         <span class="chevron">›</span>
       </a>
 
+      <!-- NOVO: Suporte -->
+      <a href="suporte.html" class="action-item">
+        <span class="icon svg">
+          <!-- Suporte / Headset -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-9 9v5a3 3 0 0 0 3 3h1v-6H6v-2a6 6 0 1 1 12 0v2h-1v6h1a3 3 0 0 0 3-3v-5a9 9 0 0 0-9-9Z"/></svg>
+        </span>
+        <span class="text">Suporte</span>
+        <span class="chevron">›</span>
+      </a>
+
       <a href="download.html" class="action-item">
         <span class="icon svg">
-          <!-- Download app -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 1 1 1.414 1.414l-4 4-.094.083a1 1 0 0 1-1.32-.083l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1ZM4 18h16a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2Z"/>
-          </svg>
+          <!-- Download -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M3 21h18"/></svg>
         </span>
         <span class="text">Descarregar a APP</span>
         <span class="chevron">›</span>
@@ -110,10 +105,8 @@
 
       <a href="alterarpasse.html" class="action-item">
         <span class="icon svg">
-          <!-- Alterar password -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M6 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h1Zm2-2v2h8V6a4 4 0 1 0-8 0Zm4 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/>
-          </svg>
+          <!-- Password -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M5 8V6a5 5 0 0 1 10 0v2h1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h1zm2-2v2h6V6a3 3 0 0 0-6 0z"/><circle cx="12" cy="15" r="2"/></svg>
         </span>
         <span class="text">Alterar a palavra-passe</span>
         <span class="chevron">›</span>
@@ -146,4 +139,4 @@
   <script type="module" src="./pessoal.js"></script>
   <script src="bottom-nav.js" defer></script>
 </body>
-        </html>
+  </html>
