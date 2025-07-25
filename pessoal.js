@@ -2,7 +2,10 @@
 import { auth, db } from "./firebase-config.js";
 import {
   onAuthStateChanged,
-  signOut
+  signOut,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   ref,
@@ -28,6 +31,94 @@ function saveCache(key, data) {
     localStorage.setItem(key, JSON.stringify({ t: Date.now(), data }));
   } catch (_) {}
 }
+
+/* ====== MODAL Alterar Palavra-passe ====== */
+function openChangePassModal() {
+  document.getElementById("change-pass-overlay")?.removeAttribute("hidden");
+}
+function closeChangePassModal() {
+  document.getElementById("change-pass-overlay")?.setAttribute("hidden", "");
+  resetChangePassForm();
+}
+function resetChangePassForm() {
+  const form = document.getElementById("change-pass-form");
+  if (!form) return;
+  form.reset();
+  setChangePassError("");
+  setBtnLoading(false);
+}
+function setBtnLoading(loading) {
+  const btn = document.getElementById("btn-save");
+  if (!btn) return;
+  btn.disabled = !!loading;
+  btn.textContent = loading ? "Salvando..." : "Salvar";
+}
+function setChangePassError(msg) {
+  const el = document.getElementById("change-pass-error");
+  if (!el) return;
+  if (!msg) {
+    el.hidden = true;
+    el.textContent = "";
+  } else {
+    el.hidden = false;
+    el.textContent = msg;
+  }
+}
+async function handleChangePassSubmit(e) {
+  e.preventDefault();
+  const user = auth.currentUser;
+  if (!user) {
+    setChangePassError("Sessão expirada. Faça login novamente.");
+    return;
+  }
+
+  const oldPass = document.getElementById("old-pass").value;
+  const newPass = document.getElementById("new-pass").value;
+  const newPass2 = document.getElementById("new-pass-2").value;
+
+  if (!oldPass || !newPass || !newPass2) {
+    setChangePassError("Preencha todos os campos.");
+    return;
+  }
+  if (newPass !== newPass2) {
+    setChangePassError("As novas palavras-passe não coincidem.");
+    return;
+  }
+  if (newPass.length < 6) {
+    setChangePassError("A nova palavra-passe deve ter ao menos 6 caracteres.");
+    return;
+  }
+
+  setBtnLoading(true);
+  setChangePassError("");
+
+  try {
+    // reautenticar
+    const cred = EmailAuthProvider.credential(user.email, oldPass);
+    await reauthenticateWithCredential(user, cred);
+
+    // atualizar senha
+    await updatePassword(user, newPass);
+
+    alert("Palavra-passe alterada com sucesso!");
+    closeChangePassModal();
+  } catch (err) {
+    console.error("Erro ao alterar palavra-passe:", err);
+    let msg = "Erro ao alterar palavra-passe.";
+    if (err?.code === "auth/wrong-password") {
+      msg = "Palavra-passe atual incorreta.";
+    } else if (err?.code === "auth/weak-password") {
+      msg = "A nova palavra-passe é fraca (mínimo 6 caracteres).";
+    } else if (err?.code === "auth/requires-recent-login") {
+      msg = "Por segurança, faça login novamente e tente de novo.";
+    }
+    setChangePassError(msg);
+  } finally {
+    setBtnLoading(false);
+  }
+}
+
+/* ====== FIM MODAL ====== */
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -59,6 +150,36 @@ onAuthStateChanged(auth, async (user) => {
 
   paint(data);
   saveCache(key, data);
+});
+
+/** Liga os eventos do modal depois que o DOM estiver pronto */
+document.addEventListener("DOMContentLoaded", () => {
+  // abre modal ao clicar no item "Alterar a palavra-passe"
+  const link = document.querySelector('.actions a[href="alterarpasse.html"]');
+  if (link) {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      openChangePassModal();
+    });
+  }
+
+  // eventos do modal
+  const cancelBtn = document.getElementById("btn-cancel");
+  cancelBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeChangePassModal();
+  });
+
+  const form = document.getElementById("change-pass-form");
+  form?.addEventListener("submit", handleChangePassSubmit);
+
+  // se clicar fora do modal, fecha
+  const overlay = document.getElementById("change-pass-overlay");
+  overlay?.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      closeChangePassModal();
+    }
+  });
 });
 
 function paint({ email, phone, shortId, saldo, retiradaTotal }) {
