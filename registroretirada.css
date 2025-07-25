@@ -1,0 +1,122 @@
+:root {
+  --bg-top: #1c2e4a;
+  --bg-bottom: #f9fafc;
+  --purple: #472b91;
+  --white: #fff;
+  --text-dark: #222;
+  --muted: #777;
+  --accent: linear-gradient(to right, #5f67ff, #8759e3);
+  --ok: #14b46f;
+  --warn: #ff9800;
+  --pend: #888;
+  --rej: #e74c3c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    var(--bg-top) 0%,
+    #324d6c 40%,
+    #edf1f7 85%,
+    var(--bg-bottom) 100%
+  );
+  color: #fff;
+}
+
+.dashboard {
+  padding: 20px 16px 40px;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.header h1 {
+  margin: 0;
+  font-size: 20px;
+  flex: 1;
+  text-align: center;
+}
+.header .back {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+.header .spacer {
+  width: 22px;
+}
+
+/* Card branco */
+.card {
+  background: var(--white);
+  color: var(--text-dark);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+/* Lista */
+.withdraw-list .empty {
+  opacity: 0.7;
+  margin: 0;
+}
+
+.item {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.item-header .bank {
+  font-weight: bold;
+  color: #8759e3;
+}
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  color: #fff;
+}
+.badge.pending { background: var(--pend); }
+.badge.processing { background: var(--warn); }
+.badge.done { background: var(--ok); }
+.badge.rejected { background: var(--rej); }
+
+.values {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+.values .row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+.values .row.total {
+  font-weight: bold;
+}
+
+.dates {
+  font-size: 12px;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+                }
