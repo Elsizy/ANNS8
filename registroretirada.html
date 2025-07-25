@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registos de Retirada - ANNS8</title>
+
+  <link rel="stylesheet" href="registroretirada.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Header -->
+    <header class="header">
+      <a href="retirada.html" class="back">← Voltar</a>
+      <h1>Registos de Retirada</h1>
+      <span class="spacer"></span>
+    </header>
+
+    <!-- Lista -->
+    <section class="card">
+      <div id="list" class="withdraw-list">
+        <p class="empty" id="empty">Nenhum registo de retirada.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Firebase + JS -->
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./registroretirada.js"></script>
+</body>
+</html>
