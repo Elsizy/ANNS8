@@ -53,8 +53,8 @@ onAuthStateChanged(auth, async (user) => {
     email: u.email || user.email || "",
     phone: u.phone || u.telefone || "",
     shortId: u.shortId || uid,
-    saldo: u.saldo || 0, // saldo disponível
-    retiradaTotal: u.retiradaTotal || 0 // valor total de retiradas
+    saldo: u.saldo || 0,                 // saldo disponível
+    retiradaTotal: u.retiradaTotal || 0  // total já retirado
   };
 
   paint(data);
@@ -69,8 +69,9 @@ function paint({ email, phone, shortId, saldo, retiradaTotal }) {
   setText("retirada-total", formatKz(retiradaTotal || 0));
 
   const avatar = document.getElementById("avatar-letter");
-  if (avatar && main) {
-    avatar.textContent = (main[0] || "U").toUpperCase();
+  if (avatar) {
+    // Se quiser manter sempre “ANNS”, comente a linha abaixo.
+    avatar.textContent = (main?.[0] || "A").toUpperCase();
   }
 }
 
