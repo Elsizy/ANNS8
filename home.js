@@ -12,13 +12,38 @@ import {
   push,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO, REF_PERC } from "./products.js";
+import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO } from "./products.js";
 
 /** 24h em ms */
 const DAY_MS = 24 * 60 * 60 * 1000;
-
 /** Percentuais de rede aplicados SOBRE O PREÇO do produto */
 const REF_PERC_ON_PURCHASE = { A: 0.30, B: 0.03, C: 0.01 };
+
+/* =========================
+   CACHE (TTL = 60s)
+========================= */
+const CACHE_MAX_AGE = 60_000; // 60s
+const CACHE_KEY_HOME = (uid) => `home_user_${uid}`;
+
+function saveCache(key, data) {
+  try {
+    localStorage.setItem(
+      key,
+      JSON.stringify({ t: Date.now(), data })
+    );
+  } catch (_) {}
+}
+function loadCache(key, maxAge = CACHE_MAX_AGE) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const obj = JSON.parse(raw);
+    if (!obj || !obj.t || Date.now() - obj.t > maxAge) return null;
+    return obj.data;
+  } catch {
+    return null;
+  }
+}
 
 /* ======= HELPERS para mostrar/ocultar ======= */
 const MASKED_TEXT = "Kz ••••";
@@ -51,10 +76,66 @@ function applyVisibility(id, btn) {
   el.textContent = hidden ? MASKED_TEXT : (el.dataset.formatted || el.textContent);
   if (btn) btn.textContent = hidden ? "🙈" : "👁️";
 }
+
+function setupEyes() {
+  document.querySelectorAll(".eye-btn").forEach(btn => {
+    const targetId = btn.dataset.target;
+    applyVisibility(targetId, btn);
+    btn.onclick = () => toggleField(targetId, btn);
+  });
+}
+
+function hideProductsSkeleton() {
+  const sk = document.getElementById("produtos-skeleton");
+  if (sk) sk.style.display = "none";
+}
 /* =========================================== */
 
 /* ------------------------------------------------------------------
-   Inicialização de persistência (sem await solto no topo do módulo)
+   1) Tenta desenhar instantaneamente a partir do cache
+-------------------------------------------------------------------*/
+(function renderFromCacheIfAny() {
+  // Não sabemos o uid aqui ainda; então tentaremos ler o "último" cache usado.
+  // Para simplificar, varremos as chaves e pegamos a mais recente home_user_*
+  let newest = null;
+  let newestKey = null;
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (!k.startsWith("home_user_")) continue;
+      const raw = localStorage.getItem(k);
+      if (!raw) continue;
+      const obj = JSON.parse(raw);
+      if (!obj?.t) continue;
+      if (!newest || obj.t > newest.t) {
+        newest = obj;
+        newestKey = k;
+      }
+    }
+  } catch (_) {}
+
+  if (!newest || Date.now() - newest.t > CACHE_MAX_AGE) return;
+
+  const data = newest.data;
+  if (!data) return;
+
+  // Render rápido
+  setFieldValue("saldo", formatKz(data.saldo || 0));
+  setFieldValue("investimento-total", formatKz(data.totalInvestido || 0));
+  setFieldValue("comissao-total", formatKz(data.totalComissaoDiaria || 0));
+  setupEyes();
+
+  renderProdutos({
+    uid: data.uid,
+    saldo: data.saldo || 0,
+    compras: data.compras || {}
+  });
+
+  hideProductsSkeleton();
+})();
+
+/* ------------------------------------------------------------------
+   2) Fluxo normal com Firebase
 -------------------------------------------------------------------*/
 (async () => {
   try {
@@ -70,6 +151,7 @@ function applyVisibility(id, btn) {
     }
 
     const uid = user.uid;
+    const cacheKey = CACHE_KEY_HOME(uid);
     const userRef = ref(db, `usuarios/${uid}`);
 
     // Acredita comissões diárias pendentes antes de renderizar
@@ -107,12 +189,7 @@ function applyVisibility(id, btn) {
     setFieldValue("investimento-total", formatKz(totalInvestido || 0));
     setFieldValue("comissao-total", formatKz(totalComissaoDiaria || 0));
 
-    // aplica estado dos olhos + listeners
-    document.querySelectorAll(".eye-btn").forEach(btn => {
-      const targetId = btn.dataset.target;
-      applyVisibility(targetId, btn);
-      btn.onclick = () => toggleField(targetId, btn);
-    });
+    setupEyes();
 
     renderProdutos({
       uid,
@@ -120,9 +197,15 @@ function applyVisibility(id, btn) {
       compras: data.compras || {}
     });
 
-    // 🔹 esconder skeleton aqui
-    const sk = document.getElementById("produtos-skeleton");
-    if (sk) sk.style.display = "none";
+    // cacheia para próximos loads
+    saveCache(cacheKey, {
+      uid,
+      ...data,
+      totalInvestido,
+      totalComissaoDiaria
+    });
+
+    hideProductsSkeleton();
   });
 })();
 
@@ -133,6 +216,7 @@ function applyVisibility(id, btn) {
  */
 function renderProdutos({ uid, saldo, compras }) {
   const container = document.getElementById("produtos-container");
+  if (!container) return;
   container.innerHTML = "";
 
   PRODUTOS.forEach((p) => {
@@ -282,13 +366,11 @@ async function creditDailyCommissionIfNeeded(uid) {
       if (diff >= DAY_MS) {
         const dias = Math.floor(diff / DAY_MS);
 
-        // Creditar dias * comissao
         const credit = (item.comissao || 0) * dias;
         if (credit > 0) {
           saldo += credit;
           anyCredit = true;
 
-          // atualiza lastPayAt
           const newLast = lastPayAt + (dias * DAY_MS);
           updates[`usuarios/${uid}/compras/${prodId}/items/${itemId}/lastPayAt`] = newLast;
         }
@@ -307,9 +389,6 @@ async function creditDailyCommissionIfNeeded(uid) {
 
 /**
  * Paga comissão de rede (A/B/C) com base **no PREÇO do produto**.
- * - A: 30%
- * - B: 3%
- * - C: 1%
  */
 async function payReferralCommissions(buyerUid, product) {
   try {
@@ -317,19 +396,17 @@ async function payReferralCommissions(buyerUid, product) {
     if (!buyerSnap.exists()) return;
 
     const buyer = buyerSnap.val();
-    const base = product.preco || 0; // <--- AGORA usamos o PREÇO
+    const base = product.preco || 0;
 
     const uidA = buyer.invitedBy;
-    if (!uidA) return; // sem A, sem B, sem C
+    if (!uidA) return;
 
-    // Nível A
     const creditA = Math.floor(base * REF_PERC_ON_PURCHASE.A);
     if (creditA > 0) {
       await addToSaldo(uidA, creditA);
       await incrementRefTotal(uidA, "A", creditA);
     }
 
-    // Nível B
     const snapA = await get(ref(db, `usuarios/${uidA}`));
     const userA = snapA.exists() ? snapA.val() : null;
     const uidB = userA?.invitedBy;
@@ -340,7 +417,6 @@ async function payReferralCommissions(buyerUid, product) {
         await incrementRefTotal(uidB, "B", creditB);
       }
 
-      // Nível C
       const snapB = await get(ref(db, `usuarios/${uidB}`));
       const userB = snapB.exists() ? snapB.val() : null;
       const uidC = userB?.invitedBy;
@@ -365,14 +441,12 @@ async function addToSaldo(uid, amount) {
   await update(uRef, { saldo: saldoAtual + amount });
 }
 
-/** NOVO: acumula o total ganho por nível (A/B/C) no nó refTotals */
 async function incrementRefTotal(uid, level, amount) {
   if (!amount) return;
   const uRef = ref(db, `usuarios/${uid}/refTotals/${level}/amount`);
   const snap = await get(uRef);
   const prev = snap.exists() ? snap.val() : 0;
   const novo = prev + amount;
-  // atualiza nesse caminho
   await update(ref(db, `usuarios/${uid}/refTotals`), {
     [`${level}/amount`]: novo
   });
@@ -408,4 +482,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-    }
+      }
