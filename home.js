@@ -17,6 +17,9 @@ import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO, REF_PERC } from "./products.js";
 /** 24h em ms */
 const DAY_MS = 24 * 60 * 60 * 1000;
 
+/** Percentuais de rede aplicados SOBRE O PREÇO do produto */
+const REF_PERC_ON_PURCHASE = { A: 0.30, B: 0.03, C: 0.01 };
+
 /* ======= HELPERS para mostrar/ocultar ======= */
 const MASKED_TEXT = "Kz ••••";
 
@@ -303,7 +306,7 @@ async function creditDailyCommissionIfNeeded(uid) {
 }
 
 /**
- * Paga comissão de rede (A/B/C) com base na comissão diária do produto.
+ * Paga comissão de rede (A/B/C) com base **no PREÇO do produto**.
  * - A: 30%
  * - B: 3%
  * - C: 1%
@@ -314,38 +317,38 @@ async function payReferralCommissions(buyerUid, product) {
     if (!buyerSnap.exists()) return;
 
     const buyer = buyerSnap.val();
-    const comissaoBase = product.comissao || 0;
+    const base = product.preco || 0; // <--- AGORA usamos o PREÇO
 
-    // nivel A
     const uidA = buyer.invitedBy;
     if (!uidA) return; // sem A, sem B, sem C
 
-    const creditA = Math.floor(comissaoBase * REF_PERC.A);
+    // Nível A
+    const creditA = Math.floor(base * REF_PERC_ON_PURCHASE.A);
     if (creditA > 0) {
       await addToSaldo(uidA, creditA);
-      await incrementRefTotal(uidA, "A", creditA); // <- NOVO
+      await incrementRefTotal(uidA, "A", creditA);
     }
 
-    // nivel B
+    // Nível B
     const snapA = await get(ref(db, `usuarios/${uidA}`));
     const userA = snapA.exists() ? snapA.val() : null;
     const uidB = userA?.invitedBy;
     if (uidB) {
-      const creditB = Math.floor(comissaoBase * REF_PERC.B);
+      const creditB = Math.floor(base * REF_PERC_ON_PURCHASE.B);
       if (creditB > 0) {
         await addToSaldo(uidB, creditB);
-        await incrementRefTotal(uidB, "B", creditB); // <- NOVO
+        await incrementRefTotal(uidB, "B", creditB);
       }
 
-      // nivel C
+      // Nível C
       const snapB = await get(ref(db, `usuarios/${uidB}`));
       const userB = snapB.exists() ? snapB.val() : null;
       const uidC = userB?.invitedBy;
       if (uidC) {
-        const creditC = Math.floor(comissaoBase * REF_PERC.C);
+        const creditC = Math.floor(base * REF_PERC_ON_PURCHASE.C);
         if (creditC > 0) {
           await addToSaldo(uidC, creditC);
-          await incrementRefTotal(uidC, "C", creditC); // <- NOVO
+          await incrementRefTotal(uidC, "C", creditC);
         }
       }
     }
@@ -405,4 +408,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-}
+    }
