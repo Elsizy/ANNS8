@@ -1,3 +1,4 @@
+// total-equipa.js
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -38,21 +39,21 @@ function splitLevels(myUid, users) {
   const A_UIDs = new Set(), B_UIDs = new Set();
 
   for (const [uid, u] of Object.entries(users)) {
-    if (u.invitedBy === myUid) {
+    if (u?.invitedBy === myUid) {
       levelA.push(uid);
       A_UIDs.add(uid);
     }
   }
 
   for (const [uid, u] of Object.entries(users)) {
-    if (A_UIDs.has(u.invitedBy)) {
+    if (A_UIDs.has(u?.invitedBy)) {
       levelB.push(uid);
       B_UIDs.add(uid);
     }
   }
 
   for (const [uid, u] of Object.entries(users)) {
-    if (B_UIDs.has(u.invitedBy)) {
+    if (B_UIDs.has(u?.invitedBy)) {
       levelC.push(uid);
     }
   }
@@ -88,6 +89,7 @@ function fillList(containerId, uids, users) {
 
 function getFirstDeposit(userObj) {
   if (!userObj) return 0;
+
   if (typeof userObj.firstDeposit === "number") return userObj.firstDeposit;
   if (typeof userObj.firstDepositAmount === "number") return userObj.firstDepositAmount;
 
@@ -106,4 +108,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-    }
+  }
