@@ -70,8 +70,8 @@ function paint({ email, phone, shortId, saldo, retiradaTotal }) {
 
   const avatar = document.getElementById("avatar-letter");
   if (avatar) {
-    // Se quiser manter sempre “ANNS”, comente a linha abaixo.
-    avatar.textContent = (main?.[0] || "A").toUpperCase();
+    const avatarSource = (email && email.trim()) || (phone && phone.trim()) || "A";
+    avatar.textContent = avatarSource.charAt(0).toUpperCase();
   }
 }
 
