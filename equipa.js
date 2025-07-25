@@ -18,15 +18,16 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   const uid = user.uid;
+
+  // Lê seus dados
   const meSnap = await get(ref(db, `usuarios/${uid}`));
   if (!meSnap.exists()) return;
   const me = meSnap.val();
 
-  // Usa refCode (novo) ou fallback para uid (antigo)
+  // Monta link de afiliado (pode continuar usando refCode para ficar curto)
   const myCode = me.refCode || uid;
-
-  // Monta link de afiliado
   const link = `${location.origin}/index.html?ref=${myCode}`;
+
   const linkInput = document.getElementById("affiliate-link");
   linkInput.value = link;
 
@@ -42,7 +43,7 @@ onAuthStateChanged(auth, async (user) => {
     }
   });
 
-  // Lê seus totais de ganhos por nível
+  // Seus totais de ganhos por nível (gravados no home.js)
   const earnedA = me?.refTotals?.A?.amount || 0;
   const earnedB = me?.refTotals?.B?.amount || 0;
   const earnedC = me?.refTotals?.C?.amount || 0;
@@ -51,33 +52,34 @@ onAuthStateChanged(auth, async (user) => {
   document.getElementById("earned-B").textContent = formatKz(earnedB);
   document.getElementById("earned-C").textContent = formatKz(earnedC);
 
-  // Contar A, B, C (usando UID real)
-  const { countA, countB, countC } = await countNetwork(uid);
+  // >>> Agora contamos por UID, que é o que está salvo em invitedBy <<<
+  const { countA, countB, countC } = await countNetworkByUid(uid);
   document.getElementById("count-A").textContent = countA;
   document.getElementById("count-B").textContent = countB;
   document.getElementById("count-C").textContent = countC;
 });
 
 /**
- * Conta:
- * - A: direto de UID
- * - B: quem foi convidado pelos A
- * - C: quem foi convidado pelos B
+ * Conta níveis A/B/C usando invitedBy como UID (compatível com o que o signup salva hoje).
+ *
+ * - A: quem tem invitedBy == uid
+ * - B: quem tem invitedBy == qualquer A.uid
+ * - C: quem tem invitedBy == qualquer B.uid
  */
-async function countNetwork(uid) {
-  const levelA = await getUsersByInvitedBy(uid);
+async function countNetworkByUid(rootUid) {
+  const levelA = await getUsersByInvitedByUid(rootUid);
   const countA = levelA.length;
 
   let levelB = [];
   for (const a of levelA) {
-    const b = await getUsersByInvitedBy(a.uid);
+    const b = await getUsersByInvitedByUid(a.uid);
     levelB = levelB.concat(b);
   }
   const countB = levelB.length;
 
   let levelC = [];
   for (const b of levelB) {
-    const c = await getUsersByInvitedBy(b.uid);
+    const c = await getUsersByInvitedByUid(b.uid);
     levelC = levelC.concat(c);
   }
   const countC = levelC.length;
@@ -86,16 +88,20 @@ async function countNetwork(uid) {
 }
 
 /**
- * Busca usuários cujo invitedBy == UID
+ * Busca usuários cujo invitedBy == someUid
  */
-async function getUsersByInvitedBy(uid) {
-  const q = query(ref(db, "usuarios"), orderByChild("invitedBy"), equalTo(uid));
+async function getUsersByInvitedByUid(someUid) {
+  const q = query(
+    ref(db, "usuarios"),
+    orderByChild("invitedBy"),
+    equalTo(someUid)
+  );
   const snap = await get(q);
   if (!snap.exists()) return [];
   const list = [];
   snap.forEach(child => {
     const val = child.val();
-    list.push({ uid: val.uid, refCode: val.refCode, email: val.email });
+    list.push({ uid: val.uid, email: val.email });
   });
   return list;
 }
@@ -105,4 +111,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-                           }
+                   }
