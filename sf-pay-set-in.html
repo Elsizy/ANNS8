@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sf-Pay • Enviar comprovativo</title>
+  <link rel="stylesheet" href="deposito.css" />
+  <style>
+    .hint {
+      font-size: 12px;
+      color: #777;
+      margin: 6px 0 0;
+    }
+    .note {
+      color: #b35b00;
+      background: #fff6e6;
+      border: 1px solid #ffdeba;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a href="sf-pay-set.html" class="back">← Voltar</a>
+      <h1>Enviar comprovativo</h1>
+      <span style="width:32px;"></span>
+    </header>
+
+    <section class="card">
+      <div class="form-group">
+        <label for="depositant-name">Nome do depositante</label>
+        <input type="text" id="depositant-name" placeholder="Seu nome no comprovativo" autocomplete="name" />
+      </div>
+
+      <div class="form-group">
+        <label for="proof-file">Comprovativo (imagem / PDF)</label>
+        <input type="file" id="proof-file" accept="image/*,.pdf" />
+        <p class="hint">Formatos aceites: JPG, PNG, PDF.</p>
+      </div>
+
+      <div class="note">
+        Após o envio, aguarde pacientemente até 30 minutos pela validação do seu depósito.
+      </div>
+
+      <button id="send" class="btn-primary" style="margin-top: 14px;">Enviar</button>
+
+      <div class="actions-row">
+        <a href="sf-pay-set.html" class="btn-secondary-link">Voltar</a>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./sf-pay-set-in.js"></script>
+</body>
+</html>
