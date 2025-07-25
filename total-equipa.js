@@ -35,39 +35,18 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 /**
- * Divide por níveis usando invitedBy **apenas como UID**:
- *  - A: invitedBy == myUid
- *  - B: invitedBy == uid de alguém do nível A
- *  - C: invitedBy == uid de alguém do nível B
+ * Divide por níveis usando invitedBy (apenas UID).
  */
 function splitLevelsByUid(myUid, users) {
-  const levelA = [], levelB = [], levelC = [];
-  const A_UIDs = new Set(), B_UIDs = new Set();
+  const levelA = Object.keys(users).filter(uid => users[uid]?.invitedBy === myUid);
 
-  // Nível A
-  for (const [uid, u] of Object.entries(users)) {
-    if (u?.invitedBy === myUid) {
-      levelA.push(uid);
-      A_UIDs.add(uid);
-    }
-  }
+  const levelB = Object.keys(users).filter(uid =>
+    levelA.includes(users[uid]?.invitedBy)
+  );
 
-  // Nível B
-  for (const [uid, u] of Object.entries(users)) {
-    if (!u) continue;
-    if (A_UIDs.has(u.invitedBy)) {
-      levelB.push(uid);
-      B_UIDs.add(uid);
-    }
-  }
-
-  // Nível C
-  for (const [uid, u] of Object.entries(users)) {
-    if (!u) continue;
-    if (B_UIDs.has(u.invitedBy)) {
-      levelC.push(uid);
-    }
-  }
+  const levelC = Object.keys(users).filter(uid =>
+    levelB.includes(users[uid]?.invitedBy)
+  );
 
   return { levelA, levelB, levelC };
 }
@@ -100,7 +79,6 @@ function fillList(containerId, uids, users) {
 
 function getFirstDeposit(userObj) {
   if (!userObj) return 0;
-
   if (typeof userObj.firstDeposit === "number") return userObj.firstDeposit;
   if (typeof userObj.firstDepositAmount === "number") return userObj.firstDepositAmount;
 
@@ -119,4 +97,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-}
+                   }
