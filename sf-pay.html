@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sf-Pay • Escolher Banco</title>
+  <link rel="stylesheet" href="deposito.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a href="deposito.html" class="back">← Voltar</a>
+      <h1>Escolha o Banco</h1>
+      <span style="width:32px;"></span>
+    </header>
+
+    <section class="card" id="banks-card">
+      <h2>Banco</h2>
+      <ul class="method-list" id="bank-list"></ul>
+    </section>
+
+    <div class="actions-row">
+      <a href="deposito.html" class="btn-secondary-link">Voltar</a>
+      <button id="go-next" class="btn-primary" disabled>Avançar</button>
+    </div>
+  </div>
+
+  <script type="module" src="./sf-pay.js"></script>
+</body>
+</html>
