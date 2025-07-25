@@ -168,3 +168,23 @@ h2 {
   padding: 10px 12px;
   cursor: pointer;
 }
+.actions-row {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.btn-secondary-link {
+  display: inline-block;
+  background: #e8eaf3;
+  color: #333;
+  border-radius: 8px;
+  text-decoration: none;
+  padding: 10px 12px;
+  font-weight: 600;
+}
+.method-list li.active {
+  background: #f6f7fb;
+  border-color: #c7ccdc;
+}
