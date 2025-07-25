@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pessoal - ANNS8</title>
+
+  <!-- Estilos da página -->
+  <link rel="stylesheet" href="pessoal.css" />
+
+  <!-- Bottom nav -->
+  <link rel="stylesheet" href="bottom-nav.css" />
+</head>
+<body class="has-bottom-nav">
+  <div class="dashboard">
+    <!-- Header / Perfil -->
+    <header class="header">
+      <div class="avatar" id="avatar-letter">U</div>
+      <div class="user-info">
+        <div class="user-line" id="user-main">—</div>
+        <div class="user-sub">
+          Uid: <span id="user-shortid">—</span>
+        </div>
+      </div>
+      <a href="#" id="logout" class="logout">Sair da conta</a>
+    </header>
+
+    <!-- Card de saldos -->
+    <section class="balances">
+      <div class="balance-box">
+        <p class="label">Saldo disponível</p>
+        <p class="value" id="saldo">Kz 0,00</p>
+      </div>
+      <div class="balance-box">
+        <p class="label">Retirada total</p>
+        <p class="value" id="retirada-total">Kz 0,00</p>
+      </div>
+    </section>
+
+    <!-- Lista de ações -->
+    <nav class="actions">
+      <a href="deposito.html" class="action-item">
+        <span class="icon">💳</span>
+        <span class="text">Depósito</span>
+        <span class="chevron">›</span>
+      </a>
+
+      <a href="retirada.html" class="action-item">
+        <span class="icon">🏧</span>
+        <span class="text">Retirada</span>
+        <span class="chevron">›</span>
+      </a>
+
+      <a href="conta.html" class="action-item">
+        <span class="icon">🏦</span>
+        <span class="text">Conta bancária</span>
+        <span class="chevron">›</span>
+      </a>
+
+      <a href="movimentos.html" class="action-item">
+        <span class="icon">📜</span>
+        <span class="text">Registros de movimentos</span>
+        <span class="chevron">›</span>
+      </a>
+
+      <a href="equipa.html" class="action-item">
+        <span class="icon">👥</span>
+        <span class="text">Equipa</span>
+        <span class="chevron">›</span>
+      </a>
+
+      <a href="download.html" class="action-item">
+        <span class="icon">⬇️</span>
+        <span class="text">Descarregar a APP</span>
+        <span class="chevron">›</span>
+      </a>
+
+      <a href="alterarpasse.html" class="action-item">
+        <span class="icon">🔐</span>
+        <span class="text">Alterar a palavra-passe</span>
+        <span class="chevron">›</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Bottom nav fixa -->
+  <nav class="bottom-nav">
+    <a href="home.html" class="nav-item" data-key="home">
+      <span class="icon">🏠</span>
+      <span class="label">Início</span>
+    </a>
+    <a href="comprarproduto.html" class="nav-item" data-key="produtos">
+      <span class="icon">🛒</span>
+      <span class="label">Produtos</span>
+    </a>
+    <a href="equipa.html" class="nav-item" data-key="equipa">
+      <span class="icon">👥</span>
+      <span class="label">Equipa</span>
+    </a>
+    <a href="pessoal.html" class="nav-item" data-key="pessoal">
+      <span class="icon">👤</span>
+      <span class="label">Pessoal</span>
+    </a>
+  </nav>
+
+  <!-- Firebase + scripts -->
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./pessoal.js"></script>
+
+  <!-- Ativa o item correto da bottom-nav -->
+  <script src="bottom-nav.js" defer></script>
+</body>
+</html
