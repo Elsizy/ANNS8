@@ -1,4 +1,3 @@
-/* home.css */
 :root {
   --bg-top: #1c2e4a;
   --bg-bottom: #f9fafc;
@@ -18,7 +17,6 @@ body {
   margin: 0 auto;
 }
 
-/* === 3 LINHAS (1 card por linha) ~40% menor, como ficou por último === */
 .stats {
   display: grid;
   grid-template-columns: 1fr;
@@ -39,13 +37,6 @@ body {
   overflow: hidden;
 }
 
-.card-saldo,
-.card-invest,
-.card-comissao {
-  grid-column: auto;
-  grid-row: auto;
-}
-
 .card .label {
   font-size: 12px;
   opacity: 0.85;
@@ -55,7 +46,7 @@ body {
   font-size: clamp(16px, 4.2vw, 22px);
   font-weight: bold;
   margin: 0;
-  display: flex;              /* <- para alinhar o olho */
+  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
@@ -66,16 +57,20 @@ body {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #fff;
-  font-size: 18px;
-  line-height: 1;
   padding: 2px 4px;
+  display: flex;
+  align-items: center;
 }
-.eye-btn:focus {
-  outline: none;
+.eye-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  transition: stroke 0.2s ease;
+}
+.eye-btn:hover svg {
+  stroke: #000;
 }
 
-/* Menu Links */
 .menu-links {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -200,14 +195,4 @@ h2 {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
   }
-  }
-.icon-eye, .icon-eye-off {
-  width: 20px;
-  height: 20px;
-  stroke: #555; /* Ajuste a cor para combinar com o projeto */
-  vertical-align: middle;
-  transition: stroke 0.2s ease;
-}
-.eye-btn:hover svg {
-  stroke: #000; /* cor mais escura no hover */
   }
