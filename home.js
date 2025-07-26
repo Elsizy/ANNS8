@@ -87,7 +87,10 @@ function applyVisibility(id, btn) {
   if (!el) return;
   const hidden = isHidden(id);
   el.textContent = hidden ? MASKED_TEXT : (el.dataset.formatted || el.textContent);
-  if (btn) btn.textContent = hidden ? "🙈" : "👁️";
+  if (btn) {
+    // <<< ÚNICA MUDANÇA REAL: agora usamos os SVGs em vez de emojis >>>
+    btn.innerHTML = hidden ? ICON_EYE_OFF : ICON_EYE;
+  }
 }
 
 function setupEyes() {
@@ -495,4 +498,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-      }
+}
