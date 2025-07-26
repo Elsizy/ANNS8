@@ -37,37 +37,43 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   uid = user.uid;
-  const uSnap = await get(ref(db, `usuarios/${uid}`));
-  if (!uSnap.exists()) {
-    alert("Usuário não encontrado.");
-    window.location.href = "login.html";
-    return;
+
+  try {
+    const uSnap = await get(ref(db, `usuarios/${uid}`));
+    if (!uSnap.exists()) {
+      alert("Usuário não encontrado.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    const u = uSnap.val();
+    saldoAtual = u.saldo || 0;
+
+    // Carrega contas bancárias (se não tiver, manda criar)
+    const accSnap = await get(ref(db, `usuarios/${uid}/bankAccounts`));
+    if (!accSnap.exists()) {
+      alert("Você precisa cadastrar uma conta bancária antes de retirar.");
+      window.location.href = "conta.html";
+      return;
+    }
+
+    accounts = accSnap.val();
+
+    // mostra saldo
+    saldoEl.textContent = formatKz(saldoAtual);
+
+    // monta lista de bancos
+    buildBankList(accounts);
+
+    // listeners
+    bankBtn.addEventListener("click", () => modal.classList.remove("hidden"));
+    closeModalBtn.addEventListener("click", () => modal.classList.add("hidden"));
+    valorInput.addEventListener("input", calcResumo);
+    enviarBtn.addEventListener("click", onSubmit);
+  } catch (e) {
+    console.error("Erro ao carregar dados de retirada:", e);
+    alert("Falha ao carregar dados. Tente novamente.");
   }
-
-  const u = uSnap.val();
-  saldoAtual = u.saldo || 0;
-
-  // Carrega contas bancárias (se não tiver, manda criar)
-  const accSnap = await get(ref(db, `usuarios/${uid}/bankAccounts`));
-  if (!accSnap.exists()) {
-    alert("Você precisa cadastrar uma conta bancária antes de retirar.");
-    window.location.href = "conta.html";
-    return;
-  }
-
-  accounts = accSnap.val();
-
-  // mostra saldo
-  saldoEl.textContent = formatKz(saldoAtual);
-
-  // monta lista de bancos
-  buildBankList(accounts);
-
-  // listeners
-  bankBtn.addEventListener("click", () => modal.classList.remove("hidden"));
-  closeModalBtn.addEventListener("click", () => modal.classList.add("hidden"));
-  valorInput.addEventListener("input", calcResumo);
-  enviarBtn.addEventListener("click", onSubmit);
 });
 
 function buildBankList(accs) {
@@ -146,6 +152,13 @@ async function onSubmit() {
       createdAt: Date.now()
     };
 
+    // lê retiradaTotal atual com fallback seguro
+    let retiradaTotal = 0;
+    const rtSnap = await get(ref(db, `usuarios/${uid}/retiradaTotal`));
+    if (rtSnap.exists()) {
+      retiradaTotal = Number(rtSnap.val() || 0);
+    }
+
     const updates = {};
     // salva request global (para o admin)
     updates[`withdrawRequests/${reqId}`] = payload;
@@ -153,9 +166,7 @@ async function onSubmit() {
     updates[`usuarios/${uid}/withdrawals/${reqId}`] = payload;
     // debita saldo
     updates[`usuarios/${uid}/saldo`] = novoSaldo;
-
-    // opcional: acumular retiradaTotal do usuário (para mostrar em pessoal.html)
-    const retiradaTotal = (await get(ref(db, `usuarios/${uid}/retiradaTotal`))).val() || 0;
+    // acumula retiradaTotal (gross — o valor que o usuário solicitou)
     updates[`usuarios/${uid}/retiradaTotal`] = retiradaTotal + v;
 
     await update(ref(db), updates);
@@ -175,4 +186,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-}
+      }
