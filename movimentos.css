@@ -1,1 +1,129 @@
+/* movimentos.css */
+:root {
+  --bg: #f5f7fb;
+  --card: #fff;
+  --text: #1c2e4a;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --violet: #472b91;
+}
 
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.dashboard {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 16px 14px 40px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  background: var(--violet);
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+.header .back {
+  text-decoration: none;
+  color: #fff;
+}
+.header h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+.header .spacer {
+  width: 28px;
+}
+
+.filters {
+  display: flex;
+  gap: 6px;
+  margin: 10px 0 14px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.filter-btn.active {
+  background: var(--violet);
+  color: #fff;
+  border-color: var(--violet);
+}
+
+.mov-list .empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 20px 0;
+  font-size: 14px;
+}
+
+.mov-card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mov-info {
+  display: flex;
+  flex-direction: column;
+}
+.mov-type {
+  font-weight: 600;
+  font-size: 15px;
+  margin: 0 0 2px;
+}
+.mov-meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+.mov-amount {
+  font-weight: 700;
+  font-size: 15px;
+}
+.mov-amount.in {
+  color: #0f9d58; /* verde */
+}
+.mov-amount.out {
+  color: #d93025; /* vermelho */
+}
+
+/* skeleton */
+.skeleton {
+  display: block;
+}
+.skeleton-item {
+  height: 64px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.05) 0%,
+    rgba(0,0,0,0.08) 50%,
+    rgba(0,0,0,0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+  }
