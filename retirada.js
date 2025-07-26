@@ -11,7 +11,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const TAXA = 0.15;
-const MIN_WITHDRAW = 2500; // <<< mantém
+const MIN_WITHDRAW = 1200; // <<< mantém
 
 let uid = null;
 let saldoAtual = 0;
