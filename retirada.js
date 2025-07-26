@@ -11,11 +11,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const TAXA = 0.15;
+const MIN_WITHDRAW = 2500; // <<< NOVO
 
 let uid = null;
 let saldoAtual = 0;
 let accounts = {};
 let pickedAccountId = null;
+let hasAnyProduct = false;     // <<< NOVO
+let hasOpenWithdrawal = false; // <<< NOVO
 
 // DOM
 const saldoEl        = document.getElementById("saldo-total");
@@ -37,37 +40,55 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   uid = user.uid;
-  const uSnap = await get(ref(db, `usuarios/${uid}`));
-  if (!uSnap.exists()) {
-    alert("Usuário não encontrado.");
-    window.location.href = "login.html";
-    return;
+
+  try {
+    const uSnap = await get(ref(db, `usuarios/${uid}`));
+    if (!uSnap.exists()) {
+      alert("Usuário não encontrado.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    const u = uSnap.val();
+    saldoAtual = u.saldo || 0;
+
+    // 1) Verifica se o usuário tem pelo menos um produto comprado
+    //    (ajuste o caminho caso use outro nó para compras)
+    const comprasSnap = await get(ref(db, `usuarios/${uid}/compras`));
+    hasAnyProduct = comprasSnap.exists();
+
+    // 2) Verifica se há retiradas pendentes/processing
+    const wSnap = await get(ref(db, `usuarios/${uid}/withdrawals`));
+    if (wSnap.exists()) {
+      const vals = Object.values(wSnap.val() || {});
+      hasOpenWithdrawal = vals.some(w => w.status === "pending" || w.status === "processing");
+    }
+
+    // 3) Carrega contas bancárias (se não tiver, manda criar)
+    const accSnap = await get(ref(db, `usuarios/${uid}/bankAccounts`));
+    if (!accSnap.exists()) {
+      alert("Você precisa cadastrar uma conta bancária antes de retirar.");
+      window.location.href = "conta.html";
+      return;
+    }
+
+    accounts = accSnap.val();
+
+    // mostra saldo
+    saldoEl.textContent = formatKz(saldoAtual);
+
+    // monta lista de bancos
+    buildBankList(accounts);
+
+    // listeners
+    bankBtn.addEventListener("click", () => modal.classList.remove("hidden"));
+    closeModalBtn.addEventListener("click", () => modal.classList.add("hidden"));
+    valorInput.addEventListener("input", calcResumo);
+    enviarBtn.addEventListener("click", onSubmit);
+  } catch (e) {
+    console.error("Erro ao carregar dados de retirada:", e);
+    alert("Falha ao carregar dados. Tente novamente.");
   }
-
-  const u = uSnap.val();
-  saldoAtual = u.saldo || 0;
-
-  // Carrega contas bancárias (se não tiver, manda criar)
-  const accSnap = await get(ref(db, `usuarios/${uid}/bankAccounts`));
-  if (!accSnap.exists()) {
-    alert("Você precisa cadastrar uma conta bancária antes de retirar.");
-    window.location.href = "conta.html";
-    return;
-  }
-
-  accounts = accSnap.val();
-
-  // mostra saldo
-  saldoEl.textContent = formatKz(saldoAtual);
-
-  // monta lista de bancos
-  buildBankList(accounts);
-
-  // listeners
-  bankBtn.addEventListener("click", () => modal.classList.remove("hidden"));
-  closeModalBtn.addEventListener("click", () => modal.classList.add("hidden"));
-  valorInput.addEventListener("input", calcResumo);
-  enviarBtn.addEventListener("click", onSubmit);
 });
 
 function buildBankList(accs) {
@@ -94,6 +115,16 @@ function calcResumo() {
 }
 
 async function onSubmit() {
+  // Bloqueios adicionais (NOVO)
+  if (!hasAnyProduct) {
+    alert("Para retirar fundos é necessário ter comprado pelo menos 1 produto.");
+    return;
+  }
+  if (hasOpenWithdrawal) {
+    alert("Você já possui um pedido de retirada pendente. Aguarde a conclusão para solicitar outro.");
+    return;
+  }
+
   const v = parseFloat(valorInput.value || "0");
   if (!pickedAccountId) {
     alert("Escolha um banco.");
@@ -101,6 +132,10 @@ async function onSubmit() {
   }
   if (!v || v <= 0) {
     alert("Digite um valor válido.");
+    return;
+  }
+  if (v < MIN_WITHDRAW) {
+    alert(`O valor mínimo para retirada é ${formatKz(MIN_WITHDRAW)}.`);
     return;
   }
   if (v > saldoAtual) {
@@ -154,8 +189,8 @@ async function onSubmit() {
     // debita saldo
     updates[`usuarios/${uid}/saldo`] = novoSaldo;
 
-    // >>>>>> ATENÇÃO: NÃO atualizamos retiradaTotal aqui! <<<<<<
-    // isso só será somado em approveWithdrawal no admin.js
+    // >>>>>> CONTINUA SEM atualizar retiradaTotal aqui! <<<<<<
+    // Somente quando o admin concluir no admin.js
 
     await update(ref(db), updates);
 
@@ -174,4 +209,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-}
+    }
