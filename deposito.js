@@ -17,15 +17,18 @@ const DEPOSIT_START_H = 9;   // 09h
 const DEPOSIT_END_H   = 21;  // 21h (exclusivo)
 
 // DOM
-const amountInput = document.getElementById("deposit-amount");
-const presets = document.querySelectorAll(".preset");
+const amountInput   = document.getElementById("deposit-amount");
+const presets       = document.querySelectorAll(".preset");
 const pickMethodBtn = document.getElementById("pick-method");
 const methodLabelEl = document.getElementById("method-label");
-const continueBtn = document.getElementById("continue");
+const continueBtn   = document.getElementById("continue");
+
+// NOVO: caixa de erro estilizada
+const errorBox = document.getElementById("deposit-error");
 
 // Modal
 const methodModal = document.getElementById("method-modal");
-const methodList = document.getElementById("method-list");
+const methodList  = document.getElementById("method-list");
 const closeMethod = document.getElementById("close-method");
 
 // ----- Auth -----
@@ -56,6 +59,9 @@ closeMethod.addEventListener("click", () => {
 });
 
 continueBtn.addEventListener("click", () => {
+  // limpa o erro visual (se estiver visível)
+  if (errorBox) errorBox.style.display = "none";
+
   const raw = parseFloat(amountInput.value || "0");
   if (!raw || raw <= 0) {
     alert("Informe um valor válido.");
@@ -67,9 +73,9 @@ continueBtn.addEventListener("click", () => {
     return;
   }
 
-  // ==== NOVO: validação de horário ====
+  // ==== NOVO: validação de horário usando a caixa estilizada ====
   if (!isWithinDepositWindow()) {
-    alert(`Depósitos disponíveis entre ${DEPOSIT_START_H}h e ${DEPOSIT_END_H}h.`);
+    if (errorBox) errorBox.style.display = "block";
     return;
   }
 
