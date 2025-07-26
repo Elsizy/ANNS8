@@ -73,7 +73,6 @@ function setFieldValue(id, formatted) {
 }
 
 function toggleField(id, btn) {
-function toggleField(id, btn) {
   const hidden = isHidden(id);
   localStorage.setItem(`hide_${id}`, hidden ? "0" : "1");
   applyVisibility(id, btn);
@@ -86,17 +85,13 @@ function isHidden(id) {
 function applyVisibility(id, btn) {
   const el = document.getElementById(id);
   if (!el) return;
-
   const hidden = isHidden(id);
   el.textContent = hidden ? MASKED_TEXT : (el.dataset.formatted || el.textContent);
-
-  if (btn) {
-    btn.innerHTML = hidden ? ICON_EYE_OFF : ICON_EYE;
-  }
+  if (btn) btn.textContent = hidden ? "🙈" : "👁️";
 }
 
 function setupEyes() {
-  document.querySelectorAll(".eye-btn").forEach((btn) => {
+  document.querySelectorAll(".eye-btn").forEach(btn => {
     const targetId = btn.dataset.target;
     applyVisibility(targetId, btn);
     btn.onclick = () => toggleField(targetId, btn);
@@ -500,4 +495,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-      }
+    }
