@@ -3,87 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sf-Pay • Dados para pagamento</title>
+  <title>Sf-Pay • Confirmar Dados</title>
   <link rel="stylesheet" href="deposito.css" />
-  <style>
-    .copy-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .copy-row .value {
-      flex: 1;
-      background: #f6f7fb;
-      border: 1px solid #e5e9f2;
-      border-radius: 6px;
-      padding: 8px 10px;
-      word-break: break-all;
-    }
-    .copy-btn {
-      background: #e8eaf3;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 10px;
-      cursor: pointer;
-    }
-    .warning {
-      margin-top: 14px;
-      font-size: 13px;
-      color: #b35b00;
-      background: #fff6e6;
-      border: 1px solid #ffdeba;
-      border-radius: 8px;
-      padding: 10px;
-    }
-  </style>
 </head>
 <body>
   <div class="page">
     <header class="header">
       <a href="sf-pay.html" class="back">← Voltar</a>
-      <h1>Dados para pagamento</h1>
+      <h1>Confirmar dados</h1>
       <span style="width:32px;"></span>
     </header>
 
     <section class="card">
-      <h2>Transferir exatamente estes dados</h2>
-
-      <div class="form-group">
-        <label>Titular</label>
-        <div class="copy-row">
-          <div class="value" id="titular">—</div>
-          <button class="copy-btn" data-copy="#titular">Copiar</button>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>IBAN</label>
-        <div class="copy-row">
-          <div class="value" id="iban">—</div>
-          <button class="copy-btn" data-copy="#iban">Copiar</button>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Valor exato a depositar</label>
-        <div class="copy-row">
-          <div class="value" id="amount-exact">Kz 0,00</div>
-          <button class="copy-btn" data-copy="#amount-exact">Copiar</button>
-        </div>
-      </div>
-
-      <div class="warning">
-        Envie **exatamente** o valor exibido acima. Valores divergentes podem atrasar a validação do seu depósito.
-      </div>
-
-      <div class="actions-row">
-        <a href="sf-pay.html" class="btn-secondary-link">Voltar</a>
-        <button id="go-next" class="btn-primary">Avançar</button>
+      <h2>Transferir para</h2>
+      <div id="admin-bank" class="bank-info">
+        <!-- preenchido via JS -->
       </div>
     </section>
+
+    <section class="card">
+      <h2>Valor exato a enviar</h2>
+      <div class="copy-row">
+        <span id="amount-exact">Kz 0,00</span>
+        <button id="copy-amount" class="btn-secondary">Copiar</button>
+      </div>
+      <small class="warn">Envie exatamente este valor (centavos incluídos) para identificarmos o seu depósito.</small>
+    </section>
+
+    <div class="actions-row">
+      <a href="sf-pay.html" class="btn-secondary-link">Voltar</a>
+      <button id="go-upload" class="btn-primary">Avançar</button>
+    </div>
   </div>
 
+  <script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./sf-pay-set.js"></script>
 </body>
 </html>
