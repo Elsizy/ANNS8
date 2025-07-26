@@ -1,55 +1,78 @@
 // sf-pay-set.js
+import { auth, db } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
 const DRAFT_KEY = "deposit_draft_v1";
 
-const titularEl = document.getElementById("titular");
-const ibanEl = document.getElementById("iban");
+const titularEl     = document.getElementById("titular");
+const ibanEl        = document.getElementById("iban");
 const amountExactEl = document.getElementById("amount-exact");
-const copyBtns = document.querySelectorAll(".copy-btn");
-const goNextBtn = document.getElementById("go-next");
+const goNextBtn     = document.getElementById("go-next");
 
 let draft = null;
 
-(function init() {
-  const raw = sessionStorage.getItem(DRAFT_KEY);
-  if (!raw) {
-    alert("Sessão expirada. Recomece o depósito.");
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "{}");
+  if (!draft?.amountBase || !draft?.bank || !draft?.method) {
+    alert("Fluxo de depósito inválido. Recomece.");
     window.location.href = "deposito.html";
     return;
   }
-  draft = JSON.parse(raw);
 
-  // gera os "centavos" aleatórios (0.01 a 0.99)
-  const cents = (Math.floor(Math.random() * 90) + 10) / 100;
-  const amountExact = draft.amountBase + cents;
+  // 1) Carrega dados do banco do admin
+  const bankSnap = await get(ref(db, `adminBanks/${draft.bank}`));
+  if (bankSnap.exists()) {
+    const b = bankSnap.val();
+    titularEl.textContent = b.holder || "—";
+    ibanEl.textContent = b.iban || "—";
+    // guardar para a última etapa
+    draft.bankData = { name: b.name || draft.bank, iban: b.iban || "", holder: b.holder || "" };
+  } else {
+    titularEl.textContent = "—";
+    ibanEl.textContent = "—";
+    draft.bankData = { name: draft.bank, iban: "", holder: "" };
+  }
 
-  // popula UI
-  titularEl.textContent = draft.bankData?.titular || "xxxx";
-  ibanEl.textContent = draft.bankData?.iban || "xxxxxxxxxxxxxxxxxxxxx";
-  amountExactEl.textContent = formatKz(amountExact);
+  // 2) Gera valor exato se ainda não existir
+  if (!draft.amountExact) {
+    draft.amountExact = gerarValorExato(draft.amountBase);
+  }
+  amountExactEl.textContent = formatKz(draft.amountExact);
 
-  // salva no draft
-  draft.amountExact = amountExact;
+  // salva o draft atualizado
   sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
 
-  copyBtns.forEach(btn => {
+  // 3) Botão copiar
+  document.querySelectorAll(".copy-btn").forEach((btn) => {
+    const sel = btn.getAttribute("data-copy");
     btn.addEventListener("click", async () => {
-      const selector = btn.dataset.copy;
-      const el = document.querySelector(selector);
-      if (!el) return;
       try {
-        await navigator.clipboard.writeText(el.textContent.trim());
+        const val = document.querySelector(sel)?.textContent || "";
+        await navigator.clipboard.writeText(val);
+        const old = btn.textContent;
         btn.textContent = "Copiado!";
-        setTimeout(() => (btn.textContent = "Copiar"), 1500);
-      } catch (e) {
-        console.error("Falha ao copiar:", e);
-      }
+        setTimeout(() => (btn.textContent = old), 1200);
+      } catch (_) {}
     });
   });
 
+  // 4) Avançar
   goNextBtn.addEventListener("click", () => {
     window.location.href = "sf-pay-set-in.html";
   });
-})();
+});
+
+function gerarValorExato(base) {
+  // soma aleatória entre 0.01 e 0.99
+  const cents = Math.floor(Math.random() * 99) + 1; // 1..99
+  return Number(base) + Number((cents / 100).toFixed(2));
+}
 
 function formatKz(v) {
   return `Kz ${Number(v || 0).toLocaleString("pt-PT", {
