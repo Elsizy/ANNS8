@@ -47,6 +47,19 @@ function tsToPt(ts) {
   return new Date(ts || Date.now()).toLocaleString("pt-PT");
 }
 
+/** ========== NOVO: log de movimentos do usuário ========== */
+async function pushMovement(uid, movement) {
+  try {
+    const mvRef = push(ref(db, `usuarios/${uid}/movimentos`));
+    await set(mvRef, {
+      id: mvRef.key,
+      ...movement
+    });
+  } catch (e) {
+    console.warn("Falha ao registrar movimento:", e);
+  }
+}
+
 /**
  * ===========================
  * NAV
@@ -275,6 +288,20 @@ async function approveDeposit(id) {
   }
 
   await update(ref(db), updates);
+
+  // ===== NOVO: Registra movimento =====
+  await pushMovement(dep.uid, {
+    type: "deposit",
+    direction: "in",
+    amount,
+    balanceAfter: novoSaldo,
+    meta: {
+      requestId: id,
+      method: dep.method || null
+    },
+    createdAt: Date.now()
+  });
+
   alert("Depósito aprovado com sucesso!");
 }
 
@@ -415,6 +442,25 @@ async function approveWithdrawal(id) {
   updates[`usuarios/${wd.uid}/retiradaTotal`] = prev + (wd.amountGross || 0);
 
   await update(ref(db), updates);
+
+  // ===== NOVO: Log de movimento (retirada)
+  // Obs.: O saldo já foi debitado quando o user solicitou a retirada.
+  // Então aqui não alteramos o saldo, mas registramos o movimento como concluído.
+  const userSaldoSnap = await get(ref(db, `usuarios/${wd.uid}/saldo`));
+  const balanceAfter = userSaldoSnap.exists() ? (userSaldoSnap.val() || 0) : 0;
+
+  await pushMovement(wd.uid, {
+    type: "withdraw",
+    direction: "out",
+    amount: wd.amountGross || 0,
+    balanceAfter,
+    meta: {
+      requestId: id,
+      fee: wd.fee || (wd.amountGross * TAXA_RETIRADA)
+    },
+    createdAt: now
+  });
+
   alert("Retirada concluída!");
 }
 
@@ -550,4 +596,4 @@ function attachBankListeners() {
     cancelBtn.classList.add("hidden");
     alert("Banco salvo!");
   });
-                  }
+                     }
