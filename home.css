@@ -201,3 +201,31 @@ h2 {
     grid-template-rows: auto auto auto;
   }
   }
+/* =========================
+   Ticker contínuo (duplicado)
+   Cole no FINAL do home.css
+========================= */
+.ticker {
+  position: relative;
+  overflow: hidden;
+  height: 24px;
+  background: transparent;
+}
+
+.ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: ticker-move 30s linear infinite; /* ajuste 30s conforme quiser */
+}
+
+.ticker-track span {
+  padding-right: 4rem;
+  font-size: 14px;
+  opacity: .95;
+}
+
+@keyframes ticker-move {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+  }
