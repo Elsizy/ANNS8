@@ -4,11 +4,10 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/f
 
 /**
  * Guardamos o rascunho do depósito em sessionStorage
- * para reaproveitar nas próximas telas.
+ * para reaproveitar nas próximas telas (sf-pay.html, sf-pay-set.html, etc).
  */
-const DRAFT_KEY = "deposit_draft_v1";
+export const DRAFT_KEY = "deposit_draft_v1";
 
-const BANKS = ["BAI", "BFA", "BIC", "Atlântico", "BPC"];
 const METHODS = [{ id: "sf.pay-set", label: "sf.pay-set" }];
 
 let currentUser = null;
@@ -69,9 +68,9 @@ continueBtn.addEventListener("click", () => {
     uid: currentUser.uid,
     amountBase: Math.floor(raw),
     method: methodId,
-    bank: null,
-    bankData: null,
-    amountExact: null, // será definido na sf-pay-set.html
+    bank: null,        // será definido em sf-pay.html
+    bankData: null,    // será definido em sf-pay.html (adminBanks)
+    amountExact: null, // será definido em sf-pay-set.html (ou onde fizer sentido)
   };
   sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
 
