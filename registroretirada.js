@@ -25,7 +25,12 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     const data = snap.val();
-    const arr = Object.values(data).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    const arr = Object.values(data)
+      .map((w) => ({
+        ...w,
+        status: normalizeStatus(w.status)
+      }))
+      .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
     if (!arr.length) {
       showEmpty();
@@ -77,6 +82,17 @@ function renderItem(w) {
   listEl.appendChild(div);
 }
 
+function normalizeStatus(st) {
+  if (!st) return "pending";
+  const s = String(st).toLowerCase();
+  if (["pending", "processing", "done", "rejected"].includes(s)) return s;
+  // compatibilidade com textos antigos
+  if (s.startsWith("proc")) return "processing";
+  if (s.startsWith("conc")) return "done";
+  if (s.startsWith("rej"))  return "rejected";
+  return "pending";
+}
+
 function statusLabel(st) {
   switch (st) {
     case "processing": return "Processando";
@@ -89,6 +105,7 @@ function statusLabel(st) {
 function showEmpty(msg) {
   emptyEl.style.display = "block";
   if (msg) emptyEl.textContent = msg;
+  listEl.innerHTML = "";
 }
 
 function formatKz(v) {
@@ -101,4 +118,4 @@ function formatKz(v) {
 function formatDate(ts) {
   if (!ts) return "—";
   return new Date(ts).toLocaleString("pt-PT");
-}
+      }
