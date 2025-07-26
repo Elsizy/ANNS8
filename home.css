@@ -119,7 +119,7 @@ body {
   position: absolute;
   white-space: nowrap;
   will-change: transform;
-  animation: ticker 15s linear infinite;
+  animation: ticker 30s linear infinite;
   font-size: 14px;
   opacity: .95;
 }
