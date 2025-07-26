@@ -201,25 +201,13 @@ h2 {
     grid-template-rows: auto auto auto;
   }
   }
-.icon-eye,
-.icon-eye-off {
-  width: 18px;
-  height: 18px;
-  stroke: #555;
+.icon-eye, .icon-eye-off {
+  width: 20px;
+  height: 20px;
+  stroke: #555; /* Ajuste a cor para combinar com o projeto */
   vertical-align: middle;
-  transition: stroke .15s ease;
+  transition: stroke 0.2s ease;
 }
-
-.eye-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px 4px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
 .eye-btn:hover svg {
-  stroke: #000;
+  stroke: #000; /* cor mais escura no hover */
   }
