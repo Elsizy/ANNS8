@@ -11,14 +11,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const TAXA = 0.15;
-const MIN_WITHDRAW = 2500; // <<< NOVO
+const MIN_WITHDRAW = 2500; // <<< mantém
 
 let uid = null;
 let saldoAtual = 0;
 let accounts = {};
 let pickedAccountId = null;
-let hasAnyProduct = false;     // <<< NOVO
-let hasOpenWithdrawal = false; // <<< NOVO
+let hasAnyProduct = false;     // mantém
+let hasOpenWithdrawal = false; // mantém
 
 // DOM
 const saldoEl        = document.getElementById("saldo-total");
@@ -53,7 +53,6 @@ onAuthStateChanged(auth, async (user) => {
     saldoAtual = u.saldo || 0;
 
     // 1) Verifica se o usuário tem pelo menos um produto comprado
-    //    (ajuste o caminho caso use outro nó para compras)
     const comprasSnap = await get(ref(db, `usuarios/${uid}/compras`));
     hasAnyProduct = comprasSnap.exists();
 
@@ -114,8 +113,30 @@ function calcResumo() {
   liquidoEl.textContent = formatKz(liquido);
 }
 
+// ---- NOVO: função para exibir erro estilizado ----
+function showError(msg) {
+  const box = document.getElementById("withdraw-error");
+  if (!box) {
+    alert(msg);
+    return;
+  }
+  box.textContent = msg;
+  box.classList.remove("hidden");
+  setTimeout(() => {
+    box.classList.add("hidden");
+  }, 4000);
+}
+
 async function onSubmit() {
-  // Bloqueios adicionais (NOVO)
+  // Bloqueio de horário (somente das 9h às 18h)  <<< NOVO
+  const now = new Date();
+  const hora = now.getHours();
+  if (hora < 9 || hora >= 18) {
+    showError("⛔ Os saques só estão disponíveis das 9h às 18h.");
+    return;
+  }
+
+  // Bloqueios adicionais (mantidos)
   if (!hasAnyProduct) {
     alert("Para retirar fundos é necessário ter comprado pelo menos 1 produto.");
     return;
@@ -209,4 +230,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-    }
+  }
