@@ -1,4 +1,4 @@
-// sf-pay-set.js
+// sf-pay-set.js (corrigido)
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -19,24 +19,38 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "{}");
-  if (!draft?.amountBase || !draft?.bank || !draft?.method) {
+  if (!draft?.amountBase || !draft?.method) {
     alert("Fluxo de depósito inválido. Recomece.");
     window.location.href = "deposito.html";
     return;
   }
 
-  // 1) Carrega dados do banco do admin
-  const bankSnap = await get(ref(db, `adminBanks/${draft.bank}`));
-  if (bankSnap.exists()) {
-    const b = bankSnap.val();
-    titularEl.textContent = b.holder || "—";
-    ibanEl.textContent = b.iban || "—";
-    // guardar para a última etapa
-    draft.bankData = { name: b.name || draft.bank, iban: b.iban || "", holder: b.holder || "" };
+  // >>> AQUI ESTAVA O ERRO: usar o ID salvo em draft.bankData.id <<<
+  const bankId = draft?.bankData?.id;
+  if (bankId) {
+    const bankSnap = await get(ref(db, `adminBanks/${bankId}`));
+    if (bankSnap.exists()) {
+      const b = bankSnap.val();
+      titularEl.textContent = b.holder || "—";
+      ibanEl.textContent = b.iban || "—";
+      draft.bank = b.name || draft.bank || "";
+      draft.bankData = {
+        id: bankId,
+        name: b.name || "",
+        iban: b.iban || "",
+        holder: b.holder || ""
+      };
+    } else {
+      // fallback se o ID não existir mais
+      titularEl.textContent = "—";
+      ibanEl.textContent = "—";
+      draft.bankData = { id: bankId, name: draft.bank || "", iban: "", holder: "" };
+    }
   } else {
+    // fallback extremo (usuário veio direto pra cá sem passar pelo sf-pay.html)
     titularEl.textContent = "—";
     ibanEl.textContent = "—";
-    draft.bankData = { name: draft.bank, iban: "", holder: "" };
+    draft.bankData = { id: null, name: draft.bank || "", iban: "", holder: "" };
   }
 
   // 2) Gera valor exato se ainda não existir
@@ -69,7 +83,6 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 function gerarValorExato(base) {
-  // soma aleatória entre 0.01 e 0.99
   const cents = Math.floor(Math.random() * 99) + 1; // 1..99
   return Number(base) + Number((cents / 100).toFixed(2));
 }
@@ -79,4 +92,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-}
+  }
