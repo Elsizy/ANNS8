@@ -12,6 +12,10 @@ const METHODS = [{ id: "sf.pay-set", label: "sf.pay-set" }];
 
 let currentUser = null;
 
+// ==== NOVO: janela de horário permitida ====
+const DEPOSIT_START_H = 9;   // 09h
+const DEPOSIT_END_H   = 21;  // 21h (exclusivo)
+
 // DOM
 const amountInput = document.getElementById("deposit-amount");
 const presets = document.querySelectorAll(".preset");
@@ -63,6 +67,12 @@ continueBtn.addEventListener("click", () => {
     return;
   }
 
+  // ==== NOVO: validação de horário ====
+  if (!isWithinDepositWindow()) {
+    alert(`Depósitos disponíveis entre ${DEPOSIT_START_H}h e ${DEPOSIT_END_H}h.`);
+    return;
+  }
+
   // Guarda rascunho
   const draft = {
     uid: currentUser.uid,
@@ -91,3 +101,10 @@ function buildMethodList() {
     methodList.appendChild(li);
   });
 }
+
+// ==== NOVO ====
+function isWithinDepositWindow(date = new Date()) {
+  const h = date.getHours();
+  // permitido entre 09:00 (inclusive) e 21:00 (exclusivo)
+  return h >= DEPOSIT_START_H && h < DEPOSIT_END_H;
+    }
