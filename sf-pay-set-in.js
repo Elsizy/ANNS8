@@ -1,105 +1,132 @@
 // sf-pay-set-in.js
-import { auth, db, storage } from "./firebase-config.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { auth, db } from "./firebase-config.js";
 import {
-  ref, push, set
+  onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  ref as dbRef,
+  push,
+  update,
+  get,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import {
-  ref as sRef, uploadBytes, getDownloadURL
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
+/** Onde guardamos o rascunho desde deposito.js */
 const DRAFT_KEY = "deposit_draft_v1";
 
-const summaryEl      = document.getElementById("summary");
-const depositorInput = document.getElementById("depositor-name");
-const proofInput     = document.getElementById("proof");
-const sendBtn        = document.getElementById("send");
+const storage = getStorage();
+
+/* DOM */
+const nameInput = document.getElementById("depositant-name");
+const fileInput = document.getElementById("proof-file");
+const sendBtn   = document.getElementById("send");
 
 let currentUser = null;
 let draft = null;
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "login.html";
     return;
   }
   currentUser = user;
 
-  draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "{}");
-  if (!draft?.amountBase || !draft?.bank || !draft?.amountExact || !draft?.method) {
-    alert("Fluxo de depósito inválido. Recomece.");
+  // carrega o draft
+  const raw = sessionStorage.getItem(DRAFT_KEY);
+  if (!raw) {
+    alert("Fluxo de depósito não encontrado. Recomece.");
     window.location.href = "deposito.html";
     return;
   }
 
-  // Mostra um resumo
-  const bankData = draft.bankData || {};
-  summaryEl.innerHTML = `
-    <p><strong>Banco:</strong> ${bankData.name || draft.bank}</p>
-    <p><strong>Titular:</strong> ${bankData.holder || "—"}</p>
-    <p><strong>IBAN:</strong> ${bankData.iban || "—"}</p>
-    <p><strong>Valor exato:</strong> ${formatKz(draft.amountExact)}</p>
-  `;
+  try {
+    draft = JSON.parse(raw);
+    // segurança extra: se não tiver uid ou amountBase, volta
+    if (!draft?.uid || !draft?.amountBase || !draft?.method || !draft?.bank || !draft?.bankData) {
+      alert("Informações do depósito incompletas. Recomece.");
+      window.location.href = "deposito.html";
+      return;
+    }
+  } catch {
+    alert("Rascunho inválido. Recomece.");
+    window.location.href = "deposito.html";
+    return;
+  }
 });
 
-sendBtn.addEventListener("click", async () => {
-  const depositorName = (depositorInput.value || "").trim();
-  if (!depositorName) {
+sendBtn?.addEventListener("click", onSend);
+
+async function onSend() {
+  if (!currentUser || !draft) return;
+
+  const depositantName = (nameInput.value || "").trim();
+  const file = fileInput.files?.[0];
+
+  if (!depositantName) {
     alert("Informe o nome do depositante.");
     return;
   }
-  if (!proofInput.files.length) {
-    alert("Envie o comprovativo.");
+  if (!file) {
+    alert("Anexe o comprovativo (imagem ou PDF).");
     return;
   }
 
   sendBtn.disabled = true;
 
   try {
-    // Faz upload da imagem
-    const file = proofInput.files[0];
-    const path = `proofs/${currentUser.uid}/${Date.now()}_${file.name}`;
-    const storageRef = sRef(storage, path);
-    await uploadBytes(storageRef, file);
-    const url = await getDownloadURL(storageRef);
+    // 1) sobe o comprovativo
+    const path = `depositProofs/${currentUser.uid}/${Date.now()}_${sanitizeFilename(file.name)}`;
+    const sRef = storageRef(storage, path);
+    await uploadBytes(sRef, file);
+    const proofUrl = await getDownloadURL(sRef);
 
-    // Salva o pedido no RTDB: depositRequests/ e usuarios/<uid>/deposits/
-    const reqRef = push(ref(db, `depositRequests`));
-    const reqId = reqRef.key;
+    // 2) gera um id e grava requisição global + histórico do usuário
+    const reqRef = push(dbRef(db, "depositRequests"));
+    const id = reqRef.key;
+
+    // garanta amountExact (se ainda não foi definido, usa base)
+    const amountExact = typeof draft.amountExact === "number" && !Number.isNaN(draft.amountExact)
+      ? draft.amountExact
+      : draft.amountBase;
 
     const payload = {
-      id: reqId,
+      id,
       uid: currentUser.uid,
       method: draft.method,
-      bank: draft.bank,
-      bankData: draft.bankData || null,
       amountBase: draft.amountBase,
-      amountExact: draft.amountExact,
-      depositorName,
-      proofUrl: url,
+      amountExact,
+      bank: draft.bank,
+      bankData: draft.bankData, // { holder, iban }
+      depositantName,
+      proofUrl,
       status: "pending",
       createdAt: Date.now()
     };
 
-    await set(reqRef, payload);
-    await set(ref(db, `usuarios/${currentUser.uid}/deposits/${reqId}`), payload);
+    const updates = {};
+    updates[`depositRequests/${id}`] = payload;
+    updates[`usuarios/${currentUser.uid}/deposits/${id}`] = payload;
 
-    // Limpa o draft
+    await update(dbRef(db), updates);
+
+    // limpa o draft
     sessionStorage.removeItem(DRAFT_KEY);
 
-    alert("Depósito enviado! Aguarde a confirmação.");
+    alert("Depósito enviado com sucesso! Aguarde a validação.");
     window.location.href = "registrodeposito.html";
-  } catch (e) {
-    console.error(e);
-    alert("Erro ao enviar o comprovativo.");
+  } catch (err) {
+    console.error("Erro ao enviar comprovativo:", err);
+    alert("Falha ao enviar o depósito. Tente novamente.");
   } finally {
     sendBtn.disabled = false;
   }
-});
+}
 
-function formatKz(v) {
-  return `Kz ${Number(v || 0).toLocaleString("pt-PT", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })}`;
-    }
+function sanitizeFilename(name) {
+  return name.replace(/[^\w.\-]+/g, "_");
+        }
