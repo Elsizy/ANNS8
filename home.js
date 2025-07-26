@@ -483,10 +483,3 @@ function formatKz(v) {
     maximumFractionDigits: 2
   })}`;
       }
-// Duplica automaticamente o conteúdo do ticker para ficar contínuo
-document.addEventListener("DOMContentLoaded", () => {
-  const track = document.getElementById("ticker-track");
-  if (track && track.children.length === 1) {
-    track.innerHTML = track.innerHTML + track.innerHTML;
-  }
-});
