@@ -22,6 +22,10 @@ const TAXA_RETIRADA = 0.15; // já usada no front do usuário
 let ADMIN_UID = null;       // uid do admin logado
 let editingBankId = null;
 
+// nós usados no app do usuário
+const USER_DEPOSITS_NODE = "deposits";
+const USER_WITHDRAWALS_NODE = "withdrawals";
+
 /**
  * ===========================
  * UTILS
@@ -39,6 +43,9 @@ function setText(id, v) {
 }
 function qs(sel) { return document.querySelector(sel); }
 function qsa(sel) { return [...document.querySelectorAll(sel)]; }
+function tsToPt(ts) {
+  return new Date(ts || Date.now()).toLocaleString("pt-PT");
+}
 
 /**
  * ===========================
@@ -112,7 +119,10 @@ function attachDashboardListeners() {
       const data = snap.val();
       Object.values(data).forEach(d => {
         if (d.status === "pending" || d.status === "processing") pending++;
-        if (d.status === "done") totalDone += (d.amount || 0);
+        if (d.status === "done") {
+          const amount = d.amountExact ?? d.amount ?? d.amountBase ?? 0;
+          totalDone += amount;
+        }
       });
     }
     setText("stat-dep-pending", pending);
@@ -161,6 +171,7 @@ function attachDepositListeners() {
     for (const [id, dep] of entries) {
       const userSnap = await get(ref(db, `usuarios/${dep.uid}`));
       const userEmail = userSnap.exists() ? (userSnap.val().email || dep.uid) : dep.uid;
+      const amount = dep.amountExact ?? dep.amount ?? dep.amountBase ?? 0;
 
       const div = document.createElement("div");
       div.className = "item";
@@ -168,16 +179,16 @@ function attachDepositListeners() {
         <div>
           <h4>${userEmail}</h4>
           <p class="meta">
-            Valor: <strong>${formatKz(dep.amount)}</strong> • 
+            Valor: <strong>${formatKz(amount)}</strong> • 
             Banco: ${dep.bank || "-"} • Titular: ${dep.holder || "-"}
           </p>
           <p class="meta">
             IBAN: ${dep.iban || "-"}
           </p>
           <p class="meta">
-            Enviado em: ${new Date(dep.createdAt || Date.now()).toLocaleString("pt-PT")}
+            Enviado em: ${tsToPt(dep.createdAt)}
           </p>
-          ${dep.proofUrl ? `<p class="meta">Comprovativo: <a href="${dep.proofUrl}" target="_blank">ver</a></p>` : ""}
+          ${dep.proofUrl ? `<p class="meta">Comprovativo: <a href="${dep.proofUrl}" target="_blank" rel="noopener noreferrer">ver</a></p>` : ""}
           <span class="status ${dep.status}">${dep.status}</span>
         </div>
         <div class="actions">
@@ -217,36 +228,50 @@ async function approveDeposit(id) {
   const userSnap = await get(userRef);
   if (!userSnap.exists()) return alert("Usuário não encontrado.");
 
+  const amount = dep.amountExact ?? dep.amount ?? dep.amountBase ?? 0;
   const saldoAtual = userSnap.val().saldo || 0;
+
   const updates = {};
 
   // saldo do usuário
-  const novoSaldo = saldoAtual + (dep.amount || 0);
+  const novoSaldo = saldoAtual + amount;
   updates[`usuarios/${dep.uid}/saldo`] = novoSaldo;
 
-  // marcar request
+  // marcar request global
   updates[`depositRequests/${id}/status`] = "done";
   updates[`depositRequests/${id}/approvedAt`] = Date.now();
   updates[`depositRequests/${id}/approvedBy`] = ADMIN_UID;
 
-  // registra no histórico do usuário (caso você tenha a página registrodeposito.html)
-  const regId = push(ref(db, `usuarios/${dep.uid}/depositos`)).key;
-  updates[`usuarios/${dep.uid}/depositos/${regId}`] = {
-    amount: dep.amount,
-    bank: dep.bank || null,
-    iban: dep.iban || null,
-    createdAt: dep.createdAt || Date.now(),
-    approvedAt: Date.now(),
-    status: "done"
-  };
+  // atualizar o registro do usuário (mesmo id, se existir)
+  const userDepRef = ref(db, `usuarios/${dep.uid}/${USER_DEPOSITS_NODE}/${id}`);
+  const userDepSnap = await get(userDepRef);
+  if (userDepSnap.exists()) {
+    updates[`usuarios/${dep.uid}/${USER_DEPOSITS_NODE}/${id}/status`] = "done";
+    updates[`usuarios/${dep.uid}/${USER_DEPOSITS_NODE}/${id}/approvedAt`] = Date.now();
+  } else {
+    // fallback: cria se não existir
+    updates[`usuarios/${dep.uid}/${USER_DEPOSITS_NODE}/${id}`] = {
+      id,
+      amountExact: dep.amountExact ?? null,
+      amountBase: dep.amountBase ?? null,
+      amount: amount,
+      bank: dep.bank || null,
+      iban: dep.iban || null,
+      holder: dep.holder || null,
+      method: dep.method || null,
+      createdAt: dep.createdAt || Date.now(),
+      approvedAt: Date.now(),
+      status: "done"
+    };
+  }
 
-  // se for o primeiro depósito, gravar em firstDeposit/firstDepositAmount (usado na total-equipa.html)
+  // firstDeposit / firstDepositAmount (para total-equipa.html)
   const u = userSnap.val();
   if (typeof u.firstDepositAmount === "undefined") {
-    updates[`usuarios/${dep.uid}/firstDepositAmount`] = dep.amount || 0;
+    updates[`usuarios/${dep.uid}/firstDepositAmount`] = amount;
   }
   if (typeof u.firstDeposit === "undefined") {
-    updates[`usuarios/${dep.uid}/firstDeposit`] = dep.amount || 0;
+    updates[`usuarios/${dep.uid}/firstDeposit`] = amount;
   }
 
   await update(ref(db), updates);
@@ -262,11 +287,21 @@ async function rejectDeposit(id) {
     return alert("Este depósito não está mais pendente.");
   }
 
-  await update(reqRef, {
-    status: "rejected",
-    rejectedAt: Date.now(),
-    rejectedBy: ADMIN_UID
-  });
+  const updates = {
+    [`depositRequests/${id}/status`]: "rejected",
+    [`depositRequests/${id}/rejectedAt`]: Date.now(),
+    [`depositRequests/${id}/rejectedBy`]: ADMIN_UID
+  };
+
+  // Atualiza também o registro do usuário, se existir
+  const userDepPath = `usuarios/${dep.uid}/${USER_DEPOSITS_NODE}/${id}`;
+  const userDepSnap = await get(ref(db, userDepPath));
+  if (userDepSnap.exists()) {
+    updates[`${userDepPath}/status`] = "rejected";
+    updates[`${userDepPath}/rejectedAt`] = Date.now();
+  }
+
+  await update(ref(db), updates);
   alert("Depósito rejeitado.");
 }
 
@@ -309,7 +344,7 @@ function attachWithdrawalListeners() {
             Valor bruto: <strong>${formatKz(wd.amountGross)}</strong> •
             Valor líquido ( -15% ): <strong>${formatKz(wd.amountNet)}</strong>
           </p>
-          <p class="meta">Solicitado em: ${new Date(wd.createdAt || Date.now()).toLocaleString("pt-PT")}</p>
+          <p class="meta">Solicitado em: ${tsToPt(wd.createdAt)}</p>
           <span class="status ${wd.status}">${wd.status}</span>
         </div>
         <div class="actions">
@@ -344,26 +379,37 @@ async function approveWithdrawal(id) {
     return alert("Esta retirada não está mais pendente.");
   }
 
+  const now = Date.now();
   const updates = {};
-  // marca request
-  updates[`withdrawRequests/${id}/status`]  = "done";
-  updates[`withdrawRequests/${id}/paidAt`]  = Date.now();
+
+  // marca request global
+  updates[`withdrawRequests/${id}/status`] = "done";
+  updates[`withdrawRequests/${id}/paidAt`] = now;
   updates[`withdrawRequests/${id}/approvedBy`] = ADMIN_UID;
 
-  // salva registro do usuário
-  const regId = push(ref(db, `usuarios/${wd.uid}/retiradas`)).key;
-  updates[`usuarios/${wd.uid}/retiradas/${regId}`] = {
-    amountGross: wd.amountGross,
-    amountNet: wd.amountNet,
-    bank: wd.bank,
-    iban: wd.iban,
-    holder: wd.holder,
-    createdAt: wd.createdAt,
-    paidAt: Date.now(),
-    status: "done"
-  };
+  // atualiza o registro do usuário (MESMO id)
+  const userPath = `usuarios/${wd.uid}/${USER_WITHDRAWALS_NODE}/${id}`;
+  const userSnap = await get(ref(db, userPath));
+  if (userSnap.exists()) {
+    updates[`${userPath}/status`] = "done";
+    updates[`${userPath}/paidAt`] = now;
+  } else {
+    // fallback: cria se não existir
+    updates[userPath] = {
+      id,
+      amountGross: wd.amountGross,
+      amountNet: wd.amountNet,
+      fee: wd.fee || (wd.amountGross * TAXA_RETIRADA),
+      bank: wd.bank,
+      iban: wd.iban,
+      holder: wd.holder,
+      createdAt: wd.createdAt,
+      paidAt: now,
+      status: "done"
+    };
+  }
 
-  // Atualiza retiradaTotal no usuário (opcional)
+  // Atualiza retiradaTotal no usuário (gross)
   const uSnap = await get(ref(db, `usuarios/${wd.uid}/retiradaTotal`));
   const prev = uSnap.exists() ? (uSnap.val() || 0) : 0;
   updates[`usuarios/${wd.uid}/retiradaTotal`] = prev + (wd.amountGross || 0);
@@ -381,21 +427,30 @@ async function rejectWithdrawal(id) {
     return alert("Esta retirada não está mais pendente.");
   }
 
+  const updates = {};
+
   // devolve dinheiro ao saldo do usuário
   const userRef = ref(db, `usuarios/${wd.uid}`);
   const userSnap = await get(userRef);
   if (userSnap.exists()) {
     const saldo = userSnap.val().saldo || 0;
-    await update(userRef, { saldo: saldo + (wd.amountGross || 0) });
+    updates[`usuarios/${wd.uid}/saldo`] = saldo + (wd.amountGross || 0);
   }
 
-  // marca request como rejeitado
-  await update(reqRef, {
-    status: "rejected",
-    rejectedAt: Date.now(),
-    rejectedBy: ADMIN_UID
-  });
+  // marca request global
+  updates[`withdrawRequests/${id}/status`] = "rejected";
+  updates[`withdrawRequests/${id}/rejectedAt`] = Date.now();
+  updates[`withdrawRequests/${id}/rejectedBy`] = ADMIN_UID;
 
+  // atualiza registro do usuário (MESMO id), se existir
+  const userPath = `usuarios/${wd.uid}/${USER_WITHDRAWALS_NODE}/${id}`;
+  const userWSnap = await get(ref(db, userPath));
+  if (userWSnap.exists()) {
+    updates[`${userPath}/status`] = "rejected";
+    updates[`${userPath}/rejectedAt`] = Date.now();
+  }
+
+  await update(ref(db), updates);
   alert("Retirada rejeitada e valor devolvido ao usuário.");
 }
 
@@ -495,4 +550,4 @@ function attachBankListeners() {
     cancelBtn.classList.add("hidden");
     alert("Banco salvo!");
   });
-      }
+                  }
