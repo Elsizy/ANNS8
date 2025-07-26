@@ -25,6 +25,110 @@
     </div>
   </div>
 
-  <script type="module" src="./sf-pay.js"></script>
+  <script type="module">
+    import { auth, db } from "./firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    const DRAFT_KEY = "deposit_draft_v1";
+
+    const bankListEl = document.getElementById("bank-list");
+    const btnNext = document.getElementById("go-next");
+
+    let draft = null;
+    let selectedBankId = null;
+    let adminBanks = {};
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      draft = loadDraft();
+      if (!draft) {
+        alert("Depósito não encontrado. Recomece.");
+        window.location.href = "deposito.html";
+        return;
+      }
+
+      // lê bancos do admin
+      await loadAdminBanks();
+      renderBanks();
+    });
+
+    function loadDraft() {
+      try {
+        const raw = sessionStorage.getItem(DRAFT_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    async function loadAdminBanks() {
+      try {
+        const snap = await get(ref(db, "adminBanks"));
+        adminBanks = snap.exists() ? snap.val() : {};
+      } catch (e) {
+        console.error("Erro ao ler adminBanks:", e);
+        adminBanks = {};
+      }
+    }
+
+    function renderBanks() {
+      bankListEl.innerHTML = "";
+
+      const keys = Object.keys(adminBanks);
+      if (!keys.length) {
+        const li = document.createElement("li");
+        li.textContent = "Nenhum banco definido pelo administrador.";
+        li.style.opacity = ".7";
+        bankListEl.appendChild(li);
+        return;
+      }
+
+      keys.forEach((id) => {
+        const b = adminBanks[id];
+        const li = document.createElement("li");
+        li.textContent = `${b.name || "-"} • ${maskIban(b.iban || "")}`;
+        li.addEventListener("click", () => {
+          selectedBankId = id;
+          Array.from(bankListEl.children).forEach((el) => el.classList.remove("active"));
+          li.classList.add("active");
+          btnNext.disabled = false;
+        });
+        bankListEl.appendChild(li);
+      });
+
+      btnNext.addEventListener("click", () => {
+        if (!selectedBankId) return;
+
+        const bankData = adminBanks[selectedBankId];
+
+        // guarda no draft
+        draft.bank = bankData?.name || "";
+        draft.bankData = {
+          id: selectedBankId,
+          name: bankData?.name || "",
+          iban: bankData?.iban || "xxxx",
+          holder: bankData?.holder || "xxxx"
+        };
+
+        sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+
+        // segue para a próxima etapa do seu fluxo
+        window.location.href = "sf-pay-set.html";
+      });
+    }
+
+    function maskIban(iban) {
+      const digits = (iban || "").replace(/\D+/g, "");
+      if (digits.length <= 7) return digits;
+      const visible = digits.slice(0, 7);
+      const hiddenCount = Math.max(0, digits.length - 7);
+      return `${visible}${"•".repeat(hiddenCount)}`;
+    }
+  </script>
 </body>
 </html>
