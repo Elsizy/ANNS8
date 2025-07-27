@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // aplica o toggle de senha (NOVA LINHA)
+  setupPasswordToggles();
+
   // Persistência local
   try {
     await setPersistence(auth, browserLocalPersistence);
@@ -73,3 +76,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 });
+
+/* ======== APENAS ADIÇÃO ======== */
+function setupPasswordToggles() {
+  const toggles = document.querySelectorAll(".toggle-pass[data-target]");
+  if (!toggles.length) return;
+
+  toggles.forEach((btn) => {
+    const input = document.getElementById(btn.dataset.target);
+    if (!input) return;
+
+    // Inicial: escondido -> sem .showing (ícone "esconder")
+    btn.classList.remove("showing");
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const isHidden = input.type === "password";
+      input.type = isHidden ? "text" : "password";
+
+      // Visível => .showing (ícone mostrar); Escondido => remove .showing
+      btn.classList.toggle("showing", !isHidden);
+    });
+  });
+}
