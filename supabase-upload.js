@@ -1,32 +1,25 @@
 // supabase-upload.js
-const SUPABASE_URL = "https://tzmfnygovtkipmyavzdl.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6bWZueWdvdnRraXBteWF2emRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2MTU0MjcsImV4cCI6MjA2OTE5MTQyN30.c-l8MVFPVpoKKoaciR3FDnxuHztqxbqYH_qOvsvvQ5M";
+import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL = "https://tzmfnygovtkipmyavzdl.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6bWZueWdvdnRraXBteWF2emRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2MTU0MjcsImV4cCI6MjA2OTE5MTQyN30.c-l8MVFPVpoKKoaciR3FDnxuHztqxbqYH_qOvsvvQ5M";
+
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 /**
- * Faz upload do comprovativo e retorna a URL pública.
- * @param {File} file - Arquivo de imagem selecionado.
- * @param {string} userId - ID do usuário.
- * @returns {Promise<string>} - URL pública do arquivo.
+ * Faz upload de arquivo no bucket "comprovativo" e retorna a URL pública.
  */
-async function uploadComprovativo(file, userId) {
-  try {
-    const filePath = `${userId}/${Date.now()}-${file.name}`;
-    const { data, error } = await supabaseClient.storage
-      .from("comprovativo")
-      .upload(filePath, file);
+export async function uploadProof(file, userId) {
+  const fileName = `${userId}/${Date.now()}_${file.name.replace(/[^\w.\-]+/g, "_")}`;
+  const { data, error } = await supabase.storage
+    .from("comprovativo")
+    .upload(fileName, file, { upsert: false });
 
-    if (error) throw error;
+  if (error) throw error;
 
-    // Gerar URL pública
-    const { data: publicUrl } = supabaseClient.storage
-      .from("comprovativo")
-      .getPublicUrl(filePath);
+  const { data: publicUrlData } = supabase.storage
+    .from("comprovativo")
+    .getPublicUrl(fileName);
 
-    return publicUrl.publicUrl;
-  } catch (err) {
-    console.error("Erro ao enviar comprovativo:", err.message);
-    return null;
-  }
+  return publicUrlData.publicUrl;
 }
