@@ -129,8 +129,8 @@ async function onSend() {
     alert("Depósito enviado com sucesso! Aguarde a validação.");
     window.location.href = "registrodeposito.html";
   } catch (err) {
-    console.error("Erro ao enviar comprovativo:", err);
-    alert("Falha ao enviar o depósito. Tente novamente.");
+    console.error("[sf-pay-set-in] Falha ao enviar depósito:", err);
+    alert("Falha ao enviar o depósito: " + (err?.message || JSON.stringify(err)));
   } finally {
     sendBtn.disabled = false;
   }
@@ -138,4 +138,4 @@ async function onSend() {
 
 function sanitizeFilename(name) {
   return name.replace(/[^\w.\-]+/g, "_");
-}
+  }
