@@ -1,3 +1,4 @@
+/* === SEU CSS ORIGINAL === */
 body {
   margin: 0;
   padding: 0;
@@ -74,4 +75,42 @@ button:hover {
 
 .login-link a:hover {
   text-decoration: underline;
-                              }
+}
+
+/* ===== ADIÇÃO: estilos do botão mostrar/ocultar senha ===== */
+.input-group {
+  position: relative;
+  width: 100%;
+}
+.input-group input {
+  width: 100%;
+  padding-right: 40px; /* espaço para o botão do olho */
+  box-sizing: border-box;
+}
+
+.toggle-pass {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border: 0;
+  background: no-repeat center / contain;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity .2s ease;
+}
+.toggle-pass:hover {
+  opacity: 1;
+}
+
+/* Olho fechado (senha escondida) — estado padrão */
+.toggle-pass:not(.showing) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z'/%3E%3C/svg%3E");
+}
+
+/* Olho aberto (senha visível) */
+.toggle-pass.showing {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.956 9.956 0 013.32-4.568m3.223-2.039A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.957 9.957 0 01-4.433 5.036M15 12a3 3 0 11-6 0 3 3 0 016 0zM3 3l18 18'/%3E%3C/svg%3E");
+}
