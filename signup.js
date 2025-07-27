@@ -142,6 +142,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (LOCK_REFERRAL_IF_URL) referralInput.readOnly = true;
   }
 
+  // === ADIÇÃO: inicializa o show/hide de senha ===
+  setupPasswordToggles();
+
   form.addEventListener("submit", onSubmit);
 });
 
@@ -232,3 +235,26 @@ async function onSubmit(e) {
     enableBtn(btn);
   }
 }
+
+/* =========================
+   SHOW / HIDE PASSWORD  (ADIÇÃO)
+========================= */
+function setupPasswordToggles() {
+  // Se você já tem botões com a classe .toggle-pass e data-target="password|confirmPassword"
+  const toggles = document.querySelectorAll(".toggle-pass[data-target]");
+  if (toggles.length) {
+    toggles.forEach((btn) => {
+      const input = document.getElementById(btn.dataset.target);
+      if (!input) return;
+      btn.addEventListener("click", () => {
+        const showing = input.type === "password";
+        input.type = showing ? "text" : "password";
+        btn.classList.toggle("showing", showing);
+      });
+    });
+    return;
+  }
+
+  // Fallback (se não existirem botões prontos): não faz nada.
+  // (Mantido para não alterar o markup existente além do necessário)
+    }
