@@ -5,14 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro - ANNS8</title>
   <link rel="stylesheet" href="cadastro.css">
-  <style>
-    .password-container { position: relative; width: 100%; }
-    .password-container input { width: 100%; padding-right: 44px; box-sizing: border-box; }
-    .toggle-password { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); cursor: pointer; background: none; border: none; outline: none; padding: 0; height: 24px; width: 24px; }
-    .toggle-password svg { width: 24px; height: 24px; fill: #888; }
-  </style>
 </head>
-<!-- ...head igual... -->
 <body>
   <div class="container">
     <h2>Criar Conta</h2>
@@ -21,19 +14,15 @@
       <input type="email" id="email" name="email" placeholder="Digite seu email" required autocomplete="email">
 
       <label for="password">Senha</label>
-      <div class="password-container">
+      <div class="input-group">
         <input type="password" id="password" name="password" placeholder="Digite sua senha" required autocomplete="new-password">
-        <button type="button" class="toggle-password" onclick="togglePassword(this, 'password')">
-          <!-- svg igual -->
-        </button>
+        <button type="button" class="toggle-pass" data-target="password" aria-label="Mostrar/ocultar senha"></button>
       </div>
 
       <label for="confirmPassword">Repetir Senha</label>
-      <div class="password-container">
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Digite sua senha" required autocomplete="new-password">
-        <button type="button" class="toggle-password" onclick="togglePassword(this, 'confirmPassword')">
-          <!-- svg igual -->
-        </button>
+      <div class="input-group">
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Digite sua senha novamente" required autocomplete="new-password">
+        <button type="button" class="toggle-pass" data-target="confirmPassword" aria-label="Mostrar/ocultar senha"></button>
       </div>
 
       <label for="referral">Código de Convite (opcional)</label>
@@ -50,19 +39,7 @@
     </form>
   </div>
 
-  <script>
-    function togglePassword(btn, id) {
-      const input = document.getElementById(id);
-      const svg = btn.querySelector("svg");
-      const isPassword = input.type === "password";
-      input.type = isPassword ? "text" : "password";
-      svg.innerHTML = isPassword
-        ? '<path d="M12 5c-7 0-11 7-11 7s4 7 11 7c2.5 0 4.7-.8 6.5-2.2l2.4 2.4 1.4-1.4-18-18-1.4 1.4 2.4 2.4C4.8 7.3 2.4 10.6 1 12c0 0 4 7 11 7 2.5 0 4.8-.8 6.6-2.2l1.5 1.5 1.4-1.4-18-18-1.4 1.4 1.5 1.5C3.2 7.5 0 12 0 12s4 7 12 7 12-7 12-7-4-7-12-7z"/>'
-        : '<path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 \
-        5 2.239 5 5-2.239 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/>';
-    }
-  </script>
-
+  <!-- Lógica do cadastro (inclui o setup dos botões de senha) -->
   <script type="module" src="./signup.js"></script>
 </body>
 </html>
