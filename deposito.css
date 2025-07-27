@@ -188,6 +188,8 @@ h2 {
   background: #f6f7fb;
   border-color: #c7ccdc;
 }
+
+/* Caixa de erro dinâmica */
 .alert-error {
   margin-top: 10px;
   padding: 12px 15px;
