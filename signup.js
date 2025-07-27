@@ -257,4 +257,20 @@ function setupPasswordToggles() {
 
   // Fallback (se não existirem botões prontos): não faz nada.
   // (Mantido para não alterar o markup existente além do necessário)
-    }
+}
+
+/* === ADIÇÃO FINAL: garante que o estado visual do ícone não inverta === */
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".toggle-pass");
+  if (!btn) return;
+
+  const targetId = btn.getAttribute("data-target");
+  const input = document.getElementById(targetId);
+  if (!input) return;
+
+  const wasPassword = input.type === "password";
+  input.type = wasPassword ? "text" : "password";
+
+  // Se a senha ficou VISÍVEL, adiciona .showing (olho aberto)
+  btn.classList.toggle("showing", !wasPassword);
+});
