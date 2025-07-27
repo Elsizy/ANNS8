@@ -9,17 +9,12 @@ import {
   update,
   get,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import {
-  getStorage,
-  ref as storageRef,
-  uploadBytes,
-  getDownloadURL,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+// === ALTERAÇÃO: usamos Supabase em vez de Firebase Storage ===
+import { uploadProof } from "./supabase-upload.js";
 
 /** Onde guardamos o rascunho desde deposito.js */
 const DRAFT_KEY = "deposit_draft_v1";
-
-const storage = getStorage();
 
 /* DOM */
 const nameInput = document.getElementById("depositant-name");
@@ -99,11 +94,8 @@ async function onSend() {
   sendBtn.disabled = true;
 
   try {
-    // 1) sobe o comprovativo
-    const path = `depositProofs/${currentUser.uid}/${Date.now()}_${sanitizeFilename(file.name)}`;
-    const sRef = storageRef(storage, path);
-    await uploadBytes(sRef, file);
-    const proofUrl = await getDownloadURL(sRef);
+    // 1) sobe o comprovativo (AGORA VIA SUPABASE)
+    const proofUrl = await uploadProof(file, currentUser.uid);
 
     // 2) gera um id e grava requisição global + histórico do usuário
     const reqRef = push(dbRef(db, "depositRequests"));
@@ -146,4 +138,4 @@ async function onSend() {
 
 function sanitizeFilename(name) {
   return name.replace(/[^\w.\-]+/g, "_");
-  }
+}
