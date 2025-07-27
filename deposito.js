@@ -16,6 +16,9 @@ let currentUser = null;
 const DEPOSIT_START_H = 9;   // 09h
 const DEPOSIT_END_H   = 21;  // 21h (exclusivo)
 
+// ==== NOVO: depósito mínimo ====
+const MIN_DEPOSIT = 5000; // ajuste aqui o valor mínimo desejado
+
 // DOM
 const amountInput   = document.getElementById("deposit-amount");
 const presets       = document.querySelectorAll(".preset");
@@ -60,13 +63,20 @@ closeMethod.addEventListener("click", () => {
 
 continueBtn.addEventListener("click", () => {
   // limpa o erro visual (se estiver visível)
-  if (errorBox) errorBox.style.display = "none";
+  hideError();
 
   const raw = parseFloat(amountInput.value || "0");
   if (!raw || raw <= 0) {
     alert("Informe um valor válido.");
     return;
   }
+
+  // ==== NOVO: validação do depósito mínimo ====
+  if (raw < MIN_DEPOSIT) {
+    showError(`O depósito mínimo é <strong>Kz ${MIN_DEPOSIT.toLocaleString("pt-PT")}</strong>.`);
+    return;
+  }
+
   const methodId = pickMethodBtn.dataset.method || "";
   if (!methodId) {
     alert("Selecione o método.");
@@ -75,7 +85,7 @@ continueBtn.addEventListener("click", () => {
 
   // ==== NOVO: validação de horário usando a caixa estilizada ====
   if (!isWithinDepositWindow()) {
-    if (errorBox) errorBox.style.display = "block";
+    showError(`Depósitos só estão disponíveis entre <strong>${DEPOSIT_START_H}h</strong> e <strong>${DEPOSIT_END_H}h</strong>.`);
     return;
   }
 
@@ -106,6 +116,17 @@ function buildMethodList() {
     });
     methodList.appendChild(li);
   });
+}
+
+// ==== NOVO utilitário: erro dinâmico ====
+function showError(htmlMsg) {
+  if (!errorBox) return;
+  errorBox.innerHTML = htmlMsg;
+  errorBox.style.display = "block";
+}
+function hideError() {
+  if (!errorBox) return;
+  errorBox.style.display = "none";
 }
 
 // ==== NOVO ====
