@@ -13,10 +13,12 @@ onAuthStateChanged(auth, async (user) => {
   const sk = document.getElementById("skeleton");
 
   try {
-    const snap = await get(ref(db, `usuarios/${user.uid}/deposits`));
+    // === ALTERAÇÃO: buscamos em depositRequests e filtramos pelo uid do usuário ===
+    const snap = await get(ref(db, "depositRequests"));
     const data = snap.exists() ? snap.val() : {};
 
     const arr = Object.values(data)
+      .filter((d) => d.uid === user.uid)
       .map((d) => ({
         ...d,
         status: normalizeStatus(d.status)
@@ -92,4 +94,4 @@ function maskIban(iban) {
   const visible = digits.slice(0, 7);
   const hiddenCount = Math.max(0, digits.length - 7);
   return `${visible}${"•".repeat(hiddenCount)}`;
-                                                   }
+}
