@@ -12,7 +12,12 @@
     <h2>Entrar na Conta</h2>
 
     <input type="email" id="email" placeholder="Digite seu email" required />
-    <input type="password" id="senha" placeholder="Digite sua senha" required />
+
+    <!-- ALTERAÇÃO: input de senha com botão mostrar/ocultar -->
+    <div class="input-group">
+      <input type="password" id="senha" placeholder="Digite sua senha" required />
+      <button type="button" class="toggle-pass" data-target="senha" aria-label="Mostrar/ocultar senha"></button>
+    </div>
 
     <button id="loginBtn" style="margin-top: 16px;">Entrar</button>
     <p>Não tem conta? <a href="index.html">Cadastre-se</a></p>
