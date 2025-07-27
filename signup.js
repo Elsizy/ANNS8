@@ -247,15 +247,18 @@ function setupPasswordToggles() {
     const input = document.getElementById(btn.dataset.target);
     if (!input) return;
 
-    // Estado inicial correto: começa escondido (password) => sem .showing
+    // Estado inicial: se estiver visível (text) => showing; se estiver escondido (password) => SEM showing
     btn.classList.toggle("showing", input.type === "text");
 
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      const isHidden = input.type === "password";
-      input.type = isHidden ? "text" : "password";
-      // Se ficou VISÍVEL, adiciona .showing
-      btn.classList.toggle("showing", isHidden);
+
+      // alterna o tipo
+      input.type = input.type === "password" ? "text" : "password";
+
+      // agora vincula o ícone ao estado ATUAL (depois da troca)
+      const isVisible = input.type === "text";
+      btn.classList.toggle("showing", isVisible);
     });
   });
-                                       }
+}
