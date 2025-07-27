@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (LOCK_REFERRAL_IF_URL) referralInput.readOnly = true;
   }
 
-  // === ADIÇÃO: inicializa o show/hide de senha ===
+  // inicializa o show/hide de senha
   setupPasswordToggles();
 
   form.addEventListener("submit", onSubmit);
@@ -240,22 +240,22 @@ async function onSubmit(e) {
    SHOW / HIDE PASSWORD  (ADIÇÃO)
 ========================= */
 function setupPasswordToggles() {
-  // Se você já tem botões com a classe .toggle-pass e data-target="password|confirmPassword"
   const toggles = document.querySelectorAll(".toggle-pass[data-target]");
-  if (toggles.length) {
-    toggles.forEach((btn) => {
-      const input = document.getElementById(btn.dataset.target);
-      if (!input) return;
-      btn.addEventListener("click", () => {
-        const isHidden = input.type === "password";
-        input.type = isHidden ? "text" : "password";
-        // se ficou VISÍVEL, adiciona .showing
-        btn.classList.toggle("showing", isHidden);
-      });
-    });
-    return;
-  }
+  if (!toggles.length) return;
 
-  // Fallback (se não existirem botões prontos): não faz nada.
-  // (Mantido para não alterar o markup existente além do necessário)
-  }
+  toggles.forEach((btn) => {
+    const input = document.getElementById(btn.dataset.target);
+    if (!input) return;
+
+    // Estado inicial correto: começa escondido (password) => sem .showing
+    btn.classList.toggle("showing", input.type === "text");
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const isHidden = input.type === "password";
+      input.type = isHidden ? "text" : "password";
+      // Se ficou VISÍVEL, adiciona .showing
+      btn.classList.toggle("showing", isHidden);
+    });
+  });
+                                       }
