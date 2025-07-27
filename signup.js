@@ -247,18 +247,18 @@ function setupPasswordToggles() {
     const input = document.getElementById(btn.dataset.target);
     if (!input) return;
 
-    // Estado inicial: se estiver visível (text) => showing; se estiver escondido (password) => SEM showing
-    btn.classList.toggle("showing", input.type === "text");
+    // Estado inicial: senha escondida => ícone "esconder" (sem .showing)
+    btn.classList.remove("showing");
 
     btn.addEventListener("click", (e) => {
       e.preventDefault();
 
-      // alterna o tipo
-      input.type = input.type === "password" ? "text" : "password";
+      const isHidden = input.type === "password";
+      input.type = isHidden ? "text" : "password";
 
-      // agora vincula o ícone ao estado ATUAL (depois da troca)
-      const isVisible = input.type === "text";
-      btn.classList.toggle("showing", isVisible);
+      // Se está visível => .showing (ícone "mostrar")
+      // Se está escondido => remove .showing (ícone "esconder")
+      btn.classList.toggle("showing", !isHidden);
     });
   });
 }
