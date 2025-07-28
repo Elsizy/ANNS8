@@ -272,6 +272,11 @@ function renderProdutos({ uid, saldo, compras }) {
 
   container.querySelectorAll(".btn-buy").forEach((btn) => {
     btn.addEventListener("click", async (e) => {
+      const btn = e.currentTarget;
+      if (btn.disabled) return;
+
+      btn.disabled = true;
+      btn.textContent = "Processando...";
       const productId = e.currentTarget.dataset.id;
       const product = PRODUTOS.find(x => x.id === productId);
       if (!product) return;
@@ -318,7 +323,9 @@ function renderProdutos({ uid, saldo, compras }) {
           preco: product.preco,
           comissao: product.comissao,
           compradoEm: agora,
-          lastPayAt: agora
+          lastPayAt: agora, 
+        btn.disabled = false;
+        btn.textContent = "Comprar";
         };
 
         // recomputa os totais
@@ -364,7 +371,9 @@ function renderProdutos({ uid, saldo, compras }) {
       } catch (err) {
         console.error("Erro ao comprar produto:", err);
         alert("Erro ao comprar produto.");
-      }
+        btn.disabled = false;
+        btn.textContent = "Tentar novamente";
+        }                                          
     });
   });
 }
