@@ -13,10 +13,11 @@ onAuthStateChanged(auth, async (user) => {
   const sk = document.getElementById("skeleton");
 
   try {
-    // === ALTERAÇÃO: buscamos em depositRequests e filtramos pelo uid do usuário ===
+    // === Mantido o acesso completo à lista depositRequests ===
     const snap = await get(ref(db, "depositRequests"));
     const data = snap.exists() ? snap.val() : {};
 
+    // ✅ ALTERAÇÃO: filtro pelo campo correto: uid === user.uid
     const arr = Object.values(data)
       .filter((d) => d.uid === user.uid)
       .map((d) => ({
@@ -63,7 +64,6 @@ function normalizeStatus(st) {
   if (!st) return "pending";
   const s = String(st).toLowerCase();
   if (["pending", "processing", "done", "rejected"].includes(s)) return s;
-  // casos antigos, tipo "pendente", "concluído"
   if (s.startsWith("pend")) return "pending";
   if (s.startsWith("conc")) return "done";
   return "pending";
@@ -84,10 +84,12 @@ function formatNumber(v) {
     maximumFractionDigits: 2
   });
 }
+
 function formatDate(ts) {
   if (!ts) return "-";
   return new Date(ts).toLocaleString("pt-PT");
 }
+
 function maskIban(iban) {
   const digits = (iban || "").replace(/\D+/g, "");
   if (digits.length <= 7) return digits;
