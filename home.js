@@ -473,6 +473,7 @@ async function payReferralCommissions(buyerUid, product) {
 }
 
 async function addToSaldo(uid, amount, level, fromUid, productId) {
+async function addToSaldo(uid, amount, level, fromUid, productId) {
   const uRef = ref(db, `usuarios/${uid}`);
   const snap = await get(uRef);
   if (!snap.exists()) return;
@@ -480,7 +481,7 @@ async function addToSaldo(uid, amount, level, fromUid, productId) {
   const novoSaldo = saldoAtual + amount;
   await update(uRef, { saldo: novoSaldo });
 
-  // ===== NOVO: registrar movimento de bónus de referência
+  // ===== NOVO: registrar movimento de bônus de referência
   await pushMovement(uid, {
     type: "ref_bonus",
     direction: "in",
@@ -493,7 +494,17 @@ async function addToSaldo(uid, amount, level, fromUid, productId) {
     },
     createdAt: Date.now()
   });
-}
+
+  // ===== ADIÇÃO IMPORTANTE: Atualizar refTotals (A/B/C)
+  if (level === 'A' || level === 'B' || level === 'C') {
+    const refTotalPath = `usuarios/${uid}/refTotals/${level}-amount`;
+    const refTotalSnap = await get(ref(db, refTotalPath));
+    const valorAnterior = refTotalSnap.exists() ? refTotalSnap.val() : 0;
+    await update(ref(db, `usuarios/${uid}/refTotals`), {
+      [`${level}-amount`]: valorAnterior + amount
+    });
+  }
+    }
 
 async function incrementRefTotal(uid, level, amount) {
   if (!amount) return;
