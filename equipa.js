@@ -1,93 +1,128 @@
-// deposito.js
-import { auth } from "./firebase-config.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+// equipa.js
+import { auth, db } from "./firebase-config.js";
+import {
+  onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  ref,
+  get,
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-/**
- * Guardamos o rascunho do depósito em sessionStorage
- * para reaproveitar nas próximas telas (sf-pay.html, sf-pay-set.html, etc).
- */
-export const DRAFT_KEY = "deposit_draft_v1";
+/* ===== CACHE ===== */
+const CACHE_MAX_AGE = 60_000;
+const CACHE_KEY = (uid) => `equipa_user_${uid}`;
 
-const METHODS = [{ id: "sf.pay-set", label: "sf.pay-set" }];
+function saveCache(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify({ t: Date.now(), data }));
+  } catch (_) {}
+}
+function loadCache(key, maxAge = CACHE_MAX_AGE) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const obj = JSON.parse(raw);
+    if (!obj?.t || Date.now() - obj.t > maxAge) return null;
+    return obj.data;
+  } catch {
+    return null;
+  }
+}
 
-let currentUser = null;
-
-// DOM
-const amountInput = document.getElementById("deposit-amount");
-const presets = document.querySelectorAll(".preset");
-const pickMethodBtn = document.getElementById("pick-method");
-const methodLabelEl = document.getElementById("method-label");
-const continueBtn = document.getElementById("continue");
-
-// Modal
-const methodModal = document.getElementById("method-modal");
-const methodList = document.getElementById("method-list");
-const closeMethod = document.getElementById("close-method");
-
-// ----- Auth -----
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "login.html";
     return;
   }
-  currentUser = user;
-  buildMethodList();
-});
 
-// ----- UI -----
-presets.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    presets.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    amountInput.value = btn.dataset.value;
-  });
-});
+  const uid = user.uid;
+  const key = CACHE_KEY(uid);
 
-pickMethodBtn.addEventListener("click", () => {
-  methodModal.classList.remove("hidden");
-});
+  // 1) tentar cache
+  const cached = loadCache(key);
+  if (cached) {
+    const myCode = cached.refCode || uid;
+    const link = `${location.origin}/index.html?ref=${myCode}`;
+    const linkInput = document.getElementById("affiliate-link");
+    linkInput.value = link;
 
-closeMethod.addEventListener("click", () => {
-  methodModal.classList.add("hidden");
-});
+    document.getElementById("earned-A").textContent = formatKz(cached?.refTotals?.A?.amount || 0);
+    document.getElementById("earned-B").textContent = formatKz(cached?.refTotals?.B?.amount || 0);
+    document.getElementById("earned-C").textContent = formatKz(cached?.refTotals?.C?.amount || 0);
 
-continueBtn.addEventListener("click", () => {
-  const raw = parseFloat(amountInput.value || "0");
-  if (!raw || raw <= 0) {
-    alert("Informe um valor válido.");
-    return;
-  }
-  const methodId = pickMethodBtn.dataset.method || "";
-  if (!methodId) {
-    alert("Selecione o método.");
-    return;
+    document.getElementById("count-A").textContent = cached.countA || 0;
+    document.getElementById("count-B").textContent = cached.countB || 0;
+    document.getElementById("count-C").textContent = cached.countC || 0;
+
+    attachCopyHandler();
   }
 
-  // Guarda rascunho
-  const draft = {
-    uid: currentUser.uid,
-    amountBase: Math.floor(raw),
-    method: methodId,
-    bank: null,        // será definido em sf-pay.html
-    bankData: null,    // será definido em sf-pay.html (adminBanks)
-    amountExact: null, // será definido em sf-pay-set.html (ou onde fizer sentido)
+  // 2) dados frescos
+  const meSnap = await get(ref(db, `usuarios/${uid}`));
+  if (!meSnap.exists()) return;
+  const me = meSnap.val();
+
+  const myCode = me.refCode || uid;
+  const link = `${location.origin}/index.html?ref=${myCode}`;
+  const linkInput = document.getElementById("affiliate-link");
+  linkInput.value = link;
+
+  attachCopyHandler();
+
+  // Totais de ganhos por nível
+  document.getElementById("earned-A").textContent = formatKz(me?.refTotals?.A?.amount || 0);
+  document.getElementById("earned-B").textContent = formatKz(me?.refTotals?.B?.amount || 0);
+  document.getElementById("earned-C").textContent = formatKz(me?.refTotals?.C?.amount || 0);
+
+  // Contagem da rede por UID
+  const { countA, countB, countC } = await countNetworkByUid(uid);
+  document.getElementById("count-A").textContent = countA;
+  document.getElementById("count-B").textContent = countB;
+  document.getElementById("count-C").textContent = countC;
+
+  // cacheia tudo
+  saveCache(key, { ...me, countA, countB, countC });
+});
+
+function attachCopyHandler() {
+  const copyBtn = document.getElementById("copy-link");
+  const feedback = document.getElementById("copy-feedback");
+  if (!copyBtn || !feedback) return;
+  const linkInput = document.getElementById("affiliate-link");
+  copyBtn.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(linkInput.value);
+      feedback.classList.remove("hide");
+      setTimeout(() => feedback.classList.add("hide"), 2000);
+    } catch (e) {
+      console.error("Falha ao copiar:", e);
+    }
   };
-  sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+}
 
-  window.location.href = "sf-pay.html";
-});
+/**
+ * Conta níveis A/B/C usando invitedBy == UID.
+ */
+async function countNetworkByUid(rootUid) {
+  const allUsersSnap = await get(ref(db, "usuarios"));
+  if (!allUsersSnap.exists()) return { countA: 0, countB: 0, countC: 0 };
 
-// ----- functions -----
-function buildMethodList() {
-  methodList.innerHTML = "";
-  METHODS.forEach((m) => {
-    const li = document.createElement("li");
-    li.textContent = m.label;
-    li.addEventListener("click", () => {
-      pickMethodBtn.dataset.method = m.id;
-      methodLabelEl.textContent = m.label;
-      methodModal.classList.add("hidden");
-    });
-    methodList.appendChild(li);
-  });
-  }
+  const users = allUsersSnap.val();
+
+  const levelA = Object.keys(users).filter(uid => users[uid]?.invitedBy === rootUid);
+  const levelB = Object.keys(users).filter(uid => levelA.includes(users[uid]?.invitedBy));
+  const levelC = Object.keys(users).filter(uid => levelB.includes(users[uid]?.invitedBy));
+
+  return {
+    countA: levelA.length,
+    countB: levelB.length,
+    countC: levelC.length
+  };
+}
+
+function formatKz(v) {
+  return `Kz ${Number(v || 0).toLocaleString("pt-PT", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })}`;
+    }
