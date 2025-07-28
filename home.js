@@ -272,6 +272,17 @@ function renderProdutos({ uid, saldo, compras }) {
 
   container.querySelectorAll(".btn-buy").forEach((btn) => {
     btn.addEventListener("click", async (e) => {
+      const btn = e.currentTarget;
+      if (btn.disabled) return;
+
+      btn.disabled = true;
+      btn.textContent = "Processando...";
+
+      // Reativa o botão após 4 segundos
+      setTimeout(() => {
+         btn.disabled = false;
+         btn.textContent = "Comprar";
+      }, 4000);
       const productId = e.currentTarget.dataset.id;
       const product = PRODUTOS.find(x => x.id === productId);
       if (!product) return;
