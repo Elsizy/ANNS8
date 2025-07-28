@@ -1,186 +1,93 @@
-// equipa.js
-import { auth, db } from "./firebase-config.js";
-import {
-  onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  ref,
-  get,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+// deposito.js
+import { auth } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-/* =========================
-   CACHE
-========================= */
-const CACHE_MAX_AGE = 60_000; // 60s (ajuste se quiser)
-const cacheKey = (uid) => `equipa_cache_${uid}`;
+/**
+ * Guardamos o rascunho do depósito em sessionStorage
+ * para reaproveitar nas próximas telas (sf-pay.html, sf-pay-set.html, etc).
+ */
+export const DRAFT_KEY = "deposit_draft_v1";
 
-function saveCache(key, data) {
-  try {
-    localStorage.setItem(key, JSON.stringify({ t: Date.now(), data }));
-  } catch (_) {}
-}
-function loadCache(key, maxAge = CACHE_MAX_AGE) {
-  try {
-    const raw = localStorage.getItem(key);
-    if (!raw) return null;
-    const obj = JSON.parse(raw);
-    if (!obj?.t || Date.now() - obj.t > maxAge) return null;
-    return obj.data;
-  } catch {
-    return null;
-  }
-}
+const METHODS = [{ id: "sf.pay-set", label: "sf.pay-set" }];
 
-/* =========================
-   MAIN
-========================= */
-onAuthStateChanged(auth, async (user) => {
+let currentUser = null;
+
+// DOM
+const amountInput = document.getElementById("deposit-amount");
+const presets = document.querySelectorAll(".preset");
+const pickMethodBtn = document.getElementById("pick-method");
+const methodLabelEl = document.getElementById("method-label");
+const continueBtn = document.getElementById("continue");
+
+// Modal
+const methodModal = document.getElementById("method-modal");
+const methodList = document.getElementById("method-list");
+const closeMethod = document.getElementById("close-method");
+
+// ----- Auth -----
+onAuthStateChanged(auth, (user) => {
   if (!user) {
     window.location.href = "login.html";
     return;
   }
-
-  const uid = user.uid;
-  const key = cacheKey(uid);
-
-  // 1) Tenta mostrar do cache imediatamente
-  const cached = loadCache(key);
-  if (cached) {
-    paintUIFromCache(cached);
-  }
-
-  // 2) Busca dados frescos e atualiza a UI + cache
-  try {
-    const meSnap = await get(ref(db, `usuarios/${uid}`));
-    if (!meSnap.exists()) return;
-    const me = meSnap.val();
-
-    const myCode = me.refCode || uid;
-    const link = `${location.origin}/index.html?ref=${myCode}`;
-
-    // Totais ganhos
-    const earnedA = me?.refTotals?.A?.amount || 0;
-    const earnedB = me?.refTotals?.B?.amount || 0;
-    const earnedC = me?.refTotals?.C?.amount || 0;
-
-    // Contagens — uma leitura só de /usuarios para acelerar.
-    const { countA, countB, countC } = await countNetworkByUid(uid);
-
-    // Pinta UI com os dados frescos
-    paintUI({
-      link,
-      earnedA,
-      earnedB,
-      earnedC,
-      countA,
-      countB,
-      countC,
-    });
-
-    // Salva no cache
-    saveCache(key, {
-      link,
-      earnedA,
-      earnedB,
-      earnedC,
-      countA,
-      countB,
-      countC,
-    });
-  } catch (e) {
-    console.error("Erro ao carregar equipa:", e);
-  }
+  currentUser = user;
+  buildMethodList();
 });
 
-/* =========================
-   FUNÇÕES DE CONTAGEM
-========================= */
-/**
- * Conta níveis A/B/C usando invitedBy == UID.
- * Faz apenas UMA leitura em /usuarios para melhorar performance.
- */
-async function countNetworkByUid(rootUid) {
-  const allUsersSnap = await get(ref(db, "usuarios"));
-  if (!allUsersSnap.exists()) {
-    return { countA: 0, countB: 0, countC: 0 };
+// ----- UI -----
+presets.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    presets.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    amountInput.value = btn.dataset.value;
+  });
+});
+
+pickMethodBtn.addEventListener("click", () => {
+  methodModal.classList.remove("hidden");
+});
+
+closeMethod.addEventListener("click", () => {
+  methodModal.classList.add("hidden");
+});
+
+continueBtn.addEventListener("click", () => {
+  const raw = parseFloat(amountInput.value || "0");
+  if (!raw || raw <= 0) {
+    alert("Informe um valor válido.");
+    return;
   }
-  const users = allUsersSnap.val();
+  const methodId = pickMethodBtn.dataset.method || "";
+  if (!methodId) {
+    alert("Selecione o método.");
+    return;
+  }
 
-  // Nível A
-  const levelA = Object.keys(users).filter(uid => users[uid]?.invitedBy === rootUid);
-
-  // Nível B
-  const levelB = Object.keys(users).filter(uid => levelA.includes(users[uid]?.invitedBy));
-
-  // Nível C
-  const levelC = Object.keys(users).filter(uid => levelB.includes(users[uid]?.invitedBy));
-
-  return {
-    countA: levelA.length,
-    countB: levelB.length,
-    countC: levelC.length,
+  // Guarda rascunho
+  const draft = {
+    uid: currentUser.uid,
+    amountBase: Math.floor(raw),
+    method: methodId,
+    bank: null,        // será definido em sf-pay.html
+    bankData: null,    // será definido em sf-pay.html (adminBanks)
+    amountExact: null, // será definido em sf-pay-set.html (ou onde fizer sentido)
   };
-}
+  sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
 
-/* =========================
-   RENDER
-========================= */
-function paintUIFromCache(cache) {
-  const {
-    link,
-    earnedA = 0,
-    earnedB = 0,
-    earnedC = 0,
-    countA = 0,
-    countB = 0,
-    countC = 0,
-  } = cache || {};
+  window.location.href = "sf-pay.html";
+});
 
-  if (link) {
-    const linkInput = document.getElementById("affiliate-link");
-    if (linkInput) linkInput.value = link;
-
-    const copyBtn = document.getElementById("copy-link");
-    const feedback = document.getElementById("copy-feedback");
-    if (copyBtn && feedback) {
-      copyBtn.onclick = async () => {
-        try {
-          await navigator.clipboard.writeText(linkInput.value);
-          feedback.classList.remove("hide");
-          setTimeout(() => feedback.classList.add("hide"), 2000);
-        } catch (e) {
-          console.error("Falha ao copiar:", e);
-        }
-      };
-    }
+// ----- functions -----
+function buildMethodList() {
+  methodList.innerHTML = "";
+  METHODS.forEach((m) => {
+    const li = document.createElement("li");
+    li.textContent = m.label;
+    li.addEventListener("click", () => {
+      pickMethodBtn.dataset.method = m.id;
+      methodLabelEl.textContent = m.label;
+      methodModal.classList.add("hidden");
+    });
+    methodList.appendChild(li);
+  });
   }
-
-  // Totais
-  setText("earned-A", formatKz(earnedA));
-  setText("earned-B", formatKz(earnedB));
-  setText("earned-C", formatKz(earnedC));
-
-  // Contagens
-  setText("count-A", countA);
-  setText("count-B", countB);
-  setText("count-C", countC);
-}
-
-function paintUI(data) {
-  paintUIFromCache(data); // mesma função, reaproveitando
-}
-
-function setText(id, text) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = text;
-}
-
-/* =========================
-   UTILS
-========================= */
-function formatKz(v) {
-  return `Kz ${Number(v || 0).toLocaleString("pt-PT", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })}`;
-    }
