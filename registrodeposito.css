@@ -74,18 +74,19 @@ body {
   font-size: 12px;
   color: #fff;
 }
-.status.pendente {
+.status.pending {
   background: #f0ad4e;
 }
-.status.processando {
+.status.processing {
   background: #5bc0de;
 }
-.status.concluído {
+.status.done {
   background: #5cb85c;
 }
-.status.rejeitado {
+.status.rejected {
   background: #d9534f;
 }
+ 
 .item .row2 {
   font-size: 12px;
   color: var(--muted);
