@@ -87,7 +87,9 @@ function applyVisibility(id, btn) {
   if (!el) return;
   const hidden = isHidden(id);
   el.textContent = hidden ? MASKED_TEXT : (el.dataset.formatted || el.textContent);
-  if (btn) btn.textContent = hidden ? "🙈" : "👁️";
+  if (btn) {
+    btn.innerHTML = hidden ? ICON_EYE_OFF : ICON_EYE;
+  }
 }
 
 function setupEyes() {
@@ -101,6 +103,21 @@ function setupEyes() {
 function hideProductsSkeleton() {
   const sk = document.getElementById("produtos-skeleton");
   if (sk) sk.style.display = "none";
+}
+
+/* ========== NOVO: log de movimentos ========== */
+async function pushMovement(uid, movement) {
+  try {
+    const mvRef = push(ref(db, `usuarios/${uid}/movimentos`));
+    await update(ref(db), {
+      [`usuarios/${uid}/movimentos/${mvRef.key}`]: {
+        id: mvRef.key,
+        ...movement
+      }
+    });
+  } catch (e) {
+    console.warn("Falha ao registrar movimento:", e);
+  }
 }
 /* =========================================== */
 
@@ -366,6 +383,7 @@ async function creditDailyCommissionIfNeeded(uid) {
   let saldo = data.saldo || 0;
   let anyCredit = false;
 
+  let totalCredited = 0; // NOVO
   const updates = {};
   const now = Date.now();
 
@@ -382,6 +400,7 @@ async function creditDailyCommissionIfNeeded(uid) {
         const credit = (item.comissao || 0) * dias;
         if (credit > 0) {
           saldo += credit;
+          totalCredited += credit; // NOVO
           anyCredit = true;
 
           const newLast = lastPayAt + (dias * DAY_MS);
@@ -395,6 +414,16 @@ async function creditDailyCommissionIfNeeded(uid) {
     updates[`usuarios/${uid}/saldo`] = saldo;
     updates[`usuarios/${uid}/lastDailyCheckAt`] = now;
     await update(ref(db), updates);
+
+    // ===== NOVO: registrar movimento de comissão diária
+    await pushMovement(uid, {
+      type: "commission",
+      direction: "in",
+      amount: totalCredited,
+      balanceAfter: saldo,
+      meta: { source: "daily_commission" },
+      createdAt: now
+    });
   } else {
     await update(ref(db), { [`usuarios/${uid}/lastDailyCheckAt`]: now });
   }
@@ -416,8 +445,7 @@ async function payReferralCommissions(buyerUid, product) {
 
     const creditA = Math.floor(base * REF_PERC_ON_PURCHASE.A);
     if (creditA > 0) {
-      await addToSaldo(uidA, creditA);
-      await incrementRefTotal(uidA, "A", creditA);
+      await addToSaldo(uidA, creditA, "A", buyerUid, product.id);
     }
 
     const snapA = await get(ref(db, `usuarios/${uidA}`));
@@ -426,8 +454,7 @@ async function payReferralCommissions(buyerUid, product) {
     if (uidB) {
       const creditB = Math.floor(base * REF_PERC_ON_PURCHASE.B);
       if (creditB > 0) {
-        await addToSaldo(uidB, creditB);
-        await incrementRefTotal(uidB, "B", creditB);
+        await addToSaldo(uidB, creditB, "B", buyerUid, product.id);
       }
 
       const snapB = await get(ref(db, `usuarios/${uidB}`));
@@ -436,8 +463,7 @@ async function payReferralCommissions(buyerUid, product) {
       if (uidC) {
         const creditC = Math.floor(base * REF_PERC_ON_PURCHASE.C);
         if (creditC > 0) {
-          await addToSaldo(uidC, creditC);
-          await incrementRefTotal(uidC, "C", creditC);
+          await addToSaldo(uidC, creditC, "C", buyerUid, product.id);
         }
       }
     }
@@ -446,12 +472,28 @@ async function payReferralCommissions(buyerUid, product) {
   }
 }
 
-async function addToSaldo(uid, amount) {
+async function addToSaldo(uid, amount, level, fromUid, productId) {
   const uRef = ref(db, `usuarios/${uid}`);
   const snap = await get(uRef);
   if (!snap.exists()) return;
   const saldoAtual = snap.val().saldo || 0;
-  await update(uRef, { saldo: saldoAtual + amount });
+  const novoSaldo = saldoAtual + amount;
+  await update(uRef, { saldo: novoSaldo });
+
+  // ===== NOVO: registrar movimento de bónus de referência
+  await pushMovement(uid, {
+    type: "ref_bonus",
+    direction: "in",
+    amount,
+    balanceAfter: novoSaldo,
+    meta: {
+      level: level || null,
+      from: fromUid || null,
+      productId: productId || null
+    },
+    createdAt: Date.now()
+  });
+  await incrementRefTotal(uid, level, amount);
 }
 
 async function incrementRefTotal(uid, level, amount) {
