@@ -1,4 +1,3 @@
-// equipa.js
 import { auth, db } from "./firebase-config.js";
 import {
   onAuthStateChanged,
@@ -11,7 +10,7 @@ import {
 /* =========================
    CACHE
 ========================= */
-const CACHE_MAX_AGE = 60_000; // 60s (ajuste se quiser)
+const CACHE_MAX_AGE = 60_000;
 const cacheKey = (uid) => `equipa_cache_${uid}`;
 
 function saveCache(key, data) {
@@ -43,13 +42,11 @@ onAuthStateChanged(auth, async (user) => {
   const uid = user.uid;
   const key = cacheKey(uid);
 
-  // 1) Tenta mostrar do cache imediatamente
   const cached = loadCache(key);
   if (cached) {
     paintUIFromCache(cached);
   }
 
-  // 2) Busca dados frescos e atualiza a UI + cache
   try {
     const meSnap = await get(ref(db, `usuarios/${uid}`));
     if (!meSnap.exists()) return;
@@ -58,35 +55,17 @@ onAuthStateChanged(auth, async (user) => {
     const myCode = me.refCode || uid;
     const link = `${location.origin}/index.html?ref=${myCode}`;
 
-    // Totais ganhos
+    // NOVO: Lê ganhos de comissão refTotals
     const earnedA = me?.refTotals?.A?.amount || 0;
     const earnedB = me?.refTotals?.B?.amount || 0;
     const earnedC = me?.refTotals?.C?.amount || 0;
 
-    // Contagens — uma leitura só de /usuarios para acelerar.
+    // Totais de convidados
     const { countA, countB, countC } = await countNetworkByUid(uid);
 
-    // Pinta UI com os dados frescos
-    paintUI({
-      link,
-      earnedA,
-      earnedB,
-      earnedC,
-      countA,
-      countB,
-      countC,
-    });
-
-    // Salva no cache
-    saveCache(key, {
-      link,
-      earnedA,
-      earnedB,
-      earnedC,
-      countA,
-      countB,
-      countC,
-    });
+    const data = { link, earnedA, earnedB, earnedC, countA, countB, countC };
+    paintUI(data);
+    saveCache(key, data);
   } catch (e) {
     console.error("Erro ao carregar equipa:", e);
   }
@@ -95,10 +74,6 @@ onAuthStateChanged(auth, async (user) => {
 /* =========================
    FUNÇÕES DE CONTAGEM
 ========================= */
-/**
- * Conta níveis A/B/C usando invitedBy == UID.
- * Faz apenas UMA leitura em /usuarios para melhorar performance.
- */
 async function countNetworkByUid(rootUid) {
   const allUsersSnap = await get(ref(db, "usuarios"));
   if (!allUsersSnap.exists()) {
@@ -106,13 +81,8 @@ async function countNetworkByUid(rootUid) {
   }
   const users = allUsersSnap.val();
 
-  // Nível A
   const levelA = Object.keys(users).filter(uid => users[uid]?.invitedBy === rootUid);
-
-  // Nível B
   const levelB = Object.keys(users).filter(uid => levelA.includes(users[uid]?.invitedBy));
-
-  // Nível C
   const levelC = Object.keys(users).filter(uid => levelB.includes(users[uid]?.invitedBy));
 
   return {
@@ -155,19 +125,17 @@ function paintUIFromCache(cache) {
     }
   }
 
-  // Totais
   setText("earned-A", formatKz(earnedA));
   setText("earned-B", formatKz(earnedB));
   setText("earned-C", formatKz(earnedC));
 
-  // Contagens
   setText("count-A", countA);
   setText("count-B", countB);
   setText("count-C", countC);
 }
 
 function paintUI(data) {
-  paintUIFromCache(data); // mesma função, reaproveitando
+  paintUIFromCache(data);
 }
 
 function setText(id, text) {
