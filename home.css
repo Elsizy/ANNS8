@@ -345,3 +345,49 @@ h2 {
 .btn-comprar:hover {
   background: linear-gradient(to right, #4f46e5, #7c3aed);
 }
+.produto-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1c2e4a; /* mesmo tom de fundo da referência */
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.produto-detalhes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.produto-detalhes p {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.label {
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.valor {
+  color: #4da3ff; /* azul simples */
+  font-weight: 500;
+}
+
+.btn-comprar {
+  background: #4da3ff;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-comprar:hover {
+  background: #3b82f6; /* azul mais escuro */
+  }
