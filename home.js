@@ -301,6 +301,82 @@ function renderProdutos({ uid, saldo, compras }) {
         return;
       }
 
+function renderProdutos({ uid, saldo, compras }) {
+  const container = document.getElementById("produtos-container");
+  if (!container) return;
+  container.innerHTML = "";
+
+  const DURATION_DAYS = 60; // duração visível em dias (pode ajustar)
+
+  PRODUTOS.forEach((p) => {
+    const infoCompra = compras?.[p.id];
+    const count = infoCompra?.count || 0;
+    const disabled = count >= MAX_COMPRAS_POR_PRODUTO;
+
+    const daily = p.comissao || 0; // valor real usado pela lógica
+    const percent = p.preco ? Math.round((daily / p.preco) * 100) : 0;
+    const total = daily * DURATION_DAYS;
+
+    const div = document.createElement("div");
+    div.className = "produto";
+    div.innerHTML = `
+      <div class="produto-left">
+        <div class="produto-top">
+          <h3 class="produto-title">${p.nome}</h3>
+          <button class="btn-buy" ${disabled ? 'disabled' : ''} data-id="${p.id}">
+            ${disabled ? 'Limite atingido' : 'Comprar'}
+          </button>
+        </div>
+
+        <div class="produto-body">
+          <p><span class="label-left">Preço</span> <strong class="value">${formatKz(p.preco)}</strong></p>
+          <p><span class="label-left">Taxa de retorno</span> <strong class="value">${percent}%</strong></p>
+          <p><span class="label-left">Duração</span> <strong class="value">${DURATION_DAYS} Dias</strong></p>
+          <p><span class="label-left">Renda diária</span> <strong class="value">${formatKz(daily)}</strong></p>
+          <p><span class="label-left">Renda total</span> <strong class="value">${formatKz(total)}</strong></p>
+          <p class="status">Compras: ${count}/${MAX_COMPRAS_POR_PRODUTO}</p>
+        </div>
+      </div>
+
+      <div class="produto-right">
+        <div class="produto-logo">S&P</div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+
+  // Reaplica os event listeners de compra (mesma lógica que já estava)
+  container.querySelectorAll(".btn-buy").forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      const btnEl = e.currentTarget;
+      if (btnEl.disabled) return;
+
+      btnEl.disabled = true;
+      btnEl.textContent = "Processando...";
+      // reativa o botão visual após 4s (UX)
+      setTimeout(() => {
+        btnEl.disabled = false;
+        btnEl.textContent = "Comprar";
+      }, 4000);
+
+      const productId = btnEl.dataset.id;
+      const product = PRODUTOS.find(x => x.id === productId);
+      if (!product) return;
+
+      // Atualiza dados em tempo real do DB (mesma verificação)
+      const uSnap = await get(ref(db, `usuarios/${uid}`));
+      if (!uSnap.exists()) return alert("Usuário não encontrado no DB.");
+
+      const userData = uSnap.val();
+      const saldoAtual = userData.saldo || 0;
+      const comprasAtuais = userData.compras || {};
+      const countAtual = comprasAtuais[productId]?.count || 0;
+
+      if (countAtual >= MAX_COMPRAS_POR_PRODUTO) {
+        alert("Você já atingiu o limite de 3 compras para este produto.");
+        return;
+      }
+
       if (saldoAtual < product.preco) {
         alert("Saldo insuficiente para esta compra.");
         window.location.href = "deposito.html";
@@ -311,7 +387,6 @@ function renderProdutos({ uid, saldo, compras }) {
       if (!ok) return;
 
       try {
-        // Monta a compra
         const compraRef = ref(db, `usuarios/${uid}/compras/${productId}/items`);
         const newItemRef = push(compraRef);
         const agora = Date.now();
@@ -322,7 +397,7 @@ function renderProdutos({ uid, saldo, compras }) {
         const novoSaldo = saldoAtual - product.preco;
         updates[`usuarios/${uid}/saldo`] = novoSaldo;
 
-        // atualiza contagem do produto
+        // atualiza contagem e cria item
         const novoCount = countAtual + 1;
         updates[`usuarios/${uid}/compras/${productId}/count`] = novoCount;
         updates[`usuarios/${uid}/compras/${productId}/items/${newItemRef.key}`] = {
@@ -332,7 +407,7 @@ function renderProdutos({ uid, saldo, compras }) {
           lastPayAt: agora
         };
 
-        // recomputa os totais
+        // recomputa os totais (mesma lógica)
         const totalInvestido = calcTotalInvestido({
           ...userData,
           compras: {
@@ -360,6 +435,25 @@ function renderProdutos({ uid, saldo, compras }) {
             }
           }
         });
+
+        updates[`usuarios/${uid}/totalInvestido`] = totalInvestido;
+        updates[`usuarios/${uid}/totalComissaoDiaria`] = totalComissaoDiaria;
+
+        // update em lote
+        await update(ref(db), updates);
+
+        // paga comissões de rede (mesma função)
+        await payReferralCommissions(uid, product);
+
+        alert("Produto comprado com sucesso!");
+        window.location.reload();
+      } catch (err) {
+        console.error("Erro ao comprar produto:", err);
+        alert("Erro ao comprar produto.");
+      }
+    });
+  });
+    }
 
         updates[`usuarios/${uid}/totalInvestido`] = totalInvestido;
         updates[`usuarios/${uid}/totalComissaoDiaria`] = totalComissaoDiaria;
