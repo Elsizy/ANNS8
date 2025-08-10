@@ -365,3 +365,52 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); border-ra
   .card-label{ font-size:12px; }
   .btn-quick{ padding:10px 12px; font-size:14px; }
   .balances-card{ padding:16px; min
+/* Responsividade */
+@media (max-width:520px){
+  .g-name{ font-size:20px; }
+  .g-ola{ font-size:15px; }
+  .card-value{ font-size:18px; }         /* reduz em mobile */
+  .card-label{ font-size:12px; }
+  .btn-quick{ padding:10px 12px; font-size:14px; }
+  .balances-card{ padding:16px; min-height:88px; gap:10px; }
+  .action-item{ padding:12px 14px; border-radius:14px; gap:10px; }
+  .balances-card-shadow{ left:16px; right:16px; bottom:-12px; height:18px; filter: blur(6px); transform: translateY(6px); }
+  .dashboard{ padding-bottom: 150px; }
+  .circuit-svg-full{ opacity: calc(var(--svg-opacity) - 0.1); }
+  /* make compact buttons responsive (allow more width on tiny screens) */
+  .btn-recarga, .btn-retirada { flex: 0 0 44%; width: 44%; padding: 9px 10px; border-radius: 5px; }
+}
+
+/* Tablet adjustments */
+@media (min-width:521px) and (max-width:900px){
+  .g-name{ font-size:22px; }
+  .card-value{ font-size:19px; }
+  .action-item .text{ font-size:14px; }
+  .balances-card{ min-height:98px; padding:18px; }
+}
+
+/* Desktop large */
+@media (min-width:1400px){
+  .dashboard{ max-width:1120px; }
+  .balances-card{ padding: 26px; min-height:120px; }
+  .card-value{ font-size:22px; }
+}
+
+/* Accessibility contrast */
+@media (prefers-contrast: more){
+  .card-label{ color: #fff; }
+  .action-item{ border-color: rgba(255,255,255,0.10); }
+}
+
+/* Utilities */
+.mb-8{ margin-bottom:8px; }
+.mt-12{ margin-top:12px; }
+
+/* touch safety */
+.action-item, .btn-quick, .bottom-nav .nav-item {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+
+/* end */
