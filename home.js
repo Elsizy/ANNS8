@@ -245,7 +245,7 @@ async function pushMovement(uid, movement) {
  * e limita a 3 compras por produto.
  */
 function renderProdutos({ uid, saldo, compras }) {
-  const container = document.getElementById("produtos-container");
+  const container = document.getElementById("products.js");
   if (!container) return;
   container.innerHTML = "";
 
