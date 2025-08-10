@@ -264,8 +264,6 @@ function renderProdutos({ uid, saldo, compras }) {
         <p style="margin:0; color:#fff;">Renda diária: <span style="color:#3da5ff;">${formatKz(p.preco * 0.10)}</span></p>
         <p style="margin:0; color:#fff;">Compras: <span style="color:#3da5ff;">${count}/${MAX_COMPRAS_POR_PRODUTO}</span></p>
 
-        <button class="btn-buy" style="margin-top:8px;">Comprar</button>
-
         <div class="logo-circle" aria-hidden="true" 
        style="background:#fff; color:#d32f2f; font-weight:700; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(0,0,0,0.45); flex-shrink:0; margin-top:10px;">
       AES
