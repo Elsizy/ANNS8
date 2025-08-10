@@ -657,3 +657,23 @@ h2 {
 .top-bar {
   background-color: #1f1f1f; /* mais claro que o fundo, mas ainda escuro */
 }
+.menu-links {
+  display: flex;
+  justify-content: space-around;
+  background-color: #1f1f1f; /* ou cor do seu design */
+  padding: 10px 0;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 13px;
+}
+
+.menu-item svg {
+  margin-bottom: 4px;
+  color: #3da5ff; /* azul do tema */
+}
