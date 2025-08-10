@@ -12,8 +12,11 @@ import {
   get
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+/* ---------------------------
+   Cache local (localStorage)
+   --------------------------- */
 const CACHE_KEY = (uid) => `pessoal_cache_${uid}`;
-const CACHE_MAX_AGE = 60_000;
+const CACHE_MAX_AGE = 60_000; // 1 minuto
 
 function loadCache(key, maxAge = CACHE_MAX_AGE) {
   try {
@@ -120,6 +123,7 @@ async function handleChangePassSubmit(e) {
 
 /* ====== FIM MODAL ====== */
 
+/* Observa: mantive onAuthStateChanged, obtenção do RTDB e cache exatamente como no seu código original */
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "login.html";
@@ -129,27 +133,31 @@ onAuthStateChanged(auth, async (user) => {
   const uid = user.uid;
   const key = CACHE_KEY(uid);
 
-  // Mostra cache se houver
+  // Mostra cache se houver (para UI rápida)
   const cached = loadCache(key);
   if (cached) {
     paint(cached);
   }
 
   // Busca dados do RTDB
-  const snap = await get(ref(db, `usuarios/${uid}`));
-  if (!snap.exists()) return;
-  const u = snap.val();
+  try {
+    const snap = await get(ref(db, `usuarios/${uid}`));
+    if (!snap.exists()) return;
+    const u = snap.val();
 
-  const data = {
-    email: u.email || user.email || "",
-    phone: u.phone || u.telefone || "",
-    shortId: u.shortId || uid,
-    saldo: u.saldo || 0,                 // saldo disponível
-    retiradaTotal: u.retiradaTotal || 0  // total já retirado
-  };
+    const data = {
+      email: u.email || user.email || "",
+      phone: u.phone || u.telefone || "",
+      shortId: u.shortId || uid,
+      saldo: u.saldo || 0,                 // saldo disponível (mostrado como Saldo da conta)
+      retiradaTotal: u.retiradaTotal || 0  // total já retirado (mostrado como Conta de receita)
+    };
 
-  paint(data);
-  saveCache(key, data);
+    paint(data);
+    saveCache(key, data);
+  } catch (err) {
+    console.error("Erro ao buscar dados do usuário:", err);
+  }
 });
 
 /** Liga os eventos do modal depois que o DOM estiver pronto */
@@ -180,8 +188,15 @@ document.addEventListener("DOMContentLoaded", () => {
       closeChangePassModal();
     }
   });
+
+  // Ativar o item do bottom-nav correspondente (se existir bottom-nav.js no projeto)
+  try {
+    const active = document.querySelector('.bottom-nav .nav-item[data-key="pessoal"]');
+    active?.classList.add('active');
+  } catch(_) {}
 });
 
+/* Função para preencher os textos na UI - mantida fiel ao original */
 function paint({ email, phone, shortId, saldo, retiradaTotal }) {
   const main = phone || email || "(sem email)";
   setText("user-main", main);
@@ -189,6 +204,7 @@ function paint({ email, phone, shortId, saldo, retiradaTotal }) {
   setText("saldo", formatKz(saldo || 0));
   setText("retirada-total", formatKz(retiradaTotal || 0));
 
+  // Avatar (inicial)
   const avatar = document.getElementById("avatar-letter");
   if (avatar) {
     const avatarSource = (email && email.trim()) || (phone && phone.trim()) || "A";
@@ -208,7 +224,7 @@ function formatKz(v) {
   })}`;
 }
 
-/* logout */
+/* logout (mantive id="logout" no HTML para este botão) */
 document.getElementById("logout")?.addEventListener("click", async (e) => {
   e.preventDefault();
   try {
@@ -216,5 +232,6 @@ document.getElementById("logout")?.addEventListener("click", async (e) => {
     window.location.href = "login.html";
   } catch (err) {
     console.error("Erro ao sair:", err);
+    alert("Erro ao sair. Tente novamente.");
   }
 });
