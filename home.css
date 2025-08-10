@@ -196,3 +196,48 @@ h2 {
     grid-template-rows: auto auto auto;
   }
   }
+/* cards de produto estilo 'S&P' */
+.produtos-container { margin-top: 12px; }
+
+.produto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #2a3140 0%, #232833 100%);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+  color: #dbe9ff;
+  box-shadow: 0 8px 20px rgba(3,7,18,0.6);
+}
+
+.produto-left { flex: 1; min-width: 0; }
+
+.produto-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+
+.produto-title { margin: 0; font-size: 18px; font-weight: 700; color: #f3f7ff; }
+
+.btn-buy {
+  background: linear-gradient(to right, #4aa3ff, #2f8cff);
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(47, 140, 204, 0.18);
+}
+
+.btn-buy[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+.produto-body p { margin: 6px 0; font-size: 13px; color: #bcd0f8; display: flex; align-items: center; }
+
+.label-left { display: inline-block; width: 130px; color: #7fa1cf; }
+
+.value { margin-left: 6px; color: #e7f3ff; font-weight: 700; }
+
+.status { margin-top: 8px; color: #a9c2e6; font-size: 12px; }
+
+.produto-right { margin-left: 16px; display: flex; align-items: center; flex-shrink: 0; }
+
+.produto-logo { font-weight: 900; color: #ff2b2b; font-size: 34px; letter-spacing: 1px; }
