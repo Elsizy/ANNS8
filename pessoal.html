@@ -1,40 +1,188 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pessoal - ANNS8</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pessoal - AES</title>
 
-  <!-- Estilos da página -->
+  <!-- Fonte -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
   <link rel="stylesheet" href="pessoal.css" />
-
-  <!-- Bottom nav -->
   <link rel="stylesheet" href="bottom-nav.css" />
+
+  <!-- Nota: firebase-config.js e pessoal.js são módulos -->
 </head>
 <body class="has-bottom-nav">
-  <div class="dashboard">
-    <!-- Header / Perfil -->
-    <header class="header">
-      <div class="avatar" id="avatar-letter">A</div>
-      <div class="user-info">
-        <div class="user-line" id="user-main">—</div>
-        <div class="user-sub">
-          Uid: <span id="user-shortid">—</span>
+
+  <!-- Top bar / header -->
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="greeting">
+        <div class="g-ola">Olá,</div>
+        <!-- user-main é preenchido pelo JS com email/telefone -->
+        <div id="user-main" class="g-name">—</div>
+        <div class="g-sub">Uid: <span id="user-shortid">—</span></div>
+      </div>
+
+      <!-- Logo no canto superior direito -->
+      <div class="logo-circle" aria-hidden="true">AES</div>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <!-- Painel grande do saldo (cartão com gradiente) -->
+    <section class="balances-panel" aria-label="Saldo">
+      <div class="balances-card">
+        <div class="balance-left">
+          <p class="card-label">Saldo da conta</p>
+          <p class="card-value" id="saldo">Kz 0,00</p>
+        </div>
+        <div class="balance-right">
+          <p class="card-label">Conta de receita</p>
+          <p class="card-value" id="retirada-total">KZ 0,00</p>
         </div>
       </div>
-      <a href="#" id="logout" class="logout">Sair da conta</a>
-    </header>
 
-    <!-- Painel único com os dois saldos -->
-    <section class="balances-panel">
-      <div class="col left">
-        <p class="label">Saldo disponível</p>
-        <p class="value" id="saldo">Kz 0,00</p>
-      </div>
-      <div class="col right">
-        <p class="label">Retirada total</p>
-        <p class="value" id="retirada-total">Kz 0,00</p>
-      </div>
+      <!-- efeito de camadas por baixo (sombra em camadas como na imagem) -->
+      <div class="balances-card-shadow"></div>
+    </section>
+
+    <!-- Botões principais: Recarga / Retirada (aparecem logo abaixo do cartão) -->
+    <section class="quick-actions">
+      <a href="deposito.html" class="btn-quick btn-recarga" title="Depositar"> 
+        <span class="ico">💳</span>
+        <span class="label">Recarga</span>
+      </a>
+
+      <a href="retirada.html" class="btn-quick btn-retirada" title="Retirar">
+        <span class="ico">📤</span>
+        <span class="label">Retirada</span>
+      </a>
+    </section>
+
+    <!-- Lista de ações / menu (caixas arredondadas com borda clara) -->
+    <nav class="actions" aria-label="Menu de ações">
+      <a class="action-item" href="comprarprodutos.html">
+        <span class="icon svg" aria-hidden="true">
+          <!-- ícone simples inline -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2v2m12-2v2M3 7h18" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="text">Meus investimentos</span>
+        <span class="chev">›</span>
+      </a>
+
+      <a class="action-item" href="conta.html">
+        <span class="icon svg" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="6" width="20" height="12" rx="2" stroke-width="1.6"/></svg>
+        </span>
+        <span class="text">Conta bancária</span>
+        <span class="chev">›</span>
+      </a>
+
+      <a class="action-item" href="registros.html">
+        <span class="icon svg" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18M3 12h18M3 18h18" stroke-width="1.6"/></svg>
+        </span>
+        <span class="text">Registros de fundos</span>
+        <span class="chev">›</span>
+      </a>
+
+      <!-- Trocar palavra-passe usa href alterarpasse.html (o JS intercepta e abre o modal) -->
+      <a class="action-item" href="alterarpasse.html">
+        <span class="icon svg" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="1.6"/><rect x="3" y="11" width="18" height="10" rx="2" stroke-width="1.6"/></svg>
+        </span>
+        <span class="text">Alterar a palavra-passe</span>
+        <span class="chev">›</span>
+      </a>
+
+      <a class="action-item" href="#" id="logout">
+        <span class="icon svg" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke-width="1.6"/><path d="M16 17l5-5-5-5" stroke-width="1.6"/></svg>
+        </span>
+        <span class="text">Sair da conta</span>
+        <span class="chev">›</span>
+      </a>
+
+      <a class="action-item" href="carregarapp.html">
+        <span class="icon svg" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v12" stroke-width="1.6"/><path d="M8 7l4-4 4 4" stroke-width="1.6"/></svg>
+        </span>
+        <span class="text">Descarregar a APP</span>
+        <span class="chev">›</span>
+      </a>
+
+      <a class="action-item" href="suporte.html">
+        <span class="icon svg" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 11a9 9 0 0 1 18 0v3a3 3 0 0 1-3 3h-1v-6h2" stroke-width="1.6"/></svg>
+        </span>
+        <span class="text">Suporte</span>
+        <span class="chev">›</span>
+      </a>
+
+    </nav>
+  </main>
+
+  <!-- Bottom nav fixa (mantive para compatibilidade com o resto do projeto) -->
+  <nav class="bottom-nav">
+    <a href="home.html" class="nav-item" data-key="home">
+      <span class="icon">🏠</span>
+      <span class="label">Início</span>
+    </a>
+    <a href="comprarprodutos.html" class="nav-item" data-key="produtos">
+      <span class="icon">🛒</span>
+      <span class="label">Produtos</span>
+    </a>
+    <a href="equipa.html" class="nav-item" data-key="equipa">
+      <span class="icon">👥</span>
+      <span class="label">Equipa</span>
+    </a>
+    <a href="pessoal.html" class="nav-item active" data-key="pessoal">
+      <span class="icon">👤</span>
+      <span class="label">Pessoal</span>
+    </a>
+  </nav>
+
+  <!-- ===== MODAL: Alterar palavra-passe (id's mantidos, lógica intacta) ===== -->
+  <div id="change-pass-overlay" class="modal-overlay" hidden>
+    <div class="modal">
+      <h2>Alterar palavra-passe</h2>
+
+      <form id="change-pass-form">
+        <label class="modal-label">
+          Palavra-passe atual
+          <input type="password" id="old-pass" required />
+        </label>
+
+        <label class="modal-label">
+          Nova palavra-passe
+          <input type="password" id="new-pass" required minlength="6" />
+        </label>
+
+        <label class="modal-label">
+          Confirmar nova palavra-passe
+          <input type="password" id="new-pass-2" required minlength="6" />
+        </label>
+
+        <p id="change-pass-error" class="modal-error" hidden>—</p>
+
+        <div class="modal-actions">
+          <button type="button" id="btn-cancel" class="btn-cancel">Cancelar</button>
+          <button type="submit" id="btn-save" class="btn-save">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- ===== /MODAL ===== -->
+
+  <!-- Firebase + scripts -->
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./pessoal.js"></script>
+  <script src="bottom-nav.js" defer></script>
+</body>
+  </html>      </div>
     </section>
 
     <!-- Lista de ações -->
