@@ -258,9 +258,10 @@ function renderProdutos({ uid, saldo, compras }) {
     div.className = "produto";
     div.innerHTML = `
       <div class="produto-info">
-        <p><strong>${p.nome}</strong></p>
-        <p>Comissão diária: ${formatKz(p.comissao)} (10%)</p>
-        <p style="color: orange">${formatKz(p.preco)}</p>
+        <p><strong>${p.nome}</strong
+        <p>Duração :<strong>60 dias</strong
+        <p>Renda diária: ${formatKz(p.comissao)} (10%)</p>
+        <p style="color: blue">${formatKz(p.preco)}</p>
         <p class="status">Compras: ${count}/${MAX_COMPRAS_POR_PRODUTO}</p>
       </div>
       <button class="btn-buy" ${disabled ? "disabled" : ""} data-id="${p.id}">
