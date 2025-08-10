@@ -13,6 +13,16 @@
   <link rel="stylesheet" href="bottom-nav.css" />
 </head>
 <body class="has-bottom-nav">
+  <!-- SVG full-screen de fundo (pointer-events:none para não interferir) -->
+<svg class="circuit-svg-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <!-- Exemplo de traços; posso substituir pelo SVG exato se preferir -->
+  <g fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M30 60h180v20h-40v80h-120z"/>
+    <path d="M260 40h120v40h-40v100h-80z"/>
+    <path d="M420 20h220v20h-40v140h-180z"/>
+    <!-- posso gerar paths mais complexos conforme a imagem -->
+  </g>
+</svg>
 
   <!-- SVG circuito (fundo decorativo) - pointer-events:none para não interferir -->
   <svg class="circuit-svg" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
