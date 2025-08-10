@@ -643,3 +643,11 @@ h2 {
 .dashboard {
   padding-top: 55px; /* cria espaço para não sobrepor a barra */
    }
+.top-bar {
+  background: linear-gradient(90deg, #3da5ff, #5b4bff);
+}
+.registered-symbol {
+  font-size: 14px;
+  font-weight: bold;
+  color: #3da5ff;
+}
