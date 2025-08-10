@@ -680,3 +680,6 @@ h2 {
 .menu-item {
   background: transparent;
 }
+.menu-links {
+  background: inherit !important;
+}
