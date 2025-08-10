@@ -30,7 +30,7 @@
   --focus-outline: 3px solid rgba(111,102,255,0.18);
 
   /* NOVAS VARIÁVEIS (compact / calculadas para as alterações pedidas) */
-  --panel-gap: 22px;                     /* gap igual topo↔painel e painel↔quick-actions */
+  --panel-gap: 8.8px;                     /* gap igual topo↔painel e painel↔quick-actions */
   --btn-compact-width: 35%;              /* cada botão terá ~35% da largura (2x = 70%) => -30% global */
   --btn-compact-padding-vertical: 9.6px;  /* 12px * 0.8 => altura -20% */
   --btn-compact-padding-horizontal: 11.2px; /* 16px * 0.7 => largura reduzida internamente */
