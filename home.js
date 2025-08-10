@@ -373,54 +373,36 @@ function renderProdutos({ uid, saldo, compras }) {
       const countAtual = comprasAtuais[productId]?.count || 0;
 
       if (countAtual >= MAX_COMPRAS_POR_PRODUTO) {
-        alert("Você já atingiu o limite de 3 compras para este produto.");
-        return;
-      }
+function renderProdutos(lista) {
+  produtosContainer.innerHTML = "";
 
-      if (saldoAtual < product.preco) {
-        alert("Saldo insuficiente para esta compra.");
-        window.location.href = "deposito.html";
-        return;
-      }
+  lista.forEach(produto => {
+    const preco = produto.preco;
+    const retornoDiario = preco * 0.10; // 10% fixo
+    const duracaoDias = 60;
+    const rendaTotal = retornoDiario * duracaoDias;
 
-      const ok = confirm(`Vai usar ${formatKz(product.preco)} para comprar ${product.nome}. Confirmar?`);
-      if (!ok) return;
+    const card = document.createElement("div");
+    card.className = "projeto-card";
 
-      try {
-        const compraRef = ref(db, `usuarios/${uid}/compras/${productId}/items`);
-        const newItemRef = push(compraRef);
-        const agora = Date.now();
+    card.innerHTML = `
+      <div class="projeto-info">
+        <h3 class="projeto-nome">${produto.nome}</h3>
+        <p class="projeto-preco">Preço: Kz ${preco.toLocaleString()}</p>
+        <p class="projeto-retorno">Retorno diário: Kz ${retornoDiario.toLocaleString()} (10%)</p>
+        <p class="projeto-duracao">Duração: ${duracaoDias} dias</p>
+        <p class="projeto-renda-total">Renda total: Kz ${rendaTotal.toLocaleString()}</p>
+        <p class="projeto-bonus">Bônus/Comissão: Kz ${produto.comissao.toLocaleString()}</p>
+      </div>
+      <button class="btn-comprar" data-id="${produto.id}">Comprar</button>
+    `;
 
-        const updates = {};
+    produtosContainer.appendChild(card);
+  });
 
-        // saldo
-        const novoSaldo = saldoAtual - product.preco;
-        updates[`usuarios/${uid}/saldo`] = novoSaldo;
-
-        // atualiza contagem e cria item
-        const novoCount = countAtual + 1;
-        updates[`usuarios/${uid}/compras/${productId}/count`] = novoCount;
-        updates[`usuarios/${uid}/compras/${productId}/items/${newItemRef.key}`] = {
-          preco: product.preco,
-          comissao: product.comissao,
-          compradoEm: agora,
-          lastPayAt: agora
-        };
-
-        // recomputa os totais (mesma lógica)
-        const totalInvestido = calcTotalInvestido({
-          ...userData,
-          compras: {
-            ...comprasAtuais,
-            [productId]: {
-              count: novoCount,
-              items: {
-                ...(comprasAtuais[productId]?.items || {}),
-                [newItemRef.key]: { preco: product.preco, comissao: product.comissao }
-              }
-            }
-          }
-        });
+  // esconder skeleton
+  produtosSkeleton.style.display = "none";
+}
 
         const totalComissaoDiaria = calcTotalComissaoDiaria({
           ...userData,
