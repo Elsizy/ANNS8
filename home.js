@@ -269,7 +269,7 @@ function renderProdutos({ uid, saldo, compras }) {
     </div>
       <button class="btn-buy" ${disabled ? "disabled" : ""} data-id="${p.id}">
         ${disabled ? "Limite atingido" : "Comprar"}
-      </button>
+      </button> <br>
       <div class="logo-circle" aria-hidden="true" 
        style="background:#fff; color:#d32f2f; font-weight:700; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(0,0,0,0.45); flex-shrink:0; margin-top:10px;">
       AES
