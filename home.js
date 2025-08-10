@@ -259,7 +259,7 @@ function renderProdutos({ uid, saldo, compras }) {
     div.innerHTML = `
       <div class="produto-info">
         <p><strong>${p.nome}</strong></p>
-        <p>Comissão diária: ${formatKz(p.comissao)} (15%)</p>
+        <p>Comissão diária: ${formatKz(p.comissao)} (10%)</p>
         <p style="color: orange">${formatKz(p.preco)}</p>
         <p class="status">Compras: ${count}/${MAX_COMPRAS_POR_PRODUTO}</p>
       </div>
