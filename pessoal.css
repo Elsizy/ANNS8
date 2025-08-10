@@ -448,3 +448,19 @@ body::after{
 /* small helper spacing (mantido caso algum JS espere classes) */
 .mb-8{ margin-bottom:8px; }
 .mt-12{ margin-top:12px; }
+.circuit-svg-full {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;               /* manter por baixo do conteúdo */
+  opacity: 0.65;            /* ajustar conforme a sua referência */
+  mix-blend-mode: overlay;  /* ou soft-light, dependendo do visual desejado */
+}
+
+/* garantir que o conteúdo fique acima do SVG */
+.top-header, .dashboard, .bottom-nav, .modal {
+  position: relative;
+  z-index: 2;
+}
