@@ -1,5 +1,10 @@
 /* ======================================================
-   pessoal.css — Precisão Cirúrgica (ajuste tipografia compacta)
+   pessoal.css — Precisão Cirúrgica (versão final)
+   Alterações aplicadas:
+   - espaçamento igual entre topo↔painel e painel↔quick-actions
+   - botões Recarga/Retirada: altura -20%, largura -30%, cantos -60%
+   - opções (Meus investimentos → última): tamanho -20% e fonte proporcional
+   - preservei TODO o resto do seu CSS original, apenas alterei valores necessários
    ====================================================== */
 
 :root{
@@ -14,8 +19,8 @@
   --action-border-width: 2.5px;       /* borda levemente mais visível */
   --action-border-color: rgba(255,255,255,0.08);
   --menu-item-radius: 16px;           /* ligeiro ajuste */
-  --menu-item-padding-vertical: 14px;  /* compacta verticalmente */
-  --menu-item-padding-horizontal: 20px;/* compacta horizontalmente */
+  --menu-item-padding-vertical: 14px;  /* valor original preservado (backup) */
+  --menu-item-padding-horizontal: 20px;/* valor original preservado (backup) */
   --btn-radius: 12px;
   --btn-padding-vertical: 12px;       /* botões um pouco menores */
   --btn-padding-horizontal: 16px;
@@ -23,6 +28,19 @@
   --svg-opacity: 0.72;
   --overlay-opacity: 0.56;
   --focus-outline: 3px solid rgba(111,102,255,0.18);
+
+  /* NOVAS VARIÁVEIS (compact / calculadas para as alterações pedidas) */
+  --panel-gap: 22px;                     /* gap igual topo↔painel e painel↔quick-actions */
+  --btn-compact-width: 35%;              /* cada botão terá ~35% da largura (2x = 70%) => -30% global */
+  --btn-compact-padding-vertical: 9.6px;  /* 12px * 0.8 => altura -20% */
+  --btn-compact-padding-horizontal: 11.2px; /* 16px * 0.7 => largura reduzida internamente */
+  --btn-compact-radius: 4.8px;           /* 12px * 0.4 => cantos -60% */
+  --menu-compact-padding-vertical: 11.2px;  /* 14px * 0.8 => -20% */
+  --menu-compact-padding-horizontal: 16px;  /* 20px * 0.8 => -20% */
+  --action-gap-compact: 9.6px;           /* 12px * 0.8 => gap entre itens -20% */
+  --action-font-compact: 11.2px;         /* 14px * 0.8 => fonte -20% */
+  --icon-size-compact: 16px;             /* 20px * 0.8 => svg icon -20% */
+  --icon-stroke-compact: 1.28;           /* 1.6 * 0.8 => stroke -20% */
 }
 
 /* reset / base */
@@ -112,8 +130,13 @@ body::after {
   z-index: 4;
 }
 
-/* Balances panel */
-.balances-panel{ position: relative; margin: 8px 0 28px 0; }
+/* Balances panel
+   -> AGORA com espaçamentos simétricos: topo↔painel e painel↔quick-actions = var(--panel-gap)
+*/
+.balances-panel{
+  position: relative;
+  margin: var(--panel-gap) 0 var(--panel-gap) 0; /* topo e bottom iguais */
+}
 .balances-card{
   border-radius: var(--card-radius);
   padding: var(--card-padding);
@@ -168,19 +191,25 @@ body::after {
   opacity:0.95;
 }
 
-/* Quick actions */
+/* Quick actions
+   -> Espaçamento superior igual ao topo (var(--panel-gap))
+   -> Botões Recarga/Retirada: largura -30% e altura -20%, cantos -60%
+*/
 .quick-actions{
   display:flex;
   gap:14px; /* reduzido para compactar */
-  margin: 22px 0;
+  margin: var(--panel-gap) 0; /* usa a mesma distância definida */
   padding: 0 6px;
   z-index: 4;
 }
+
+/* Base para btn-quick preservado; overrides para recarga/retirada aplicados abaixo */
 .btn-quick{
   display:flex;
   align-items:center;
   gap:10px;
   justify-content:center;
+  /* deixamos flex: 1 por compatibilidade, mas os botões específicos recebem largura fixa compacta */
   flex:1;
   padding: var(--btn-padding-vertical) var(--btn-padding-horizontal);
   border-radius: var(--btn-radius);
@@ -194,25 +223,40 @@ body::after {
   overflow: hidden;
   z-index: 4;
 }
+
+/* ===== ajustes precisos: aplica a redução pedida apenas aos dois botões principais ===== */
+/* reduzem largura e altura, cantos 60% menores */
+.btn-recarga,
+.btn-retirada{
+  flex: 0 0 var(--btn-compact-width);    /* força largura ~35% cada (2*35% = 70%) */
+  width: var(--btn-compact-width);
+  padding: var(--btn-compact-padding-vertical) var(--btn-compact-padding-horizontal);
+  border-radius: var(--btn-compact-radius);
+}
+
+/* mantém os gradientes */
 .btn-recarga{ background: linear-gradient(90deg, #7a2efa 0%, #b83afb 100%); }
 .btn-retirada{ background: linear-gradient(90deg, #ff5aa8 0%, #ff2e6a 100%); }
+
 .btn-quick:active{ transform: translateY(1px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
 .btn-quick .ico{ display:inline-flex; width:26px; height:26px; align-items:center; justify-content:center; font-size:15px; }
 
-/* Actions list — compact, solid borders */
+/* Actions list — compact, solid borders, reduzidos em 20% conforme pedido */
 .actions{
   margin-top:6px;
   display:flex;
   flex-direction:column;
-  gap:12px;  /* reduzido */
+  gap: var(--action-gap-compact);  /* 12px -> 9.6px */
   padding: 6px 0 48px 0;
   z-index: 4;
 }
+
+/* aplica paddings e fonte compacta (20% menor) */
 .action-item{
   display:flex;
   align-items:center;
-  gap:12px; /* reduzido */
-  padding: var(--menu-item-padding-vertical) var(--menu-item-padding-horizontal);
+  gap: 9.6px; /* var(--action-gap-compact) em px direto para consistência */
+  padding: 11.2px 16px; /* vertical/horizontal compactos */
   border-radius: var(--menu-item-radius);
   margin: 0 10px;
   background: rgba(255,255,255,0.02);
@@ -227,13 +271,19 @@ body::after {
   z-index: 4;
 }
 
-/* svg icon size remains sensible */
-.action-item .icon svg{ width:20px; height:20px; opacity:0.98; stroke: #dfe7ff; stroke-width:1.6; }
+/* svg icon reduzido 20% */
+.action-item .icon svg{
+  width: var(--icon-size-compact);
+  height: var(--icon-size-compact);
+  opacity:0.98;
+  stroke: #dfe7ff;
+  stroke-width: var(--icon-stroke-compact);
+}
 
-/* tighter, smaller text like the reference */
+/* texto compacto (-20%) */
 .action-item .text{
   flex:1;
-  font-size:14px;  /* reduzido para visual mais compacto */
+  font-size: var(--action-font-compact);  /* 14px -> 11.2px */
   font-weight:500;
   letter-spacing:0.08px;
   line-height:1.1;
@@ -314,6 +364,8 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); border-ra
   .balances-card-shadow{ left:16px; right:16px; bottom:-12px; height:18px; filter: blur(6px); transform: translateY(6px); }
   .dashboard{ padding-bottom: 150px; }
   .circuit-svg-full{ opacity: calc(var(--svg-opacity) - 0.1); }
+  /* make compact buttons responsive (allow more width on tiny screens) */
+  .btn-recarga, .btn-retirada { flex: 0 0 44%; width: 44%; padding: 9px 10px; border-radius: 5px; }
 }
 
 /* Tablet adjustments */
