@@ -1,13 +1,13 @@
 :root{
-  --bg-page: #07061a;           /* fundo bem escuro como na imagem */
-  --panel-grad-left: #8b5cf6;   /* gradiente esquerda (violeta) */
-  --panel-grad-right:#ff5aa8;   /* gradiente direita (rosa) */
-  --card-radius: 20px;          /* aumentado para casar com a referência */
+  --bg-page: #07061a;
+  --panel-grad-left: #8b5cf6;
+  --panel-grad-right:#ff5aa8;
+  --card-radius: 20px;
   --muted: rgba(255,255,255,0.7);
   --border-glow: rgba(255,255,255,0.06);
-  --action-border-width: 2px;   /* espessura da borda dos itens do menu */
-  --card-padding: 22px;         /* padding do cartão principal */
-  --card-min-height: 110px;     /* altura mínima do cartão (ajustada) */
+  --action-border-width: 2px;
+  --card-padding: 22px;
+  --card-min-height: 110px;
   --btn-radius: 12px;
   --btn-padding-vertical: 14px;
   --btn-padding-horizontal: 18px;
@@ -29,61 +29,31 @@ body{
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 
-  /* evita o "flash branco" em Android ao tocar */
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
 }
 
-/* ============= Fundo com "riscos / circuitos" (simulação CSS) ============
-   Usamos pseudo-elementos para manter tudo somente no CSS (sem alterar HTML).
-   As linhas e blocos são desenhados com linear-gradients posicionados.
-   ======================================================================== */
-
-body::before{
-  content: "";
-  position: absolute;
+/* SVG full-screen background */
+.circuit-svg-full {
+  position: fixed;
   inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  background-image:
-    /* vários traços verticais finos deslocados para imitar circuitos */
-    linear-gradient(180deg, rgba(255,255,255,0.03) 0 2px, transparent 2px),
-    linear-gradient(180deg, rgba(255,255,255,0.03) 0 2px, transparent 2px),
-    linear-gradient(180deg, rgba(255,255,255,0.03) 0 2px, transparent 2px),
-    linear-gradient(180deg, rgba(255,255,255,0.03) 0 2px, transparent 2px),
-    linear-gradient(180deg, rgba(255,255,255,0.03) 0 2px, transparent 2px);
-  background-repeat: no-repeat;
-  background-position:
-    80px 56px,
-    180px 26px,
-    300px 40px,
-    420px 20px,
-    560px 50px;
-  background-size:
-    2px 240px,
-    2px 260px,
-    2px 220px,
-    2px 240px,
-    2px 200px;
-  opacity: 0.75;
-  mix-blend-mode: overlay;
+  z-index: 0;
+  opacity: 0.72;          /* ajuste facilmente se quiser mais/menos visível */
+  mix-blend-mode: overlay; /* mantém bom contraste com o gradiente do cartão */
 }
 
-/* Opcional: linhas horizontais / elementos decorativos (subtile) */
+/* overlay escuro para leitura (por cima do SVG, por baixo do conteúdo) */
 body::after{
-  content:"";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 160px; /* controla onde as linhas horizontais aparecem */
-  height: 260px;
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(7,6,26,0.56); /* controla contraste */
   pointer-events: none;
-  background-image:
-    linear-gradient(90deg, rgba(255,255,255,0.02) 0 2px, transparent 2px),
-    radial-gradient(closest-side, rgba(255,255,255,0.015), transparent 70%);
-  background-repeat: repeat-x;
-  background-size: 120px 1px, cover;
-  opacity: 0.6;
+  z-index: 1;
 }
 
 /* Top header */
@@ -91,7 +61,7 @@ body::after{
   padding: 22px 18px 10px 18px;
   position: relative;
   background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 28%);
-  z-index: 2; /* garante que esteja acima do pseudo-background */
+  z-index: 3; /* acima do SVG e overlay */
 }
 .header-inner{
   display:flex;
@@ -100,7 +70,7 @@ body::after{
   gap:12px;
 }
 
-/* Greeting (Olá, número) */
+/* Greeting */
 .greeting{
   display:flex;
   flex-direction:column;
@@ -126,7 +96,7 @@ body::after{
 /* logo circle top-right */
 .logo-circle{
   background:#fff;
-  color:#d32f2f; /* vermelho forte do logo S&P na imagem - ajuste para AES */
+  color:#d32f2f;
   font-weight:700;
   width:52px;
   height:52px;
@@ -143,12 +113,12 @@ body::after{
   padding: 18px;
   max-width:960px;
   margin: 0 auto;
-  padding-bottom:120px; /* espaço para bottom nav */
+  padding-bottom:120px;
   position: relative;
-  z-index: 3; /* acima do background pseudo */
+  z-index: 4; /* acima do overlay */
 }
 
-/* Card grande do saldo (gradiente e cantos arredondados) */
+/* Card do saldo */
 .balances-panel{
   position: relative;
   margin-top: 8px;
@@ -161,7 +131,6 @@ body::after{
   justify-content:space-between;
   gap:18px;
   background: linear-gradient(90deg, var(--panel-grad-left) 0%, var(--panel-grad-right) 100%);
-  /* sombras mais pronunciadas para efeito em camadas */
   box-shadow:
     0 26px 48px rgba(139,92,246,0.14),
     0 6px 22px rgba(0,0,0,0.6),
@@ -170,37 +139,20 @@ body::after{
   align-items:center;
   position: relative;
   overflow: visible;
+  z-index: 5; /* acima do overlay */
 }
 
-/* Ajuste fino para coluna esquerda/direita dentro do cartão */
+/* left/right in card */
 .balances-card .balance-left,
-.balances-card .balance-right{
-  display:flex;
-  flex-direction:column;
-}
-.balances-card .balance-left{
-  align-items:flex-start;
-}
-.balances-card .balance-right{
-  align-items:flex-end;
-}
+.balances-card .balance-right{ display:flex; flex-direction:column; }
+.balances-card .balance-left{ align-items:flex-start; }
+.balances-card .balance-right{ align-items:flex-end; }
 
 /* small labels & values */
-.card-label{
-  font-size:14px; /* ajustado leve aumento */
-  color: rgba(255,255,255,0.95);
-  margin:0;
-  opacity:0.95;
-  letter-spacing: 0.2px;
-}
-.card-value{
-  font-size:24px; /* aumentado para melhor presença */
-  font-weight:700;
-  margin:8px 0 0 0;
-  line-height:1;
-}
+.card-label{ font-size:14px; color: rgba(255,255,255,0.95); margin:0; opacity:0.95; letter-spacing: 0.2px; }
+.card-value{ font-size:24px; font-weight:700; margin:8px 0 0 0; line-height:1; }
 
-/* fake layered shadow below card to mimic image multi-layer */
+/* layered shadow below card */
 .balances-card-shadow{
   position:absolute;
   left:24px;
@@ -215,12 +167,13 @@ body::after{
   opacity:0.95;
 }
 
-/* Quick action buttons (Recarga / Retirada) */
+/* Quick actions */
 .quick-actions{
   display:flex;
   gap:20px;
   margin: 26px 0;
   padding: 0 6px;
+  z-index: 4;
 }
 .btn-quick{
   display:flex;
@@ -238,33 +191,21 @@ body::after{
   -webkit-tap-highlight-color: transparent;
   position: relative;
   overflow: hidden;
+  z-index: 4;
 }
 .btn-quick:active{ transform: translateY(1px); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+.btn-recarga{ background: linear-gradient(90deg, #7a2efa 0%, #b83afb 100%); }
+.btn-retirada{ background: linear-gradient(90deg, #ff5aa8 0%, #ff2e6a 100%); }
+.btn-quick .ico{ display:inline-flex; width:28px; height:28px; align-items:center; justify-content:center; font-size:16px; }
 
-.btn-recarga{
-  background: linear-gradient(90deg, #7a2efa 0%, #b83afb 100%); /* violeta -> magenta */
-}
-.btn-retirada{
-  background: linear-gradient(90deg, #ff5aa8 0%, #ff2e6a 100%); /* rosa -> magenta */
-}
-
-/* ícones dentro dos botões (se usar SVG, manter cor branca) */
-.btn-quick .ico{
-  display:inline-flex;
-  width:28px;
-  height:28px;
-  align-items:center;
-  justify-content:center;
-  font-size:16px;
-}
-
-/* Menu lista: itens arredondados, borda suave — PRECISÃO CIRÚRGICA nas medidas */
+/* Menu lista */
 .actions{
   margin-top:6px;
   display:flex;
   flex-direction:column;
-  gap:14px;                     /* aumentado gap para casar com referência */
+  gap:14px;
   padding: 6px 0 48px 0;
+  z-index: 4;
 }
 .action-item{
   display:flex;
@@ -274,111 +215,36 @@ body::after{
   border-radius: var(--menu-item-radius);
   margin: 0 10px;
   background: rgba(255,255,255,0.02);
-  border: var(--action-border-width) solid rgba(255,255,255,0.04); /* borda mais visível */
+  border: var(--action-border-width) solid rgba(255,255,255,0.04);
   text-decoration:none;
   color: #fff;
   transition: background .12s, transform .06s;
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.01),
     0 10px 18px rgba(0,0,0,0.55);
-  -webkit-tap-highlight-color: transparent; /* elimina flash */
+  -webkit-tap-highlight-color: transparent;
+  z-index: 4;
 }
+.action-item .icon svg{ width:22px; height:22px; opacity:0.98; stroke: #dfe7ff; stroke-width:1.8 }
+.action-item .text{ flex:1; font-size:16px; font-weight:500; letter-spacing:0.15px; line-height:1; padding-right:6px; }
+.action-item .chev{ color: rgba(255,255,255,0.62); font-size:20px; flex-shrink:0; }
 
-/* Ícone SVG (tamanho idêntico à referência) */
-.action-item .icon svg{
-  width:22px;
-  height:22px;
-  opacity:0.98;
-  stroke: #dfe7ff;
-  stroke-width:1.8;
-}
+.action-item:hover{ background: rgba(255,255,255,0.03); transform: translateY(-3px); }
+.action-item:active{ transform: translateY(0); }
 
-/* Texto principal do item (pesos e tamanhos milimétricos) */
-.action-item .text{
-  flex:1;
-  font-size:16px;      /* aumento pequeno para se aproximar da imagem */
-  font-weight:500;
-  letter-spacing:0.15px;
-  line-height:1;
-  padding-right:6px;
-}
-.action-item .chev{
-  color: rgba(255,255,255,0.62);
-  font-size:20px;
-  flex-shrink:0;
-}
-
-/* Hover e active - manter sutil para não quebrar o design */
-.action-item:hover{
-  background: rgba(255,255,255,0.03);
-  transform: translateY(-3px);
-}
-.action-item:active{
-  transform: translateY(0);
-}
-
-/* =========================
-   MODAL - Alterar palavra-passe
-   ========================= */
+/* Modal */
 .modal-overlay[hidden] { display:none !important; }
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index: 40000;
-}
-.modal {
-  width: 92%;
-  max-width: 460px;   /* ligeiro aumento para melhor proporção */
-  background: #0b0b1a;
-  border-radius: 14px;
-  box-shadow: 0 18px 40px rgba(0,0,0,.7);
-  padding: 18px;
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.04);
-}
-.modal h2 {
-  margin: 0 0 12px 0;
-  font-size: 18px;
-  color: var(--panel-grad-right);
-}
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; z-index: 60000; }
+.modal { width: 92%; max-width: 460px; background: #0b0b1a; border-radius: 14px; box-shadow: 0 18px 40px rgba(0,0,0,.7); padding: 18px; color: #fff; border: 1px solid rgba(255,255,255,0.04); }
+.modal h2 { margin: 0 0 12px 0; font-size: 18px; color: var(--panel-grad-right); }
 .modal-label { display:block; margin-bottom:12px; font-size:13px; color: rgba(255,255,255,0.95); }
-.modal-label input {
-  width:100%;
-  margin-top:8px;
-  padding:12px 14px;
-  border-radius:10px;
-  background: #0f1223;
-  border:1px solid rgba(255,255,255,0.06);
-  color:#fff;
-  font-size:14px;
-}
+.modal-label input { width:100%; margin-top:8px; padding:12px 14px; border-radius:10px; background: #0f1223; border:1px solid rgba(255,255,255,0.06); color:#fff; font-size:14px; }
 .modal-error { color:#ff6b6b; font-size:13px; margin-top:6px; }
 .modal-actions { display:flex; gap:12px; justify-content:flex-end; margin-top:14px; }
-.btn-cancel {
-  padding:10px 14px;
-  border-radius:10px;
-  background: rgba(255,255,255,0.03);
-  color:#fff;
-  border: 1px solid rgba(255,255,255,0.04);
-  cursor:pointer;
-}
-.btn-save {
-  padding:10px 16px;
-  border-radius:10px;
-  background: linear-gradient(90deg, #6f66ff, #c254ff);
-  color:#fff;
-  border:none;
-  cursor:pointer;
-  font-weight:700;
-}
+.btn-cancel { padding:10px 14px; border-radius:10px; background: rgba(255,255,255,0.03); color:#fff; border: 1px solid rgba(255,255,255,0.04); cursor:pointer; }
+.btn-save { padding:10px 16px; border-radius:10px; background: linear-gradient(90deg, #6f66ff, #c254ff); color:#fff; border:none; cursor:pointer; font-weight:700; }
 
-/* =========================
-   Bottom nav (correções e centralização)
-   ========================= */
+/* Bottom nav */
 .bottom-nav {
   position: fixed;
   left: 50%;
@@ -394,40 +260,13 @@ body::after{
   align-items:center;
   padding:10px 12px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-  z-index: 60000;
-  /* Evita overflow que esconde ícones à esquerda/direita */
+  z-index: 70000;
   overflow: hidden;
 }
+.bottom-nav .nav-item { text-decoration:none; color:#fff; display:flex; flex-direction:column; align-items:center; font-size:12px; opacity:0.95; padding:6px 10px; min-width:56px; text-align:center; }
+.bottom-nav .nav-item.active { color:#fff; font-weight:700; }
 
-/* cada item visível e centralizado */
-.bottom-nav .nav-item {
-  text-decoration:none;
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  font-size:12px;
-  opacity:0.95;
-  padding:6px 10px;
-  min-width: 56px; /* garante que todos os itens fiquem visíveis */
-  text-align: center;
-}
-
-/* destaque do item ativo */
-.bottom-nav .nav-item.active {
-  color: #fff;
-  font-weight:700;
-}
-
-/* proteção contra comportamento nativo estranho ao tocar (móvel) */
-.bottom-nav .nav-item, .action-item, a, button {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-}
-
-/* =========================
-   Responsividade (ajustes finos)
-   ========================= */
+/* mobile tweaks */
 @media (max-width:520px){
   .g-name{ font-size:22px; }
   .card-value{ font-size:20px; }
@@ -435,32 +274,15 @@ body::after{
   .balances-card{ padding:18px; min-height:96px; }
   .action-item{ padding:14px 16px; border-radius:16px; gap:14px; }
   .balances-card-shadow { left: 18px; right: 18px; bottom: -14px; height:20px; }
-  .dashboard { padding-bottom: 140px; } /* espaço extra para bottom nav em mobile */
+  .dashboard { padding-bottom: 140px; }
 }
 
-/* ========== Extras (utilitários finos) ========== */
-/* Força o contraste do texto dentro dos botões e cards em dispositivos com filtros */
+/* accessibility contrast */
 @media (prefers-contrast: more){
   .card-label{ color: #fff; }
   .action-item{ border-color: rgba(255,255,255,0.08); }
 }
 
-/* small helper spacing (mantido caso algum JS espere classes) */
+/* small helper */
 .mb-8{ margin-bottom:8px; }
 .mt-12{ margin-top:12px; }
-.circuit-svg-full {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;               /* manter por baixo do conteúdo */
-  opacity: 0.65;            /* ajustar conforme a sua referência */
-  mix-blend-mode: overlay;  /* ou soft-light, dependendo do visual desejado */
-}
-
-/* garantir que o conteúdo fique acima do SVG */
-.top-header, .dashboard, .bottom-nav, .modal {
-  position: relative;
-  z-index: 2;
-}
