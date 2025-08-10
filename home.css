@@ -688,3 +688,8 @@ h2 {
   font-weight: 500; /* mantém legível mas sem pesar */
   line-height: 1.4; /* melhora espaçamento vertical */
 }
+.menu-links * {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.4;
+}
