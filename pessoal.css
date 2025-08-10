@@ -202,7 +202,7 @@ body::after {
 .quick-actions{
   display:flex;
   justify-content: center; 
-  gap:14px; /* reduzido para compactar */
+  gap:24px; /* reduzido para compactar */
   margin-top: var(--gap-painel-acoes);
   margin-bottom: 0;
   padding: 0 6px;
