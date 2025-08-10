@@ -256,7 +256,7 @@ body::after {
 
 /* Actions list — compact, solid borders, reduzidos em 20% conforme pedido */
 .actions{
-  width:100%;
+  width:110%;
   margin-top:6px;
   display:flex;
   flex-direction:column;
@@ -267,7 +267,7 @@ body::after {
 
 /* aplica paddings e fonte compacta (20% menor) */
 .action-item{
-  width:100%;
+  width:110%;
   display:flex;
   align-items:center;
   gap: 9.6px; /* var(--action-gap-compact) em px direto para consistência */
