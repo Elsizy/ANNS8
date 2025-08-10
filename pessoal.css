@@ -239,6 +239,13 @@ body::after {
   padding: var(--btn-compact-padding-vertical) var(--btn-compact-padding-horizontal);
   border-radius: var(--btn-compact-radius);
 }
+.btn-recarga,
+.btn-retirada {
+  height: 36px;           /* altura fixa desejada */
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 36px;      /* para centralizar o texto verticalmente */
+}
 
 /* mantém os gradientes */
 .btn-recarga{ background: linear-gradient(90deg, #7a2efa 0%, #b83afb 100%); }
