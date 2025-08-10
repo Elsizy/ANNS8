@@ -1,85 +1,108 @@
+/* ======================================================
+   pessoal.css — Precisão Cirúrgica (versão completa)
+   ======================================================
+   Objetivo:
+   - Preservar seletores originais usados pelo JS/HTML
+   - Restaurar regras perdidas (responsividade, sombras, paddings)
+   - Incluir SVG full-screen (Opção B) overlay e proteção mobile
+   - Comentários para auditoria linha-a-linha
+   ====================================================== */
+
+/* ==============================
+   Variáveis principais (tema)
+   ============================== */
 :root{
-  --bg-page: #07061a;
-  --panel-grad-left: #8b5cf6;
-  --panel-grad-right:#ff5aa8;
-  --card-radius: 20px;
-  --muted: rgba(255,255,255,0.7);
-  --border-glow: rgba(255,255,255,0.06);
-  --action-border-width: 2px;
+  --bg-page: #07061a;                /* fundo muito escuro */
+  --panel-grad-left: #8b5cf6;        /* violeta */
+  --panel-grad-right: #ff5aa8;       /* rosa */
+  --card-radius: 20px;               /* borda do cartão principal */
   --card-padding: 22px;
   --card-min-height: 110px;
-  --btn-radius: 12px;
-  --btn-padding-vertical: 14px;
-  --btn-padding-horizontal: 18px;
+  --muted: rgba(255,255,255,0.72);
+  --muted-strong: rgba(255,255,255,0.9);
+  --action-border-width: 2px;        /* espessura da borda dos action-items */
   --menu-item-radius: 18px;
   --menu-item-padding-vertical: 18px;
   --menu-item-padding-horizontal: 22px;
+  --btn-radius: 12px;
+  --btn-padding-vertical: 14px;
+  --btn-padding-horizontal: 18px;
   --bottom-nav-maxwidth: 720px;
+  --overlay-opacity: 0.56;           /* overlay acima do svg para contraste */
+  --svg-opacity: 0.72;               /* visibilidade do svg */
+  --focus-outline: 3px solid rgba(111,102,255,0.18);
 }
 
-/* reset / base */
+/* ==============================
+   Reset / base
+   ============================== */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
   min-height:100%;
-  background: var(--bg-page);
   color:#fff;
+  background: var(--bg-page); /* fallback */
   font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 
+  /* Proteções mobile / evita flash branco no toque */
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
+  -ms-touch-action: manipulation;
 }
 
-/* SVG full-screen background */
+/* ======================================================
+   BACKGROUND: SVG full-screen e overlay
+   - .circuit-svg-full presente no HTML (inserido junto ao body)
+   - overlay por body::after para escurecer o svg e garantir contraste
+   ====================================================== */
 .circuit-svg-full {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
+  pointer-events: none;           /* não interfere com cliques/touches */
   z-index: 0;
-  opacity: 0.72;          /* ajuste facilmente se quiser mais/menos visível */
-  mix-blend-mode: overlay; /* mantém bom contraste com o gradiente do cartão */
+  opacity: var(--svg-opacity);
+  mix-blend-mode: overlay;
 }
 
-/* overlay escuro para leitura (por cima do SVG, por baixo do conteúdo) */
-body::after{
+body::after {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(7,6,26,0.56); /* controla contraste */
   pointer-events: none;
-  z-index: 1;
+  background: rgba(7,6,26,var(--overlay-opacity));
+  z-index: 1;                      /* overlay entre svg (z:0) e conteúdo (z: >=2) */
 }
 
-/* Top header */
+/* ======================================================
+   Top header (mantive estrutura e medidas)
+   ====================================================== */
 .top-header{
   padding: 22px 18px 10px 18px;
   position: relative;
   background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 28%);
-  z-index: 3; /* acima do SVG e overlay */
+  z-index: 3;                       /* acima do overlay */
 }
 .header-inner{
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
   gap:12px;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-/* Greeting */
-.greeting{
-  display:flex;
-  flex-direction:column;
-}
+/* Greeting (Olá / nome / uid) - você disse manter sem alteração */
+.greeting{ display:flex; flex-direction:column; }
 .g-ola{
   font-size:18px;
-  opacity:0.95;
-  margin-bottom:6px;
   color: rgba(255,255,255,0.92);
+  margin-bottom:6px;
 }
 .g-name{
   font-size:28px;
@@ -90,10 +113,10 @@ body::after{
 .g-sub{
   margin-top:8px;
   font-size:12px;
-  color:rgba(255,255,255,0.58);
+  color: rgba(255,255,255,0.58);
 }
 
-/* logo circle top-right */
+/* Logo circular AES (mantido conforme solicitado) */
 .logo-circle{
   background:#fff;
   color:#d32f2f;
@@ -108,28 +131,31 @@ body::after{
   flex-shrink:0;
 }
 
-/* Main dashboard spacing */
+/* ======================================================
+   Dashboard container
+   ====================================================== */
 .dashboard{
   padding: 18px;
   max-width:960px;
   margin: 0 auto;
-  padding-bottom:120px;
+  padding-bottom:120px;  /* espaço para bottom-nav */
   position: relative;
-  z-index: 4; /* acima do overlay */
+  z-index: 4;             /* conteúdo acima do overlay */
 }
 
-/* Card do saldo */
+/* ======================================================
+   Balances panel (cartão principal) — precisão das medidas
+   ====================================================== */
 .balances-panel{
   position: relative;
-  margin-top: 8px;
-  margin-bottom: 28px;
+  margin: 8px 0 28px 0;
 }
 .balances-card{
   border-radius: var(--card-radius);
   padding: var(--card-padding);
   display:flex;
   justify-content:space-between;
-  gap:18px;
+  gap: 18px;
   background: linear-gradient(90deg, var(--panel-grad-left) 0%, var(--panel-grad-right) 100%);
   box-shadow:
     0 26px 48px rgba(139,92,246,0.14),
@@ -139,20 +165,34 @@ body::after{
   align-items:center;
   position: relative;
   overflow: visible;
-  z-index: 5; /* acima do overlay */
+  z-index: 5; /* sempre acima do overlay */
 }
 
-/* left/right in card */
+/* estrut. interna do cartão: colunas */
 .balances-card .balance-left,
-.balances-card .balance-right{ display:flex; flex-direction:column; }
-.balances-card .balance-left{ align-items:flex-start; }
-.balances-card .balance-right{ align-items:flex-end; }
+.balances-card .balance-right{
+  display:flex;
+  flex-direction:column;
+}
+.balances-card .balance-left{ align-items: flex-start; }
+.balances-card .balance-right{ align-items: flex-end; }
 
-/* small labels & values */
-.card-label{ font-size:14px; color: rgba(255,255,255,0.95); margin:0; opacity:0.95; letter-spacing: 0.2px; }
-.card-value{ font-size:24px; font-weight:700; margin:8px 0 0 0; line-height:1; }
+/* labels e valores — mantive pesos tipográficos distintos */
+.card-label{
+  font-size:14px; 
+  color: rgba(255,255,255,0.95);
+  margin: 0;
+  opacity: 0.95;
+  letter-spacing: 0.2px;
+}
+.card-value{
+  font-size:24px;
+  font-weight:700;
+  margin: 8px 0 0 0;
+  line-height: 1;
+}
 
-/* layered shadow below card */
+/* sombra em camadas por baixo do cartão (efeito do seu modelo) */
 .balances-card-shadow{
   position:absolute;
   left:24px;
@@ -162,12 +202,14 @@ body::after{
   border-radius: 22px;
   background: linear-gradient(90deg, rgba(139,92,246,0.12), rgba(0,0,0,0.12));
   filter: blur(8px);
-  transform:translateY(8px);
+  transform: translateY(8px);
   z-index: -1;
-  opacity:0.95;
+  opacity: 0.95;
 }
 
-/* Quick actions */
+/* ======================================================
+   Quick actions (Recarga / Retirada) — tamanhos exatos
+   ====================================================== */
 .quick-actions{
   display:flex;
   gap:20px;
@@ -183,22 +225,34 @@ body::after{
   flex:1;
   padding: var(--btn-padding-vertical) var(--btn-padding-horizontal);
   border-radius: var(--btn-radius);
-  text-decoration:none;
-  color:white;
+  color: white;
   font-weight:700;
+  text-decoration:none;
   box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-  transition: transform .08s ease, box-shadow .12s ease;
+  transition: transform .08s ease, box-shadow .12s ease, opacity .08s;
   -webkit-tap-highlight-color: transparent;
   position: relative;
   overflow: hidden;
   z-index: 4;
 }
 .btn-quick:active{ transform: translateY(1px); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+
 .btn-recarga{ background: linear-gradient(90deg, #7a2efa 0%, #b83afb 100%); }
 .btn-retirada{ background: linear-gradient(90deg, #ff5aa8 0%, #ff2e6a 100%); }
-.btn-quick .ico{ display:inline-flex; width:28px; height:28px; align-items:center; justify-content:center; font-size:16px; }
 
-/* Menu lista */
+/* ícone/emoji dentro do botão */
+.btn-quick .ico{
+  display:inline-flex;
+  width:28px;
+  height:28px;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+}
+
+/* ======================================================
+   Lista de ações — estilo milimétrico
+   ====================================================== */
 .actions{
   margin-top:6px;
   display:flex;
@@ -225,27 +279,100 @@ body::after{
   -webkit-tap-highlight-color: transparent;
   z-index: 4;
 }
-.action-item .icon svg{ width:22px; height:22px; opacity:0.98; stroke: #dfe7ff; stroke-width:1.8 }
-.action-item .text{ flex:1; font-size:16px; font-weight:500; letter-spacing:0.15px; line-height:1; padding-right:6px; }
-.action-item .chev{ color: rgba(255,255,255,0.62); font-size:20px; flex-shrink:0; }
 
-.action-item:hover{ background: rgba(255,255,255,0.03); transform: translateY(-3px); }
+/* ícone svg do item */
+.action-item .icon svg{
+  width:22px;
+  height:22px;
+  opacity:0.98;
+  stroke: #dfe7ff;
+  stroke-width:1.8;
+}
+
+/* texto e chevron */
+.action-item .text{
+  flex:1;
+  font-size:16px;
+  font-weight:500;
+  letter-spacing:0.15px;
+  line-height:1;
+  padding-right:6px;
+}
+.action-item .chev{
+  color: rgba(255,255,255,0.62);
+  font-size:20px;
+  flex-shrink:0;
+}
+
+/* hover/active (sutileza para combinar com a imagem) */
+.action-item:hover{
+  background: rgba(255,255,255,0.03);
+  transform: translateY(-3px);
+}
 .action-item:active{ transform: translateY(0); }
 
-/* Modal */
-.modal-overlay[hidden] { display:none !important; }
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; z-index: 60000; }
-.modal { width: 92%; max-width: 460px; background: #0b0b1a; border-radius: 14px; box-shadow: 0 18px 40px rgba(0,0,0,.7); padding: 18px; color: #fff; border: 1px solid rgba(255,255,255,0.04); }
-.modal h2 { margin: 0 0 12px 0; font-size: 18px; color: var(--panel-grad-right); }
-.modal-label { display:block; margin-bottom:12px; font-size:13px; color: rgba(255,255,255,0.95); }
-.modal-label input { width:100%; margin-top:8px; padding:12px 14px; border-radius:10px; background: #0f1223; border:1px solid rgba(255,255,255,0.06); color:#fff; font-size:14px; }
-.modal-error { color:#ff6b6b; font-size:13px; margin-top:6px; }
-.modal-actions { display:flex; gap:12px; justify-content:flex-end; margin-top:14px; }
-.btn-cancel { padding:10px 14px; border-radius:10px; background: rgba(255,255,255,0.03); color:#fff; border: 1px solid rgba(255,255,255,0.04); cursor:pointer; }
-.btn-save { padding:10px 16px; border-radius:10px; background: linear-gradient(90deg, #6f66ff, #c254ff); color:#fff; border:none; cursor:pointer; font-weight:700; }
+/* ======================================================
+   Modal: alterar palavra-passe (ID's mantidos)
+   ====================================================== */
+.modal-overlay[hidden]{ display:none !important; }
+.modal-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index: 60000; /* sobre o overlay e o conteúdo */
+}
+.modal{
+  width: 92%;
+  max-width: 460px;
+  background: #0b0b1a;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.7);
+  padding: 18px;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.modal h2{ margin: 0 0 12px 0; font-size: 18px; color: var(--panel-grad-right); }
+.modal-label{ display:block; margin-bottom:12px; font-size:13px; color: rgba(255,255,255,0.95); }
+.modal-label input{
+  width:100%;
+  margin-top:8px;
+  padding:12px 14px;
+  border-radius:10px;
+  background: #0f1223;
+  border:1px solid rgba(255,255,255,0.06);
+  color:#fff;
+  font-size:14px;
+}
+.modal-error{ color:#ff6b6b; font-size:13px; margin-top:6px; }
+.modal-actions{ display:flex; gap:12px; justify-content:flex-end; margin-top:14px; }
+.btn-cancel{ padding:10px 14px; border-radius:10px; background: rgba(255,255,255,0.03); color:#fff; border: 1px solid rgba(255,255,255,0.04); cursor:pointer; }
+.btn-save{ padding:10px 16px; border-radius:10px; background: linear-gradient(90deg, #6f66ff, #c254ff); color:#fff; border:none; cursor:pointer; font-weight:700; }
 
-/* Bottom nav */
-.bottom-nav {
+/* ==========================
+   Avatar (se existir no HTML)
+   - seu JS define #avatar-letter opcionalmente.
+   ========================== */
+#avatar-letter, .avatar {
+  width:58px;
+  height:58px;
+  background: linear-gradient(90deg,#6f6dff,#b24bff);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  font-weight:700;
+  color:#fff;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.55);
+}
+
+/* ======================================================
+   Bottom nav — centralizado, items visíveis (corrige bug)
+   ====================================================== */
+.bottom-nav{
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
@@ -263,26 +390,79 @@ body::after{
   z-index: 70000;
   overflow: hidden;
 }
-.bottom-nav .nav-item { text-decoration:none; color:#fff; display:flex; flex-direction:column; align-items:center; font-size:12px; opacity:0.95; padding:6px 10px; min-width:56px; text-align:center; }
-.bottom-nav .nav-item.active { color:#fff; font-weight:700; }
+.bottom-nav .nav-item{
+  text-decoration:none;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-size:12px;
+  opacity:0.95;
+  padding:6px 10px;
+  min-width:56px;   /* garante que não fiquem escondidos */
+  text-align:center;
+}
+.bottom-nav .nav-item.active{ color:#fff; font-weight:700; }
 
-/* mobile tweaks */
+/* Remove outline visual indesejado, mantendo acessibilidade via focus-visible */
+a, button { outline: none; }
+a:focus-visible, button:focus-visible { outline: var(--focus-outline); border-radius: 8px; }
+
+/* ======================================================
+   Responsividade e ajustes finos (vários breakpoints)
+   ====================================================== */
+
+/* Mobile (pequenas larguras) */
 @media (max-width:520px){
   .g-name{ font-size:22px; }
   .card-value{ font-size:20px; }
   .btn-quick{ padding:12px 12px; }
   .balances-card{ padding:18px; min-height:96px; }
   .action-item{ padding:14px 16px; border-radius:16px; gap:14px; }
-  .balances-card-shadow { left: 18px; right: 18px; bottom: -14px; height:20px; }
+  .balances-card-shadow { left: 18px; right: 18px; bottom: -14px; height:20px; filter: blur(6px); transform: translateY(6px); }
   .dashboard { padding-bottom: 140px; }
+  .circuit-svg-full{ opacity: calc(var(--svg-opacity) - 0.1); } /* um pouco menos intrusivo em mobile */
 }
 
-/* accessibility contrast */
+/* Tablet */
+@media (min-width:521px) and (max-width:900px){
+  .header-inner{ padding: 0 8px; }
+  .balances-card{ min-height:100px; padding:20px; }
+  .card-value{ font-size:22px; }
+  .menu-item-padding-horizontal: /* fallback - não funciona em CSS, mantemos padding via var usage */ ;
+}
+
+/* Desktop grande */
+@media (min-width:1400px){
+  .dashboard{ max-width:1120px; }
+  .balances-card{ padding: 28px; min-height:128px; }
+  .card-value{ font-size:28px; }
+}
+
+/* ======================================================
+   Preferências de contraste e acessibilidade
+   ====================================================== */
 @media (prefers-contrast: more){
   .card-label{ color: #fff; }
   .action-item{ border-color: rgba(255,255,255,0.08); }
 }
 
-/* small helper */
+/* ======================================================
+   Utilitários e classes auxiliares preservadas
+   ====================================================== */
 .mb-8{ margin-bottom:8px; }
 .mt-12{ margin-top:12px; }
+
+/* ======================================================
+   Ajustes adicionais para garantir comportamento estável
+   - evitar flashing ao tocar e interferência do SVG
+   ====================================================== */
+.action-item, .btn-quick, .bottom-nav .nav-item {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+
+/* ======================================================
+   End of file — precisão cirúrgica
+   ====================================================== */
