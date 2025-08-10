@@ -1,92 +1,76 @@
 /* ======================================================
-   pessoal.css — Precisão Cirúrgica (versão completa)
-   ======================================================
-   Objetivo:
-   - Preservar seletores originais usados pelo JS/HTML
-   - Restaurar regras perdidas (responsividade, sombras, paddings)
-   - Incluir SVG full-screen (Opção B) overlay e proteção mobile
-   - Comentários para auditoria linha-a-linha
+   pessoal.css — Precisão Cirúrgica (ajuste tipografia compacta)
    ====================================================== */
 
-/* ==============================
-   Variáveis principais (tema)
-   ============================== */
 :root{
-  --bg-page: #07061a;                /* fundo muito escuro */
-  --panel-grad-left: #8b5cf6;        /* violeta */
-  --panel-grad-right: #ff5aa8;       /* rosa */
-  --card-radius: 20px;               /* borda do cartão principal */
-  --card-padding: 22px;
-  --card-min-height: 110px;
+  --bg-page: #07061a;
+  --panel-grad-left: #8b5cf6;
+  --panel-grad-right:#ff5aa8;
+  --card-radius: 18px;                /* ligeiramente menor para aparência mais sólida */
+  --card-padding: 20px;               /* reduzido para compactar */
+  --card-min-height: 100px;           /* reduzido */
   --muted: rgba(255,255,255,0.72);
   --muted-strong: rgba(255,255,255,0.9);
-  --action-border-width: 2px;        /* espessura da borda dos action-items */
-  --menu-item-radius: 18px;
-  --menu-item-padding-vertical: 18px;
-  --menu-item-padding-horizontal: 22px;
+  --action-border-width: 2.5px;       /* borda levemente mais visível */
+  --action-border-color: rgba(255,255,255,0.08);
+  --menu-item-radius: 16px;           /* ligeiro ajuste */
+  --menu-item-padding-vertical: 14px;  /* compacta verticalmente */
+  --menu-item-padding-horizontal: 20px;/* compacta horizontalmente */
   --btn-radius: 12px;
-  --btn-padding-vertical: 14px;
-  --btn-padding-horizontal: 18px;
+  --btn-padding-vertical: 12px;       /* botões um pouco menores */
+  --btn-padding-horizontal: 16px;
   --bottom-nav-maxwidth: 720px;
-  --overlay-opacity: 0.56;           /* overlay acima do svg para contraste */
-  --svg-opacity: 0.72;               /* visibilidade do svg */
+  --svg-opacity: 0.72;
+  --overlay-opacity: 0.56;
   --focus-outline: 3px solid rgba(111,102,255,0.18);
 }
 
-/* ==============================
-   Reset / base
-   ============================== */
+/* reset / base */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
   min-height:100%;
   color:#fff;
-  background: var(--bg-page); /* fallback */
+  background: var(--bg-page);
   font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 
-  /* Proteções mobile / evita flash branco no toque */
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -ms-touch-action: manipulation;
 }
 
-/* ======================================================
-   BACKGROUND: SVG full-screen e overlay
-   - .circuit-svg-full presente no HTML (inserido junto ao body)
-   - overlay por body::after para escurecer o svg e garantir contraste
-   ====================================================== */
+/* SVG full-screen background (presente no HTML) */
 .circuit-svg-full {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;           /* não interfere com cliques/touches */
+  pointer-events: none;
   z-index: 0;
   opacity: var(--svg-opacity);
   mix-blend-mode: overlay;
 }
 
+/* overlay escuro para contraste */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   background: rgba(7,6,26,var(--overlay-opacity));
-  z-index: 1;                      /* overlay entre svg (z:0) e conteúdo (z: >=2) */
+  z-index: 1;
 }
 
-/* ======================================================
-   Top header (mantive estrutura e medidas)
-   ====================================================== */
+/* Top header */
 .top-header{
   padding: 22px 18px 10px 18px;
   position: relative;
   background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 28%);
-  z-index: 3;                       /* acima do overlay */
+  z-index: 3;
 }
 .header-inner{
   display:flex;
@@ -97,26 +81,13 @@ body::after {
   margin: 0 auto;
 }
 
-/* Greeting (Olá / nome / uid) - você disse manter sem alteração */
+/* Greeting */
 .greeting{ display:flex; flex-direction:column; }
-.g-ola{
-  font-size:18px;
-  color: rgba(255,255,255,0.92);
-  margin-bottom:6px;
-}
-.g-name{
-  font-size:28px;
-  font-weight:600;
-  letter-spacing:0.2px;
-  line-height:1;
-}
-.g-sub{
-  margin-top:8px;
-  font-size:12px;
-  color: rgba(255,255,255,0.58);
-}
+.g-ola{ font-size:16px; color: rgba(255,255,255,0.92); margin-bottom:6px; } /* levemente menor */
+.g-name{ font-size:24px; font-weight:600; letter-spacing:0.15px; line-height:1; } /* reduzido */
+.g-sub{ margin-top:8px; font-size:11px; color: rgba(255,255,255,0.58); }
 
-/* Logo circular AES (mantido conforme solicitado) */
+/* Logo circle */
 .logo-circle{
   background:#fff;
   color:#d32f2f;
@@ -131,247 +102,181 @@ body::after {
   flex-shrink:0;
 }
 
-/* ======================================================
-   Dashboard container
-   ====================================================== */
+/* Dashboard container */
 .dashboard{
   padding: 18px;
   max-width:960px;
   margin: 0 auto;
-  padding-bottom:120px;  /* espaço para bottom-nav */
+  padding-bottom:120px;
   position: relative;
-  z-index: 4;             /* conteúdo acima do overlay */
+  z-index: 4;
 }
 
-/* ======================================================
-   Balances panel (cartão principal) — precisão das medidas
-   ====================================================== */
-.balances-panel{
-  position: relative;
-  margin: 8px 0 28px 0;
-}
+/* Balances panel */
+.balances-panel{ position: relative; margin: 8px 0 28px 0; }
 .balances-card{
   border-radius: var(--card-radius);
   padding: var(--card-padding);
   display:flex;
   justify-content:space-between;
-  gap: 18px;
+  gap: 14px; /* um pouco menor */
   background: linear-gradient(90deg, var(--panel-grad-left) 0%, var(--panel-grad-right) 100%);
   box-shadow:
-    0 26px 48px rgba(139,92,246,0.14),
-    0 6px 22px rgba(0,0,0,0.6),
+    0 22px 40px rgba(139,92,246,0.12),
+    0 6px 18px rgba(0,0,0,0.6),
     inset 0 -6px 0 rgba(0,0,0,0.06);
   min-height: var(--card-min-height);
   align-items:center;
   position: relative;
   overflow: visible;
-  z-index: 5; /* sempre acima do overlay */
+  z-index: 5;
 }
 
-/* estrut. interna do cartão: colunas */
+/* Left / right in card */
 .balances-card .balance-left,
-.balances-card .balance-right{
-  display:flex;
-  flex-direction:column;
-}
-.balances-card .balance-left{ align-items: flex-start; }
-.balances-card .balance-right{ align-items: flex-end; }
+.balances-card .balance-right{ display:flex; flex-direction:column; }
+.balances-card .balance-left{ align-items:flex-start; }
+.balances-card .balance-right{ align-items:flex-end; }
 
-/* labels e valores — mantive pesos tipográficos distintos */
+/* label & numbers: tipografia mais compacta e profissional */
 .card-label{
-  font-size:14px; 
-  color: rgba(255,255,255,0.95);
-  margin: 0;
-  opacity: 0.95;
-  letter-spacing: 0.2px;
+  font-size:13px; /* reduzido */
+  color: rgba(255,255,255,0.92);
+  margin:0;
+  opacity:0.95;
+  letter-spacing:0.12px;
 }
 .card-value{
-  font-size:24px;
-  font-weight:700;
-  margin: 8px 0 0 0;
-  line-height: 1;
+  font-size:20px;   /* reduzido para visual mais elegante */
+  font-weight:600;  /* um pouco menos pesado */
+  margin:6px 0 0 0;
+  line-height:1;
 }
 
-/* sombra em camadas por baixo do cartão (efeito do seu modelo) */
+/* shadow layer below */
 .balances-card-shadow{
   position:absolute;
-  left:24px;
-  right:24px;
-  bottom:-20px;
-  height:28px;
-  border-radius: 22px;
+  left:22px;
+  right:22px;
+  bottom:-18px;
+  height:24px;
+  border-radius: 20px;
   background: linear-gradient(90deg, rgba(139,92,246,0.12), rgba(0,0,0,0.12));
-  filter: blur(8px);
-  transform: translateY(8px);
+  filter: blur(7px);
+  transform: translateY(7px);
   z-index: -1;
-  opacity: 0.95;
+  opacity:0.95;
 }
 
-/* ======================================================
-   Quick actions (Recarga / Retirada) — tamanhos exatos
-   ====================================================== */
+/* Quick actions */
 .quick-actions{
   display:flex;
-  gap:20px;
-  margin: 26px 0;
+  gap:14px; /* reduzido para compactar */
+  margin: 22px 0;
   padding: 0 6px;
   z-index: 4;
 }
 .btn-quick{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:10px;
   justify-content:center;
   flex:1;
   padding: var(--btn-padding-vertical) var(--btn-padding-horizontal);
   border-radius: var(--btn-radius);
-  color: white;
-  font-weight:700;
   text-decoration:none;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+  color:white;
+  font-weight:700;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.55);
   transition: transform .08s ease, box-shadow .12s ease, opacity .08s;
   -webkit-tap-highlight-color: transparent;
   position: relative;
   overflow: hidden;
   z-index: 4;
 }
-.btn-quick:active{ transform: translateY(1px); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
-
 .btn-recarga{ background: linear-gradient(90deg, #7a2efa 0%, #b83afb 100%); }
 .btn-retirada{ background: linear-gradient(90deg, #ff5aa8 0%, #ff2e6a 100%); }
+.btn-quick:active{ transform: translateY(1px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
+.btn-quick .ico{ display:inline-flex; width:26px; height:26px; align-items:center; justify-content:center; font-size:15px; }
 
-/* ícone/emoji dentro do botão */
-.btn-quick .ico{
-  display:inline-flex;
-  width:28px;
-  height:28px;
-  align-items:center;
-  justify-content:center;
-  font-size:16px;
-}
-
-/* ======================================================
-   Lista de ações — estilo milimétrico
-   ====================================================== */
+/* Actions list — compact, solid borders */
 .actions{
   margin-top:6px;
   display:flex;
   flex-direction:column;
-  gap:14px;
+  gap:12px;  /* reduzido */
   padding: 6px 0 48px 0;
   z-index: 4;
 }
 .action-item{
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:12px; /* reduzido */
   padding: var(--menu-item-padding-vertical) var(--menu-item-padding-horizontal);
   border-radius: var(--menu-item-radius);
   margin: 0 10px;
   background: rgba(255,255,255,0.02);
-  border: var(--action-border-width) solid rgba(255,255,255,0.04);
+  border: var(--action-border-width) solid var(--action-border-color);
   text-decoration:none;
   color: #fff;
   transition: background .12s, transform .06s;
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.01),
-    0 10px 18px rgba(0,0,0,0.55);
+    0 8px 16px rgba(0,0,0,0.5);
   -webkit-tap-highlight-color: transparent;
   z-index: 4;
 }
 
-/* ícone svg do item */
-.action-item .icon svg{
-  width:22px;
-  height:22px;
-  opacity:0.98;
-  stroke: #dfe7ff;
-  stroke-width:1.8;
-}
+/* svg icon size remains sensible */
+.action-item .icon svg{ width:20px; height:20px; opacity:0.98; stroke: #dfe7ff; stroke-width:1.6; }
 
-/* texto e chevron */
+/* tighter, smaller text like the reference */
 .action-item .text{
   flex:1;
-  font-size:16px;
+  font-size:14px;  /* reduzido para visual mais compacto */
   font-weight:500;
-  letter-spacing:0.15px;
-  line-height:1;
+  letter-spacing:0.08px;
+  line-height:1.1;
   padding-right:6px;
 }
 .action-item .chev{
   color: rgba(255,255,255,0.62);
-  font-size:20px;
+  font-size:18px;
   flex-shrink:0;
 }
 
-/* hover/active (sutileza para combinar com a imagem) */
-.action-item:hover{
-  background: rgba(255,255,255,0.03);
-  transform: translateY(-3px);
-}
+/* small hover — keep subtle */
+.action-item:hover{ background: rgba(255,255,255,0.03); transform: translateY(-2px); }
 .action-item:active{ transform: translateY(0); }
 
-/* ======================================================
-   Modal: alterar palavra-passe (ID's mantidos)
-   ====================================================== */
+/* Modal */
 .modal-overlay[hidden]{ display:none !important; }
-.modal-overlay{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index: 60000; /* sobre o overlay e o conteúdo */
-}
-.modal{
-  width: 92%;
-  max-width: 460px;
-  background: #0b0b1a;
-  border-radius: 14px;
-  box-shadow: 0 18px 40px rgba(0,0,0,.7);
-  padding: 18px;
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.04);
-}
+.modal-overlay{ position: fixed; inset: 0; background: rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; z-index: 60000; }
+.modal{ width: 92%; max-width: 460px; background: #0b0b1a; border-radius: 14px; box-shadow: 0 18px 40px rgba(0,0,0,.7); padding: 18px; color: #fff; border: 1px solid rgba(255,255,255,0.04); }
 .modal h2{ margin: 0 0 12px 0; font-size: 18px; color: var(--panel-grad-right); }
 .modal-label{ display:block; margin-bottom:12px; font-size:13px; color: rgba(255,255,255,0.95); }
-.modal-label input{
-  width:100%;
-  margin-top:8px;
-  padding:12px 14px;
-  border-radius:10px;
-  background: #0f1223;
-  border:1px solid rgba(255,255,255,0.06);
-  color:#fff;
-  font-size:14px;
-}
+.modal-label input{ width:100%; margin-top:8px; padding:12px 14px; border-radius:10px; background: #0f1223; border:1px solid rgba(255,255,255,0.06); color:#fff; font-size:14px; }
 .modal-error{ color:#ff6b6b; font-size:13px; margin-top:6px; }
 .modal-actions{ display:flex; gap:12px; justify-content:flex-end; margin-top:14px; }
 .btn-cancel{ padding:10px 14px; border-radius:10px; background: rgba(255,255,255,0.03); color:#fff; border: 1px solid rgba(255,255,255,0.04); cursor:pointer; }
 .btn-save{ padding:10px 16px; border-radius:10px; background: linear-gradient(90deg, #6f66ff, #c254ff); color:#fff; border:none; cursor:pointer; font-weight:700; }
 
-/* ==========================
-   Avatar (se existir no HTML)
-   - seu JS define #avatar-letter opcionalmente.
-   ========================== */
+/* Avatar (if present) */
 #avatar-letter, .avatar {
-  width:58px;
-  height:58px;
+  width:56px;
+  height:56px;
   background: linear-gradient(90deg,#6f6dff,#b24bff);
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:20px;
+  font-size:18px;
   font-weight:700;
   color:#fff;
   box-shadow: 0 8px 18px rgba(0,0,0,0.55);
 }
 
-/* ======================================================
-   Bottom nav — centralizado, items visíveis (corrige bug)
-   ====================================================== */
+/* Bottom nav */
 .bottom-nav{
   position: fixed;
   left: 50%;
@@ -379,7 +284,7 @@ body::after {
   bottom: 12px;
   width: calc(100% - 36px);
   max-width: var(--bottom-nav-maxwidth);
-  background: rgba(10,10,26,0.6);
+  background: rgba(10,10,26,0.62);
   backdrop-filter: blur(6px);
   border-radius: 14px;
   display:flex;
@@ -390,79 +295,57 @@ body::after {
   z-index: 70000;
   overflow: hidden;
 }
-.bottom-nav .nav-item{
-  text-decoration:none;
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  font-size:12px;
-  opacity:0.95;
-  padding:6px 10px;
-  min-width:56px;   /* garante que não fiquem escondidos */
-  text-align:center;
-}
+.bottom-nav .nav-item{ text-decoration:none; color:#fff; display:flex; flex-direction:column; align-items:center; font-size:12px; opacity:0.95; padding:6px 10px; min-width:56px; text-align:center; }
 .bottom-nav .nav-item.active{ color:#fff; font-weight:700; }
 
-/* Remove outline visual indesejado, mantendo acessibilidade via focus-visible */
+/* focus-visible */
 a, button { outline: none; }
 a:focus-visible, button:focus-visible { outline: var(--focus-outline); border-radius: 8px; }
 
-/* ======================================================
-   Responsividade e ajustes finos (vários breakpoints)
-   ====================================================== */
-
-/* Mobile (pequenas larguras) */
+/* Responsividade */
 @media (max-width:520px){
-  .g-name{ font-size:22px; }
-  .card-value{ font-size:20px; }
-  .btn-quick{ padding:12px 12px; }
-  .balances-card{ padding:18px; min-height:96px; }
-  .action-item{ padding:14px 16px; border-radius:16px; gap:14px; }
-  .balances-card-shadow { left: 18px; right: 18px; bottom: -14px; height:20px; filter: blur(6px); transform: translateY(6px); }
-  .dashboard { padding-bottom: 140px; }
-  .circuit-svg-full{ opacity: calc(var(--svg-opacity) - 0.1); } /* um pouco menos intrusivo em mobile */
+  .g-name{ font-size:20px; }
+  .g-ola{ font-size:15px; }
+  .card-value{ font-size:18px; }         /* reduz em mobile */
+  .card-label{ font-size:12px; }
+  .btn-quick{ padding:10px 12px; font-size:14px; }
+  .balances-card{ padding:16px; min-height:88px; gap:10px; }
+  .action-item{ padding:12px 14px; border-radius:14px; gap:10px; }
+  .balances-card-shadow{ left:16px; right:16px; bottom:-12px; height:18px; filter: blur(6px); transform: translateY(6px); }
+  .dashboard{ padding-bottom: 150px; }
+  .circuit-svg-full{ opacity: calc(var(--svg-opacity) - 0.1); }
 }
 
-/* Tablet */
+/* Tablet adjustments */
 @media (min-width:521px) and (max-width:900px){
-  .header-inner{ padding: 0 8px; }
-  .balances-card{ min-height:100px; padding:20px; }
-  .card-value{ font-size:22px; }
-  .menu-item-padding-horizontal: /* fallback - não funciona em CSS, mantemos padding via var usage */ ;
+  .g-name{ font-size:22px; }
+  .card-value{ font-size:19px; }
+  .action-item .text{ font-size:14px; }
+  .balances-card{ min-height:98px; padding:18px; }
 }
 
-/* Desktop grande */
+/* Desktop large */
 @media (min-width:1400px){
   .dashboard{ max-width:1120px; }
-  .balances-card{ padding: 28px; min-height:128px; }
-  .card-value{ font-size:28px; }
+  .balances-card{ padding: 26px; min-height:120px; }
+  .card-value{ font-size:22px; }
 }
 
-/* ======================================================
-   Preferências de contraste e acessibilidade
-   ====================================================== */
+/* Accessibility contrast */
 @media (prefers-contrast: more){
   .card-label{ color: #fff; }
-  .action-item{ border-color: rgba(255,255,255,0.08); }
+  .action-item{ border-color: rgba(255,255,255,0.10); }
 }
 
-/* ======================================================
-   Utilitários e classes auxiliares preservadas
-   ====================================================== */
+/* Utilities */
 .mb-8{ margin-bottom:8px; }
 .mt-12{ margin-top:12px; }
 
-/* ======================================================
-   Ajustes adicionais para garantir comportamento estável
-   - evitar flashing ao tocar e interferência do SVG
-   ====================================================== */
+/* touch safety */
 .action-item, .btn-quick, .bottom-nav .nav-item {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
 }
 
-/* ======================================================
-   End of file — precisão cirúrgica
-   ====================================================== */
+/* end */
