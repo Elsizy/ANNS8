@@ -1,3 +1,39 @@
+// home.js
+import { auth, db } from "./firebase-config.js";
+import {
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence,
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  ref,
+  get,
+  update,
+  push,
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO } from "./products.js";
+
+const ICON_EYE = `
+  <svg class="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+  </svg>
+`;
+const ICON_EYE_OFF = `
+  <svg class="icon-eye-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.87 21.87 0 0 1 5.06-6.94"></path>
+    <path d="M1 1l22 22"></path>
+  </svg>
+`;
+
+/** 24h em ms */
+const DAY_MS = 24 * 60 * 60 * 1000;
+/** Percentuais de rede aplicados SOBRE O PREÇO do produto */
+const REF_PERC_ON_PURCHASE = { A: 0.30, B: 0.03, C: 0.01 };
+
+/* =========================
+   CACHE (TTL = 60s)
 ========================= */
 const CACHE_MAX_AGE = 60_000; // 60s
 const CACHE_KEY_HOME = (uid) => `home_user_${uid}`;
@@ -209,7 +245,7 @@ async function pushMovement(uid, movement) {
  * e limita a 3 compras por produto.
  */
 function renderProdutos({ uid, saldo, compras }) {
-  const container = document.getElementById("products.js");
+  const container = document.getElementById("produtos-container");
   if (!container) return;
   container.innerHTML = "";
 
@@ -266,7 +302,7 @@ function renderProdutos({ uid, saldo, compras }) {
       }
 
 function renderProdutos({ uid, saldo, compras }) {
-  const container = document.getElementById("produtos.js");
+  const container = document.getElementById("produtos-container");
   if (!container) return;
   container.innerHTML = "";
 
@@ -337,36 +373,54 @@ function renderProdutos({ uid, saldo, compras }) {
       const countAtual = comprasAtuais[productId]?.count || 0;
 
       if (countAtual >= MAX_COMPRAS_POR_PRODUTO) {
-function renderProdutos(lista) {
-  produtosContainer.innerHTML = "";
+        alert("Você já atingiu o limite de 3 compras para este produto.");
+        return;
+      }
 
-  lista.forEach(produto => {
-    const preco = produto.preco;
-    const retornoDiario = preco * 0.10; // 10% fixo
-    const duracaoDias = 60;
-    const rendaTotal = retornoDiario * duracaoDias;
+      if (saldoAtual < product.preco) {
+        alert("Saldo insuficiente para esta compra.");
+        window.location.href = "deposito.html";
+        return;
+      }
 
-    const card = document.createElement("div");
-    card.className = "projeto-card";
+      const ok = confirm(`Vai usar ${formatKz(product.preco)} para comprar ${product.nome}. Confirmar?`);
+      if (!ok) return;
 
-    card.innerHTML = `
-      <div class="projeto-info">
-        <h3 class="projeto-nome">${produto.nome}</h3>
-        <p class="projeto-preco">Preço: Kz ${preco.toLocaleString()}</p>
-        <p class="projeto-retorno">Retorno diário: Kz ${retornoDiario.toLocaleString()} (10%)</p>
-        <p class="projeto-duracao">Duração: ${duracaoDias} dias</p>
-        <p class="projeto-renda-total">Renda total: Kz ${rendaTotal.toLocaleString()}</p>
-        <p class="projeto-bonus">Bônus/Comissão: Kz ${produto.comissao.toLocaleString()}</p>
-      </div>
-      <button class="btn-comprar" data-id="${produto.id}">Comprar</button>
-    `;
+      try {
+        const compraRef = ref(db, `usuarios/${uid}/compras/${productId}/items`);
+        const newItemRef = push(compraRef);
+        const agora = Date.now();
 
-    produtosContainer.appendChild(card);
-  });
+        const updates = {};
 
-  // esconder skeleton
-  produtosSkeleton.style.display = "none";
-}
+        // saldo
+        const novoSaldo = saldoAtual - product.preco;
+        updates[`usuarios/${uid}/saldo`] = novoSaldo;
+
+        // atualiza contagem e cria item
+        const novoCount = countAtual + 1;
+        updates[`usuarios/${uid}/compras/${productId}/count`] = novoCount;
+        updates[`usuarios/${uid}/compras/${productId}/items/${newItemRef.key}`] = {
+          preco: product.preco,
+          comissao: product.comissao,
+          compradoEm: agora,
+          lastPayAt: agora
+        };
+
+        // recomputa os totais (mesma lógica)
+        const totalInvestido = calcTotalInvestido({
+          ...userData,
+          compras: {
+            ...comprasAtuais,
+            [productId]: {
+              count: novoCount,
+              items: {
+                ...(comprasAtuais[productId]?.items || {}),
+                [newItemRef.key]: { preco: product.preco, comissao: product.comissao }
+              }
+            }
+          }
+        });
 
         const totalComissaoDiaria = calcTotalComissaoDiaria({
           ...userData,
@@ -588,4 +642,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-                   }
+    }
