@@ -1,39 +1,3 @@
-// home.js
-import { auth, db } from "./firebase-config.js";
-import {
-  onAuthStateChanged,
-  setPersistence,
-  browserLocalPersistence,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  ref,
-  get,
-  update,
-  push,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO } from "./products.js";
-
-const ICON_EYE = `
-  <svg class="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-    <circle cx="12" cy="12" r="3"></circle>
-  </svg>
-`;
-const ICON_EYE_OFF = `
-  <svg class="icon-eye-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.87 21.87 0 0 1 5.06-6.94"></path>
-    <path d="M1 1l22 22"></path>
-  </svg>
-`;
-
-/** 24h em ms */
-const DAY_MS = 24 * 60 * 60 * 1000;
-/** Percentuais de rede aplicados SOBRE O PREÇO do produto */
-const REF_PERC_ON_PURCHASE = { A: 0.30, B: 0.03, C: 0.01 };
-
-/* =========================
-   CACHE (TTL = 60s)
 ========================= */
 const CACHE_MAX_AGE = 60_000; // 60s
 const CACHE_KEY_HOME = (uid) => `home_user_${uid}`;
