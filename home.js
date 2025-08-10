@@ -258,16 +258,12 @@ function renderProdutos({ uid, saldo, compras }) {
     div.className = "produto";
     div.innerHTML = `
       <div class="produto-info">
-        <p class="produto-nome"><strong>${p.nome}</strong></p>
-        <p class="produto-duracao">Duração: <strong>60 dias</strong></p>
-        <p class="produto-renda">
-    Renda diária: ${formatKz(p.preco * 0.10)} <span class="percent">(10%)</span>
-        </p>
-        <p class="produto-total">
-    Renda total (60d): ${formatKz((p.preco * 0.10) * 60)}
-        </p>
-        <p class="produto-preco">${formatKz(p.preco)}</p>
-        <p class="status">Compras: ${count}/${MAX_COMPRAS_POR_PRODUTO}</p>
+        <div class="produto-detalhes">
+          <p><span class="label">Preço:</span> <span class="valor">${formatKz(p.preco)}</span></p>
+          <p><span class="label">Taxa de retorno:</span> <span class="valor">10%</span></p>
+          <p><span class="label">Ciclo:</span> <span class="valor">60 dias</span></p>
+          <p><span class="label">Renda total:</span> <span class="valor">${formatKz((p.preco * 0.10) * 60)}</span></p>
+        </div>
       </div>
       <button class="btn-buy" ${disabled ? "disabled" : ""} data-id="${p.id}">
         ${disabled ? "Limite atingido" : "Comprar"}
