@@ -35,7 +35,7 @@
   --gap-painel-acoes: 22px;               /* mantém espaçamento original */
 
   --btn-compact-width: 43%;              /* cada botão terá ~35% da largura (2x = 70%) => -30% global */
-  --btn-compact-padding-vertical: 6.6px;  /* 12px * 0.8 => altura -20% */
+  --btn-compact-padding-vertical: 6.0px;  /* 12px * 0.8 => altura -20% */
   --btn-compact-padding-horizontal: 11.2px; /* 16px * 0.7 => largura reduzida internamente */
   --btn-compact-radius: 4.8px;           /* 12px * 0.4 => cantos -60% */
   --menu-compact-padding-vertical: 11.2px;  /* 14px * 0.8 => -20% */
