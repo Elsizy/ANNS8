@@ -1,22 +1,97 @@
-:root {
-  --bg-top: #1c2e4a;
-  --bg-bottom: #f9fafc;
+/* home.css — adaptado visualmente a partir de pessoal.css
+   - mantém nomes de classes e estruturas usadas pelo JS (produtos, skeleton, btn-buy, logo-circle, etc.)
+   - adota a mesma paleta/estrutura visual do pessoal.css, com ajustes de espaçamento para o layout home
+*/
+
+/* -------------------------
+   Variáveis (base pessoal.css)
+   ------------------------- */
+:root{
+  --bg-page: #07061a; /* usa fundo do pessoal.css */
+  --panel-grad-left: #8b5cf6;
+  --panel-grad-right:#ff5aa8;
+  --card-radius: 18px;
+  --card-padding: 18px;
+  --card-min-height: 100px;
+  --muted: rgba(255,255,255,0.72);
+  --muted-strong: rgba(255,255,255,0.92);
+  --action-border-width: 2.5px;
+  --action-border-color: rgba(255,255,255,0.08);
+  --menu-item-radius: 16px;
+  --btn-radius: 12px;
+  --btn-padding-vertical: 12px;
+  --btn-padding-horizontal: 16px;
+  --svg-opacity: 0.72;
+  --overlay-opacity: 0.56;
+
+  /* cores secundárias para home (mantém compatibilidade com antigas regras) */
+  --home-accent-blue: #4aa3ff;
+  --home-accent-blue-2: #2f8cff;
+  --home-card-dark-a: #2a3140;
+  --home-card-dark-b: #232833;
+  --text-muted: #7fa1cf;
+  --text-value: #e7f3ff;
+  --card-shadow: 0 8px 20px rgba(3,7,18,0.6);
 }
 
+/* -------------------------
+   Reset / base
+   ------------------------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, var(--bg-top) 0%, #324d6c 40%, #edf1f7 85%, var(--bg-bottom) 100%);
+  min-height: 100%;
   color: #fff;
+  /* usar o fundo do pessoal.css para consistência */
+  background: var(--bg-page);
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -ms-touch-action: manipulation;
 }
 
+/* opcional: svg de circuito em tela inteira (se presente no HTML) */
+.circuit-svg-full {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--svg-opacity);
+  mix-blend-mode: overlay;
+}
+
+/* overlay suave para contraste como no pessoal.css */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: rgba(7,6,26,var(--overlay-opacity));
+  z-index: 1;
+}
+
+/* -------------------------
+   Dashboard container (preserva nome e dimensões)
+   ------------------------- */
 .dashboard {
-  padding: 20px 16px 60px;
-  max-width: 950px;
+  padding: 18px;
+  max-width: 960px;
   margin: 0 auto;
+  padding-bottom: 120px;
+  position: relative;
+  z-index: 4;
 }
 
+/* -------------------------
+   Stats / cards (mantém estrutura)
+   - usa aparência mais próxima do pessoal.css
+   ------------------------- */
 .stats {
   display: grid;
   grid-template-columns: 1fr;
@@ -26,15 +101,271 @@ body {
   margin-bottom: 16px;
 }
 
-.stats::after { display: none; }
-
 .card {
-  background: #472b91;
-  border-radius: 14px;
-  padding: 8px 10px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: var(--card-radius);
+  padding: 12px;
   text-align: left;
   position: relative;
   overflow: hidden;
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.02);
+}
+.card .label {
+  font-size: 13px;
+  color: var(--muted-strong);
+  margin: 0 0 6px;
+  opacity: 0.95;
+}
+.card .valor {
+  font-size: clamp(16px, 4.2vw, 22px);
+  font-weight: 600;
+  margin: 0;
+  color: var(--muted-strong);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* Eye button (preserva comportamento do JS) */
+.eye-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+}
+.eye-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--muted-strong);
+  transition: stroke 0.18s ease;
+}
+.eye-btn:hover svg { stroke: #fff; }
+
+/* -------------------------
+   Menu links (preserva aparência funcional)
+   ------------------------- */
+.menu-links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 20px 0 16px;
+}
+.menu-links a {
+  background: rgba(255,255,255,0.03);
+  color: var(--muted-strong);
+  padding: 10px 8px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* -------------------------
+   Info ticker (mesma função/visu)
+   ------------------------- */
+.info-ticker {
+  display:flex;
+  align-items:center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 10px;
+  padding: 6px 10px;
+  margin: 14px 0 18px;
+  overflow: hidden;
+  color: var(--muted-strong);
+}
+.info-ticker .icon { margin-right: 8px; flex: 0 0 auto; }
+.ticker-track { flex:1; overflow:hidden; position:relative; height:20px; }
+.ticker-text {
+  position:absolute; white-space:nowrap; will-change:transform;
+  animation: ticker 30s linear infinite; font-size:14px; opacity:0.95; color:var(--muted-strong);
+}
+@keyframes ticker { 0%{ transform: translateX(100%);} 100%{ transform: translateX(-100%);} }
+
+/* Section heading */
+h2 {
+  margin: 18px 0 12px;
+  color: var(--muted-strong);
+  font-weight: 600;
+}
+
+/* -------------------------
+   Produtos — card layout (preserva nomes e comportamentos)
+   - estilos revisados para casar com pessoal.css
+   ------------------------- */
+.produtos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+/* base do card produto — usa mesmo tom escuro do home original, mas com radii/espacamentos do pessoal */
+.produto {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background: linear-gradient(180deg, var(--home-card-dark-a) 0%, var(--home-card-dark-b) 100%);
+  border-radius: var(--card-radius);
+  padding: 14px;
+  margin-bottom: 16px;
+  color: var(--text-value);
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+/* left region with main content (title + body) */
+.produto-left { flex: 1; min-width: 0; display:flex; flex-direction:column; gap:8px; }
+
+/* top row: title and action (keeps same structure) */
+.produto-top { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:6px; }
+.produto-title { margin:0; font-size:16px; font-weight:700; color: #f3f7ff; }
+
+/* right region (logo / badge) */
+.produto-right { margin-left: 16px; display:flex; align-items:center; flex-shrink:0; }
+
+/* produto body — linhas compactas, rótulo + valor na mesma linha
+   usamos as classes já esperadas pelo seu JS: label-left / value / status
+*/
+.produto-body { display:flex; flex-direction:column; gap:6px; }
+.produto-body p {
+  margin: 0;
+  font-size: 13px;
+  color: #bcd0f8;
+  display:flex;
+  align-items:center;
+  line-height:1;
+}
+
+/* label e value — mantêm o comportamento do código anterior,
+   porém ajustados para tipografia mais fina e compacta (pessoal.css feel)
+*/
+.label-left {
+  display:inline-block;
+  width: 120px;           /* um pouco mais compacto que antes */
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 13px;
+}
+.value {
+  margin-left: 6px;
+  color: var(--text-value);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* status */
+.status { margin-top: 8px; color: #a9c2e6; font-size: 12px; }
+
+/* botão de compra (preserva .btn-buy) — ajustado para casar com pessoal */
+.btn-buy {
+  background: linear-gradient(90deg, var(--home-accent-blue), var(--home-accent-blue-2));
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(47,140,204,0.14);
+}
+.btn-buy[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+/* produto-logo (mantido) */
+.produto-logo { font-weight: 900; color: #ff2b2b; font-size: 34px; letter-spacing: 1px; }
+
+/* ações internas (botão + círculo) — layout compacto e alinhado */
+.produto-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 12px;
+}
+
+/* circle logo (copiado do pessoal.css) */
+.logo-circle {
+  background: #fff;
+  color: #d32f2f;
+  font-weight: 700;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+  flex-shrink: 0;
+}
+
+/* -------------------------
+   Skeleton loader (preserve behavior)
+   ------------------------- */
+.produtos-skeleton { display:block; }
+.skeleton-item {
+  height: 72px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 0%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(255,255,255,0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* -------------------------
+   Responsividade (consistente com pessoal.css)
+   ------------------------- */
+@media (max-width: 680px) {
+  .stats {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  .produto { padding: 12px; }
+  .produto-top { flex-direction: column; align-items: flex-start; gap:6px; }
+  .label-left { width: 110px; font-size: 12px; }
+  .value { font-size: 12px; }
+  .btn-buy { padding: 7px 12px; font-size: 13px; border-radius: 14px; }
+  .produtos-container { gap: 10px; }
+}
+
+/* tablet adjustments similar to pessoal.css */
+@media (min-width:521px) and (max-width:900px){
+  .produto { padding: 14px; }
+  .produto-title { font-size: 17px; }
+  .label-left { width: 120px; }
+}
+
+/* larger screens */
+@media (min-width:1400px){
+  .dashboard { max-width: 1120px; }
+  .produto { padding: 18px; border-radius: 20px; }
+}
+
+/* small utilities */
+.mb-8 { margin-bottom: 8px; }
+.mt-12 { margin-top: 12px; }
+
+/* Keep touch-safety */
+.action-item, .btn-quick, .bottom-nav .nav-item {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+
+/* end of home.css */  overflow: hidden;
 }
 
 .card .label {
