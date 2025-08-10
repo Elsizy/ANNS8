@@ -188,22 +188,43 @@
 
   <!-- Bottom nav -->
   <nav class="bottom-nav" role="navigation" aria-label="Navegação principal">
-    <a href="home.html" class="nav-item" data-key="home">
-      <span class="icon">🏠</span>
-      <span class="label">Casa</span>
-    </a>
-    <a href="comprarprodutos.html" class="nav-item" data-key="produtos">
-      <span class="icon">📈</span>
-      <span class="label">Investir</span>
-    </a>
-    <a href="equipa.html" class="nav-item" data-key="equipa">
-      <span class="icon">👥</span>
-      <span class="label">Equipa</span>
-    </a>
-    <a href="pessoal.html" class="nav-item active" data-key="pessoal">
-      <span class="icon">👤</span>
-      <span class="label">Utilizador</span>
-    </a>
+  <a href="home.html" class="nav-item" data-key="home" title="Casa">
+    <span class="icon svg" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>
+      </svg>
+    </span>
+    <span class="label">Casa</span>
+  </a>
+
+  <a href="comprarprodutos.html" class="nav-item" data-key="produtos" title="Produtos">
+    <span class="icon svg" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19h16M4 15h16M4 11h16M4 7h16"/>
+      </svg>
+    </span>
+    <span class="label">Produtos</span>
+  </a>
+
+  <a href="equipa.html" class="nav-item" data-key="equipa" title="Equipa">
+    <span class="icon svg" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="7" r="4"/>
+        <path d="M5.5 21a7.5 7.5 0 0 1 13 0"/>
+      </svg>
+    </span>
+    <span class="label">Equipa</span>
+  </a>
+
+  <a href="pessoal.html" class="nav-item" data-key="perfil" title="Perfil">
+    <span class="icon svg" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M6 21v-2a4 4 0 0 1 12 0v2"/>
+      </svg>
+    </span>
+    <span class="label">Perfil</span>
+  </a>
   </nav>
 
   <!-- Firebase + scripts (sem alterações) -->
