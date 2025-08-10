@@ -257,14 +257,13 @@ function renderProdutos({ uid, saldo, compras }) {
     const div = document.createElement("div");
     div.className = "produto";
     div.innerHTML = `
-      <div class="produto-info">  
-        <p><strong>${p.nome}</strong></p>  
-        <p>Duração :<strong>60 dias</strong></p>  
-        <p>Renda diária: ${formatKz(p.comissao)} (10%)</p>  
-        <p style="color: blue">${formatKz(p.preco)}</p>  
-        <p class="status">Compras: ${count}/${MAX_COMPRAS_POR_PRODUTO}</p>  
+      <div class="produto-info">
+        <p><strong>${p.nome}</strong></p>
+        <p>Duração :<strong>60 dias</strong></p>
+        <p>Renda diária: ${formatKz(p.comissao)} (10%)</p>
+        <p style="color: blue">${formatKz(p.preco)}</p>
+        <p class="status">Compras: ${count}/${MAX_COMPRAS_POR_PRODUTO}</p>
       </div>
-    `;
       <button class="btn-buy" ${disabled ? "disabled" : ""} data-id="${p.id}">
         ${disabled ? "Limite atingido" : "Comprar"}
       </button>
@@ -550,4 +549,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-        }
+                 }
