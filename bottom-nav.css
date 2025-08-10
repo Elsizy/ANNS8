@@ -1,1 +1,83 @@
 
+/* bottom-nav.css */
+:root {
+  --nav-bg: #472b91;
+  --nav-bg-active: linear-gradient(to right, #5f67ff, #8759e3);
+  --nav-text: #d9d9ff;
+  --nav-text-active: #ffffff;
+  --nav-icon-size: 22px;
+  --nav-height: 64px;
+}
+
+.has-bottom-nav {
+  padding-bottom: calc(var(--nav-height) + 12px); /* evita que o conteúdo fique atrás da barra */
+}
+
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--nav-height);
+  background: var(--nav-bg);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  box-shadow: 0 -4px 18px rgba(0,0,0,.18);
+  z-index: 9999;
+}
+
+/* Mantém o estilo base e adiciona suporte ao efeito ::before */
+.bottom-nav .nav-item {
+  height: 100%;
+  color: var(--nav-text);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 12px;
+  transition: all .18s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fundo animado para o item ativo */
+.bottom-nav .nav-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--nav-bg-active);
+  transform: scale(0);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  transition: transform 0.3s ease;
+  z-index: -1; /* atrás do texto e ícone */
+}
+
+.bottom-nav .nav-item.active::before {
+  transform: scale(1);
+}
+
+.bottom-nav .nav-item .icon {
+  font-size: var(--nav-icon-size);
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.bottom-nav .nav-item.active {
+  color: var(--nav-text-active);
+  font-weight: 600;
+}
+
+.bottom-nav .nav-item.active .icon {
+  transform: translateY(-2px) scale(1.1);
+}
+
+/* Efeito de clique */
+.bottom-nav .nav-item:active {
+  transform: scale(0.95);
+  }
