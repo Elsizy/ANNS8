@@ -572,3 +572,18 @@ h2 {
 .produto-right { margin-left: 16px; display: flex; align-items: center; flex-shrink: 0; }
 
 .produto-logo { font-weight: 900; color: #ff2b2b; font-size: 34px; letter-spacing: 1px; }
+.perfil-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff; /* Se quiser fundo igual aos cards antigos */
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.perfil-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
