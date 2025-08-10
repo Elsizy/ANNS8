@@ -683,3 +683,8 @@ h2 {
 .menu-links {
   background: inherit !important;
 }
+.menu-item {
+  font-size: 14px; /* ou 0.875rem */
+  font-weight: 500; /* mantém legível mas sem pesar */
+  line-height: 1.4; /* melhora espaçamento vertical */
+}
