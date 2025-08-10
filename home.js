@@ -302,7 +302,7 @@ function renderProdutos({ uid, saldo, compras }) {
       }
 
 function renderProdutos({ uid, saldo, compras }) {
-  const container = document.getElementById("produtos-container");
+  const container = document.getElementById("produtos.js");
   if (!container) return;
   container.innerHTML = "";
 
