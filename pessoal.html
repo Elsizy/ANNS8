@@ -13,29 +13,36 @@
   <link rel="stylesheet" href="bottom-nav.css" />
 </head>
 <body class="has-bottom-nav">
-  <!-- SVG full-screen de fundo (pointer-events:none para não interferir) -->
-<svg class="circuit-svg-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <!-- Exemplo de traços; posso substituir pelo SVG exato se preferir -->
-  <g fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M30 60h180v20h-40v80h-120z"/>
-    <path d="M260 40h120v40h-40v100h-80z"/>
-    <path d="M420 20h220v20h-40v140h-180z"/>
-    <!-- posso gerar paths mais complexos conforme a imagem -->
-  </g>
-</svg>
 
-  <!-- SVG circuito (fundo decorativo) - pointer-events:none para não interferir -->
-  <svg class="circuit-svg" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
-    <g fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- caminhos desenhados para imitar a referência -->
-      <path d="M40 40 v80 q0 8 8 8 h36 q8 0 8 8 v60" />
-      <path d="M160 20 h60 v40 q0 10 10 10 h20" />
-      <path d="M360 12 v120 q0 12 12 12 h28" />
-      <path d="M540 18 h40 v40 q0 12 12 12 h36 q12 0 12 12 v40" />
-      <path d="M760 30 v80 q0 8 -8 8 h-36" />
-      <path d="M940 20 h80" />
+  <!-- SVG full-screen de fundo (Opção B) -->
+  <svg class="circuit-svg-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="0.6" />
+      </filter>
+    </defs>
+
+    <g fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#soft)">
+      <!-- linhas e "circuitos" estilizados -->
+      <path d="M40 120 h140 v20 q0 10 10 10 h40 v120" />
+      <path d="M260 60 v80 h100 v40 h40" />
+      <path d="M420 40 h180 v16 q0 8 8 8 h20 v120" />
+      <path d="M660 30 v120 h120 v40" />
+      <path d="M920 80 h180" />
+      <!-- retângulos e pontos -->
+      <rect x="200" y="200" width="10" height="10" fill="rgba(255,255,255,0.06)" />
+      <rect x="540" y="360" width="10" height="10" fill="rgba(255,255,255,0.04)" />
+      <circle cx="840" cy="140" r="5" fill="rgba(255,255,255,0.06)"/>
+    </g>
+
+    <!-- camada adicional de traços finos -->
+    <g fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1">
+      <path d="M0 420 h1200" />
+      <path d="M0 520 h1200" />
+      <path d="M0 620 h1200" />
     </g>
   </svg>
+  <!-- /SVG fundo -->
 
   <!-- Top header -->
   <header class="top-header">
@@ -65,7 +72,6 @@
         </div>
       </div>
 
-      <!-- efeito de camadas por baixo (sombra em camadas como na imagem) -->
       <div class="balances-card-shadow"></div>
     </section>
 
@@ -82,7 +88,7 @@
       </a>
     </section>
 
-    <!-- Lista principal de ações (sem duplicações) -->
+    <!-- Lista principal de ações -->
     <nav class="actions" aria-label="Menu de ações">
       <a class="action-item" href="comprarprodutos.html">
         <span class="icon svg" aria-hidden="true">
@@ -140,32 +146,26 @@
         <span class="chev">›</span>
       </a>
     </nav>
-
   </main>
 
   <!-- Modal alterar senha (mantido, IDs preservados) -->
   <div id="change-pass-overlay" class="modal-overlay" hidden>
     <div class="modal">
       <h2>Alterar palavra-passe</h2>
-
       <form id="change-pass-form">
         <label class="modal-label">
           Palavra-passe atual
           <input type="password" id="old-pass" required />
         </label>
-
         <label class="modal-label">
           Nova palavra-passe
           <input type="password" id="new-pass" required minlength="6" />
         </label>
-
         <label class="modal-label">
           Confirmar nova palavra-passe
           <input type="password" id="new-pass-2" required minlength="6" />
         </label>
-
         <p id="change-pass-error" class="modal-error" hidden>—</p>
-
         <div class="modal-actions">
           <button type="button" id="btn-cancel" class="btn-cancel">Cancelar</button>
           <button type="submit" id="btn-save" class="btn-save">Salvar</button>
@@ -174,7 +174,7 @@
     </div>
   </div>
 
-  <!-- Bottom nav (centralizado e responsivo) -->
+  <!-- Bottom nav -->
   <nav class="bottom-nav" role="navigation" aria-label="Navegação principal">
     <a href="home.html" class="nav-item" data-key="home">
       <span class="icon">🏠</span>
@@ -194,7 +194,7 @@
     </a>
   </nav>
 
-  <!-- Firebase + scripts -->
+  <!-- Firebase + scripts (sem alterações) -->
   <script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./pessoal.js"></script>
   <script src="bottom-nav.js" defer></script>
