@@ -256,6 +256,7 @@ body::after {
 
 /* Actions list — compact, solid borders, reduzidos em 20% conforme pedido */
 .actions{
+  width:100%;
   margin-top:6px;
   display:flex;
   flex-direction:column;
@@ -270,9 +271,9 @@ body::after {
   display:flex;
   align-items:center;
   gap: 9.6px; /* var(--action-gap-compact) em px direto para consistência */
-  padding: 11.2px 16px; /* vertical/horizontal compactos */
+  padding: 11.2px 20px; /* vertical/horizontal compactos */
   border-radius: var(--menu-item-radius);
-  margin: 0 10px;
+  margin: 0 0px;
   background: rgba(255,255,255,0.02);
   border: var(--action-border-width) solid var(--action-border-color);
   text-decoration:none;
