@@ -677,3 +677,6 @@ h2 {
   margin-bottom: 4px;
   color: #3da5ff; /* azul do tema */
 }
+.menu-item {
+  background: transparent;
+}
