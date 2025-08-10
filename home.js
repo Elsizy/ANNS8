@@ -266,10 +266,10 @@ function renderProdutos({ uid, saldo, compras }) {
         <p class="status">Compras: <span class="valor">${count}/${MAX_COMPRAS_POR_PRODUTO}</span></p>
       </div>
 
-    <button class="btn-buy" ${disabled ? 'disabled' : ''} data-id="${p.id}">
+      <button class="btn-buy" ${disabled ? 'disabled' : ''} data-id="${p.id}">
       ${disabled ? 'Limite atingido' : 'Comprar'}
-    </button>
-  </div>
+      </button>
+      </div>
 `;
       <button class="btn-buy" ${disabled ? "disabled" : ""} data-id="${p.id}">
         ${disabled ? "Limite atingido" : "Comprar"}
