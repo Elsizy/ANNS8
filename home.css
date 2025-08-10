@@ -654,3 +654,6 @@ h2 {
 .top-bar {
   background-color: #2a7de1; /* azul vibrante */
 }
+.top-bar {
+  background-color: #1f1f1f; /* mais claro que o fundo, mas ainda escuro */
+}
