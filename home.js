@@ -258,6 +258,7 @@ function renderProdutos({ uid, saldo, compras }) {
     div.className = "produto";
     div.innerHTML = `
       <div class="produto-info" style="text-align:left; font-size:13px; line-height:1.4;">
+        <p><strong>${p.nome}</strong></p>
         <p style="margin:0; color:#fff;">Preço: <span style="color:#3da5ff;">${formatKz(p.preco)}</span></p>
         <p style="margin:0; color:#fff;">Ciclo: <span style="color:#3da5ff;">60 dias</span></p>
         <p style="margin:0; color:#fff;">Taxa de lucro: <span style="color:#3da5ff;">10%</span></p>
@@ -269,10 +270,8 @@ function renderProdutos({ uid, saldo, compras }) {
     </div>
       <button class="btn-buy" ${disabled ? "disabled" : ""} data-id="${p.id}">
         ${disabled ? "Limite atingido" : "Comprar"}
-      </button> <br>
-      <div class="logo-circle" aria-hidden="true" 
-       style="background:#fff; color:#d32f2f; font-weight:700; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(0,0,0,0.45); flex-shrink:0; margin-top:10px;">
-      AES
+      </button>
+      
     `;
     container.appendChild(div);
   });
