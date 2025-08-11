@@ -73,25 +73,25 @@ function renderProdutosComprados(compras) {
       card.className = "produto";
       card.innerHTML = `
         <div class="produto-info">
-  <p class="produto-nome"><strong>${produto.nome}</strong></p>
+          <p class="produto-nome"><strong>${produto.nome}</strong></p>
   
-  <p>Preço: <span class="valor">${formatKz(produto.preco)}</span></p>
-  <p>Ciclo: <span class="valor">60 dias</span></p>
-  <p>Taxa de lucro: <span class="valor">10%</span></p>
-  <p>Renda diária: <span class="valor">${formatKz(produto.preco * 0.10)}</span></p>
-  <p>Renda total (60 dias): <span class="valor">${formatKz(produto.preco * 0.10 * 60)}</span></p>
-  <p>Disponível: <span class="valor">9</span></p>
+          <p>Preço: <span class="valor">${formatKz(produto.preco)}</span></p>
+          <p>Ciclo: <span class="valor">60 dias</span></p>
+          <p>Taxa de lucro: <span class="valor">10%</span></p>
+          <p>Renda diária: <span class="valor">${formatKz(produto.preco * 0.10)}</span></p>
+          <p>Renda total (60 dias): <span class="valor">${formatKz(produto.preco * 0.10 * 60)}</span></p>
+          <p>Disponível: <span class="valor">9</span></p>
 
-  <p class="status">Comprado em: ${formatDate(compradoEm)}</p>
+          <p class="status">Comprado em: ${formatDate(compradoEm)}</p>
 
-  <p class="timer" 
-     data-prod="${prodId}" 
-     data-item="${itemId}" 
-     data-lastpay="${lastPayAt}" 
-     data-comissao="${item.comissao}">
-    00:00:00
-  </p>
-</div>
+          <p class="timer" 
+            data-prod="${prodId}" 
+            data-item="${itemId}" 
+            data-lastpay="${lastPayAt}" 
+            data-comissao="${item.comissao}">
+            00:00:00
+          </p>
+        </div>
       `;
       container.appendChild(card);
     });
