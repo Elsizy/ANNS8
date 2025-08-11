@@ -91,7 +91,7 @@ function buildBankList() {
   });
 }
 
-async function renderAccounts() {
+
 async function renderAccounts() {
   if (!listEl) return;
   listEl.innerHTML = "";
