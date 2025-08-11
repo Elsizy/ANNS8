@@ -1,4 +1,4 @@
-// total-equipa.js
+// equipa-total.js
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -56,7 +56,7 @@ function fillList(containerId, uids, users) {
   container.innerHTML = "";
 
   if (!uids.length) {
-    container.innerHTML = "<p style='opacity:0.7'>Nenhum usuário neste nível.</p>";
+    container.innerHTML = "<p style='opacity:0.7; padding: 12px;'>Nenhum usuário neste nível.</p>";
     return;
   }
 
@@ -64,14 +64,17 @@ function fillList(containerId, uids, users) {
     const u = users[uid];
     if (!u) return;
 
-    const nome = u.nome || u.email || "(Sem nome)";
+    // Email será o ID mostrado
+    const idDisplay = u.email || u.nome || "(Sem nome)";
     const firstDeposit = getFirstDeposit(u);
+    const comissao = u.comissao || 0;
 
     const div = document.createElement("div");
     div.className = "item";
     div.innerHTML = `
-      <span class="name">${nome}</span>
-      <span class="deposito">${formatKz(firstDeposit)}</span>
+      <div class="id">ID: ${idDisplay}</div>
+      <div class="meta">Primeira recarga: ${formatKz(firstDeposit)}</div>
+      <div class="meta">Comissão: ${formatKz(comissao)}</div>
     `;
     container.appendChild(div);
   });
@@ -97,4 +100,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-                   }
+                                         }
