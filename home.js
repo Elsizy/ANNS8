@@ -259,11 +259,11 @@ function renderProdutos({ uid, saldo, compras }) {
     div.innerHTML = `
       <div class="produto-info" style="text-align:left; font-size:13px; line-height:1.4;">
       <p><strong>${p.nome}</strong></p>
-  <p style="margin:0; color:#fff;">Preço: <span style="color:#3da5ff;">${formatKz(p.preco)}</span></p>
-  <p style="margin:0; color:#fff;">Ciclo: <span style="color:#3da5ff;">60 dias</span></p>
-  <p style="margin:0; color:#fff;">Taxa de lucro: <span style="color:#3da5ff;">10%</span></p>
-  <p style="margin:0; color:#fff;">Renda diária: <span style="color:#3da5ff;">${formatKz(p.preco * 0.10)}</span></p>
-  <p style="margin:0; color:#fff;">Disponivel: <span style="color:#3da5ff;">9</span></p>
+  <p style="margin:0; color:#fff;">Preço : <span style="color:#3da5ff;">${formatKz(p.preco)}</span></p>
+  <p style="margin:0; color:#fff;">Ciclo : <span style="color:#3da5ff;">60 dias</span></p>
+  <p style="margin:0; color:#fff;">Taxa de lucro : <span style="color:#3da5ff;">10%</span></p>
+  <p style="margin:0; color:#fff;">Renda diária : <span style="color:#3da5ff;">${formatKz(p.preco * 0.10)}</span></p>
+  <p style="margin:0; color:#fff;">Disponivel : <span style="color:#3da5ff;">9</span></p>
   
   </div>
 </div>
