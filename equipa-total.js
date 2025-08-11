@@ -23,9 +23,9 @@ onAuthStateChanged(auth, async (user) => {
 
     const { levelA, levelB, levelC } = splitLevelsByUid(myUid, users);
 
-    fillList("list-a", levelA, users);
-    fillList("list-b", levelB, users);
-    fillList("list-c", levelC, users);
+    fillList("list-a", levelA, users, 1); // nível 1
+    fillList("list-b", levelB, users, 2); // nível 2
+    fillList("list-c", levelC, users, 3); // nível 3
   } catch (err) {
     console.error("Erro ao carregar equipa:", err);
     alert("Erro ao carregar a equipa.");
@@ -51,7 +51,7 @@ function splitLevelsByUid(myUid, users) {
   return { levelA, levelB, levelC };
 }
 
-function fillList(containerId, uids, users) {
+function fillList(containerId, uids, users, nivel) {
   const container = document.getElementById(containerId);
   container.innerHTML = "";
 
@@ -64,10 +64,9 @@ function fillList(containerId, uids, users) {
     const u = users[uid];
     if (!u) return;
 
-    // Email será o ID mostrado
     const idDisplay = u.email || u.nome || "(Sem nome)";
     const firstDeposit = getFirstDeposit(u);
-    const comissao = u.comissao || 0;
+    const comissao = calcularComissao(firstDeposit, nivel);
 
     const div = document.createElement("div");
     div.className = "item";
@@ -95,9 +94,17 @@ function getFirstDeposit(userObj) {
   return 0;
 }
 
+function calcularComissao(valorDeposito, nivel) {
+  let percentual = 0;
+  if (nivel === 1) percentual = 0.25; // 25%
+  if (nivel === 2) percentual = 0.03; // 3%
+  if (nivel === 3) percentual = 0.01; // 1%
+  return valorDeposito * percentual;
+}
+
 function formatKz(v) {
   return `Kz ${Number(v || 0).toLocaleString("pt-PT", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-                                         }
+  }
