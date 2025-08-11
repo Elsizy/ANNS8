@@ -49,37 +49,8 @@ async function loadUserData() {
   renderProdutosComprados(userData.compras || {});
   showSkeleton(false); // Esconde skeleton quando renderizar
 }
-// Injetar CSS embutido (apenas uma vez)
-function ensureProductCardStyles() {
-  const id = 'prod-card-inline-styles';
-  if (document.getElementById(id)) return; // já injetado
 
-  const css = `
-  /* estilos embutidos para renderProdutosComprados */
-  .produto { position: relative; padding: 16px 18px 16px 16px; border-radius: 14px; margin-bottom: 14px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02)); border:1px solid rgba(255,255,255,0.04); box-shadow: 0 6px 22px rgba(0,0,0,0.45); color: #fff; }
-  .produto-head { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px; }
-  .produto-info-grid { display: flex; gap: 12px; align-items: flex-start; font-size: 12px; }
-  .prod-left { flex: 1; }
-  .prod-left .row { display:flex; justify-content:space-between; align-items:center; padding: 2px 0; }
-  .prod-left .label { color: #ffffff; font-weight:500; font-size:12px; }
-  .prod-left .value { color: #2fa6ff; font-weight:700; font-size:12px; }
-  .prod-right { width: 130px; text-align: right; display:flex; flex-direction:column; justify-content:center; align-items:flex-end; gap:6px; }
-  .prod-right .small { color: #ffffff; font-size:12px; }
-  .prod-right .big { color: #2fa6ff; font-weight:800; font-size:14px; }
-  /* espaço para o timer absoluto */
-  .produto { padding-right: 110px; }
-  .produto .timer { position: absolute; top: 12px; right: 14px; color: #2dd67a; font-weight:700; font-family: 'Courier New', monospace; font-size:13px; text-shadow: 0 1px 0 rgba(0,0,0,0.4); }
-  `;
-
-  const s = document.createElement('style');
-  s.id = id;
-  s.textContent = css;
-  document.head.appendChild(s);
-}
 function renderProdutosComprados(compras) {
-  // garante que o CSS embutido esteja presente
-  ensureProductCardStyles();
-
   const container = document.getElementById("produtos-container");
   container.innerHTML = "";
 
@@ -98,62 +69,22 @@ function renderProdutosComprados(compras) {
       const earned = diasCreditados * (item.comissao || 0);
       totalComissaoGerada += earned;
 
-      // ===== cálculos/fallbacks para Taxa / Renda diária / Renda total / Expiração
-      // 1) taxaPercent: usa produto.taxa se existir, senão tenta derivar de produto.comissao/preco, senão 10% fallback
-      const precoNum = Number(produto.preco || 0);
-      const comissaoProduto = (produto.comissao !== undefined && produto.comissao !== null) ? Number(produto.comissao) : null;
-
-      const taxaRaw = (produto.taxa !== undefined && produto.taxa !== null)
-        ? Number(produto.taxa)
-        : (comissaoProduto ? (comissaoProduto / (precoNum || 1)) * 100 : 10);
-      const taxaLabel = (Math.abs(taxaRaw - Math.round(taxaRaw)) < 0.01)
-        ? `${Math.round(taxaRaw)}%`
-        : `${taxaRaw.toFixed(2)}%`;
-
-      // renda diária em Kz: prioriza produto.comissao (se for valor diário), senão calcula por  taxa% do preço
-      const rendaDiariaNum = (comissaoProduto !== null) ? comissaoProduto : (precoNum * (taxaRaw / 100));
-      const rendaTotalNum = rendaDiariaNum * 60; // Renda diária × 60 dias
-
-      // data de expiração: usa item.expiraEm / item.expiraAt quando existir; caso contrário fallback = compradoEm + 60 dias
-      const expiraEm = item.expiraEm || item.expiraAt || item.expiresAt || (compradoEm + (60 * DAY_MS));
-
-      // ===== template HTML (rótulo branco / valor azul, lado a lado; renda total à direita)
       const card = document.createElement("div");
       card.className = "produto";
       card.innerHTML = `
-        <div class="produto-head"><strong>${produto.nome}</strong></div>
-
-        <div class="produto-info-grid">
-          <div class="prod-left">
-            <div class="row"><span class="label">Preço</span><span class="value">${formatKz(precoNum)}</span></div>
-            <div class="row"><span class="label">Taxa de retorno</span><span class="value">${taxaLabel}</span></div>
-            <div class="row"><span class="label">Renda diária</span><span class="value">${formatKz(rendaDiariaNum)}</span></div>
-            <div class="row"><span class="label">Tempo de compra</span><span class="value">${formatDate(compradoEm)}</span></div>
-            <div class="row"><span class="label">Data de expiração</span><span class="value">${formatDate(expiraEm)}</span></div>
-          </div>
-
-          <div class="prod-right">
-            <div class="small">Renda total</div>
-            <div class="big">${formatKz(rendaTotalNum)}</div>
-          </div>
+        <div class="produto-info">
+          <p><strong>${produto.nome}</strong></p>
+          <p>Comissão diária: ${formatKz(produto.comissao)}</p>
+          <p style="color: orange">${formatKz(produto.preco)}</p>
+          <p class="status">Comprado em: ${formatDate(compradoEm)}</p>
+          <p class="timer" data-prod="${prodId}" data-item="${itemId}" data-lastpay="${lastPayAt}" data-comissao="${item.comissao}">
+            00:00:00
+          </p>
         </div>
-
-        <p class="timer" data-prod="${prodId}" data-item="${itemId}" data-lastpay="${lastPayAt}" data-comissao="${item.comissao}">
-          00:00:00
-        </p>
       `;
       container.appendChild(card);
     });
   });
-
-  // atualiza o total de comissão na interface (mantendo o comportamento anterior)
-  const totalComissaoEl = document.getElementById("total-comissao");
-  if (totalComissaoEl) totalComissaoEl.textContent = formatKz(totalComissaoGerada);
-
-  // esconde skeleton e inicia timers (mesma lógica anterior)
-  showSkeleton(false);
-  startTimers();
-}
 
   document.getElementById("total-comissao").textContent = formatKz(totalComissaoGerada);
   startTimers();
@@ -233,4 +164,4 @@ function formatCountdown(ms) {
   const m = String(Math.floor(totalSec / 60)).padStart(2, "0");
   const s = String(totalSec % 60).padStart(2, "0");
   return `${h}:${m}:${s}`;
-                      }
+      }
