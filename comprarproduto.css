@@ -276,3 +276,13 @@ body.has-bottom-nav {
   .produtos-container .produto{ padding:14px; }
   .produtos-container .produto .timer{ top:12px; right:12px; font-size:13px; }
   }
+h1 {
+  color: #fff;                         /* branco */
+  text-align: center;                  /* centralizado */
+  font-family: 'Poppins', sans-serif;  /* tipografia usada no design */
+  font-size: 1.8rem;                    /* tamanho ajustado */
+  font-weight: 600;                     /* levemente mais forte */
+  letter-spacing: 1px;                  /* espaçamento entre letras */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* leve brilho/sombra */
+  margin: 0;
+}
