@@ -120,7 +120,7 @@ body.has-bottom-nav {
 
 /* Se quiser o texto do lado direito centralizado (como na imagem),
    você pode ativar text-align:center; aqui. Atualmente deixei left para ficar mais fiel ao HTML original. */
-.two-col .right { align-items:flex-end; text-align:right; }
+.two-col .right { align-items:flex-end; text-align:center; }
 
 /* Pequeno divisor vertical sutil (parecido com a imagem onde se vê separação visual) */
 .summary-box::after{
