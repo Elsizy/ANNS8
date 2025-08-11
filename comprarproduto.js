@@ -72,7 +72,7 @@ function renderProdutosComprados(compras) {
       const card = document.createElement("div");
       card.className = "produto";
       card.innerHTML = `
-        <div class="produto-info">
+        <div class="produto-info" style="text-align:left; font-size:13px; line-height:1.4;">
           <p class="produto-nome"><strong>${produto.nome}</strong></p>
   
           <p>Preço: <span class="valor">${formatKz(produto.preco)}</span></p>
