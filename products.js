@@ -11,7 +11,7 @@ export const PRODUTOS = [
 ];
 
 // limites
-export const MAX_COMPRAS_POR_PRODUTO = 3;
+export const MAX_COMPRAS_POR_PRODUTO = 9;
 
 // comissões de rede (% da comissão diária do produto)
 export const REF_PERC = {
