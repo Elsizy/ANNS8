@@ -1,4 +1,4 @@
-// signup.js
+// signup.js (mantém lógica original + medidor de força / melhorias UX)
 import { auth, db } from "./firebase-config.js";
 import {
   createUserWithEmailAndPassword,
@@ -61,21 +61,18 @@ function mapFirebaseError(error) {
   }
 }
 
-// ?ref=... ou ?codigo=...
 function getReferralFromURL() {
   const qs = new URLSearchParams(window.location.search);
   return (qs.get("ref") || qs.get("codigo") || "").trim();
 }
 
-// gera um código curto aleatório (8 chars)
 function genRefCode(len = REF_CODE_LEN) {
-  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"; // sem I, l, 1, O, 0
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
   let out = "";
   for (let i = 0; i < len; i++) out += chars[Math.floor(Math.random() * chars.length)];
   return out;
 }
 
-// cria refCode único e grava /codes/{refCode} -> { uid }
 async function createUniqueRefCode(uid) {
   let code = genRefCode();
   let exists = await get(ref(db, `codes/${code}`));
@@ -87,7 +84,6 @@ async function createUniqueRefCode(uid) {
   return code;
 }
 
-// gera shortId incremental (612334, 612335, ...)
 async function getNextShortId() {
   const counterRef = ref(db, "counters/shortIdNext");
   const res = await runTransaction(counterRef, (current) => {
@@ -97,12 +93,10 @@ async function getNextShortId() {
   return res.snapshot.val();
 }
 
-// resolve o código digitado/URL (refCode ou uid antigo) para o UID real do patrocinador
 async function resolveInviterUid(refParamRaw) {
   const refParam = (refParamRaw || "").trim();
   if (!refParam) return null;
 
-  // 1) tenta como código curto
   try {
     const codeSnap = await get(ref(db, `codes/${refParam.toUpperCase()}`));
     if (codeSnap.exists() && codeSnap.val()?.uid) {
@@ -112,7 +106,6 @@ async function resolveInviterUid(refParamRaw) {
     console.warn("Erro lendo codes/<refCode>:", e);
   }
 
-  // 2) fallback: talvez seja UID
   try {
     const userSnap = await get(ref(db, `usuarios/${refParam}`));
     if (userSnap.exists()) return refParam;
@@ -121,6 +114,46 @@ async function resolveInviterUid(refParamRaw) {
   }
 
   return null;
+}
+
+/* =========================
+   PASSWORD STRENGTH (UI helper)
+========================= */
+function calcPasswordStrength(pw) {
+  if (!pw) return { score: 0, label: "—" };
+  let score = 0;
+  if (pw.length >= 8) score += 1;
+  if (pw.length >= 12) score += 1;
+  if (/[0-9]/.test(pw)) score += 1;
+  if (/[A-Z]/.test(pw)) score += 1;
+  if (/[^A-Za-z0-9]/.test(pw)) score += 1;
+
+  let label = "Fraca";
+  if (score >= 4) label = "Forte";
+  else if (score >= 3) label = "Boa";
+  else label = "Fraca";
+
+  return { score, label };
+}
+
+function updatePasswordStrengthUI(pw) {
+  const el = document.getElementById("password-strength");
+  const fill = el?.querySelector(".bar-fill");
+  const txt = document.getElementById("password-strength-text");
+  if (!el || !fill || !txt) return;
+  const { score, label } = calcPasswordStrength(pw);
+  const pct = Math.min(100, Math.round((score / 5) * 100));
+  fill.style.width = `${pct}%`;
+
+  // color steps
+  if (score >= 4) {
+    fill.style.background = "linear-gradient(90deg,#2ecc71,#6f66ff)";
+  } else if (score >= 3) {
+    fill.style.background = "linear-gradient(90deg,#f2c94c,#6f66ff)";
+  } else {
+    fill.style.background = "linear-gradient(90deg,#ff6b6b,#ff9aa2)";
+  }
+  txt.textContent = label;
 }
 
 /* =========================
@@ -135,11 +168,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const referralInput = document.getElementById("referral");
 
-  // Pré-preenche o referral vindo por URL (se houver)
   const refFromURL = getReferralFromURL();
   if (refFromURL) {
-    referralInput.value = refFromURL; // pode ser code curto OU uid
+    referralInput.value = refFromURL;
     if (LOCK_REFERRAL_IF_URL) referralInput.readOnly = true;
+  }
+
+  // password strength live
+  const passwordInput = document.getElementById("password");
+  if (passwordInput) {
+    updatePasswordStrengthUI(passwordInput.value || "");
+    passwordInput.addEventListener("input", (e) => updatePasswordStrengthUI(e.currentTarget.value || ""));
   }
 
   // inicializa o show/hide de senha
@@ -183,7 +222,7 @@ async function onSubmit(e) {
   }
 
   try {
-    const inviterUid = await resolveInviterUid(referralRaw); // sempre UID real (ou null)
+    const inviterUid = await resolveInviterUid(referralRaw);
     const shortId = await getNextShortId();
     const refCode  = await createUniqueRefCode(user.uid);
 
@@ -191,7 +230,7 @@ async function onSubmit(e) {
       uid: user.uid,
       shortId,
       refCode,
-      invitedBy: inviterUid || null,       // <-- SEMPRE UID
+      invitedBy: inviterUid || null,
       referralCodeUsed: referralRaw || null,
 
       email,
@@ -237,7 +276,7 @@ async function onSubmit(e) {
 }
 
 /* =========================
-   SHOW / HIDE PASSWORD  (ADIÇÃO)
+   SHOW / HIDE PASSWORD  (mantive e integrei com os botões SVG)
 ========================= */
 function setupPasswordToggles() {
   const toggles = document.querySelectorAll(".toggle-pass[data-target]");
@@ -247,7 +286,6 @@ function setupPasswordToggles() {
     const input = document.getElementById(btn.dataset.target);
     if (!input) return;
 
-    // Estado inicial: senha escondida => ícone "esconder" (sem .showing)
     btn.classList.remove("showing");
 
     btn.addEventListener("click", (e) => {
@@ -256,9 +294,20 @@ function setupPasswordToggles() {
       const isHidden = input.type === "password";
       input.type = isHidden ? "text" : "password";
 
-      // Se está visível => .showing (ícone "mostrar")
-      // Se está escondido => remove .showing (ícone "esconder")
       btn.classList.toggle("showing", !isHidden);
+
+      // swap visible svgs inside button (if present)
+      const eye = btn.querySelector(".icon-eye");
+      const eyeSlash = btn.querySelector(".icon-eye-slash");
+      if (eye && eyeSlash) {
+        if (btn.classList.contains("showing")) {
+          eye.style.display = "none";
+          eyeSlash.style.display = "inline-block";
+        } else {
+          eye.style.display = "inline-block";
+          eyeSlash.style.display = "none";
+        }
+      }
     });
   });
-}
+    }
