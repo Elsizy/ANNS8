@@ -276,15 +276,3 @@ body.has-bottom-nav {
   .produtos-container .produto{ padding:14px; }
   .produtos-container .produto .timer{ top:12px; right:12px; font-size:13px; }
   }
-.produto-info {
-  text-align: left;
-  font-size: 13px;
-  line-height: 1.4;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  border-radius: 10px;
-  padding: 10px;
-  margin: 7px 0 9px;
-  color: #fff;
-  font-family: Poppins, sans-serif;
-}
