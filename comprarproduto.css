@@ -188,10 +188,10 @@ body.has-bottom-nav {
 
 /* Estilo dos parágrafos de informação */
 .produto-info p{
-  margin:1px 0;
+  margin:0px 0;
   font-size:13px;
   color: var(--muted);
-  line-height:1;
+  line-height:0;
 }
 
 /* Força os valores inline (quando há inline style) a assumir a cor azul de destaque */
