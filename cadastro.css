@@ -1,116 +1,141 @@
-/* === SEU CSS ORIGINAL === */
-body {
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(to right, #141e30, #243b55);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+/* cadastro.css — visual moderno alinhado ao projeto (use as cores do projeto) */
+:root{
+  --bg-dark: #0b1223;
+  --accent-left: #6f66ff;
+  --accent-right: #c254ff;
+  --card-bg: rgba(255,255,255,0.04);
+  --card-plain: #f6f7fb;
+  --text-dark: #192433;
+  --muted: rgba(255,255,255,0.75);
 }
 
-.container {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  width: 90%;
-  max-width: 400px;
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial}
+body{
+  background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+  color: #fff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:20px;
 }
 
-h2 {
-  text-align: center;
-  color: #243b55;
-  margin-bottom: 1.5rem;
+/* wrapper */
+.signup-wrapper{
+  width:100%;
+  max-width:980px;
+  display:flex;
+  gap:0;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow: 0 20px 50px rgba(2,6,23,0.6);
 }
 
-form {
-  display: flex;
-  flex-direction: column;
+/* hero */
+.signup-hero{
+  flex:1 1 46%;
+  background: linear-gradient(135deg, rgba(111,102,255,0.95), rgba(194,84,255,0.9));
+  padding:48px 32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:420px;
 }
+.hero-content h1{margin:0;font-size:28px;color:#fff;letter-spacing:0.2px}
+.hero-content p{margin-top:8px;color: rgba(255,255,255,0.92);line-height:1.4}
 
+/* form card */
+.signup-card{
+  flex:1 1 54%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.98));
+  padding:36px;
+  color:var(--text-dark);
+  min-width:320px;
+}
+.card-head{ text-align:center; margin-bottom:8px }
+.card-head h2{ margin:0; color:var(--text-dark); font-size:22px }
+.card-head p.muted{ margin:6px 0 18px; color:#6b7380; font-size:13px }
+
+/* form controls */
+form{ display:block }
+label{ display:block; margin-top:12px; font-size:13px; font-weight:600; color:#334155 }
 input[type="email"],
 input[type="password"],
-input[type="text"] {
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+input[type="text"]{
+  width:100%;
+  padding:12px 14px;
+  margin-top:6px;
+  border-radius:10px;
+  border:1px solid rgba(15,23,42,0.06);
+  background: #fff;
+  font-size:14px;
+  color:var(--text-dark);
+  transition: box-shadow .18s, border-color .18s;
+}
+input::placeholder{ color:#9aa3b2; }
+
+input:focus{
+  outline:none;
+  box-shadow: 0 6px 18px rgba(111,102,255,0.08);
+  border-color: rgba(111,102,255,0.5);
 }
 
-button {
-  padding: 0.75rem;
-  background-color: #243b55;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: bold;
+/* input-group & toggle */
+.input-group{ position:relative }
+.toggle-pass{
+  position:absolute;
+  right:8px;
+  top:50%;
+  transform:translateY(-50%);
+  border:none;
+  background:transparent;
+  padding:6px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color: #6b7280;
 }
+.toggle-pass .icon-eye-slash{ display:none; }
+.toggle-pass.showing .icon-eye{ display:none; }
+.toggle-pass.showing .icon-eye-slash{ display:inline-block; }
 
-button:hover {
-  background-color: #141e30;
-}
+/* password strength */
+.password-strength{ display:flex; align-items:center; gap:10px; margin-top:8px; margin-bottom:4px; font-size:13px; color:#55607a }
+.password-strength .bar{ flex:1; height:8px; background: rgba(15,23,42,0.04); border-radius:6px; overflow:hidden }
+.password-strength .bar-fill{ height:100%; width:0%; background: linear-gradient(90deg, #ff5a8a, #6f66ff); transition: width .28s ease }
+.password-strength .label{ white-space:nowrap; color:#6b7380; font-size:13px }
 
-.terms {
-  font-size: 0.9rem;
-  color: #333;
-  margin-bottom: 1rem;
-  text-align: center;
-}
+/* terms */
+.terms{ display:flex; gap:8px; align-items:center; margin-top:12px }
+.terms input{ width:18px; height:18px; }
 
-.login-link {
-  text-align: center;
-  margin-top: 1rem;
+/* submit */
+.submit-btn{
+  margin-top:18px;
+  width:100%;
+  padding:12px 14px;
+  border-radius:12px;
+  border:none;
+  font-weight:700;
+  background: linear-gradient(90deg,var(--accent-left),var(--accent-right));
+  color:#fff;
+  cursor:pointer;
+  box-shadow: 0 10px 30px rgba(47, 64, 255, 0.12);
+  transition: transform .12s ease, box-shadow .12s;
 }
+.submit-btn:active{ transform: translateY(1px) }
 
-.login-link a {
-  color: #243b55;
-  text-decoration: none;
-  font-weight: bold;
-}
+/* small link */
+.login-link{ text-align:center; margin-top:12px; color:#6b7380 }
+.login-link a{ color: #334155; font-weight:700; text-decoration:none }
 
-.login-link a:hover {
-  text-decoration: underline;
-}
-
-/* ===== ADIÇÃO: estilos do botão mostrar/ocultar senha ===== */
-.input-group {
-  position: relative;
-  width: 100%;
-}
-.input-group input {
-  width: 100%;
-  padding-right: 40px; /* espaço para o botão do olho */
-  box-sizing: border-box;
-}
-
-.toggle-pass {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
-  border: 0;
-  background: no-repeat center / contain;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity .2s ease;
-}
-.toggle-pass:hover {
-  opacity: 1;
-}
-
-/* Olho fechado (senha escondida) — estado padrão */
-.toggle-pass:not(.showing) {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z'/%3E%3C/svg%3E");
-}
-
-/* Olho aberto (senha visível) */
-.toggle-pass.showing {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.956 9.956 0 013.32-4.568m3.223-2.039A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.957 9.957 0 01-4.433 5.036M15 12a3 3 0 11-6 0 3 3 0 016 0zM3 3l18 18'/%3E%3C/svg%3E");
-}
+/* responsive */
+@media (max-width:880px){
+  .signup-wrapper{ flex-direction:column; max-width:520px; }
+  .signup-hero{ display:none }
+  .signup-card{ padding:26px }
+  }
