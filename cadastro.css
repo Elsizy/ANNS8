@@ -1,6 +1,6 @@
 /* cadastro.css — visual moderno alinhado ao projeto (use as cores do projeto) */
 :root{
-  --bg-dark: #0b1223;
+  --bg-page: #07061a;
   --accent-left: #6f66ff;
   --accent-right: #c254ff;
   --card-bg: rgba(255,255,255,0.04);
@@ -12,7 +12,7 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial}
 body{
-  background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+  background: var(--bg-page);
   color: #fff;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
