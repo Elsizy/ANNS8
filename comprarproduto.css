@@ -75,7 +75,7 @@ body.has-bottom-nav {
   display:block;
   border-radius: 7px;
   overflow: hidden;
-  padding: 2px;             /* padding exterior para criar bordas arredondadas maiores */
+  padding: 0px;             /* padding exterior para criar bordas arredondadas maiores */
   margin-bottom: 16px;
   background: linear-gradient(90deg, var(--panel-left) 0%, var(--panel-right) 100%);
   box-shadow: 0 8px 28px rgba(46, 17, 124, 0.22);
@@ -120,7 +120,7 @@ body.has-bottom-nav {
 
 /* Se quiser o texto do lado direito centralizado (como na imagem),
    você pode ativar text-align:center; aqui. Atualmente deixei left para ficar mais fiel ao HTML original. */
-.two-col .right { align-items:flex-end; text-align:center; }
+.two-col .right { align-items:flex-end; text-align:right; }
 
 /* Pequeno divisor vertical sutil (parecido com a imagem onde se vê separação visual) */
 .summary-box::after{
