@@ -1,229 +1,243 @@
-/* conta.css — redesign alinhado ao estilo geral do projeto (pessoal.css) */
-
+/* conta.css — nova estrutura visual, mantém cores do projeto */
 :root{
-  --bg-page: #07061a;
-  --panel-grad-left: #6f66ff;
-  --panel-grad-right:#c254ff;
+  --bg-page: #07061a;            /* fundo do projeto (igual pessoal.css) */
+  --panel-grad-left: #8b5cf6;
+  --panel-grad-right: #ff5aa8;
   --card-radius: 14px;
-  --card-padding: 18px;
   --muted: rgba(255,255,255,0.72);
-  --muted-strong: rgba(255,255,255,0.9);
+  --muted-2: rgba(255,255,255,0.45);
+  --accent: #5f67ff;
+  --accent-2: #8759e3;
   --white: #ffffff;
-  --surface: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
-  --accent-grad: linear-gradient(90deg,#5f67ff,#8759e3);
+  --card-bg: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  --glass: rgba(255,255,255,0.03);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.6);
+  --shadow-sm: 0 6px 18px rgba(0,0,0,0.45);
+  --max-width: 960px;
+  --gap: 14px;
+  --btn-radius: 12px;
+  font-synthesis: none;
 }
 
-/* reset / base */
+/* reset */
 *{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  min-height:100%;
-  color:var(--white);
-  background: var(--bg-page);
-  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  -webkit-tap-highlight-color: transparent;
-}
+html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg-page);color:var(--white);-webkit-font-smoothing:antialiased;}
+.page-root{min-height:100vh}
 
-/* top thin bar */
+/* topbar */
 .topbar{
   display:flex;
   align-items:center;
   gap:12px;
-  padding:12px 18px;
-  max-width:960px;
+  padding:16px;
+  max-width:var(--max-width);
   margin: 0 auto;
-  width:100%;
-  position:relative;
-  z-index:4;
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-  border-bottom: 1px solid rgba(255,255,255,0.02);
+  position:sticky;
+  top:0;
+  z-index:40;
+  background: linear-gradient(180deg, rgba(7,6,26,0.6), rgba(7,6,26,0.4));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
 }
-.topbar .back-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:40px;
-  height:34px;
-  background: rgba(255,255,255,0.02);
+.back-btn{
+  background: rgba(255,255,255,0.04);
+  padding:8px 10px;
   border-radius:10px;
   color:var(--white);
   text-decoration:none;
-  font-size:18px;
-}
-.topbar .title{
-  margin:0;
-  font-size:18px;
   font-weight:700;
-  color:var(--white);
+  box-shadow: var(--shadow-sm);
 }
-.topbar .spacer{ flex:1 }
+.topbar-title{ flex:1 }
+.title{ margin:0; font-size:18px; font-weight:700; color: #f1f4ff; }
+.subtitle{ margin:4px 0 0; color:var(--muted); font-size:12px; }
 
-/* dashboard container (centra e dá paddings) */
+/* circle logo at right */
+.logo-circle{
+  background:#fff;
+  color:#d32f2f;
+  font-weight:700;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  font-size:12px;
+}
+
+/* dashboard wrapper */
 .dashboard{
-  padding: 18px;
-  max-width:960px;
-  margin: 12px auto 120px;
-  z-index:5;
+  max-width:var(--max-width);
+  margin: 18px auto;
+  padding: 0 16px 80px;
 }
 
-/* card base */
+/* cards base */
 .card{
-  border-radius: var(--card-radius);
-  padding: 14px;
-  background: var(--surface);
-  border:1px solid rgba(255,255,255,0.03);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
-  margin-bottom: 16px;
+  background: var(--card-bg);
+  border-radius:var(--card-radius);
+  padding: 16px;
+  margin-bottom: var(--gap);
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: var(--shadow-lg);
 }
 
-/* card head (title + subtitle) */
-.card-head{ margin-bottom:10px; display:flex; flex-direction:column; gap:6px; }
-.card-head h2{ margin:0; font-size:16px; color:var(--white); }
-.card-head .muted{ color: var(--muted); font-size:13px; margin:0; }
-.card-head .muted.small{ font-size:12px; opacity:0.9 }
+/* Form card specifics */
+.form-card .card-head,
+.list-card .card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:12px;
+}
+.form-card h2{ margin:0; font-size:16px; color: #f3f7ff; }
+.form-card .muted{ margin:4px 0 0; color:var(--muted); font-size:13px; }
 
-/* form layout */
+/* form grid - layout novo e compacto */
 .form-grid{
   display:grid;
   grid-template-columns: 1fr;
   gap:10px;
+  align-items:center;
 }
-.form-label{ font-size:13px; color: var(--muted); margin-bottom:6px; }
+.form-label{ font-size:13px; color:var(--muted); margin-bottom:4px; }
 
-/* picker button */
+/* picker */
 .picker-btn{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
   padding:10px 12px;
+  background: rgba(255,255,255,0.02);
   border-radius:10px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-  border: 1px solid rgba(255,255,255,0.04);
-  color: var(--white);
+  border:1px solid rgba(255,255,255,0.02);
+  color:var(--white);
   cursor:pointer;
-  font-size:14px;
 }
-.picker-btn .chev{ color: rgba(255,255,255,0.62); font-size:12px; }
+.picker-btn #bank-name{ font-weight:600; color:#e9f0ff; }
+.picker-btn .chev{ color:var(--muted-2); font-size:14px; }
 
 /* inputs */
-input[type="text"], input[type="number"]{
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.04);
-  color: var(--white);
-  padding: 10px 12px;
-  border-radius:8px;
+input[type="text"]{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.03);
+  background: rgba(255,255,255,0.01);
+  color:var(--white);
   font-size:14px;
   outline: none;
 }
-input[type="text"]::placeholder{ color: rgba(255,255,255,0.36); }
-input[type="text"]:focus{ box-shadow: 0 6px 18px rgba(79,66,255,0.06); border-color: rgba(111,102,255,0.25); }
+input[type="text"]::placeholder{ color: rgba(255,255,255,0.22) }
+input[type="text"]:focus{
+  box-shadow: 0 6px 18px rgba(95,103,255,0.12);
+  border-color: rgba(95,103,255,0.18);
+}
 
-/* hint */
-.hint-row{ margin-top: -6px; }
-.hint{ color: rgba(255,255,255,0.46); font-size:12px; }
+/* hints and helpers */
+.hint-row{ margin-top:4px; }
+.hint{ color:var(--muted-2); font-size:12px }
 
-/* buttons */
+/* actions */
+.actions-row{ display:flex; justify-content:flex-end; margin-top:8px; }
 .btn-primary{
-  display:inline-block;
-  background: var(--accent-grad);
-  color:#fff;
-  border:none;
-  padding:12px 14px;
-  border-radius:12px;
+  background: linear-gradient(90deg,var(--accent) 0%, var(--accent-2) 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  cursor: pointer;
   font-weight:700;
-  cursor:pointer;
-  box-shadow: 0 10px 30px rgba(79,66,255,0.12);
+  box-shadow: 0 10px 26px rgba(95,103,255,0.12);
 }
 .btn-primary:disabled{ opacity:0.6; cursor:not-allowed; }
 
-.btn-secondary{
-  display:inline-block;
-  background: rgba(255,255,255,0.04);
-  color: var(--white);
-  border:none;
-  padding:10px 12px;
-  border-radius:10px;
-  cursor:pointer;
-}
+/* list card */
+.list-card h2{ margin:0; font-size:16px; color: #f3f7ff; }
+.list-card .muted.small{ color: var(--muted); margin-top:4px; font-size:13px }
 
-/* accounts list */
-.accounts-list{ margin-top:6px; }
-.accounts-list.empty{ min-height:80px; display:flex; align-items:center; justify-content:center; }
-.empty-text{ color: rgba(255,255,255,0.34); font-size:14px; margin:0; }
+/* accounts list - grid of cards */
+.accounts-list{ display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:12px; margin-top:8px; }
+.accounts-list.empty{ align-items:center; justify-items:center; }
+.empty-text{ color:var(--muted-2); padding:18px 12px; }
 
-/* each account row */
-.accounts-list .account{
-  display:grid;
-  grid-template-columns: 1fr auto;
-  gap:12px;
-  align-items:center;
+/* each account card (created by JS, keep same classes) */
+.account{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:12px;
   padding:12px;
-  border-radius:10px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.02));
-  border:1px solid rgba(255,255,255,0.02);
-  margin-bottom:10px;
-}
-.account .acc-left{ display:flex; flex-direction:column; gap:4px; overflow:hidden; }
-.account .acc-title{ font-weight:700; font-size:14px; color:var(--white); white-space:nowrap; text-overflow:ellipsis; overflow:hidden; }
-.account .acc-iban{ font-family: monospace; font-size:13px; color: rgba(255,255,255,0.66); }
-
-.account .acc-actions{ display:flex; gap:8px; align-items:center; }
-.acc-actions button{
-  display:inline-flex;
+  display:flex;
+  gap:10px;
   align-items:center;
-  justify-content:center;
-  width:36px;
-  height:36px;
-  border-radius:10px;
-  border:none;
-  cursor:pointer;
-  background: rgba(255,255,255,0.02);
-  color:var(--white);
+  justify-content:space-between;
+  border:1px solid rgba(255,255,255,0.025);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.55);
+}
+.account > div:first-child{ display:flex; gap:10px; align-items:center; min-width:0; }
+.bank-badge{
+  width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff;
+  background: linear-gradient(135deg,#6f6dff,#b24bff);
+  flex-shrink:0;
   font-size:14px;
 }
-.acc-actions button[title="Remover"]{ color:#ff7a7a; }
+.acc-title{ font-weight:700; color:#f3f7ff; font-size:14px; }
+.acc-iban{ font-family:monospace; color:var(--muted-2); font-size:13px; margin-top:4px; }
 
-/* modal */
+/* actions block (right) */
+.acc-actions{ display:flex; gap:8px; align-items:center; }
+.acc-actions button{
+  border:none;
+  background: rgba(255,255,255,0.02);
+  color: #fff;
+  padding:8px 10px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:14px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.45);
+}
+.acc-actions button:hover{ transform:translateY(-1px); }
+
+/* modal overlay and panel (bank selector) */
 .modal.hidden{ display:none; }
-.modal{
-  position: fixed;
-  inset: 0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.6));
-  z-index: 9999;
-}
+.modal{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background: rgba(0,0,0,0.5); z-index:120; }
 .modal-panel{
-  width: 92%;
-  max-width:420px;
-  border-radius:14px;
-  padding:16px;
+  width: min(540px, 92%);
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  border-radius: 12px;
+  padding: 16px;
   border:1px solid rgba(255,255,255,0.03);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
 }
-.modal-panel h3{ margin:0 0 10px; font-size:16px; color:var(--white); }
-.bank-list{ list-style:none; margin:0; padding:0; max-height:320px; overflow:auto; display:flex; flex-direction:column; gap:8px; }
+.modal-panel h3{ margin:0 0 12px; font-size:16px; color:#f3f7ff; }
+.bank-list{ list-style:none; margin:0; padding:0; display:grid; gap:8px; max-height:320px; overflow:auto; }
 .bank-list li{
   padding:10px 12px;
   border-radius:10px;
   background: rgba(255,255,255,0.01);
   border:1px solid rgba(255,255,255,0.02);
   cursor:pointer;
-  color: var(--white);
 }
-.bank-list li:hover{ background: rgba(255,255,255,0.03); border-color: rgba(111,102,255,0.12); }
+.bank-list li:hover{ background: rgba(255,255,255,0.02); transform: translateY(-2px); }
 
-/* responsive */
-@media (max-width:520px){
-  .dashboard{ padding: 12px; margin-bottom: 180px; }
-  .card{ padding:12px; }
-  .picker-btn, input[type="text"]{ font-size:14px; padding:10px; }
-  .acc-actions button{ width:34px; height:34px; }
+/* modal actions */
+.modal-actions{ display:flex; justify-content:flex-end; margin-top:12px; gap:8px; }
+.btn-secondary{
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.05);
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+/* small screens */
+@media (max-width:560px){
+  .topbar{ padding:12px; }
+  .logo-circle{ width:40px; height:40px; font-size:11px; }
+  .account{ padding:10px; }
+  .bank-badge{ width:44px; height:44px; font-size:13px; }
   }
