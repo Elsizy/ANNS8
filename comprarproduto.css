@@ -360,3 +360,11 @@ body.has-bottom-nav {
   color: #ff9800;
   margin-top: 1px;
    }
+.produto-info {
+  font-size: 12px; /* mantém leitura boa */
+  line-height: 1.2; /* reduz sem esmagar */
+}
+
+.produto-info p {
+  margin: 0 0 1px 0; /* muito próximo mas sem colar */
+   }
