@@ -6,7 +6,7 @@ import { PRODUTOS } from "./products.js";
 
 const DAY_MS = 24 * 60 * 60 * 1000; // 24h
 
-// --- Função para exibir/ocultar skeleton ---
+// - Função para exibir/ocultar skeleton ---
 function showSkeleton(show) {
   const sk = document.getElementById("produtos-skeleton");
   const list = document.getElementById("produtos-container");
@@ -76,6 +76,7 @@ function renderProdutosComprados(compras) {
           <p class="produto-nome"><strong>${produto.nome}</strong></p>
   
           <p>Preço: <span class="valor">${formatKz(produto.preco)}</span></p>
+          <p style="margin:0; color:#fff;">Preço : <span style="color:#3da5ff;">${formatKz(p.preco)}</span></p>
           <p>Ciclo: <span class="valor">60 dias</span></p>
           <p>Taxa de lucro: <span class="valor">10%</span></p>
           <p>Renda diária: <span class="valor">${formatKz(produto.preco * 0.10)}</span></p>
