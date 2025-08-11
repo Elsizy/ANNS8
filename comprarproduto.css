@@ -1,104 +1,278 @@
-:root {
-  --bg-top: #1c2e4a;
-  --bg-bottom: #f9fafc;
-  --purple: #472b91;
-  --white: #fff;
-  --text-dark: #222;
-  --highlight: #ff6f00;
+/* comprarproduto.css
+   Estilo pensado para replicar fielmente a imagem de referência:
+   - fundo escuro em gradiente
+   - cartão superior com dois blocos em gradiente (receitas / quantidade)
+   - cards de produto com fundo escuro translúcido, título à esquerda e timer verde à direita
+   - tipografia Poppins (fallbacks)
+*/
+
+/* Fonte */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root{
+  --bg-top: #071426;       /* tom bem escuro no topo */
+  --bg-mid: #0a2740;
+  --bg-bottom: #041427;    /* tom mais escuro no fim */
+  --panel-left: #5a2df6;   /* roxo esquerdo do cartão superior */
+  --panel-right: #c23bd8;  /* rosa/roxo direito do cartão superior */
+  --card-bg: rgba(255,255,255,0.03); /* cartaões internos escuros translúcidos */
+  --card-border: rgba(255,255,255,0.04);
+  --muted: rgba(255,255,255,0.78);
+  --muted-2: rgba(255,255,255,0.65);
+  --accent-blue: #4db8ff;  /* cor dos números em azul como na imagem */
+  --accent-green: #2dd67a; /* cor do timer em verde */
+  --white: #ffffff;
+  --container-width: 420px; /* largura máxima para layout mobile-like */
 }
 
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, var(--bg-top) 0%, #324d6c 40%, #edf1f7 85%, var(--bg-bottom) 100%);
-  color: #fff;
+/* --- Layout base --- */
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  padding:0;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 45%, var(--bg-bottom) 100%);
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--white);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  -webkit-text-size-adjust:100%;
 }
 
-.dashboard {
-  padding: 20px 16px 80px; /* espaço para a bottom-nav */
-  max-width: 950px;
-  margin: 0 auto;
+/* Espaço inferior para a bottom-nav (mantém compatibilidade com o arquivo bottom-nav.css) */
+body.has-bottom-nav {
+  padding-bottom: 86px; /* ajustável conforme altura da barra inferior */
 }
 
-.header h1 {
-  margin: 0 0 16px;
-  font-size: 22px;
+/* Centraliza o conteúdo e limita largura para um visual móvel */
+.dashboard{
+  max-width: var(--container-width);
+  margin: 8px auto 0;
+  padding: 18px 14px 28px;
 }
 
-.summary-box {
-  background: var(--white);
-  color: var(--text-dark);
+/* Header (titulo centralizado tipo da imagem) */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom: 12px;
+}
+.header h1{
+  margin:0;
+  color: var(--white);
+  font-size:18px;
+  font-weight:600;
+  letter-spacing:0.2px;
+  text-align:center;
+  line-height:1;
+}
+
+/* ==========================
+   Cartão superior (Receitas totais / Quantidade total)
+   ========================== */
+.summary-box{
+  display:block;
   border-radius: 14px;
-  padding: 14px 16px;
-  margin-bottom: 18px;
+  overflow: hidden;
+  padding: 10px;             /* padding exterior para criar bordas arredondadas maiores */
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, var(--panel-left) 0%, var(--panel-right) 100%);
+  box-shadow: 0 8px 28px rgba(46, 17, 124, 0.22);
+  border: 1px solid rgba(255,255,255,0.03);
 }
 
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+/* A estrutura .two-col .left .right é mantida no HTML */
+.two-col{
+  display:flex;
+  gap: 8px;
+  align-items:center;
 }
 .two-col .left,
-.two-col .right {
-  background: #f6f7fb;
-  border-radius: 10px;
-  padding: 10px 12px;
-}
-.small-label {
-  margin: 0 0 4px;
-  font-size: 12px;
-  color: #555;
-}
-.big-value {
-  margin: 0;
-  font-weight: bold;
-  font-size: 18px;
+.two-col .right{
+  flex:1;
+  padding: 16px 12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  min-height:64px;
+  background: transparent; /* o gradiente já vem do summary-box */
 }
 
-/* Lista de produtos */
-.produtos-container .produto {
-  background: var(--white);
-  color: var(--text-dark);
-  border-radius: 14px;
-  padding: 14px 16px;
-  margin-bottom: 14px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+/* Centralizar conteúdo interno (imagem mostra textos centralizados verticalmente) */
+.two-col .left, .two-col .right { text-align: left; }
+.two-col .left .small-label, .two-col .right .small-label {
+  color: rgba(255,255,255,0.88);
+  font-size:12px;
+  margin:0 0 6px;
+  font-weight:500;
+  opacity:0.95;
+}
+.two-col .left .big-value,
+.two-col .right .big-value{
+  margin:0;
+  color: var(--white);
+  font-size:20px;
+  font-weight:700;
+  line-height:1;
 }
 
-.produto-info p {
-  margin: 4px 0;
-}
-.produto-info strong {
-  color: var(--purple);
+/* Se quiser o texto do lado direito centralizado (como na imagem),
+   você pode ativar text-align:center; aqui. Atualmente deixei left para ficar mais fiel ao HTML original. */
+.two-col .right { align-items:flex-end; text-align:right; }
+
+/* Pequeno divisor vertical sutil (parecido com a imagem onde se vê separação visual) */
+.summary-box::after{
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  /* apenas se a viewport for larga o suficiente, caso contrário fica discreto */
 }
 
-.timer {
-  font-weight: bold;
-  color: var(--highlight);
-  font-size: 16px;
+/* ==========================
+   Lista de produtos / cards
+   ========================== */
+.produtos-container{
   margin-top: 6px;
 }
 
-/* Helpers */
-.hidden { display: none !important; }
+/* Cada produto */
+.produtos-container .produto{
+  position:relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 6px 22px rgba(0,0,0,0.45);
+  color: var(--muted);
+  overflow:visible;
+}
 
-/* ===== Skeleton ===== */
-.produtos-skeleton .sk-card {
-  height: 90px;
+/* Linha pontilhada abaixo do título (como na referência) */
+.produtos-container .produto .produto-info > p:first-child{
+  margin:0 0 8px 0;
+  font-weight:600;
+  color: var(--white);
+  position:relative;
+  padding-bottom:10px;
+  font-size:15px;
+}
+.produtos-container .produto .produto-info > p:first-child::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  border-bottom: 1px dotted rgba(255,255,255,0.06);
+}
+
+/* Estrutura interna em duas colunas (esquerda infos / direita valores) */
+.produtos-container .produto .produto-info{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:6px 18px;
+  align-items:start;
+  margin-top:4px;
+}
+
+/* Força o primeiro parágrafo (título) a ocupar as duas colunas */
+.produtos-container .produto .produto-info > p:first-child{
+  grid-column: 1 / -1;
+}
+
+/* Estilo dos parágrafos de informação */
+.produto-info p{
+  margin:6px 0;
+  font-size:13px;
+  color: var(--muted);
+  line-height:1.15;
+}
+
+/* Força os valores inline (quando há inline style) a assumir a cor azul de destaque */
+.produto-info p[style],
+.produto-info p strong,
+.produto-info p .valor{
+  /* cuidado: alguns valores já vêm com <span style="color:..."> do JS; aqui normalizamos */
+}
+
+/* Específicos para destacar números/chaves (preço, montante, etc.) */
+.produto-info p{
+  /* deixa o texto claro */
+  color: var(--muted);
+}
+.produto-info p em,
+.produto-info p .value,
+.produto-info p span.value{
+  color: var(--accent-blue);
+  font-weight:600;
+}
+
+/* Se o JS colocou inline style="color: orange" (como na versão anterior),
+   esta regra força a cor azul (importante para reproduzir o layout da imagem). */
+.produto-info p[style]{
+  color: var(--accent-blue) !important;
+  font-weight:600;
+}
+
+/* Timer posicionado no canto superior direito do card, com cor verde */
+.produtos-container .produto .timer{
+  position:absolute;
+  top:14px;
+  right:14px;
+  color: var(--accent-green);
+  font-weight:700;
+  font-family: 'Courier New', Courier, monospace; /* aparência tipo contador */
+  font-size:14px;
+  letter-spacing:1px;
+  background: transparent;
+  padding: 4px 6px;
+  border-radius: 8px;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.55);
+}
+
+/* pequeno ajuste para o strong dentro do card */
+.produto-info strong{
+  color: var(--white);
+  font-weight:700;
+}
+
+/* ==========
+   Skeleton
+   ========== */
+.produtos-skeleton{
+  margin-top:6px;
+}
+.produtos-skeleton .sk-card{
+  height: 84px;
   border-radius: 14px;
   margin-bottom: 12px;
   background: linear-gradient(
     90deg,
-    rgba(255,255,255,0.08) 0%,
-    rgba(255,255,255,0.18) 50%,
-    rgba(255,255,255,0.08) 100%
+    rgba(255,255,255,0.02) 0%,
+    rgba(255,255,255,0.06) 50%,
+    rgba(255,255,255,0.02) 100%
   );
   background-size: 200% 100%;
-  animation: skeleton-shimmer 1.1s ease-in-out infinite;
+  animation: skeleton-shimmer 1.1s linear infinite;
+  border:1px solid rgba(255,255,255,0.02);
+}
+@keyframes skeleton-shimmer{
+  0%{ background-position:200% 0; }
+  100%{ background-position:-200% 0; }
 }
 
-@keyframes skeleton-shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+/* Utilities */
+.hidden{ display:none !important; }
+
+/* Responsividade (ajustes menores para telas muito pequenas) */
+@media (max-width:380px){
+  :root{ --container-width: 360px; }
+  .dashboard{ padding:14px 12px 120px; }
+  .two-col .left, .two-col .right{ padding:12px 8px; min-height:56px; }
+  .header h1{ font-size:17px; }
+  .produto-info p{ font-size:12.5px; }
+  .produtos-container .produto{ padding:14px; }
+  .produtos-container .produto .timer{ top:12px; right:12px; font-size:13px; }
   }
