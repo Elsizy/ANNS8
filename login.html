@@ -1,24 +1,96 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - ANNS8</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Entrar • AES</title>
   <link rel="stylesheet" href="login.css" />
 </head>
 <body>
-  <div class="login-container">
-    <p class="slogan">Bem-vindo à <strong>ANSS - Ansys Inc.</strong> – A tecnologia do futuro.</p>
-    <h2>Entrar na Conta</h2>
+  <div class="page-root">
+    <!-- thin top bar (seguindo estilo do projeto) -->
+    <header class="topbar" aria-hidden="false">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="logo-circle" aria-hidden="true">AES</div>
+          <div class="brand-text">
+            <div class="brand-title">AES Energies.</div>
+            <div class="brand-sub">Tecnologia e investimento</div>
+          </div>
+        </div>
 
-    <input type="email" id="email" placeholder="Digite seu email" required />
-    <input type="password" id="senha" placeholder="Digite sua senha" required />
+        <div class="lang-verify" aria-hidden="true">
+          <div class="lang">PT <span class="reg">®</span></div>
+        </div>
+      </div>
+    </header>
 
-    <button id="loginBtn" style="margin-top: 16px;">Entrar</button>
-    <p>Não tem conta? <a href="index.html">Cadastre-se</a></p>
+    <main class="auth-wrap">
+      <div class="auth-card">
+        <!-- left / brand area -->
+        <aside class="brand-side">
+          <h1>Bem-vindo</h1>
+          <p class="lead">Entre na sua conta para gerir investimentos, ver produtos e a sua equipa.</p>
+          <ul class="benefits">
+            <li>Dashboard moderno</li>
+            <li>Comissões automáticas</li>
+            <li>Segurança e persistência local</li>
+          </ul>
+        </aside>
+
+        <!-- right / form area -->
+        <section class="form-side" aria-labelledby="login-title">
+          <h2 id="login-title">Entrar na Conta</h2>
+
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input id="email" type="email" autocomplete="email" placeholder="seu@exemplo.com" />
+          </div>
+
+          <div class="form-field input-group">
+            <label for="senha">Senha</label>
+            <input id="senha" type="password" autocomplete="current-password" placeholder="••••••••" />
+            <!-- botão do olho (funciona com o pequeno script abaixo) -->
+            <button type="button" class="toggle-pass" data-target="senha" aria-label="Mostrar/ocultar senha"></button>
+          </div>
+
+          <div class="form-actions">
+            <button id="loginBtn" type="button" class="btn-primary">Entrar</button>
+          </div>
+
+          <div class="links-row">
+            <a href="index.html" class="link-muted">Não tem conta? Cadastre-se</a>
+            <a href="recuperar.html" class="link-muted">Esqueceu a senha?</a>
+          </div>
+
+          <div class="legal-note">Ao fazer login aceita os termos de serviço.</div>
+        </section>
+      </div>
+    </main>
   </div>
 
-  <!-- Importa o script de login (que já importa o firebase-config.js) -->
+  <!-- scripts -->
+  <!-- mantive o login.js inalterado (ele cuida da autenticação e redirect) -->
   <script type="module" src="./login.js"></script>
+
+  <!-- pequeno script UI: habilita toggle (NÃO altera lógica do login.js) -->
+  <script>
+    // Toggle de mostrar/ocultar senha — apenas UI
+    (function () {
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.toggle-pass[data-target]').forEach(btn => {
+          const input = document.getElementById(btn.dataset.target);
+          if (!input) return;
+          btn.classList.remove('showing');
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isHidden = input.type === 'password';
+            input.type = isHidden ? 'text' : 'password';
+            btn.classList.toggle('showing', !isHidden);
+          });
+        });
+      });
+    })();
+  </script>
 </body>
-</html>
+              </html>
