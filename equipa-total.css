@@ -103,11 +103,9 @@ body {
 }
 /* Metadados (Primeira recarga, Comissão) — aqui aplicamos as alterações pedidas */
 .list .item .meta {
-  display: block;
   font-size: 12px;         /* menor */
   font-weight: 500;
   letter-spacing: -0.3px;  /* diminuir espaço entre caracteres */
   line-height: 1.6;        /* aumenta distância vertical */
-  color: rgba(11,18,32,0.85);
   margin: 0;
 }
