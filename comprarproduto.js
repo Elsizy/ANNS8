@@ -74,7 +74,7 @@ function renderProdutosComprados(compras) {
       card.innerHTML = `
         <div class="produto-info" style="text-align:left; font-size:13px; line-height:1.4;">
           <p class="produto-nome"><strong>${produto.nome}</strong></p>
-          <p style="margin:0; color:#fff;">Preço : <span style="color:#3da5ff;">${formatKz(p.preco)}</span></p>
+          <p>Preço: <span class="valor">${formatKz(produto.preco)}</span></p>
           <p>Ciclo: <span class="valor">60 dias</span></p>
           <p>Taxa de lucro: <span class="valor">10%</span></p>
           <p>Renda diária: <span class="valor">${formatKz(produto.preco * 0.10)}</span></p>
