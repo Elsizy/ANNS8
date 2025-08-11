@@ -693,3 +693,8 @@ h2 {
   font-weight: 300;
   line-height: 1.4;
 }
+h2 {
+  color: #fff;       /* deixa o texto branco */
+  text-align: center; /* centraliza horizontalmente */
+  margin: 0;         /* remove margens padrão, opcional */
+}
