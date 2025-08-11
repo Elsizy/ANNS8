@@ -99,5 +99,5 @@ body {
   font-size: 12px;       /* ← tamanho do texto */
   letter-spacing: 0.5px; /* ← espaçamento entre letras */
   line-height: 1.4;      /* ← distância vertical entre linhas */
-  margin-top: 2px;       /* ← espaço externo acima do texto */
+  margin-top: 9px;       /* ← espaço externo acima do texto */
 }
