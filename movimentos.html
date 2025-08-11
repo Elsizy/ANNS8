@@ -1,40 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Movimentos - ANNS8</title>
-  <link rel="stylesheet" href="movimentos.css" />
-</head>
-<body>
-  <div class="dashboard">
-    <header class="header">
-      <a href="pessoal.html" class="back">← Voltar</a>
-      <h1>Movimentos</h1>
-      <span class="spacer"></span>
-    </header>
 
-    <!-- Filtros -->
-    <div class="filters">
-      <button class="filter-btn active" data-type="all">Todos</button>
-      <button class="filter-btn" data-type="deposit">Depósitos</button>
-      <button class="filter-btn" data-type="withdraw">Retiradas</button>
-      <button class="filter-btn" data-type="commission">Comissões</button>
-      <button class="filter-btn" data-type="ref_bonus">Bónus</button>
-    </div>
-
-    <!-- Skeleton -->
-    <div id="skeleton" class="skeleton">
-      <div class="skeleton-item"></div>
-      <div class="skeleton-item"></div>
-      <div class="skeleton-item"></div>
-    </div>
-
-    <!-- Lista -->
-    <div id="list" class="mov-list"></div>
-  </div>
-
-  <script type="module" src="./firebase-config.js"></script>
+<script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./movimentos.js"></script>
 </body>
       </html>
