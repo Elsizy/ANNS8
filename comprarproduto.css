@@ -73,7 +73,7 @@ body.has-bottom-nav {
    ========================== */
 .summary-box{
   display:block;
-  border-radius: 14px;
+  border-radius: 7px;
   overflow: hidden;
   padding: 10px;             /* padding exterior para criar bordas arredondadas maiores */
   margin-bottom: 16px;
