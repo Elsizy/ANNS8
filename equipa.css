@@ -1,1 +1,103 @@
+/* equipa.css — design inspirado na imagem (fiel, mobile-first) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
+:root{
+  --bg: #07061a;
+  --panel: #1a1530;
+  --card-bg: rgba(255,255,255,0.03);
+  --card-bg-2: rgba(255,255,255,0.025);
+  --muted: rgba(255,255,255,0.72);
+  --white: #ffffff;
+  --accent-1: linear-gradient(135deg,#ff7a5e,#c23bd8); /* icon 1 */
+  --accent-2: linear-gradient(135deg,#6f7bff,#7fe0ff); /* icon 2 */
+  --accent-3: linear-gradient(135deg,#ff7a5e,#f4a460); /* icon 3 */
+  --card-radius: 14px;
+  --container-width: 420px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background: linear-gradient(180deg,var(--bg) 0%, #0e1022 60%);font-family:'Poppins',system-ui,Arial,sans-serif;color:var(--white);-webkit-font-smoothing:antialiased;}
+
+.page-root{min-height:100vh;padding-bottom:40px;}
+.page-header{display:flex;align-items:center;gap:12px;padding:18px 18px 6px;}
+.back-btn{background:transparent;border:none;color:var(--white);font-size:18px;cursor:pointer}
+.page-title{font-size:28px;margin:0;font-weight:700;letter-spacing:0.2px}
+
+/* dashboard container */
+.dashboard{max-width:var(--container-width);margin:8px auto;padding:8px 14px 36px;}
+
+/* affiliate box (top) */
+.affiliate-box{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+  border:1px solid rgba(255,255,255,0.03);
+}
+.affiliate-box .title{margin:0;font-size:14px;font-weight:600;color:var(--white)}
+.affiliate-box .subtitle{margin:4px 0 0;font-size:12px;color:var(--muted)}
+.link-row{display:flex;gap:8px;align-items:center}
+.link-row input{flex:1;padding:8px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:var(--white);outline:none}
+.btn-small{background:linear-gradient(90deg,#5f67ff,#8759e3);border:none;color:white;padding:8px 10px;border-radius:8px;cursor:pointer}
+#copy-feedback.hide{display:none}
+#copy-feedback{display:inline-block;margin-top:6px;color:#8ef08e}
+
+/* level card */
+.level-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  border-radius: var(--card-radius);
+  padding: 14px;
+  margin-bottom: 14px;
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.6);
+}
+
+/* header inside card */
+.level-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.level-left{display:flex;flex-direction:column;gap:4px}
+.level-tag{color:#b89cff;font-size:16px;font-weight:600}
+.level-desc{font-size:12px;color:var(--muted)}
+
+/* icon circle */
+.level-icon .icon-circle{
+  display:inline-block;width:48px;height:48px;border-radius:14px;box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  background: var(--accent-1);
+}
+.level-icon .icon-circle.alt{ background: var(--accent-2); }
+.level-icon .icon-circle.alt2{ background: var(--accent-3); }
+
+/* metrics row: three columns (centered values) */
+.metrics-row{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px 10px;
+  align-items:center;
+  margin-top:6px;
+  padding: 8px 4px 4px;
+}
+
+/* each metric */
+.metric{ display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 4px }
+.metric-label{ font-size:12px;color:var(--muted); text-align:center }
+.metric-value{ font-size:18px;color:var(--white); font-weight:700; text-align:center }
+
+/* small pct style to emphasize percent in last column */
+.pct-small{ font-size:16px;color:var(--white);font-weight:700 }
+
+/* footer button centered */
+.card-footer{ display:flex; justify-content:center; margin-top:12px }
+.btn-view{ display:inline-block;background: linear-gradient(90deg,#6f6b9f,#9a76d6); color:#fff; padding:10px 22px; border-radius:18px; text-decoration:none; font-weight:700 }
+
+/* large full button bottom */
+.btn-full{ display:block;text-align:center;background:linear-gradient(90deg,#5f67ff,#8759e3);color:white;border-radius:10px;padding:12px 16px;margin-top:18px;text-decoration:none;font-weight:700 }
+
+/* responsive tweaks */
+@media (max-width:420px){
+  .metrics-row{ grid-template-columns: 1fr 1fr 1fr; gap:4px 6px }
+  .metric-value{ font-size:16px }
+  .page-title{ font-size:22px }
+  .level-icon .icon-circle{ width:44px;height:44px }
+                              }
