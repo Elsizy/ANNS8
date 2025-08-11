@@ -191,7 +191,7 @@ body.has-bottom-nav {
   margin:0px 0;
   font-size:10px;
   color: var(--muted);
-  line-height:0,3;
+  line-height:0,1;
 }
 
 /* Força os valores inline (quando há inline style) a assumir a cor azul de destaque */
