@@ -263,7 +263,7 @@ function renderProdutos({ uid, saldo, compras }) {
   <p style="margin:0; color:#fff;">Ciclo: <span style="color:#3da5ff;">60 dias</span></p>
   <p style="margin:0; color:#fff;">Taxa de lucro: <span style="color:#3da5ff;">10%</span></p>
   <p style="margin:0; color:#fff;">Renda diária: <span style="color:#3da5ff;">${formatKz(p.preco * 0.10)}</span></p>
-  <p style="margin:0; color:#fff;">Disponivel: <span style="color:#3da5ff;">{MAX_COMPRAS_POR_PRODUTO}</span></p>
+  <p style="margin:0; color:#fff;">Disponivel: <span style="color:#3da5ff;">9</span></p>
   
   </div>
 </div>
