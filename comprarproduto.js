@@ -75,8 +75,8 @@ function renderProdutosComprados(compras) {
         <div class="produto-info" style="text-align:left; font-size:13px; line-height:1.4;">
           <p class="produto-nome"><strong>${produto.nome}</strong></p>
           <p>Preço: <span style="color:#3da5ff;">${formatKz(produto.preco)}</span></p>
-          <p>Ciclo: <span class="valor">60 dias</span></p>
-          <p>Taxa de lucro: <span class="valor">10%</span></p>
+          <p>Ciclo: <span style="color:#3da5ff;">60 dias</span></p>
+          <p>Taxa de lucro: <span style="color:#3da5ff;">10%</span></p>
           <p>Renda diária: <span class="valor">${formatKz(produto.preco * 0.10)}</span></p>
           <p>Renda total (60 dias): <span class="valor">${formatKz(produto.preco * 0.10 * 60)}</span></p>
           <p>Disponível: <span class="valor">9</span></p>
