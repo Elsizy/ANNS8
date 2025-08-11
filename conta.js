@@ -124,23 +124,8 @@ async function renderAccounts() {
     left.appendChild(title);
     left.appendChild(ibanText);
 
-    // Botões
-    const btnDel = document.createElement("button");
-    btnDel.title = "Remover";
-    btnDel.innerHTML = "🗑️";
-    btnDel.addEventListener("click", () => onDelete(id));
-
-    const btnEdit = document.createElement("button");
-    btnEdit.title = "Editar";
-    btnEdit.style.color = "#8759e3";
-    btnEdit.innerHTML = "✎";
-    btnEdit.addEventListener("click", () => onEdit(id, acc));
-
-    right.appendChild(btnEdit);
-    right.appendChild(btnDel);
-
+    // Sem botões — apenas exibição
     div.appendChild(left);
-    div.appendChild(right);
     listEl.appendChild(div);
   });
 }
