@@ -103,9 +103,9 @@ body {
 }
 /* Metadados (Primeira recarga, Comissão) — aqui aplicamos as alterações pedidas */
 .list .item .meta {
-  font-size: 12px;         /* menor */
+  font-size: 10px;         /* menor */
   font-weight: 500;
   letter-spacing: -0.3px;  /* diminuir espaço entre caracteres */
-  line-height: 1.6;        /* aumenta distância vertical */
+  line-height: 2;        /* aumenta distância vertical */
   margin: 0;
 }
