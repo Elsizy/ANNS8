@@ -3,46 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Total da Equipa</title>
-  <link rel="stylesheet" href="total-equipa.css" />
+  <title>Equipa e Membros</title>
+  <link rel="stylesheet" href="equipa-total.css" />
 </head>
 <body>
   <div class="dashboard">
+    <!-- Top Bar -->
     <header class="header">
-      <a class="back" href="equipa.html">← Voltar</a>
-      <h1>Total da Equipa</h1>
+      <a class="back" href="equipa.html">&#8592;</a>
+      <h1>Equipa e membros</h1>
     </header>
 
-    <!-- Skeleton enquanto carrega -->
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-target="list-a">L1</button>
+      <button class="tab" data-target="list-b">L2</button>
+      <button class="tab" data-target="list-c">L3</button>
+    </div>
+
+    <!-- Skeleton -->
     <section id="skeleton" class="skeleton">
-      <div class="sk-title"></div>
       <div class="sk-row"></div>
-      <div class="sk-title"></div>
       <div class="sk-row"></div>
-      <div class="sk-title"></div>
       <div class="sk-row"></div>
     </section>
 
-    <!-- Conteúdo carregado -->
-    <section id="teams" class="teams hidden">
-      <div class="team-block">
-        <h2>Nível A (30%)</h2>
-        <div class="list" id="list-a"></div>
-      </div>
-
-      <div class="team-block">
-        <h2>Nível B (3%)</h2>
-        <div class="list" id="list-b"></div>
-      </div>
-
-      <div class="team-block">
-        <h2>Nível C (1%)</h2>
-        <div class="list" id="list-c"></div>
-      </div>
+    <!-- Lists -->
+    <section id="teams">
+      <div id="list-a" class="list"></div>
+      <div id="list-b" class="list hidden"></div>
+      <div id="list-c" class="list hidden"></div>
     </section>
   </div>
 
   <script type="module" src="./firebase-config.js"></script>
-  <script type="module" src="./total-equipa.js"></script>
+  <script type="module" src="./equipa-total.js"></script>
+  <script>
+    // Alternância de abas
+    document.querySelectorAll(".tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        btn.classList.add("active");
+
+        document.querySelectorAll(".list").forEach(l => l.classList.add("hidden"));
+        document.getElementById(btn.dataset.target).classList.remove("hidden");
+      });
+    });
+  </script>
 </body>
-</html>
+  </html>
