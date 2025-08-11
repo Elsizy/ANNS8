@@ -92,6 +92,7 @@ function buildBankList() {
 }
 
 async function renderAccounts() {
+async function renderAccounts() {
   if (!listEl) return;
   listEl.innerHTML = "";
   listEl.classList.add("empty");
@@ -110,21 +111,21 @@ async function renderAccounts() {
     div.className = "account";
 
     const left = document.createElement("div");
-    const right = document.createElement("div");
-    right.className = "acc-actions";
 
     const title = document.createElement("div");
     title.className = "acc-title";
-    title.textContent = `${acc.bank} • ${acc.holder}`;
+    // Apenas nome do banco
+    title.textContent = acc.bank;
 
     const ibanText = document.createElement("div");
     ibanText.className = "acc-iban";
-    ibanText.textContent = maskIban(acc.iban || "");
+    // IBAN completo sem máscara
+    ibanText.textContent = acc.iban || "";
 
     left.appendChild(title);
     left.appendChild(ibanText);
 
-    // Sem botões — apenas exibição
+    // Apenas exibição
     div.appendChild(left);
     listEl.appendChild(div);
   });
