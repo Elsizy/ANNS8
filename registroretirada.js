@@ -42,21 +42,13 @@ function renderItem(w) {
   const div = document.createElement("div");
   div.className = "item";
 
-  // Badge explícito (ícone + label em elementos reais)
-  const badge = document.createElement("div");
-  badge.className = `badge ${w.status || "pending"}`;
+  // badge (ícone + label) como elemento separado
+  const badgeEl = document.createElement("span");
+  badgeEl.className = `badge ${w.status || 'pending'}`;
+  // mantém o texto para compatibilidade com CSS atual
+  badgeEl.innerHTML = `<span class="badge-icon" aria-hidden="true"></span><span class="badge-label">${statusLabel(w.status)}</span>`;
 
-  const badgeIcon = document.createElement("div");
-  badgeIcon.className = "badge-icon";
-
-  const badgeLabel = document.createElement("div");
-  badgeLabel.className = "badge-label";
-  badgeLabel.textContent = statusLabel(w.status);
-
-  badge.appendChild(badgeIcon);
-  badge.appendChild(badgeLabel);
-
-  // Cabeçalho / banco (centro)
+  // header com o nome do banco (apenas o nome; sem badge aqui)
   const header = document.createElement("div");
   header.className = "item-header";
   const bankSpan = document.createElement("span");
@@ -64,25 +56,38 @@ function renderItem(w) {
   bankSpan.textContent = w.bank || "-";
   header.appendChild(bankSpan);
 
-  // Valores
+  // values
   const values = document.createElement("div");
   values.className = "values";
+  values.innerHTML = `
+    <div class="row">
+      <span>Saque solicitado</span>
+      <span>${formatKz(w.amountGross || 0)}</span>
+    </div>
+    <div class="row">
+      <span>Taxa (15%)</span>
+      <span>${formatKz(w.fee || 0)}</span>
+    </div>
+    <div class="row total">
+      <span>Recebeu</span>
+      <span>${formatKz(w.amountNet || 0)}</span>
+    </div>
+  `;
 
-  function makeRow(left, right, isTotal = false) {
-    const r = document.createElement("div");
-    r.className = "row";
-    if (isTotal) r.classList.add("total");
+  // dates
+  const dates = document.createElement("div");
+  dates.className = "dates";
+  dates.innerHTML = `<span>Solicitado em: ${formatDate(w.createdAt)}</span>` +
+    (w.paidAt ? `<span>Pago em: ${formatDate(w.paidAt)}</span>` : "");
 
-    const l = document.createElement("span");
-    l.textContent = left;
-    const rr = document.createElement("span");
-    rr.textContent = right;
-    if (isTotal) rr.classList.add("amount");
+  // ordem: badge (à esquerda absoluta), header (top center), values, dates
+  div.appendChild(badgeEl);
+  div.appendChild(header);
+  div.appendChild(values);
+  div.appendChild(dates);
 
-    r.appendChild(l);
-    r.appendChild(rr);
-    return r;
-  }
+  listEl.appendChild(div);
+             }
 
   values.appendChild(makeRow("Saque solicitado", formatKz(w.amountGross || 0)));
   values.appendChild(makeRow("Taxa (15%)", formatKz(w.fee || 0)));
