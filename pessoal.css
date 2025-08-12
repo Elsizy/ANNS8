@@ -396,5 +396,7 @@ body::after {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
 }
-
+#user-main {
+  font-size: 12px;
+                 }
 /* end */
