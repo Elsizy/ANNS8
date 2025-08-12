@@ -33,25 +33,25 @@
         <section class="card form-card" aria-labelledby="form-title">
           <div class="card-head">
             <h2 id="form-title">Adicionar conta</h2>
-            <p class="muted">Adicionar conta para saques e transferências</p>
+           <!-- <p class="muted">Adicionar conta para saques e transferências</p> -->
           </div>
 
           <div class="form-grid">
             <!-- 1. Titular -->
             <label class="form-label" for="holder">Nome do titular</label>
-            <input type="text" id="holder" placeholder="Ex.: João António" autocomplete="name" />
+            <input type="text" id="holder" placeholder="Digite o seu nome" autocomplete="name" />
 
             <!-- 2. IBAN -->
-            <label class="form-label" for="iban">IBAN (21 dígitos)</label>
+            <label class="form-label" for="iban">IBAN </label>
             <input
               type="text"
               id="iban"
-              placeholder="Somente números"
+              placeholder="Digite seu iban"
               inputmode="numeric"
               autocomplete="off"
             />
             <div class="hint-row">
-              <small class="hint">Apenas números serão aceites. Exatamente 21 dígitos.</small>
+              <small class="hint">Apenas números serão aceites.</small>
             </div>
 
             <!-- 3. Banco (picker) -->
