@@ -122,52 +122,74 @@ async function handleChangePassSubmit(e) {
 }
 
 /* ====== FIM MODAL ====== */
-/* === Suporte modal: abrir/fechar e interceptar links === */
+/* === Suporte modal — robusto (delegation) + acessibilidade + debug) === */
+
 function openSupportModal() {
   const o = document.getElementById('support-overlay');
-  if (!o) return;
+  if (!o) {
+    console.warn('support-overlay não encontrado no DOM.');
+    return;
+  }
   o.removeAttribute('hidden');
-  // foco no botão fechar para acessibilidade
+  document.body.style.overflow = 'hidden'; // evita scroll por trás do modal
   const close = document.getElementById('support-close');
   if (close) close.focus();
+  console.debug('Support modal aberto');
 }
+
 function closeSupportModal() {
   const o = document.getElementById('support-overlay');
   if (!o) return;
   o.setAttribute('hidden', '');
+  document.body.style.overflow = ''; // restaura scroll
+  console.debug('Support modal fechado');
 }
 
-/* Intercepta links para suporte dentro desta página */
-document.addEventListener('DOMContentLoaded', () => {
-  // intercepta qualquer <a href="suporte.html"> nesta página
-  document.querySelectorAll('a[href="suporte.html"]').forEach(a => {
-    a.addEventListener('click', (ev) => {
+/* Configuração robusta: usa event delegation e garante funcionar mesmo se o DOMContentLoaded já ocorreu */
+function setupSupportHandlers() {
+  // Delegation: intercepta QUALQUER clique em links que *terminem* com "suporte.html"
+  document.addEventListener('click', (ev) => {
+    const a = ev.target.closest && ev.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href') || '';
+    if (href.endsWith('suporte.html') || href === 'suporte.html' || href.includes('/suporte.html')) {
       ev.preventDefault();
       openSupportModal();
-    });
+    }
   });
 
-  // botões de fechar
+  // Fechar via botão X
   document.getElementById('support-close')?.addEventListener('click', (e) => {
     e.preventDefault();
     closeSupportModal();
   });
+
+  // Fechar via botão Fechar do modal
   document.getElementById('support-cancel')?.addEventListener('click', (e) => {
     e.preventDefault();
     closeSupportModal();
   });
 
-  // fecha se clicar fora do modal (no overlay)
+  // Fecha se clicar fora (no overlay)
   const overlay = document.getElementById('support-overlay');
   overlay?.addEventListener('click', (e) => {
     if (e.target === overlay) closeSupportModal();
   });
 
-  // fechar com ESC
+  // Fecha com ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeSupportModal();
   });
-});
+
+  console.debug('Support handlers registados');
+}
+
+// Garantir execução seja antes ou depois do DOMContentLoaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupSupportHandlers);
+} else {
+  setupSupportHandlers();
+        }
 /* Observa: mantive onAuthStateChanged, obtenção do RTDB e cache exatamente como no seu código original */
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
