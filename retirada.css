@@ -14,9 +14,9 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 .page-root{min-height:100vh}
 
 /* Topbar */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;position:sticky;top:0;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);z-index:6}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;position:sticky;top:0;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);z-index:6}
 .topbar a{color:#fff;text-decoration:none;display:inline-flex;align-items:center}
-.page-title{margin:0;font-size:18px;font-weight:700;flex:1;text-align:center}
+.page-title{margin:0;font-size:15px;font-weight:500;flex:1;text-align:center}
 
 /* Info panel (liight blue rounded pill) */
 .info-panel{max-width:720px;margin:14px auto 6px;padding:14px;border-radius:18px;background:var(--panel-blue);color:var(--panel-blue-text);box-shadow:0 8px 30px rgba(0,0,0,0.45);border:1px solid rgba(0,0,0,0.06)}
