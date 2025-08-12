@@ -71,17 +71,41 @@ html,body{height:100%;margin:0;background: linear-gradient(180deg,var(--bg-page)
 
 /* lista e cards */
 .mov-list{ margin-top:6px; }
+/* Substitua o bloco .mov-card por este bloco pronto */
 .mov-card{
   display:flex;
   gap:14px;
   align-items:center;
   padding:16px 14px;
   border-radius:12px;
-  background: transparent; /*linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); */
   margin-bottom:10px;
   position:relative;
+
+  /* borda e sombra (mantém aparência) */
   border: 1px solid rgba(255,255,255,0.02);
   box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+
+  /* ---------- Nova parte — evita bandas visuais ---------- */
+  /* base sólida translúcida (evita somatório de gradientes) */
+  background-color: rgba(255,255,255,0.012);
+
+  /* evita que a cor "vaze" por baixo da borda arredondada */
+  background-clip: padding-box;
+
+  /* efeito vidro moderno (opcional) — só usado quando suportado */
+  backdrop-filter: blur(3px) saturate(105%);
+  -webkit-backdrop-filter: blur(3px) saturate(105%);
+
+  /* leve otimização de renderização */
+  will-change: transform;
+}
+ 
+/* Fallback: se o navegador NÃO suportar backdrop-filter, usamos uma cor sólida
+   (a regra abaixo será aplicada automaticamente; keep for clarity) */
+@supports not ((-webkit-backdrop-filter: blur(3px)) or (backdrop-filter: blur(3px))) {
+  .mov-card {
+    background-color: rgba(255,255,255,0.01);
+  }
 }
 
 /* ícone circular à esquerda */
