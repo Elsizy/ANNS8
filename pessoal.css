@@ -395,8 +395,10 @@ body::after {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-}
-#user-main {
-  font-size: 12px;
-                 }
+}.greeting .g-name {
+  font-size: 12px; /* ou menor, se quiser */
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  line-height: 1.2; /* altura de linha mais normal */
+                 }}
 /* end */
