@@ -150,7 +150,7 @@ async function renderAccounts() {
 
       const ibanText = document.createElement("div");
       ibanText.className = "acc-iban";
-      ibanText.textContent = maskIban(acc.iban || "");
+      ibanText.textContent = acc.iban || "";
 
       meta.appendChild(title);
       meta.appendChild(ibanText);
