@@ -36,18 +36,18 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 .value-area{display:flex;flex-direction:column;align-items:center;margin:6px 0 15px;position:relative}
 .value-area input{
   width:100%;
-  font-size:25px;
-  font-weight:700;
+  font-size: 18px;
+  font-weight:500;
   text-align:left; /* imagem mostra texto no início da linha */
   color:#ffffff;
   background:transparent;
   border:0;
-  padding:12px 6px;
+  padding: 9px 4px;
   outline:none;
-  letter-spacing:0.3px;
+  letter-spacing:0.2px;
 }
 .value-area .underline{
-  height:1px; width:100%; background:rgba(255,255,255,0.12); margin-top:4px; border-radius:1px;
+  height:1px; width:100%; background:rgba(255,255,255,0.12); margin-top:3px; border-radius:1px;
 }
 
 /* Bank picker row (baixo do valor) */
