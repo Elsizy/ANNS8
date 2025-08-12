@@ -35,18 +35,20 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 /* Value area (large centered input like image) */
 .value-area{display:flex;flex-direction:column;align-items:center;margin:26px 0 10px;position:relative}
 .value-area input{
-  width:100%;
-  font-size: 16px;
-  font-weight:700;
-  text-align:left; /* imagem mostra texto no início da linha */
-  color:#fff;
-  background:transparent;
-  border:0;
-  padding: 14px 10px;
-  outline:none;
-  letter-spacing:0.2px;
+  
 }
 .value-area .underline{
+  width:100%;
+  max-width:520px;
+  padding:14px 18px;
+  border-radius:14px;
+  border:none;
+  background:var(--accent-grad);
+  color:#fff;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 12px 32px rgba(79,179,255,0.12);
   height:1px; width:100%; background:rgba(255,255,255,0.12); margin-top:3px; border-radius:1px;
 }
 
