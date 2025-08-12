@@ -396,10 +396,13 @@ body::after {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
 }
-.greeting .g-name {
-  font-size: 12px; /* ou menor, se quiser */
-  font-weight: 600;
-  letter-spacing: 0.1px;
-  line-height: 1.2; /* altura de linha mais normal */
-                 }}
+/* evita que o nome empurre o layout; mostra "..." se for maior que o espaço */
+.g-name {
+  display: inline-block;
+  max-width: 220px;     /* ajuste este valor conforme seu layout */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
 /* end */
