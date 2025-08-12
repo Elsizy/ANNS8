@@ -122,7 +122,7 @@ async function handleChangePassSubmit(e) {
 }
 
 /* ====== FIM MODAL ====== */
-/* === Suporte modal — robusto (delegation) + acessibilidade + debug) === */
+/* === Suporte modal — delegação, a11y, prevenção de scroll por trás === */
 
 function openSupportModal() {
   const o = document.getElementById('support-overlay');
@@ -131,18 +131,18 @@ function openSupportModal() {
     return;
   }
   o.removeAttribute('hidden');
-  document.body.style.overflow = 'hidden'; // evita scroll por trás do modal
-  const close = document.getElementById('support-close');
-  if (close) close.focus();
-  console.debug('Support modal aberto');
+  // evitar scroll do body enquanto o modal está aberto
+  document.body.style.overflow = 'hidden';
+  // foco para acessibilidade
+  const closeBtn = document.getElementById('support-close');
+  if (closeBtn) closeBtn.focus();
 }
 
 function closeSupportModal() {
   const o = document.getElementById('support-overlay');
   if (!o) return;
   o.setAttribute('hidden', '');
-  document.body.style.overflow = ''; // restaura scroll
-  console.debug('Support modal fechado');
+  document.body.style.overflow = '';
 }
 
 /* Observa: mantive onAuthStateChanged, obtenção do RTDB e cache exatamente como no seu código original */
@@ -184,30 +184,67 @@ onAuthStateChanged(auth, async (user) => {
 
 /** Liga os eventos do modal depois que o DOM estiver pronto */
 document.addEventListener("DOMContentLoaded", () => {
-  // abre modal ao clicar no item "Alterar a palavra-passe"
-  const link = document.querySelector('.actions a[href="alterarpasse.html"]');
-  if (link) {
-    link.addEventListener("click", (e) => {
+  /* === ALTERAR SENHA === */
+  const linkChangePass = document.querySelector('.actions a[href="alterarpasse.html"]');
+  if (linkChangePass) {
+    linkChangePass.addEventListener("click", (e) => {
       e.preventDefault();
       openChangePassModal();
     });
   }
 
-  // eventos do modal
   const cancelBtn = document.getElementById("btn-cancel");
   cancelBtn?.addEventListener("click", (e) => {
     e.preventDefault();
     closeChangePassModal();
   });
 
-  const form = document.getElementById("change-pass-form");
-  form?.addEventListener("submit", handleChangePassSubmit);
+  const changeForm = document.getElementById("change-pass-form");
+  changeForm?.addEventListener("submit", handleChangePassSubmit);
 
-  // se clicar fora do modal, fecha
-  const overlay = document.getElementById("change-pass-overlay");
-  overlay?.addEventListener("click", (e) => {
-    if (e.target === overlay) {
+  // fechar se clicar fora do modal (overlay)
+  const overlayChange = document.getElementById("change-pass-overlay");
+  overlayChange?.addEventListener("click", (e) => {
+    if (e.target === overlayChange) {
       closeChangePassModal();
+    }
+  });
+
+  /* === SUPORTE === */
+  // Intercepta todos os links que apontam para suporte.html e abre o modal em vez de navegar
+  document.querySelectorAll('a[href="suporte.html"]').forEach(a => {
+    a.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      openSupportModal();
+    });
+  });
+
+  // Botões do modal de suporte
+  document.getElementById('support-close')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeSupportModal();
+  });
+  document.getElementById('support-cancel')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeSupportModal();
+  });
+
+  // fechar se clicar fora do modal (overlay)
+  const overlaySupport = document.getElementById('support-overlay');
+  overlaySupport?.addEventListener('click', (e) => {
+    if (e.target === overlaySupport) closeSupportModal();
+  });
+
+  // ESC fecha modais (global)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      // fecha suporte se aberto
+      const sup = document.getElementById('support-overlay');
+      if (sup && !sup.hasAttribute('hidden')) closeSupportModal();
+
+      // fecha alterar senha se aberto
+      const ch = document.getElementById('change-pass-overlay');
+      if (ch && !ch.hasAttribute('hidden')) closeChangePassModal();
     }
   });
 
@@ -216,6 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const active = document.querySelector('.bottom-nav .nav-item[data-key="pessoal"]');
     active?.classList.add('active');
   } catch(_) {}
+
 });
 
 /* Função para preencher os textos na UI - mantida fiel ao original */
