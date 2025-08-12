@@ -39,10 +39,10 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
   font-size: 16px;
   font-weight:700;
   text-align:left; /* imagem mostra texto no início da linha */
-  color:#ffffff;
+  color:#fff;
   background:transparent;
   border:0;
-  padding: 4px 4px;
+  padding: 14px 18px;
   outline:none;
   letter-spacing:0.2px;
 }
