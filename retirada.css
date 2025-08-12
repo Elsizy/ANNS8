@@ -96,3 +96,44 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
   .info-panel{margin:10px 10px}
   .btn-primary{padding:12px}
   }
+/* ---------- deixar o texto do input igual ao btn-primary ---------- */
+.value-area input{
+  width: 100%;
+  box-sizing: border-box;        /* garante que padding não aumente a largura */
+  font-family: inherit;          /* garante Poppins igual ao resto */
+  font-size: 16px;               /* igual ao btn-primary */
+  font-weight: 700;              /* mesma espessura do btn-primary */
+  color: #fff;                   /* mesma cor */
+  background: transparent;       /* sem fundo para ficar igual ao picker */
+  border: 0;
+  padding: 12px 18px;            /* mesmo padding vertical/horizontal aproximado */
+  outline: none;
+  line-height: 1;                /* controla a altura da linha */
+  letter-spacing: 0.2px;
+  min-height: 44px;              /* força altura visual similar ao botão */
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+}
+
+/* placeholder também com aparência semelhante (mais suave) */
+.value-area input::placeholder{
+  color: rgba(255,255,255,0.45);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* remove spinner do input number (mobile/desktop webkit) */
+.value-area input::-webkit-outer-spin-button,
+.value-area input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* mobile: garante que a regra não seja sobrescrita por media queries */
+@media (max-width: 420px) {
+  .value-area input{
+    font-size: 16px;    /* mantemos 16px também no mobile */
+    padding: 10px 14px; /* ajustar padding para telas pequenas se desejar */
+    min-height: 42px;
+  }
+                                                                                                                                            }
