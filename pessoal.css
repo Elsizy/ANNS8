@@ -395,7 +395,8 @@ body::after {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-}.greeting .g-name {
+}
+.greeting .g-name {
   font-size: 12px; /* ou menor, se quiser */
   font-weight: 600;
   letter-spacing: 0.1px;
