@@ -258,3 +258,16 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #
 #list .bank::after {
   content: none !important;
 }
+.withdraw-list .card {
+  position: relative;
+  }
+.withdraw-list .bank {
+  position: absolute;
+  top: 8px;       /* fica no topo do card */
+  right: 12px;    /* alinhado à direita */
+  font-size: 12px; 
+  font-weight: 500;
+  color: #ccc;    /* cor discreta */
+  opacity: 0.9;   /* mais legível que a marca d'água */
+  z-index: 2;     /* acima dos outros textos */
+}
