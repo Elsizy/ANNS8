@@ -122,7 +122,52 @@ async function handleChangePassSubmit(e) {
 }
 
 /* ====== FIM MODAL ====== */
+/* === Suporte modal: abrir/fechar e interceptar links === */
+function openSupportModal() {
+  const o = document.getElementById('support-overlay');
+  if (!o) return;
+  o.removeAttribute('hidden');
+  // foco no botão fechar para acessibilidade
+  const close = document.getElementById('support-close');
+  if (close) close.focus();
+}
+function closeSupportModal() {
+  const o = document.getElementById('support-overlay');
+  if (!o) return;
+  o.setAttribute('hidden', '');
+}
 
+/* Intercepta links para suporte dentro desta página */
+document.addEventListener('DOMContentLoaded', () => {
+  // intercepta qualquer <a href="suporte.html"> nesta página
+  document.querySelectorAll('a[href="suporte.html"]').forEach(a => {
+    a.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      openSupportModal();
+    });
+  });
+
+  // botões de fechar
+  document.getElementById('support-close')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeSupportModal();
+  });
+  document.getElementById('support-cancel')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeSupportModal();
+  });
+
+  // fecha se clicar fora do modal (no overlay)
+  const overlay = document.getElementById('support-overlay');
+  overlay?.addEventListener('click', (e) => {
+    if (e.target === overlay) closeSupportModal();
+  });
+
+  // fechar com ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeSupportModal();
+  });
+});
 /* Observa: mantive onAuthStateChanged, obtenção do RTDB e cache exatamente como no seu código original */
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
