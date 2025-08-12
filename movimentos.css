@@ -77,7 +77,7 @@ html,body{height:100%;margin:0;background: linear-gradient(180deg,var(--bg-page)
   align-items:center;
   padding:16px 14px;
   border-radius:12px;
-  background: transparent /*linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); */
+  background: transparent; /*linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); */
   margin-bottom:10px;
   position:relative;
   border: 1px solid rgba(255,255,255,0.02);
