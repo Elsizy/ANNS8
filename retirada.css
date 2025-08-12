@@ -37,12 +37,12 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 .value-area input{
   width:100%;
   font-size: 15px;
-  font-weight:500;
+  font-weight:400;
   text-align:left; /* imagem mostra texto no início da linha */
   color:#ffffff;
   background:transparent;
   border:0;
-  padding: 9px 4px;
+  padding: 4px 4px;
   outline:none;
   letter-spacing:0.2px;
 }
@@ -92,7 +92,7 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 
 /* responsive tweaks */
 @media (max-width:420px){
-  .value-area input{font-size:28px}
+  /*.value-area input{font-size:16px} */
   .info-panel{margin:10px 10px}
   .btn-primary{padding:12px}
                  }
