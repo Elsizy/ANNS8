@@ -3,44 +3,270 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Suporte - ANNS8</title>
+  <title>Suporte — AES</title>
+
+  <!-- Fonte (coerente com o projeto) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
   <link rel="stylesheet" href="suporte.css" />
 </head>
 <body>
-  <div class="dashboard">
-    <!-- Header -->
-    <header class="header">
-      <h1>Centro de Suporte</h1>
-      <a href="pessoal.html" class="back-btn">← Voltar</a>
-    </header>
-
-    <!-- Card Gerente -->
-    <div class="support-card">
-      <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5Z"/>
+  <header class="s-header">
+    <div class="s-header-inner">
+      <a class="back-btn" href="pessoal.html" title="Voltar à conta" aria-label="Voltar">
+        <!-- ícone novo -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
+        Voltar
+      </a>
+
+      <div class="title-group">
+        <h1 class="page-title">Centro de Suporte</h1>
+        <p class="page-sub">Assistência dedicada e respostas rápidas — como podemos ajudar hoje?</p>
       </div>
-      <div class="text-content">
-        <h2>Fale com o Gerente</h2>
-        <p>Entre em contacto com o gerente para obter suporte personalizado.</p>
-      </div>
-      <a href="https://t.me/William_03142" class="chevron" target="_blank">›</a>
     </div>
+  </header>
 
-    <!-- Card Canal -->
-    <div class="support-card">
-      <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M4 4h16v2H4V4Zm0 4h16v2H4V8Zm0 4h10v2H4v-2Zm0 4h6v2H4v-2Z"/>
-        </svg>
+  <main class="s-dashboard" role="main">
+    <section class="hero">
+      <div class="hero-card">
+        <!-- ilustração SVG exclusiva -->
+        <div class="hero-ill">
+          <svg viewBox="0 0 64 64" width="72" height="72" aria-hidden="true" focusable="false">
+            <g fill="none" stroke="none">
+              <rect width="64" height="64" rx="12" fill="#0b0b18"/>
+              <path d="M20 36c0-6 6-10 12-10s12 4 12 10" stroke="#9ecfff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M32 26v-6" stroke="#cdb7ff" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="32" cy="44" r="1.6" fill="#9ecfff"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="hero-txt">
+          <h2>Suporte Premium</h2>
+          <p>Tem alguma dúvida ou precisa de ajuda com a sua conta? Seleccione uma das opções abaixo para contactar a nossa equipa ou fale directamente com o gerente.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-manager" type="button" aria-haspopup="dialog">Fale com o gerente</button>
+            <a class="btn btn-ghost" href="mailto:suporte@aes.example.com">Enviar e-mail</a>
+          </div>
+        </div>
       </div>
-      <div class="text-content">
-        <h2>Nosso Canal</h2>
-        <p>Entre no nosso canal e fique atualizado com as últimas novidades.</p>
+    </section>
+
+    <section class="cards-grid" aria-label="Opções de suporte">
+      <!-- Cartão 1 — Gerente -->
+      <article class="support-card" aria-labelledby="mgr-title">
+        <div class="sc-icon">
+          <!-- novo SVG (headset estilizado) -->
+          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+            <path d="M3 12a9 9 0 0 1 18 0v3a3 3 0 0 1-3 3h-1v-5" stroke="none" fill="#6f66ff"/>
+            <path d="M6 18v-4a2 2 0 0 1 2-2h.5" stroke="#fff" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <div class="sc-body">
+          <h3 id="mgr-title">Fale com o Gerente</h3>
+          <p>Atendimento personalizado via Telegram — respostas rápidas e suporte dedicado.</p>
+        </div>
+        <div class="sc-action">
+          <button class="btn btn-outline btn-manager" type="button">Abrir</button>
+        </div>
+      </article>
+
+      <!-- Cartão 2 — Canal -->
+      <article class="support-card" aria-labelledby="chan-title">
+        <div class="sc-icon">
+          <!-- novo SVG (canal / megafone) -->
+          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+            <path d="M3 11h14l4-4v14l-4-4H3z" fill="#ffb86b"/>
+            <circle cx="19" cy="8" r="1.5" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="sc-body">
+          <h3 id="chan-title">Canal Oficial</h3>
+          <p>Mantenha-se actualizado com anúncios, lançamentos e comunicados oficiais.</p>
+        </div>
+        <div class="sc-action">
+          <a class="btn btn-outline" href="https://t.me/Ansys_01432" target="_blank" rel="noopener">Entrar</a>
+        </div>
+      </article>
+
+      <!-- Cartão 3 — FAQ -->
+      <article class="support-card" aria-labelledby="faq-title">
+        <div class="sc-icon">
+          <!-- novo SVG (documento) -->
+          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+            <rect x="4" y="3" width="14" height="18" rx="2" fill="#9ee7c5" />
+            <path d="M8 8h8M8 12h6" stroke="#04543f" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="sc-body">
+          <h3 id="faq-title">Perguntas Frequentes</h3>
+          <p>Respostas às questões mais comuns — invisível tempo de espera.</p>
+        </div>
+        <div class="sc-action">
+          <a class="btn btn-outline" href="faq.html">Ler</a>
+        </div>
+      </article>
+
+      <!-- Cartão 4 — E-mail / Telefone -->
+      <article class="support-card" aria-labelledby="contact-title">
+        <div class="sc-icon">
+          <!-- novo SVG (mail) -->
+          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+            <rect x="3" y="6" width="18" height="12" rx="2" fill="#cdb7ff"/>
+            <path d="M3 8l9 6 9-6" stroke="#fff" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <div class="sc-body">
+          <h3 id="contact-title">Email & Telefone</h3>
+          <p>Preferência por email? Envie-nos uma mensagem ou ligue directamente.</p>
+        </div>
+        <div class="sc-action">
+          <a class="btn btn-outline" href="mailto:suporte@aes.example.com">Email</a>
+          <a class="btn btn-ghost small" href="tel:+244912345678">+244 912 345 678</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Modal: Gerente -->
+  <div id="manager-modal" class="modal-overlay" hidden aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="manager-title">
+      <button id="manager-close" class="modal-close" aria-label="Fechar modal">✕</button>
+
+      <div class="modal-header">
+        <div class="modal-avatar" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <circle cx="24" cy="18" r="8" fill="#6f66ff"/>
+            <rect x="8" y="30" width="32" height="12" rx="6" fill="#9ecfff"/>
+          </svg>
+        </div>
+        <div>
+          <h2 id="manager-title">Fale com o Gerente</h2>
+          <p class="muted">Escolha como prefere estabelecer contacto.</p>
+        </div>
       </div>
-      <a href="https://t.me/Ansys_01432" class="chevron" target="_blank">›</a>
+
+      <div class="modal-body">
+        <div class="modal-row">
+          <div class="modal-row-left">
+            <strong>Telegram</strong>
+            <div class="muted">Chat directo via Telegram</div>
+          </div>
+          <div class="modal-row-actions">
+            <a id="mgr-open-tg" class="btn btn-primary small" href="https://t.me/William_03142" target="_blank" rel="noopener">Abrir o Telegram</a>
+            <button id="mgr-copy" class="btn btn-outline small" data-handle="@William_03142">Copiar handle</button>
+          </div>
+        </div>
+
+        <div class="modal-row">
+          <div class="modal-row-left">
+            <strong>Email</strong>
+            <div class="muted">Enviar mensagem por email</div>
+          </div>
+          <div class="modal-row-actions">
+            <a class="btn btn-ghost small" href="mailto:william.manager@example.com">Enviar e-mail</a>
+          </div>
+        </div>
+
+        <div class="modal-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2z" fill="#ffd27a"/></svg>
+          <small>Para assuntos sensíveis, indique sempre o seu UID na mensagem.</small>
+        </div>
+      </div>
+
+      <div class="modal-foot">
+        <button id="mgr-done" class="btn btn-cancel">Fechar</button>
+      </div>
     </div>
   </div>
+
+  <!-- Toast pequeno para feedback (copiar) -->
+  <div id="toast" class="toast" aria-live="polite" role="status" hidden></div>
+
+  <!-- Script (inline para não exigir ficheiro extra) -->
+  <script>
+    (function(){
+      // elementos
+      const openBtns = Array.from(document.querySelectorAll('.btn-manager'));
+      const modal = document.getElementById('manager-modal');
+      const closeBtn = document.getElementById('manager-close');
+      const doneBtn = document.getElementById('mgr-done');
+      const copyBtn = document.getElementById('mgr-copy');
+      const toast = document.getElementById('toast');
+
+      function showToast(msg, time = 2000){
+        if(!toast) return;
+        toast.textContent = msg;
+        toast.hidden = false;
+        toast.style.opacity = '1';
+        clearTimeout(toast._h);
+        toast._h = setTimeout(()=> {
+          toast.style.opacity = '0';
+          toast._h2 = setTimeout(()=> toast.hidden = true, 300);
+        }, time);
+      }
+
+      function openModal(){
+        if(!modal) return;
+        modal.removeAttribute('hidden');
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+        // foco no primeiro botão
+        const first = modal.querySelector('.btn-primary, button, a');
+        if(first) first.focus();
+      }
+      function closeModal(){
+        if(!modal) return;
+        modal.setAttribute('hidden','');
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+      }
+
+      openBtns.forEach(b => b.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+      }));
+
+      closeBtn?.addEventListener('click', (e) => { e.preventDefault(); closeModal(); });
+      doneBtn?.addEventListener('click', (e) => { e.preventDefault(); closeModal(); });
+
+      // fechar clicando no overlay (fora do content)
+      modal?.addEventListener('click', (ev) => {
+        if(ev.target === modal) closeModal();
+      });
+
+      // ESC fecha
+      document.addEventListener('keydown', (ev) => {
+        if(ev.key === 'Escape') closeModal();
+      });
+
+      // copiar handle
+      copyBtn?.addEventListener('click', async (ev) => {
+        const handle = copyBtn.getAttribute('data-handle') || '';
+        try {
+          if(navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(handle);
+          } else {
+            // fallback
+            const ta = document.createElement('textarea');
+            ta.value = handle;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            ta.remove();
+          }
+          showToast('Handle copiado para a área de transferência');
+        } catch (err) {
+          showToast('Erro ao copiar — por favor copie manualmente');
+        }
+      });
+
+      // segurança: abrir telegram via anchor (already target=_blank)
+      // não precisamos de código extra para isso.
+    })();
+  </script>
 </body>
-</html>
+            </html>
