@@ -1,133 +1,98 @@
 :root{
-  --bg-1: #07061a;
-  --bg-2: #0e1022;
-  --card-radius: 14px;
-  --panel-grad-left: #6f66ff;
-  --panel-grad-right: #c254ff;
+  --bg-1: #071433;
+  --bg-2: #08183a;
+  --panel-blue: #cfe9ff; /* painel info claro */
+  --panel-blue-text: #07223d;
+  --card-radius: 18px;
+  --accent-grad: linear-gradient(90deg,#4fb3ff,#7a5cff);
   --muted: rgba(255,255,255,0.72);
-  --white: #ffffff;
-  --accent-grad: linear-gradient(90deg,#5f67ff,#8759e3);
 }
 
-/* reset / base */
+/* base */
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;color:var(--white);-webkit-font-smoothing:antialiased;background:linear-gradient(180deg,var(--bg-1) 0%, var(--bg-2) 60%);}
-
-.page-root{min-height:100vh;padding-bottom:40px;}
+html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;background:linear-gradient(180deg,var(--bg-1) 0%,var(--bg-2) 60%);color:#fff;-webkit-font-smoothing:antialiased}
+.page-root{min-height:100vh}
 
 /* Topbar */
-.topbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:14px 16px;
-  gap:12px;
-  position:sticky;
-  top:0;
-  z-index:6;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-}
-.topbar a{color:var(--white);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.page-title{margin:0;font-size:18px;font-weight:700;text-align:center;flex:1}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;position:sticky;top:0;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);z-index:6}
+.topbar a{color:#fff;text-decoration:none;display:inline-flex;align-items:center}
+.page-title{margin:0;font-size:18px;font-weight:700;flex:1;text-align:center}
 
-/* Info panel (light / pill) */
-.info-panel{
-  max-width:720px;
-  margin:14px auto 0;
-  background: rgba(255,255,255,0.06);
-  border-radius: 14px;
-  padding:14px 16px;
-  color: rgba(255,255,255,0.92);
-  border: 1px solid rgba(255,255,255,0.03);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-}
+/* Info panel (liight blue rounded pill) */
+.info-panel{max-width:720px;margin:14px auto 6px;padding:14px;border-radius:18px;background:var(--panel-blue);color:var(--panel-blue-text);box-shadow:0 8px 30px rgba(0,0,0,0.45);border:1px solid rgba(0,0,0,0.06)}
 .info-panel ol{margin:0;padding-left:18px}
-.info-panel li{margin:6px 0;font-size:13px;line-height:1.3}
+.info-panel li{margin:6px 0;font-size:13px;line-height:1.35}
 
 /* Dashboard container */
-.dashboard{max-width:720px;margin:18px auto;padding:0 16px 80px;}
+.dashboard{max-width:720px;margin:14px auto;padding:0 16px 90px}
 
-/* Saldo */
-.saldo-card{
-  background: linear-gradient(90deg,var(--panel-grad-left),var(--panel-grad-right));
-  border-radius: var(--card-radius);
-  padding:12px 16px;
-  margin: 18px 0;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+/* hidden but present for JS */
+.visually-hidden{position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap;}
+
+/* Card */
+.card{background:transparent;margin-top:8px;padding:18px;border-radius:14px}
+
+/* Value area (large centered input like image) */
+.value-area{display:flex;flex-direction:column;align-items:center;margin:8px 0 18px;position:relative}
+.value-area input{
+  width:100%;
+  font-size:34px;
+  font-weight:700;
+  text-align:left; /* imagem mostra texto no início da linha */
+  color:#ffffff;
+  background:transparent;
+  border:0;
+  padding:12px 6px;
+  outline:none;
+  letter-spacing:0.3px;
 }
-.saldo-card .label{font-size:13px;margin:0;opacity:0.95}
-.saldo-card .value{font-size:22px;margin:6px 0 0;font-weight:700}
-
-/* Card branco/translucido */
-.card{
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  color:var(--white);
-  border-radius: var(--card-radius);
-  padding:16px;
-  margin-bottom:18px;
-  border:1px solid rgba(255,255,255,0.03);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.55);
+.value-area .underline{
+  height:1px; width:100%; background:rgba(255,255,255,0.12); margin-top:4px; border-radius:1px;
 }
-.card h2{margin:0 0 12px;font-size:16px}
 
-/* Form group */
-.form-group{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
-.form-group label{font-size:13px;color:var(--muted)}
-.hint{font-size:12px;color:rgba(255,255,255,0.55)}
-
-/* Picker button */
-.picker-btn{
-  display:flex;align-items:center;justify-content:space-between;
-  width:100%;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--white);cursor:pointer;font-weight:600;
+/* Bank picker row (baixo do valor) */
+.bank-row{margin-top:18px}
+.bank-picker{
+  display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:10px;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,0.12);color:#fff;width:100%;font-weight:600;cursor:pointer;
 }
-.picker-btn .chev{opacity:0.7}
+.bank-picker .chev{opacity:0.8}
 
-/* Amount input (big) */
-.amount-input{
-  display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.02);padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
-}
-.amount-input .prefix{font-weight:700;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--muted)}
-.amount-input input{
-  background:transparent;border:none;outline:none;color:var(--white);font-size:20px;font-weight:700;
-  -moz-appearance:textfield;
-}
-.amount-input input::-webkit-outer-spin-button,
-.amount-input input::-webkit-inner-spin-button{ -webkit-appearance: none;margin: 0;}
-
-/* Resume */
-.resume{margin-top:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.03)}
-.resume .row{display:flex;justify-content:space-between;margin-bottom:6px;font-size:14px;color:var(--muted)}
-.resume .row.total{font-weight:700;color:var(--white)}
-
-/* Buttons */
+/* Send button (large rounded gradient) */
+.submit-row{margin-top:26px;display:flex;justify-content:center}
 .btn-primary{
-  display:block;width:100%;padding:12px 14px;border-radius:12px;border:none;background:var(--accent-grad);color:#fff;font-weight:700;font-size:16px;margin-top:12px;cursor:pointer;box-shadow: 0 12px 30px rgba(93,76,255,0.18);
-}
-.btn-secondary{
-  padding:10px 12px;border-radius:10px;border:none;background:rgba(255,255,255,0.04);color:var(--white);cursor:pointer;
+  width:100%;
+  max-width:520px;
+  padding:14px 18px;
+  border-radius:14px;
+  border:none;
+  background:var(--accent-grad);
+  color:#fff;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 12px 32px rgba(79,179,255,0.12);
 }
 
 /* Error box */
-.error-box{margin-top:12px;padding:10px;border-radius:10px;background:#4b0202;color:#ffdcdc;border:1px solid rgba(255,0,0,0.12);font-weight:600;text-align:center}
+.error-box{margin-top:12px;padding:10px;border-radius:10px;background:#4b0101;color:#ffdcdc;border:1px solid rgba(255,0,0,0.12);text-align:center;font-weight:700}
 .hidden{display:none}
 
-/* Notes */
-.notes{margin-top:14px;font-size:13px;color:var(--muted)}
-.notes p{margin:6px 0}
+/* Notes area with taxa/receberá */
+.notes{margin-top:14px;color:rgba(255,255,255,0.85);font-size:14px}
+.note-line{display:flex;justify-content:space-between;padding:6px 0}
+.small-notes{margin-top:8px;font-size:13px;color:rgba(255,255,255,0.66)}
 
-/* Modal (banks) */
-.modal{position:fixed;inset:0;display:flex;align-items:end;justify-content:center;padding:18px;background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55));z-index:9999}
+/* Modal banks */
+.modal{position:fixed;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:16px;background:linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.55));z-index:9999}
 .modal.hidden{display:none}
-.modal-panel{width:100%;max-width:520px;background:linear-gradient(180deg, rgba(8,9,22,0.96), rgba(6,6,16,0.96));border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,0.03);color:var(--white)}
-.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.modal .bank-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.modal-panel{width:100%;max-width:520px;background:linear-gradient(180deg, rgba(8,9,22,0.98), rgba(6,6,16,0.98));border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,0.03);color:#fff}
+.bank-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
 .bank-list li{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
 .bank-list li:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,0.6)}
 
-/* Responsividade */
+/* responsive tweaks */
 @media (max-width:420px){
-  .page-title{font-size:16px}
-  .saldo-card .value{font-size:18px}
-  .amount-input input{font-size:18px}
-  .info-panel{padding:12px}
-  }
+  .value-area input{font-size:28px}
+  .info-panel{margin:10px 10px}
+  .btn-primary{padding:12px}
+                 }
