@@ -27,16 +27,20 @@ let editingId = null; // se estiver a editar um item existente
 /* =========================
    DOM
 ========================= */
-const bankBtn      = document.getElementById("open-bank-picker");
-const bankNameEl   = document.getElementById("bank-name");
-const holderEl     = document.getElementById("holder");
-const ibanEl       = document.getElementById("iban");
-const saveBtn      = document.getElementById("save-account");
-const listEl       = document.getElementById("accounts-list");
+const bankBtn        = document.getElementById("open-bank-picker");
+const bankNameEl     = document.getElementById("bank-name");
+const holderEl       = document.getElementById("holder");
+const ibanEl         = document.getElementById("iban");
+const saveBtn        = document.getElementById("save-account");
+const listEl         = document.getElementById("accounts-list");
 
-const modal        = document.getElementById("bank-modal");
-const bankListEl   = document.getElementById("bank-list");
-const closeModalBtn= document.getElementById("close-bank-modal");
+const bankModal      = document.getElementById("bank-modal");
+const bankListEl     = document.getElementById("bank-list");
+const closeBankBtn   = document.getElementById("close-bank-modal");
+
+const accountsModal  = document.getElementById("accounts-modal");
+const openAccountsBtn= document.getElementById("open-accounts-btn");
+const closeAccountsBtn = document.getElementById("close-accounts-modal");
 
 /* =========================
    INICIALIZAÇÃO
@@ -48,19 +52,28 @@ onAuthStateChanged(auth, async (user) => {
   }
   currentUid = user.uid;
 
-  buildBankList();         // <<< repovoa a lista de bancos
-  await renderAccounts();
+  buildBankList();         // repovoa a lista de bancos
+  await renderAccounts();  // prepara a lista (será mostrada no modal)
 });
 
 /* =========================
    EVENTOS
 ========================= */
 bankBtn?.addEventListener("click", () => {
-  modal?.classList.remove("hidden");
+  bankModal?.classList.remove("hidden");
 });
 
-closeModalBtn?.addEventListener("click", () => {
-  modal?.classList.add("hidden");
+closeBankBtn?.addEventListener("click", () => {
+  bankModal?.classList.add("hidden");
+});
+
+openAccountsBtn?.addEventListener("click", async () => {
+  await renderAccounts(); // garante dados atualizados antes de abrir
+  accountsModal?.classList.remove("hidden");
+});
+
+closeAccountsBtn?.addEventListener("click", () => {
+  accountsModal?.classList.add("hidden");
 });
 
 ibanEl?.addEventListener("input", () => {
@@ -85,50 +98,99 @@ function buildBankList() {
     li.addEventListener("click", () => {
       selectedBank = bank;
       if (bankNameEl) bankNameEl.textContent = bank;
-      modal?.classList.add("hidden");
+      bankModal?.classList.add("hidden");
     });
     bankListEl.appendChild(li);
   });
 }
-
 
 async function renderAccounts() {
   if (!listEl) return;
   listEl.innerHTML = "";
   listEl.classList.add("empty");
 
-  const snap = await get(ref(db, `usuarios/${currentUid}/bankAccounts`));
-  if (!snap.exists()) {
-    listEl.innerHTML = `<p class="empty-text">Nenhuma conta cadastrada.</p>`;
-    return;
+  try {
+    const snap = await get(ref(db, `usuarios/${currentUid}/bankAccounts`));
+    if (!snap.exists()) {
+      listEl.innerHTML = `<p class="empty-text">Nenhuma conta cadastrada.</p>`;
+      return;
+    }
+
+    const accounts = snap.val();
+    const entries = Object.entries(accounts);
+    if (entries.length === 0) {
+      listEl.innerHTML = `<p class="empty-text">Nenhuma conta cadastrada.</p>`;
+      return;
+    }
+
+    listEl.classList.remove("empty");
+    // grid container (accounts-list já tem display:grid via CSS)
+    entries.forEach(([id, acc]) => {
+      const div = document.createElement("div");
+      div.className = "account";
+
+      const left = document.createElement("div");
+      left.style.display = "flex";
+      left.style.gap = "10px";
+      left.style.alignItems = "center";
+      left.style.minWidth = "0";
+
+      // bank badge (iniciais)
+      const badge = document.createElement("div");
+      badge.className = "bank-badge";
+      // pega até 3 letras do nome do banco
+      badge.textContent = String(acc.bank || "").slice(0,3).toUpperCase();
+
+      const meta = document.createElement("div");
+      meta.style.minWidth = "0";
+
+      const title = document.createElement("div");
+      title.className = "acc-title";
+      title.textContent = acc.bank || "—";
+
+      const ibanText = document.createElement("div");
+      ibanText.className = "acc-iban";
+      ibanText.textContent = maskIban(acc.iban || "");
+
+      meta.appendChild(title);
+      meta.appendChild(ibanText);
+
+      left.appendChild(badge);
+      left.appendChild(meta);
+
+      // actions (editar / remover)
+      const actions = document.createElement("div");
+      actions.className = "acc-actions";
+
+      const editBtn = document.createElement("button");
+      editBtn.type = "button";
+      editBtn.textContent = "Editar";
+      editBtn.addEventListener("click", () => {
+        onEdit(id, acc);
+        // fecha modal para mostrar o formulário (ux)
+        accountsModal?.classList.add("hidden");
+      });
+
+      const delBtn = document.createElement("button");
+      delBtn.type = "button";
+      delBtn.textContent = "Remover";
+      delBtn.addEventListener("click", async () => {
+        await onDelete(id);
+      });
+
+      actions.appendChild(editBtn);
+      actions.appendChild(delBtn);
+
+      div.appendChild(left);
+      div.appendChild(actions);
+
+      listEl.appendChild(div);
+    });
+
+  } catch (e) {
+    console.error("Erro ao carregar contas:", e);
+    listEl.innerHTML = `<p class="empty-text">Erro ao carregar contas.</p>`;
   }
-
-  listEl.classList.remove("empty");
-  const accounts = snap.val();
-
-  Object.entries(accounts).forEach(([id, acc]) => {
-    const div = document.createElement("div");
-    div.className = "account";
-
-    const left = document.createElement("div");
-
-    const title = document.createElement("div");
-    title.className = "acc-title";
-    // Apenas nome do banco
-    title.textContent = acc.bank;
-
-    const ibanText = document.createElement("div");
-    ibanText.className = "acc-iban";
-    // IBAN completo sem máscara
-    ibanText.textContent = acc.iban || "";
-
-    left.appendChild(title);
-    left.appendChild(ibanText);
-
-    // Apenas exibição
-    div.appendChild(left);
-    listEl.appendChild(div);
-  });
 }
 
 function maskIban(iban) {
@@ -178,7 +240,7 @@ async function onSave() {
 
     // limpa formulário
     clearForm();
-    await renderAccounts();
+    await renderAccounts(); // atualiza lista modal
     alert("Conta salva com sucesso.");
   } catch (e) {
     console.error("Erro salvando conta:", e);
@@ -193,6 +255,7 @@ function clearForm() {
   if (bankNameEl) bankNameEl.textContent = "Selecionar banco";
   if (holderEl) holderEl.value = "";
   if (ibanEl) ibanEl.value = "";
+  editingId = null;
 }
 
 async function onDelete(id) {
@@ -214,4 +277,4 @@ function onEdit(id, acc) {
   if (holderEl) holderEl.value = acc.holder;
   if (ibanEl) ibanEl.value = (acc.iban || "").replace(/\D+/g, "").slice(0, IBAN_MAX);
   window.scrollTo({ top: 0, behavior: "smooth" });
-}
+      }
