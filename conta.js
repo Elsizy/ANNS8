@@ -171,15 +171,15 @@ async function renderAccounts() {
         accountsModal?.classList.add("hidden");
       });
 
-      const delBtn = document.createElement("button");
-      delBtn.type = "button";
-      delBtn.textContent = "Remover";
-      delBtn.addEventListener("click", async () => {
-        await onDelete(id);
-      });
+      //const delBtn = document.createElement("button");
+      //delBtn.type = "button";
+      //delBtn.textContent = "Remover";
+      //delBtn.addEventListener("click", async () => {
+       // await onDelete(id);
+     // });
 
       actions.appendChild(editBtn);
-      actions.appendChild(delBtn);
+      //actions.appendChild(delBtn);
 
       div.appendChild(left);
       div.appendChild(actions);
