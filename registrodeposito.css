@@ -106,3 +106,168 @@ body {
   50% { opacity: 1; }
   100% { opacity: .7; }
 }
+/* fim */
+/* ------------------ ITENS DO REGISTRO (REPOSICIONAMENTO + BADGE COM ÍCONE) ------------------ */
+
+/* cartão/linha do registro */
+.withdraw-list .item{
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.03);
+  overflow: visible;
+  /* espaço à esquerda reservado para o bloco do badge */
+  padding-left: 100px;
+  min-height: 78px; /* garante espaço suficiente */
+}
+
+/* badge (bloco à esquerda) - transforma o texto existente em label abaixo do ícone.
+   Não precisa mudar o JS; usamos pseudo-elementos para o ícone. */
+.withdraw-list .badge{
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 68px;
+  height: 68px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;   /* ícone em cima, texto em baixo */
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 6px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+  color: #fff;
+  text-align: center;
+  line-height: 1;
+  font-weight: 700;
+  font-size: 12px; /* rótulo pequeno embaixo do ícone */
+  overflow: hidden;
+}
+
+/* icon pseudo-element (central acima do texto) */
+.withdraw-list .badge::before{
+  content: "";                 /* substituído por cada status abaixo */
+  display: block;
+  font-size: 20px;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:2px;
+}
+
+/* estilos por estado (usa o texto do JS, ex: 'done', 'pending', 'rejected', 'processing') */
+.withdraw-list .badge.done{
+  background: linear-gradient(180deg,#3bd08a,#14b46f);
+  color: #fff;
+}
+.withdraw-list .badge.done::before{ content: "✓"; font-size:18px; }
+
+/* pendente - relógio/clock */
+.withdraw-list .badge.pending{
+  background: linear-gradient(180deg,#ffd08a,#ffb74d);
+  color:#111;
+}
+.withdraw-list .badge.pending::before{ content: "⏱"; font-size:16px; }
+
+/* processing — usar ícone similar ao pendente */
+.withdraw-list .badge.processing{
+  background: linear-gradient(180deg,#ffd08a,#ffb74d);
+  color:#111;
+}
+.withdraw-list .badge.processing::before{ content: "⟳"; font-size:16px; }
+
+/* rejeitado */
+.withdraw-list .badge.rejected{
+  background: linear-gradient(180deg,#ff8b8b,#e74c3c);
+  color:#fff;
+}
+.withdraw-list .badge.rejected::before{ content: "✕"; font-size:16px; }
+
+/* caso o texto do status seja muito longo, forçamos quebra e tamanho reduzido */
+.withdraw-list .badge{
+  word-break: break-word;
+  white-space: normal;
+  padding-top: 8px; /* espaço extra para ícone */
+}
+
+/* ------------------ Conteúdo do cartão (direita do badge) ------------------ */
+
+/* cabeçalho dentro do cartão - o 'bank' (código) fica centralizado no topo */
+.item .item-header{
+  display: block;
+  text-align: center;
+  margin-bottom: 6px;
+  padding-right: 8px; /* ajuste pra não colidir com data */
+}
+.item .item-header .bank{
+  display:block;
+  font-size: 12px;
+  color: rgba(255,255,255,0.36);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* area de valores */
+.item .values{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  align-items:flex-start;
+  padding-right: 84px; /* espaço para a coluna de data na direita */
+}
+
+/* cada linha */
+.item .values .row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:100%;
+  color: rgba(255,255,255,0.76);
+  font-size: 13px;
+}
+
+/* destaque do valor bruto (primeira linha => valor em destaque) */
+.item .values .row:first-child span:last-child{
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* total / recebeu */
+.item .values .row.total{
+  font-weight:700;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* datas (coluna direita) */
+.item .dates{
+  position:absolute;
+  right: 14px;
+  top: 18px;
+  text-align:right;
+  font-size: 12px;
+  color: rgba(255,255,255,0.42);
+  line-height:1.15;
+}
+
+/* mobile tweaks */
+@media (max-width:420px){
+  .withdraw-list .item{ padding-left:92px; min-height:72px; }
+  .withdraw-list .badge{ left:12px; width:58px; height:58px; border-radius:12px; font-size:11px; }
+  .withdraw-list .badge::before{ width:24px; height:24px; margin-bottom:2px; }
+  .item .values .row:first-child span:last-child{ font-size:15px; }
+  .item .item-header .bank{ font-size:11px; letter-spacing:.6px; }
+  .item .dates{ font-size:11px; top:14px; }
+  }
