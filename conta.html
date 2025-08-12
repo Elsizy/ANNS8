@@ -8,89 +8,116 @@
   <!-- Fonte do projeto -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- CSS novo e alinhado ao estilo do projeto -->
+  <!-- Novo CSS (premium) -->
   <link rel="stylesheet" href="conta.css" />
 </head>
 <body>
-  <div class="page-root">
-    <!-- Top thin bar / header -->
-    <header class="topbar">
-      <a class="back-btn" href="pessoal.html" aria-label="Voltar">←</a>
-      <div class="topbar-title">
-        <h1 class="title">Contas bancárias</h1>
-        <p class="subtitle">Gerencie seus métodos de saque</p>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="back-btn" href="pessoal.html" aria-label="Voltar"> 
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Voltar
+      </a>
+
+      <div class="title-block">
+        <h1 class="title">Contas Bancárias</h1>
+        <p class="subtitle">Gerencie os métodos de saque com segurança e rapidez</p>
       </div>
-      <div class="top-right">
-        <!-- espaço para ícone futuro -->
+
+      <div class="right-actions">
         <div class="logo-circle" aria-hidden="true">AES</div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <main class="dashboard">
-      <!-- FORM CARD -->
-      <section class="card form-card" aria-labelledby="form-title">
-        <div class="card-head">
-          <h2 id="form-title">Adicionar conta</h2>
-          <p class="muted">Adicionar conta para saques e transferências</p>
+  <main class="container">
+    <!-- Top card / instruções -->
+    <section class="panel hero-panel">
+      <div class="hero-left">
+        <h2>Adicionar conta para levantamentos</h2>
+        <p class="muted">Insira a conta bancária que pretende usar para levantamentos. O IBAN deve conter exactamente 21 dígitos (apenas números).</p>
+      </div>
+      <div class="hero-right">
+        <svg width="80" height="80" viewBox="0 0 80 80" aria-hidden="true">
+          <g fill="none" fill-rule="evenodd">
+            <rect x="0" y="0" width="80" height="80" rx="14" fill="#0b0b18"/>
+            <path d="M20 46c0-8 8-14 16-14s16 6 16 14" stroke="#9ecfff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M36 32v-8" stroke="#c254ff" stroke-width="2" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Form card -->
+    <section class="card form-card" aria-labelledby="form-title">
+      <div class="card-head">
+        <div>
+          <h3 id="form-title">Adicionar / Editar conta</h3>
+          <p class="muted small">Dados para transferências e levantamentos</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <label class="label" for="open-bank-picker">Banco</label>
+        <!-- botão que o JS espera com id="open-bank-picker" e elemento com id="bank-name" -->
+        <button id="open-bank-picker" class="picker-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span id="bank-name">Selecionar banco</span>
+          <span class="chev">▾</span>
+        </button>
+
+        <label class="label" for="holder">Nome do titular</label>
+        <input id="holder" type="text" placeholder="Ex.: João António" autocomplete="name" />
+
+        <label class="label" for="iban">IBAN (21 dígitos)</label>
+        <input id="iban" type="text" inputmode="numeric" placeholder="Somente números" autocomplete="off" />
+
+        <div class="hint-row">
+          <small class="hint">Apenas números serão aceites. Exatamente 21 dígitos.</small>
         </div>
 
-        <div class="form-grid">
-          <label class="form-label">Banco</label>
-          <button id="open-bank-picker" class="picker-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
-            <span id="bank-name">Selecionar banco</span>
-            <span class="chev">▾</span>
-          </button>
-
-          <label class="form-label" for="holder">Nome do titular</label>
-          <input type="text" id="holder" placeholder="Ex.: João António" autocomplete="name" />
-
-          <label class="form-label" for="iban">IBAN (21 dígitos)</label>
-          <input
-            type="text"
-            id="iban"
-            placeholder="Somente números"
-            inputmode="numeric"
-            autocomplete="off"
-          />
-          <div class="hint-row">
-            <small class="hint">Apenas números serão aceites. Exatamente 21 dígitos.</small>
-          </div>
-
-          <div class="actions-row">
-            <button id="save-account" class="btn-primary">Salvar conta</button>
-          </div>
+        <div class="actions-row">
+          <!-- botão que o JS espera com id="save-account" -->
+          <button id="save-account" class="btn-primary" type="button">Salvar conta</button>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- LIST CARD -->
-      <section class="card list-card" aria-labelledby="list-title">
-        <div class="card-head">
-          <h2 id="list-title">Suas contas</h2>
+    <!-- Listagem de contas -->
+    <section class="card list-card" aria-labelledby="list-title">
+      <div class="card-head">
+        <div>
+          <h3 id="list-title">Suas contas</h3>
           <p class="muted small">Contas salvas para retirada</p>
         </div>
+      </div>
 
-        <div id="accounts-list" class="accounts-list empty" aria-live="polite">
-          <p class="empty-text">Nenhuma conta cadastrada.</p>
-        </div>
-      </section>
-    </main>
-  </div>
+      <!-- container que o JS usa: id="accounts-list" -->
+      <div id="accounts-list" class="accounts-list empty" aria-live="polite">
+        <p class="empty-text">Nenhuma conta cadastrada.</p>
+      </div>
+    </section>
+  </main>
 
-  <!-- Modal de escolha de banco (preservado para o JS) -->
+  <!-- Modal de escolha de banco (id's preservados) -->
   <div id="bank-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="bank-modal-title">
     <div class="modal-panel" role="document">
-      <h3 id="bank-modal-title">Escolha o banco</h3>
+      <div class="modal-head">
+        <h4 id="bank-modal-title">Escolha o banco</h4>
+        <button id="close-bank-modal" class="modal-close" aria-label="Fechar">✕</button>
+      </div>
+
       <ul id="bank-list" class="bank-list" role="listbox" aria-label="Lista de bancos">
         <!-- preenchido pelo JS -->
       </ul>
+
       <div class="modal-actions">
-        <button id="close-bank-modal" class="btn-secondary">Cancelar</button>
+        <button id="close-bank-modal-dup" class="btn-secondary">Cancelar</button>
       </div>
     </div>
   </div>
 
-  <!-- Firebase + JS (sem alterações) -->
+  <!-- Mantém os scripts (sem alterações na lógica) -->
   <script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./conta.js"></script>
 </body>
-</html>
+  </html>
