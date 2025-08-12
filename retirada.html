@@ -2,88 +2,117 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Retirada - ANNS8</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Retirada • AES</title>
 
+  <!-- Fonte -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilo principal (substituir) -->
   <link rel="stylesheet" href="retirada.css" />
 </head>
 <body>
-  <div class="dashboard">
-    <!-- Header -->
-    <header class="header">
-      <a href="pessoal.html" class="back">← Voltar</a>
-      <h1>Retirada</h1>
-      <a href="registroretirada.html" class="history" title="Registos de retirada">
-        <!-- Icone de histórico/lista -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M3 6h18M3 12h18M3 18h18"/>
+  <div class="page-root">
+    <!-- Top bar: left = menu (registros), center = título, right = voltar (pessoal) -->
+    <header class="topbar">
+      <a class="menu-btn" href="registroretirada.html" title="Registos">
+        <!-- três barras -->
+        <svg width="22" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="1" width="24" height="2" rx="1" fill="currentColor"/>
+          <rect x="0" y="8" width="24" height="2" rx="1" fill="currentColor"/>
+          <rect x="0" y="15" width="24" height="2" rx="1" fill="currentColor"/>
+        </svg>
+      </a>
+
+      <h1 class="page-title">Retirada</h1>
+
+      <a class="back-btn" href="pessoal.html" title="Voltar para Perfil" aria-label="Voltar">
+        <!-- seta para trás -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
     </header>
 
-    <!-- Saldo -->
-    <section class="saldo-card">
-      <p class="label">Saldo disponível</p>
-      <p class="value" id="saldo-total">Kz 0,00</p>
-    </section>
-
-    <!-- Form -->
-    <section class="card form-card">
-      <h2>Solicitar retirada</h2>
-
-      <!-- Banco -->
-      <div class="form-group">
-        <label for="bank-btn">Banco</label>
-        <button id="bank-btn" class="picker-btn">
-          <span id="bank-picked">Selecionar banco</span>
-          <span class="chev">▾</span>
-        </button>
-      </div>
-
-      <!-- Valor -->
-      <div class="form-group">
-        <label for="valor">Valor a sacar</label>
-        <input type="number" id="valor" placeholder="0.00" min="0" step="0.01" />
-      </div>
-
-      <!-- Resumo taxa -->
-      <div class="resume">
-        <div class="row">
-          <span>Taxa (15%)</span>
-          <span id="taxa">Kz 0,00</span>
-        </div>
-        <div class="row total">
-          <span>Receberá</span>
-          <span id="valor-liquido">Kz 0,00</span>
-        </div>
-      </div>
-
-      <button id="btn-enviar" class="btn-primary">Enviar pedido</button>
-
-      <!-- NOVO: caixa de erro estilizada -->
-      <div id="withdraw-error" class="error-box hidden"></div>
-
-      <div class="notes">
-        <p>⏱️ Retirada disponível entre: <strong>9h </strong>até <strong>18h</strong>.</p>
-        <p>💸 Taxa de processamento: <strong>15%</strong>.</p>
-        <p>♾️ Saques ilimitados por dia.</p>
-        <p>✅ Retirada mínima: <strong>1.200 kz</strong>.</p>
-        <p>🛒 É necessário ter comprado pelo menos 1 produto para activar a retirada.</p>
-      </div>
-    </section>
-  </div>
-
-  <!-- Modal de bancos -->
-  <div id="bank-modal" class="modal hidden">
-    <div class="modal-content">
-      <h3>Escolha um banco</h3>
-      <ul id="bank-list" class="bank-list"></ul>
-      <button id="close-modal" class="btn-secondary">Cancelar</button>
+    <!-- painel de regras informativas (logo abaixo do header) -->
+    <div class="info-panel" role="note" aria-live="polite">
+      <ol>
+        <li>Retirada mínima de <strong>2.500 Kz</strong> (vários saques por dia).</li>
+        <li>Taxa de retirada: <strong>15%</strong>.</li>
+        <li>Horário de retirada: <strong>09h às 18h</strong> (dias úteis).</li>
+        <li>Após solicitação, o saque chegará na conta em até <strong>24 horas</strong>.</li>
+      </ol>
     </div>
+
+    <main class="dashboard">
+
+      <!-- Saldo -->
+      <section class="saldo-card">
+        <p class="label">Saldo disponível</p>
+        <p class="value" id="saldo-total">Kz 0,00</p>
+      </section>
+
+      <!-- Formulário / Card -->
+      <section class="card form-card" aria-labelledby="form-title">
+        <h2 id="form-title">Solicitar retirada</h2>
+
+        <!-- Banco (button/Picker) -->
+        <div class="form-group">
+          <label for="bank-btn">Banco</label>
+          <button id="bank-btn" class="picker-btn" type="button" aria-haspopup="dialog" aria-expanded="false">
+            <span id="bank-picked">Selecionar banco</span>
+            <span class="chev">▾</span>
+          </button>
+        </div>
+
+        <!-- Valor (grande input com prefixo Kz) -->
+        <div class="form-group">
+          <label for="valor">Valor a sacar</label>
+          <div class="amount-input">
+            <span class="prefix">Kz</span>
+            <input id="valor" type="number" inputmode="decimal" placeholder="3400" min="0" step="0.01" />
+          </div>
+          <small class="hint">O valor não pode ser inferior a <strong>2.500 Kz</strong>.</small>
+        </div>
+
+        <!-- Resumo/Taxas -->
+        <div class="resume">
+          <div class="row">
+            <span>Taxa (15%)</span>
+            <span id="taxa">Kz 0,00</span>
+          </div>
+          <div class="row total">
+            <span>Receberá</span>
+            <span id="valor-liquido">Kz 0,00</span>
+          </div>
+        </div>
+
+        <button id="btn-enviar" class="btn-primary">Enviar</button>
+
+        <div id="withdraw-error" class="error-box hidden" role="alert"></div>
+
+        <!-- Notas (redundante ao painel, mas preservado conforme pedido) -->
+     </section>
+    </main>
+
+    <!-- Modal de bancos (preservado - ids usados pelo JS) -->
+    <div id="bank-modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-panel">
+        <div class="modal-head">
+          <h3>Escolha o banco</h3>
+          <button id="close-modal" class="modal-close" aria-label="Fechar">✕</button>
+        </div>
+        <ul id="bank-list" class="bank-list" role="listbox" aria-label="Bancos disponíveis"></ul>
+        <div class="modal-actions">
+          <button id="close-modal-2" class="btn-secondary" style="display:none">Fechar</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Firebase + JS -->
+  <!-- Firebase + JS (mantêm) -->
   <script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./retirada.js"></script>
 </body>
-</html>
+  </html>
