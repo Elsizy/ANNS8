@@ -88,18 +88,18 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #
 .item .item-header{ display:block; text-align:center; margin-bottom:10px; padding-right:6px; }
 .item .item-header .bank{
   display:block;
-  font-size:13px;
+  font-size:10px;
   color: rgba(255,255,255,0.38);
   letter-spacing:1px;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 
 /* values: amount emphasized */
-.item .values{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; padding-right:8px; }
-.item .values .row{ display:flex; justify-content:space-between; align-items:center; width:100%; color:var(--muted); font-size:13px }
+.item .values{ display:flex; flex-direction:column; gap:4px; align-items:flex-start; padding-right:8px; }
+.item .values .row{ display:flex; justify-content:space-between; align-items:center; width:100%; color:var(--muted); font-size:10px }
 .item .values .row.total{ font-weight:700; color:var(--text); }
 .item .values .row:first-child span:last-child{
-  font-size:18px; font-weight:700; color:var(--text); /* destaque do valor bruto */
+  font-size:15px; font-weight:700; color:var(--text); /* destaque do valor bruto */
 }
 
 /* dates on the right, smaller */
@@ -108,9 +108,9 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #
   right: 14px;
   top: 20px;
   text-align:right;
-  font-size:12px;
+  font-size:9px;
   color: rgba(255,255,255,0.42);
-  line-height:1.15;
+  line-height:1.1;
 }
 
 /* ensure layout on narrow screens */
@@ -121,4 +121,4 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #
 }
 
 /* end note */
-.end-note{ text-align:center; color:rgba(255,255,255,0.36); margin-top:8px; font-size:13px }
+.end-note{ text-align:center; color:rgba(255,255,255,0.36); margin-top:6px; font-size:10px }
