@@ -245,3 +245,16 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #
   #list .badge .badge-label { font-size:10px; }
   #list .item .dates { font-size:10px; top:12px; }
   }
+/* Esconde completamente qualquer marca d'água do nome do banco */
+.withdraw-list .bank,
+#list .bank {
+  display: none !important; /* ou visibility: hidden; se quiser manter espaço */
+}
+
+/* E garante que nenhum pseudo-elemento aparece */
+.withdraw-list .bank::before,
+.withdraw-list .bank::after,
+#list .bank::before,
+#list .bank::after {
+  content: none !important;
+}
