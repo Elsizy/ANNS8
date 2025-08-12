@@ -162,24 +162,24 @@ async function renderAccounts() {
       const actions = document.createElement("div");
       actions.className = "acc-actions";
 
-      const editBtn = document.createElement("button");
-      editBtn.type = "button";
-      editBtn.textContent = "Editar";
-      editBtn.addEventListener("click", () => {
-        onEdit(id, acc);
+      //const editBtn = document.createElement("button");
+     // editBtn.type = "button";
+     // editBtn.textContent = "Editar";
+     // editBtn.addEventListener("click", () => {
+      // onEdit(id, acc);
         // fecha modal para mostrar o formulário (ux)
         accountsModal?.classList.add("hidden");
       });
 
-      const delBtn = document.createElement("button");
-      delBtn.type = "button";
-      delBtn.textContent = "Remover";
-      delBtn.addEventListener("click", async () => {
-        await onDelete(id);
+     // const delBtn = document.createElement("button");
+     // delBtn.type = "button";
+     // delBtn.textContent = "Remover";
+    //  delBtn.addEventListener("click", async () => {
+      //  await onDelete(id);
       });
 
-      actions.appendChild(editBtn);
-      actions.appendChild(delBtn);
+     // actions.appendChild(editBtn);
+     // actions.appendChild(delBtn);
 
       div.appendChild(left);
       div.appendChild(actions);
