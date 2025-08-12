@@ -1,122 +1,124 @@
-:root {
-  --bg-top: #1c2e4a;
-  --bg-bottom: #f9fafc;
-  --purple: #472b91;
-  --white: #fff;
-  --text-dark: #222;
-  --muted: #777;
-  --accent: linear-gradient(to right, #5f67ff, #8759e3);
+:root{
+  --bg:#071733;
+  --panel:#0b1f33;
+  --card-grad-top: rgba(255,255,255,0.03);
+  --card-grad-bottom: rgba(255,255,255,0.01);
+  --muted: rgba(255,255,255,0.72);
+  --text: #ffffff;
   --ok: #14b46f;
   --warn: #ff9800;
-  --pend: #888;
+  --pend: #ff9f43; /* tom de pendente (laranja) */
   --rej: #e74c3c;
+  --card-radius: 12px;
+  --container-width: 420px;
+  --card-padding: 14px;
+  --glass: rgba(255,255,255,0.02);
 }
 
-* { box-sizing: border-box; }
+/* base */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #05132a 75%);font-family:'Poppins',system-ui,Arial,sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+.page-root{min-height:100vh;padding-bottom:60px}
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
-  background: linear-gradient(
-    to bottom,
-    var(--bg-top) 0%,
-    #324d6c 40%,
-    #edf1f7 85%,
-    var(--bg-bottom) 100%
-  );
-  color: #fff;
+/* Topbar: seta esquerda, título central */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:18px 14px 6px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  position:sticky;
+  top:0;
+  z-index:10;
 }
+.back{color:var(--text); text-decoration:none; display:inline-flex; align-items:center; width:32px; height:32px}
+.page-title{margin:0;font-size:18px;font-weight:600;text-align:center;flex:1}
+.right-placeholder{width:32px;height:32px;display:inline-block}
 
-.dashboard {
-  padding: 20px 16px 40px;
-  max-width: 950px;
-  margin: 0 auto;
-}
+/* container */
+.container{max-width:var(--container-width);margin:12px auto;padding:0 14px}
 
-/* Header */
-.header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-.header h1 {
-  margin: 0;
-  font-size: 20px;
-  flex: 1;
-  text-align: center;
-}
-.header .back {
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
-}
-.header .spacer {
-  width: 22px;
-}
+/* lista wrapper */
+.list-wrap{margin-top:12px}
 
-/* Card branco */
-.card {
-  background: var(--white);
-  color: var(--text-dark);
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 18px;
+/* empty */
+.empty{opacity:0.6;text-align:center;padding:26px 0;margin:0;color:var(--muted)}
+
+/* card item */
+.withdraw-list .item{
+  position:relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  margin-bottom: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.03);
+  overflow:visible;
+  padding-left:84px; /* espaço para o badge círculo à esquerda */
 }
 
-/* Lista */
-.withdraw-list .empty {
-  opacity: 0.7;
-  margin: 0;
+/* status circle (badge repositioned visually) */
+.withdraw-list .badge{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:56px;
+  height:56px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  font-size:11px;
+  font-weight:700;
+  text-align:center;
+  color:#fff;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
 }
 
-.item {
-  border: 1px solid #eee;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 10px;
+/* color per status (use classes emitted by JS) */
+.withdraw-list .badge.pending{ background: linear-gradient(180deg, #ffb66b, #ff9f43); color:#fff; }
+.withdraw-list .badge.processing{ background: linear-gradient(180deg, #ffd08a, #ffb74d); color:#111; }
+.withdraw-list .badge.done{ background: linear-gradient(180deg, #3bd08a, #14b46f); color:#fff; }
+.withdraw-list .badge.rejected{ background: linear-gradient(180deg, #ff8b8b, #e74c3c); color:#fff; }
+
+/* header inside card: bank code centered */
+.item .item-header{ display:block; text-align:center; margin-bottom:10px; padding-right:6px; }
+.item .item-header .bank{
+  display:block;
+  font-size:13px;
+  color: rgba(255,255,255,0.38);
+  letter-spacing:1px;
+  margin-bottom:8px;
 }
 
-.item-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-.item-header .bank {
-  font-weight: bold;
-  color: #8759e3;
-}
-.badge {
-  display: inline-block;
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 20px;
-  color: #fff;
-}
-.badge.pending { background: var(--pend); }
-.badge.processing { background: var(--warn); }
-.badge.done { background: var(--ok); }
-.badge.rejected { background: var(--rej); }
-
-.values {
-  font-size: 14px;
-  margin-bottom: 6px;
-}
-.values .row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2px;
-}
-.values .row.total {
-  font-weight: bold;
+/* values: amount emphasized */
+.item .values{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; padding-right:8px; }
+.item .values .row{ display:flex; justify-content:space-between; align-items:center; width:100%; color:var(--muted); font-size:13px }
+.item .values .row.total{ font-weight:700; color:var(--text); }
+.item .values .row:first-child span:last-child{
+  font-size:18px; font-weight:700; color:var(--text); /* destaque do valor bruto */
 }
 
-.dates {
-  font-size: 12px;
-  color: #555;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-                }
+/* dates on the right, smaller */
+.item .dates{
+  position: absolute;
+  right: 14px;
+  top: 20px;
+  text-align:right;
+  font-size:12px;
+  color: rgba(255,255,255,0.42);
+  line-height:1.15;
+}
+
+/* ensure layout on narrow screens */
+@media (max-width:420px){
+  .withdraw-list .item{ padding-left:78px; padding-right:12px; }
+  .withdraw-list .badge{ width:52px; height:52px; left:12px; }
+  .item .values .row:first-child span:last-child{ font-size:16px; }
+}
+
+/* end note */
+.end-note{ text-align:center; color:rgba(255,255,255,0.36); margin-top:8px; font-size:13px }
