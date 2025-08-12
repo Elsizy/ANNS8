@@ -138,8 +138,8 @@ html,body{height:100%;margin:0;background: linear-gradient(180deg,var(--bg-page)
 }
 
 /* cores conforme imagem (OBS: inverti as classes para reproduzir a imagem que mostra POSITIVO em vermelho e NEGATIVO em verde) */
-.mov-amount.in{ color: var(--in-red); }   /* normalmente 'in' = entrada, mas imagem mostra rendimentos em vermelho */
-.mov-amount.out{ color: var(--out-green); }
+.mov-amount.in{ color: var(--in-green); }   /* normalmente 'in' = entrada, mas imagem mostra rendimentos em vermelho */
+.mov-amount.out{ color: var(--out-red); }
 
 /* pequenas diferenças visuais quando o card class tem dir */
 .mov-card.in .mov-icon{ background: rgba(255,77,77,0.14); }
