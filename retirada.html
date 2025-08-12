@@ -47,14 +47,23 @@
     <main class="dashboard">
 
       <!-- Saldo -->
-      <section class="saldo-card">
+      <!--<section class="saldo-card">
         <p class="label">Saldo disponível</p>
         <p class="value" id="saldo-total">Kz 0,00</p>
-      </section>
+      </section> -->
 
       <!-- Formulário / Card -->
       <section class="card form-card" aria-labelledby="form-title">
         <h2 id="form-title">Solicitar retirada</h2>
+        <!-- Valor (grande input com prefixo Kz) -->
+        <div class="form-group">
+          <label for="valor">Valor a sacar</label>
+          <div class="amount-input">
+            <span class="prefix">Kz</span>
+            <input id="valor" type="number" inputmode="decimal" placeholder="3400" min="0" step="0.01" />
+          </div>
+          <small class="hint">O valor não pode ser inferior a <strong>2.500 Kz</strong>.</small>
+        </div>
 
         <!-- Banco (button/Picker) -->
         <div class="form-group">
@@ -65,15 +74,7 @@
           </button>
         </div>
 
-        <!-- Valor (grande input com prefixo Kz) -->
-        <div class="form-group">
-          <label for="valor">Valor a sacar</label>
-          <div class="amount-input">
-            <span class="prefix">Kz</span>
-            <input id="valor" type="number" inputmode="decimal" placeholder="3400" min="0" step="0.01" />
-          </div>
-          <small class="hint">O valor não pode ser inferior a <strong>2.500 Kz</strong>.</small>
-        </div>
+        
 
         <!-- Resumo/Taxas -->
         <div class="resume">
