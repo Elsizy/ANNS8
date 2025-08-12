@@ -197,17 +197,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* Função para preencher os textos na UI - mantida fiel ao original */
 function paint({ email, phone, shortId, saldo, retiradaTotal }) {
-  const main = phone || email || "(sem email)";
-  setText("user-main", main);
+  // valor raw (prioriza telefone se existir)
+  const raw = phone || email || "(sem email)";
+
+  // se for email, mantém apenas a parte antes do @
+  let display = String(raw || "");
+  if (display.includes("@")) {
+    display = display.split("@")[0];
+  }
+
+  // limitação visual: se for muito longo, corta com reticências
+  const MAX_LEN = 20;
+  if (display.length > MAX_LEN) {
+    display = display.slice(0, MAX_LEN - 1) + "…";
+  }
+
+  setText("user-main", display);
   setText("user-shortid", shortId || "—");
   setText("saldo", formatKz(saldo || 0));
   setText("retirada-total", formatKz(retiradaTotal || 0));
 
-  // Avatar (inicial)
+  // Avatar (inicial) — pega primeiro caractere alfanumérico do display
   const avatar = document.getElementById("avatar-letter");
   if (avatar) {
-    const avatarSource = (email && email.trim()) || (phone && phone.trim()) || "A";
-    avatar.textContent = avatarSource.charAt(0).toUpperCase();
+    const m = display.match(/[A-Za-z0-9]/);
+    avatar.textContent = (m ? m[0] : "A").toUpperCase();
   }
 }
 
