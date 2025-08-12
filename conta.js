@@ -178,8 +178,8 @@ async function renderAccounts() {
       //  await onDelete(id);
       });
 
-     // actions.appendChild(editBtn);
-     // actions.appendChild(delBtn);
+      actions.appendChild(editBtn);
+      actions.appendChild(delBtn);
 
       div.appendChild(left);
       div.appendChild(actions);
