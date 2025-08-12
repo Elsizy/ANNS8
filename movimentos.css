@@ -142,8 +142,8 @@ html,body{height:100%;margin:0;background: linear-gradient(180deg,var(--bg-page)
 .mov-amount.out{ color: var(--out-green); }
 
 /* pequenas diferenças visuais quando o card class tem dir */
-.mov-card.in .mov-icon{ background: rgba(255,77,77,0.14); }
-.mov-card.out .mov-icon{ background: rgba(46,204,113,0.08); }
+.mov-card.in .mov-icon{ background: rgba(46,204,113,0.08); }
+.mov-card.out .mov-icon{ background: rgba(255,77,77,0.14); }
 
 /* último rodapé centralizado "Não mais" */
 .list-end{
