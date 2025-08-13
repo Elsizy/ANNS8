@@ -184,40 +184,45 @@
     </nav>
   </main>
   <!-- Modal de Recarga (Depósito) -->
-  <!-- Modal de Recarga (fiel ao print) -->
-  <div id="deposit-modal" class="dep-overlay" hidden>
-    <div class="dep-card" role="dialog" aria-modal="true" aria-labelledby="dep-title">
-      <button type="button" id="dep-close" class="dep-x" aria-label="Fechar">✕</button>
+<!-- Modal de Recarga (Depósito) -->
+  <div id="deposit-modal" class="modal-overlay" hidden>
+    <div class="modal dep-modal" role="dialog" aria-modal="true" aria-labelledby="dep-title">
+      <button type="button" class="dep-close" id="dep-close" aria-label="Fechar">✕</button>
 
-      <h2 id="dep-title" class="dep-h2">Recarga</h2>
+      <h2 id="dep-title" class="dep-title">Recarga</h2>
 
       <div class="dep-balance">
-        <div class="dep-balance-label">Saldo da conta</div>
-        <div class="dep-balance-value">
-          <span class="dep-balance-currency">KZ</span>
+        <div class="lbl">Saldo da conta</div>
+        <div class="val">
+          <span class="currency">KZ</span>
           <span id="dep-saldo">0</span>
         </div>
       </div>
 
-    <!-- Montante na mesma linha (label à esquerda, input à direita) -->
-      <div class="dep-row">
-        <span class="dep-row-label">Montante(KZ)</span>
-        <input type="number" id="deposit-amount" inputmode="numeric" min="1" step="1"
-             placeholder="100000" class="dep-row-input" />
+      <div class="dep-field">
+        <label for="deposit-amount">Montante(KZ)</label>
+        <input type="number" id="deposit-amount" inputmode="numeric" min="1" step="1" placeholder="Ex.: 5000" />
       </div>
 
-      <div class="dep-sep"></div>
+      <hr class="dep-sep" />
 
-      <!-- Canal único com “bolinha” laranja -->
-      <label class="dep-channel">
-        <input type="radio" name="deposit-channel" value="sf-pay-in" checked />
-        <span class="dep-radio" aria-hidden="true"></span>
-        <span>Canal 1</span>
-      </label>
+      <div class="dep-channel" role="group" aria-label="Selecionar canal">
+        <label class="channel-option">
+          <input type="radio" name="deposit-channel" value="sf-pay-in" checked />
+          <span class="mark" aria-hidden="true">
+          <!-- check redondo estilo profissional -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M8 12l3 3 5-6"></path>
+            </svg>
+          </span>
+          <span class="ch-text">Canal 1</span>
+        </label>
+      </div>
 
-      <p id="deposit-error" class="dep-err" hidden>—</p>
+      <p id="deposit-error" class="dep-error" hidden>—</p>
 
-      <button type="button" id="continue" class="dep-cta">Confirmar</button>
+      <button type="button" id="continue" class="dep-confirm">Confirmar</button>
     </div>
   </div>
   <!-- Modal alterar senha (mantido, IDs preservados) -->
