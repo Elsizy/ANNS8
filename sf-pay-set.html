@@ -71,13 +71,20 @@
       padding: 10px;
     }
       /* barra de ações fixa no fim da página */
-  .actions-row {
-    margin-top: auto;               /* empurra para baixo */
-    display: flex;
-    justify-content: space-between; /* lados opostos */
-    gap: 12px;
-    padding-top: 14px;
-  }
+    .actions-row {
+      margin-top: auto;               /* empurra para baixo */
+      display: flex;
+      justify-content: space-between; /* lados opostos */
+      gap: 12px;
+      padding-top: 14px;
+    }
+    .card{
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;      /* ocupa o espaço livre para empurrar o rodapé */
+      padding: 14px;       /* mantenha se já tiver */
+      box-sizing: border-box;
+    }
 
   /* botões iguais, tamanho “comum”, mesma cor e quadrados */
   .btn-primary,
