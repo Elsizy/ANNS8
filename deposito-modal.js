@@ -91,5 +91,5 @@ confirmEl?.addEventListener("click", ()=>{
   };
   sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
 
-  window.location.href = "sf-pay-in.html";
+  window.location.href = "sf-pay.html";
 });
