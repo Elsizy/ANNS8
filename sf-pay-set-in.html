@@ -137,6 +137,29 @@ input[type="text"]{
   padding: 0 16px;
   font-weight: 700;
 }
+    /* Ações no rodapé — mesma linha, mesmo tamanho, espaçadas */
+.actions-row{
+  margin-top: auto;        /* empurra os botões pro fim do card/página */
+  display: flex;
+  gap: 12px;               /* espaço entre os dois botões */
+}
+
+.actions-row .btn-secondary-link,
+.actions-row .btn-primary{
+  flex: 1 1 0;             /* tamanhos iguais (50% cada, considerando o gap) */
+  height: 44px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  border-radius: 0;
+  font-weight: 700;
+  letter-spacing: .2px;
+  padding: 0 16px;
+  box-shadow: 0 2px 10px rgba(46,120,255,.2);
+}
+
+/* garante que nada empurre o Enviar pra baixo */
+#send{ margin-top: 0 !important; }
   </style>
 </head>
 <body>
