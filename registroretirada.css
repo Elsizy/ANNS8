@@ -1,273 +1,119 @@
 :root{
   --bg:#071733;
-  --panel:#0b1f33;
-  --card-grad-top: rgba(255,255,255,0.03);
-  --card-grad-bottom: rgba(255,255,255,0.01);
-  --muted: rgba(255,255,255,0.72);
-  --text: #ffffff;
-  --ok: #14b46f;
-  --warn: #ff9800;
-  --pend: #ff9f43; /* tom de pendente (laranja) */
-  --rej: #e74c3c;
-  --card-radius: 12px;
-  --container-width: 420px;
-  --card-padding: 14px;
-  --glass: rgba(255,255,255,0.02);
+  --bg-2:#05132a;
+  --card:#0b1f33;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.60);
+  --soft:rgba(255,255,255,0.12);
+  --ok:#14b46f;
+  --warn:#ffb74d;
+  --rej:#e74c3c;
+  --radius:14px;
+  --maxw:460px;
 }
 
-/* base */
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #05132a 75%);font-family:'Poppins',system-ui,Arial,sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
-.page-root{min-height:100vh;padding-bottom:60px}
-
-/* Topbar: seta esquerda, título central */
-.topbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:18px 14px 6px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-  position:sticky;
-  top:0;
-  z-index:10;
+html,body{height:100%;margin:0}
+body{
+  background: linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 75%);
+  color:var(--text);
+  font-family:'Poppins',system-ui,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
 }
-.back{color:var(--text); text-decoration:none; display:inline-flex; align-items:center; width:32px; height:32px}
-.page-title{margin:0;font-size:18px;font-weight:600;text-align:center;flex:1}
-.right-placeholder{width:32px;height:32px;display:inline-block}
+.page-root{min-height:100vh;padding-bottom:64px}
 
-/* container */
-.container{max-width:var(--container-width);margin:12px auto;padding:0 14px}
+/* Topbar */
+.topbar{
+  position:sticky; top:0; z-index:10;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:16px 14px 8px;
+  background:linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.2) 120%);
+}
+.back{color:var(--text); text-decoration:none; display:inline-flex; width:36px; height:36px; align-items:center; justify-content:center}
+.page-title{margin:0; font-size:18px; font-weight:700; text-align:center; flex:1}
+.right-placeholder{width:36px;height:36px;display:inline-block}
 
-/* lista wrapper */
-.list-wrap{margin-top:12px}
+/* Container */
+.container{max-width:var(--maxw); margin:10px auto; padding:0 14px}
+.list-wrap{margin-top:8px}
+.empty{opacity:.7; text-align:center; padding:28px 0; margin:0; color:var(--muted)}
 
-/* empty */
-.empty{opacity:0.6;text-align:center;padding:26px 0;margin:0;color:var(--muted)}
-
-/* card item */
+/* === CARD estilo “segunda imagem” === */
 .withdraw-list .item{
   position:relative;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
-  border-radius: var(--card-radius);
-  padding: var(--card-padding);
-  margin-bottom: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-  border: 1px solid rgba(255,255,255,0.03);
-  overflow:visible;
-  padding-left:84px; /* espaço para o badge círculo à esquerda */
-}
-
-/* status circle (badge repositioned visually) */
-.withdraw-list .badge{
-  position:absolute;
-  left:14px;
-  top:50%;
-  transform:translateY(-50%);
-  width:56px;
-  height:56px;
-  border-radius:12px;
-  display:flex;
+  display:grid;
+  grid-template-columns: 86px 1fr;
+  gap:14px;
   align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  font-size:11px;
-  font-weight:700;
-  text-align:center;
-  color:#fff;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
-}
-
-/* color per status (use classes emitted by JS) */
-.withdraw-list .badge.pending{ background: linear-gradient(180deg, #ffb66b, #ff9f43); color:#fff; }
-.withdraw-list .badge.processing{ background: linear-gradient(180deg, #ffd08a, #ffb74d); color:#111; }
-.withdraw-list .badge.done{ background: linear-gradient(180deg, #3bd08a, #14b46f); color:#fff; }
-.withdraw-list .badge.rejected{ background: linear-gradient(180deg, #ff8b8b, #e74c3c); color:#fff; }
-
-/* header inside card: bank code centered */
-.item .item-header{ display:block; text-align:center; margin-bottom:10px; padding-right:6px; }
-.item .item-header .bank{
-  display:block;
-  font-size:10px;
-  color: rgba(255,255,255,0.38);
-  letter-spacing:1px;
-  margin-bottom:6px;
-}
-
-/* values: amount emphasized */
-.item .values{ display:flex; flex-direction:column; gap:4px; align-items:flex-start; padding-right:8px; }
-.item .values .row{ display:flex; justify-content:space-between; align-items:center; width:100%; color:var(--muted); font-size:10px }
-.item .values .row.total{ font-weight:700; color:var(--text); }
-.item .values .row:first-child span:last-child{
-  font-size:15px; font-weight:700; color:var(--text); /* destaque do valor bruto */
-}
-
-/* dates on the right, smaller */
-.item .dates{
-  position: absolute;
-  right: 14px;
-  top: 20px;
-  text-align:right;
-  font-size:9px;
-  color: rgba(255,255,255,0.42);
-  line-height:1.1;
-}
-
-/* ensure layout on narrow screens */
-@media (max-width:420px){
-  .withdraw-list .item{ padding-left:78px; padding-right:12px; }
-  .withdraw-list .badge{ width:52px; height:52px; left:12px; }
-  .item .values .row:first-child span:last-child{ font-size:16px; }
-}
-
-/* end note */
-.end-note{ text-align:center; color:rgba(255,255,255,0.36); margin-top:6px; font-size:10px }
-/* ===== BLOCO LIMPO PARA BADGES e ITENS (cole no FINAL do registroretirada.css) ===== */
-
-#list .item,
-.withdraw-list .item {
-  position: relative;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
-  border-radius: 12px;
-  padding: 14px 16px;
-  margin-bottom: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius);
+  padding:16px 16px;
+  margin-bottom:14px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-  border: 1px solid rgba(255,255,255,0.03);
-  padding-left: 100px; /* espaço reservado para badge */
-  min-height: 72px;
-  color: #fff;
 }
 
-/* Badge (elemento real) */
-#list .badge,
-.withdraw-list .badge {
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 64px;
-  height: 64px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px 6px;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
-  text-align: center;
-  font-weight: 700;
-  font-size: 11px;
+/* Coluna esquerda: ícone + legenda */
+.status-col{
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+}
+.status-dot{
+  width:38px; height:38px; border-radius:999px;
+  display:inline-block; background:#999; position:relative;
+}
+.status-dot::after{
+  content:""; position:absolute; inset:0;
+  background-repeat:no-repeat; background-position:center; background-size:22px 22px;
 }
 
-/* ícone real dentro da badge */
-#list .badge .badge-icon,
-.withdraw-list .badge .badge-icon {
-  width: 28px;
-  height: 28px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 28px 28px;
-  display: block;
-  margin-bottom: 2px;
+/* Concluído / Pendente / Rejeitado */
+.status-done{ background:var(--ok); }
+.status-done::after{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M20 6L9 17l-5-5' stroke='%23ffffff' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+.status-pending{ background:var(--warn); }
+.status-pending::after{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='9' stroke='%230b0b0b' stroke-width='1.8' fill='none'/><path d='M12 7v6l4 2' stroke='%230b0b0b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>");
+}
+.status-rejected{ background:var(--rej); }
+.status-rejected::after{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M18 6L6 18M6 6l12 12' stroke='%23ffffff' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
-/* texto (embaixo do ícone) */
-#list .badge .badge-label,
-.withdraw-list .badge .badge-label {
-  font-size: 11px;
-  line-height: 1;
-  margin-top: 2px;
-  text-transform: none;
-  opacity: 0.98;
+.status-text{
+  font-size:12px; font-weight:700; line-height:1;
 }
+.status-done + .status-text{ color:var(--ok) }
+.status-pending + .status-text{ color:#ffb74d }
+.status-rejected + .status-text{ color:var(--rej) }
 
-/* DONE (check) */
-#list .badge.done,
-.withdraw-list .badge.done {
-  background: linear-gradient(180deg,#3bd08a,#14b46f);
-  color:#fff;
+/* Conteúdo à direita (igual à segunda imagem) */
+.item-body{ position:relative; min-height:56px }
+.amount{
+  font-size:20px; font-weight:700; letter-spacing:.2px;
+  margin-top:2px;
 }
-#list .badge.done .badge-icon,
-.withdraw-list .badge.done .badge-icon {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M20 6L9 17l-5-5' stroke='%23ffffff' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+.amount .prefix{ opacity:.9; margin-right:6px; font-weight:600 }
+.meta-top{
+  display:flex; align-items:flex-start; justify-content:space-between;
+  gap:12px; margin-bottom:6px;
 }
+.ref{
+  font-size:12px; color:rgba(255,255,255,.55);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:65%;
+}
+.dates{
+  text-align:right; font-size:12px; line-height:1.15; color:rgba(255,255,255,.50);
+}
+.dates .line + .line{ margin-top:3px }
 
-/* PENDING (clock) */
-#list .badge.pending,
-.withdraw-list .badge.pending {
-  background: linear-gradient(180deg,#ffd08a,#ffb74d);
-  color:#111;
-}
-#list .badge.pending .badge-icon,
-.withdraw-list .badge.pending .badge-icon {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='9' stroke='%230b0b0b' stroke-width='1.6' fill='none'/><path d='M12 7v6l4 2' stroke='%230b0b0b' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>");
-}
+/* Rodapé “Não mais” */
+.end-note{ text-align:center; color:rgba(255,255,255,0.36); margin-top:6px; font-size:11px }
 
-/* PROCESSING (loop/arrow) */
-#list .badge.processing,
-.withdraw-list .badge.processing {
-  background: linear-gradient(180deg,#ffd08a,#ffb74d);
-  color:#111;
-}
-#list .badge.processing .badge-icon,
-.withdraw-list .badge.processing .badge-icon {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M21 12a9 9 0 1 1-3-6.7' stroke='%230b0b0b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/><path d='M21 3v6h-6' stroke='%230b0b0b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>");
-}
-
-/* REJECTED (x) */
-#list .badge.rejected,
-.withdraw-list .badge.rejected {
-  background: linear-gradient(180deg,#ff8b8b,#e74c3c);
-  color:#fff;
-}
-#list .badge.rejected .badge-icon,
-.withdraw-list .badge.rejected .badge-icon {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M18 6L6 18M6 6l12 12' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>");
-}
-
-/* Conteúdo do cartão (direita do badge) */
-#list .item .item-header { text-align:center; margin-bottom:6px; }
-#list .item .bank { display:block; font-size:12px; color: rgba(255,255,255,0.36); margin-bottom:6px; }
-
-/* linhas de valores */
-#list .item .values .row { display:flex; justify-content:space-between; font-size:13px; color: rgba(255,255,255,0.85); gap:8px; }
-#list .item .values .row .amount { font-weight:700; color:#fff; }
-
-/* datas (menor, canto direito) */
-#list .item .dates { position:absolute; right:14px; top:14px; font-size:11px; color: rgba(255,255,255,0.46); line-height:1.15; }
-
-/* mobile */
+/* Responsivo */
 @media (max-width:420px){
-  #list .item { padding-left: 86px; min-height: 64px; }
-  #list .badge { left: 12px; width: 56px; height: 56px; border-radius: 10px; }
-  #list .badge .badge-icon { width: 22px; height: 22px; background-size:22px 22px; }
-  #list .badge .badge-label { font-size:10px; }
-  #list .item .dates { font-size:10px; top:12px; }
+  .withdraw-list .item{ grid-template-columns:76px 1fr; padding:14px 14px }
+  .status-dot{ width:34px; height:34px }
+  .amount{ font-size:18px }
+  .ref{ max-width:58% }
   }
-/* Esconde completamente qualquer marca d'água do nome do banco */
-.withdraw-list .bank,
-#list .bank {
-  display: none !important; /* ou visibility: hidden; se quiser manter espaço */
-}
-
-/* E garante que nenhum pseudo-elemento aparece */
-.withdraw-list .bank::before,
-.withdraw-list .bank::after,
-#list .bank::before,
-#list .bank::after {
-  content: none !important;
-}
-.withdraw-list .card {
-  position: relative;
-  }
-.withdraw-list .bank {
-  position: absolute;
-  top: 8px;       /* fica no topo do card */
-  right: 12px;    /* alinhado à direita */
-  font-size: 12px; 
-  font-weight: 500;
-  color: #ccc;    /* cor discreta */
-  opacity: 0.9;   /* mais legível que a marca d'água */
-  z-index: 2;     /* acima dos outros textos */
-}
