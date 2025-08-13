@@ -496,3 +496,142 @@ body::after {
   box-shadow: 0 10px 26px rgba(0,0,0,0.45);
 }
 .dep-confirm:active{ transform: translateY(1px); }
+/* outro final */
+/* ====== Recarga (modal fiel ao print) ====== */
+.modal-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60000;
+  padding: 12px; /* garante centralização sem colar nas bordas */
+}
+
+/* corpo do cartão do modal: tamanho e aparência iguais ao print */
+.modal.dep-modal{
+  width: 92%;
+  max-width: 520px;
+  background: #121320; /* tom escuro liso como no print */
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 22px;     /* cantos bem arredondados */
+  box-shadow: 0 22px 50px rgba(0,0,0,.7);
+  padding: 18px 18px 20px 18px;
+  position: relative;
+}
+
+/* botão fechar (quadrado arredondado, à ESQUERDA) */
+.dep-close{
+  position: absolute;
+  left: 14px; top: 14px;
+  width: 32px; height: 32px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color: #fff; font-size: 18px;
+  cursor: pointer;
+}
+
+/* título rosa, alinhado à esquerda */
+.dep-title{
+  margin: 6px 0 16px 0;
+  padding-left: 52px; /* espaço por causa do botão fechar */
+  font-size: 20px;
+  font-weight: 800;
+  color: #ff5aa8; /* igual à paleta da página */
+}
+
+/* bloco do saldo (texto grande como no print) */
+.dep-balance{
+  margin: 2px 0 14px 0;
+}
+.dep-balance .lbl{
+  font-size: 16px;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 6px;
+}
+.dep-balance .val{
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.dep-balance .currency{ margin-right: 6px; }
+
+/* label + input com borda grossa branca, igual ao print */
+.dep-field{ margin: 8px 0 12px 0; }
+.dep-label{
+  display: block;
+  font-size: 16px;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 8px;
+}
+.dep-input{
+  width: 100%;
+  height: 44px;
+  border-radius: 10px;
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.88);
+  color: #fff;
+  padding: 8px 12px;
+  font-size: 16px;
+  outline: none;
+}
+.dep-input::placeholder{ color: rgba(255,255,255,0.55); }
+
+/* linha divisória */
+.dep-sep{
+  border: none; height: 1px; margin: 14px 0 10px 0;
+  background: rgba(255,255,255,0.14);
+}
+
+/* canal — um único radio azul, sem ícones duplicados */
+.dep-channel{ margin-bottom: 18px; }
+.channel-option{
+  display: inline-flex; align-items: center; gap: 10px;
+  padding-left: 2px;
+}
+.channel-option input{ 
+  appearance: none;
+  position: absolute;
+  opacity: 0;
+}
+.channel-option .radio{
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.75);
+  display: inline-block; position: relative;
+}
+.channel-option input:checked + .radio{
+  border-color: #2b8cff;
+}
+.channel-option input:checked + .radio::after{
+  content: "";
+  position: absolute; inset: 4px;
+  border-radius: 50%;
+  background: #2b8cff;  /* ponto azul igual ao print */
+}
+.channel-option .ch-text{ font-size: 16px; }
+
+/* erro (aparece só quando necessário) */
+.dep-error{
+  margin: 0 0 10px 0;
+  color: #ff6b6b; font-size: 14px; 
+}
+.dep-error[hidden]{ display: none !important; }
+
+/* botão Confirmar — tamanho compacto, centralizado e azul vivo */
+.dep-confirm{
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 800;
+  font-size: 16px;
+  color: #fff;
+  background: #2b8cff;                 /* sólido como no print */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  cursor: pointer;
+  margin: 4px auto 2px auto;           /* centraliza */
+}
+.dep-confirm:active{ transform: translateY(1px); }
