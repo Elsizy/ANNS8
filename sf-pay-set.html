@@ -36,6 +36,48 @@
       border-radius: 8px;
       padding: 10px;
     }
+      /* barra de ações fixa no fim da página */
+  .actions-row {
+    margin-top: auto;               /* empurra para baixo */
+    display: flex;
+    justify-content: space-between; /* lados opostos */
+    gap: 12px;
+    padding-top: 14px;
+  }
+
+  /* botões iguais, tamanho “comum”, mesma cor e quadrados */
+  .btn-primary,
+  .btn-secondary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #fff;
+    height: 40px;                   /* tamanho comum */
+    width: 46%;                     /* iguais, lados opostos */
+    border-radius: 10;               /* quadrados */
+    font-weight: 700;
+    letter-spacing: .2px;
+    box-shadow: 0 2px 10px rgba(46,120,255,.20);
+    transition: filter .12s ease, transform .04s ease;
+    margin: 0;                /* remove margens padrão */
+    padding: 0;               /* garante que padding seja controlado por height */
+    line-height: normal;      /* impede que o texto cause desalinhamento */
+    box-sizing: border-box;   /* tamanho exato */
+  }
+  .btn-primary:hover,
+  .btn-secondary-link:hover { filter: brightness(1.05); }
+  .btn-primary:active,
+  .btn-secondary-link:active { transform: translateY(1px); }
+
+  /* estado desabilitado do “Avançar” até escolher um banco (JS já faz) */
+  .btn-primary:disabled {
+    opacity: .45;
+    pointer-events: none;
+    box-shadow: none;
+    }
   </style>
 </head>
 <body>
