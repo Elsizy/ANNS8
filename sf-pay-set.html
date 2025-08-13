@@ -18,14 +18,7 @@
       font: 500 15px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
-/* Layout que empurra os botões para o final da página sem mexer no HTML */
-    .page {
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      padding: 16px;
-      box-sizing: border-box;
-   }
+
     .header {
       display: grid;
       grid-template-columns: 32px 1fr 32px; /* mantém o span de 32px que já existe */
@@ -40,52 +33,6 @@
       font-weight: 700;
     }
 
-/* Card quadrado, ocupa o espaço para empurrar as ações ao rodapé */
-    .card {
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 0;              /* bordas 0 */
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;                       /* cresce para permitir ações no fim */
-   }
-    .card h2 {
-      margin: 0 0 12px;
-      text-align: center;
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-/* Grupos e linha de copiar – tudo quadrado */
-    .form-group { margin-bottom: 12px; }
-    .form-group label {
-      display: block;
-      font-weight: 600;
-      margin: 0 0 6px;
-    }
-   .copy-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0 0 10px;
-   }
-    .copy-row .value {
-      flex: 1;
-      background: #fff;              /* sem faixa cinza */
-      border: 1px solid #e5e7eb;
-      border-radius: 0;              /* bordas 0 */
-      padding: 8px 10px;
-      word-break: break-all;
-    }
-   .copy-btn {
-      background: #f8fafc;
-      border: 1px solid #e5e7eb;
-      border-radius: 0;              /* bordas 0 */
-      padding: 8px 10px;
-      cursor: pointer;
-    }
-
      /* Nota antes dos botões – “formato de notas” */
    .warning {
       margin-top: 8px;
@@ -98,14 +45,6 @@
       padding: 10px 12px;
     }
 
-/* Ações no FINAL da página, mesma linha, mesma cor e mesmo tamanho da sf-pay */
-    .actions-row {
-      margin-top: auto;              /* fica no fim do card/página */
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-     padding-top: 14px;
-   }
 
 /* Botões iguais (link e button), quadrados, mesma cor/tamanho */
     .btn-primary,
@@ -129,11 +68,6 @@
       line-height: normal;           /* idem */
       box-sizing: border-box;
     }
-    .btn-primary:hover,
-    .btn-secondary-link:hover { filter: brightness(1.05); }
-    .btn-primary:active,
-    .btn-secondary-link:active { transform: translateY(1px); }
-    .btn-primary:disabled { opacity: .45; pointer-events: none; box-shadow: none; }
   </style>
 </head>
 <body>
