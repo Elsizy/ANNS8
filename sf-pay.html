@@ -19,7 +19,11 @@
       <ul class="method-list" id="bank-list"></ul>
     </section>
 
-    
+    <div class="actions-row">
+      <a href="deposito.html" class="btn-secondary-link">Voltar</a>
+      <button id="go-next" class="btn-primary" disabled>Avançar</button>
+    </div>
+  </div>
 
   <script type="module">
     import { auth, db } from "./firebase-config.js";
@@ -87,7 +91,7 @@
       keys.forEach((id) => {
         const b = adminBanks[id];
         const li = document.createElement("li");
-        li.textContent = `${b.name || "-"};
+        li.textContent = `${b.name || "-"} `;
         li.addEventListener("click", () => {
           selectedBankId = id;
           Array.from(bankListEl.children).forEach((el) => el.classList.remove("active"));
@@ -107,7 +111,7 @@
         draft.bankData = {
           id: selectedBankId,
           name: bankData?.name || "",
-        //  iban: bankData?.iban || "xxxx",
+          iban: bankData?.iban || "xxxx",
           holder: bankData?.holder || "xxxx"
         };
 
@@ -118,13 +122,13 @@
       });
     }
 
-  function maskIban(iban) {
+    function maskIban(iban) {
       const digits = (iban || "").replace(/\D+/g, "");
       if (digits.length <= 7) return digits;
       const visible = digits.slice(0, 7);
       const hiddenCount = Math.max(0, digits.length - 7);
       return `${visible}${"•".repeat(hiddenCount)}`;
-    } 
+    }
   </script>
 </body>
 </html>
