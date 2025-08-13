@@ -491,3 +491,79 @@ body::after {
   outline-offset: 2px;
                  }   
 */
+/* ===== Overrides do modal de Recarga (prioridade máxima) ===== */
+#deposit-modal .modal.dep-modal { --accent: #ff5fa7; } /* cor única p/ título e botão */
+
+#deposit-modal .modal.dep-modal .dep-title{
+  color: var(--accent) !important;
+  text-align: center !important;
+  font-weight: 700 !important;
+  margin: 8px 0 14px !important;
+  letter-spacing: .2px !important;
+}
+
+/* Centralização do bloco de saldo */
+#deposit-modal .modal.dep-modal .dep-balance{
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  justify-items: center !important;
+  gap: 6px !important;
+  margin: 4px 0 16px !important;
+}
+#deposit-modal .modal.dep-modal .dep-balance .lbl{
+  text-align: center !important;
+  font-size: .95rem !important;
+  opacity: .9 !important;
+}
+#deposit-modal .modal.dep-modal .dep-balance .val{
+  display: inline-flex !important;
+  align-items: baseline !important;
+  gap: 6px !important;
+  text-align: center !important;
+  font-weight: 600 !important;
+  line-height: 1.1 !important;
+}
+
+/* Montante(KZ) à ESQ e input à DIR na MESMA LINHA */
+#deposit-modal .modal.dep-modal .dep-field{
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin: 6px 0 10px !important;
+}
+#deposit-modal .modal.dep-modal .dep-label{
+  margin: 0 !important;
+  white-space: nowrap !important;   /* evita quebra do label */
+  font-weight: 600 !important;
+  letter-spacing: .2px !important;
+  flex: 0 0 auto !important;
+}
+#deposit-modal .modal.dep-modal .dep-input{
+  flex: 1 1 auto !important;
+  width: auto !important;
+  height: 40px !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  box-sizing: border-box !important;
+}
+
+#deposit-modal .modal.dep-modal .dep-sep{ margin: 10px 0 14px !important; }
+
+/* Botão Confirmar com a MESMA cor do título */
+#deposit-modal .modal.dep-modal .dep-confirm{
+  background: var(--accent) !important;
+  border: none !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  height: 44px !important;
+  border-radius: 10px !important;
+  width: 100% !important;
+  box-shadow: 0 6px 18px rgba(255, 95, 167, .22) !important;
+  transition: transform .04s ease, filter .12s ease !important;
+}
+#deposit-modal .modal.dep-modal .dep-confirm:hover{ filter: brightness(1.05) !important; }
+#deposit-modal .modal.dep-modal .dep-confirm:active{ transform: translateY(1px) !important; }
+#deposit-modal .modal.dep-modal .dep-confirm:focus-visible{
+  outline: 2px solid color-mix(in srgb, var(--accent), white 35%) !important;
+  outline-offset: 2px !important;
+   }
