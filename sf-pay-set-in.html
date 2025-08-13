@@ -160,6 +160,40 @@ input[type="text"]{
 
 /* garante que nada empurre o Enviar pra baixo */
 #send{ margin-top: 0 !important; }
+    /* Aviso normal (não ocupa o espaço livre) */
+.card .warning{
+  margin-top: 12px !important;
+}
+
+/* Botões vão para o rodapé do .card */
+.card{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card .actions-row{
+  margin-top: auto;           /* empurra a barra para o fundo */
+  display: flex;
+  gap: 12px;
+}
+
+.card .actions-row .btn-secondary-link,
+.card .actions-row .btn-primary{
+  flex: 1 1 0;                /* tamanhos iguais */
+  height: 44px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  border-radius: 0;
+  font-weight: 700;
+  letter-spacing: .2px;
+  padding: 0 16px;
+  box-shadow: 0 2px 10px rgba(46,120,255,.2);
+}
+
+/* segurança: não deixe nada empurrar o Enviar para baixo */
+#send{ margin-top: 0 !important; }
   </style>
 </head>
 <body>
