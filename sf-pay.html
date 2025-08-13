@@ -107,7 +107,7 @@
         draft.bankData = {
           id: selectedBankId,
           name: bankData?.name || "",
-          iban: bankData?.iban || "xxxx",
+        //  iban: bankData?.iban || "xxxx",
           holder: bankData?.holder || "xxxx"
         };
 
@@ -118,13 +118,13 @@
       });
     }
 
-  //function maskIban(iban) {
-      //const digits = (iban || "").replace(/\D+/g, "");
-     // if (digits.length <= 7) return digits;
-    //  const visible = digits.slice(0, 7);
-   //   const hiddenCount = Math.max(0, digits.length - 7);
-   //   return `${visible}${"•".repeat(hiddenCount)}`;
-   // } 
+  function maskIban(iban) {
+      const digits = (iban || "").replace(/\D+/g, "");
+      if (digits.length <= 7) return digits;
+      const visible = digits.slice(0, 7);
+      const hiddenCount = Math.max(0, digits.length - 7);
+      return `${visible}${"•".repeat(hiddenCount)}`;
+    } 
   </script>
 </body>
 </html>
