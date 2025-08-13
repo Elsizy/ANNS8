@@ -145,7 +145,19 @@ input[type="text"]{
 
 /* (opcional) deixa a nota “colar” ao rodapé, mas sem sobrepor os botões */
 .warning{ margin-top: auto; }
-    
+    .actions-row {
+  display: flex;
+  justify-content: space-between; /* um para a esquerda, outro para a direita */
+  margin-top: 12px;
+}
+
+.actions-row .btn-secondary-link,
+.actions-row .btn-primary {
+  height: 44px;
+  border-radius: 0;
+  padding: 0 16px;
+  font-weight: 700;
+}
   </style>
 </head>
 <body>
