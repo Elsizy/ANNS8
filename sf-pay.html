@@ -5,6 +5,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sf-Pay • Escolher Banco</title>
   <link rel="stylesheet" href="deposito.css" />
+ 
+<style>
+  /* ===== sf-pay (look próprio, simples e branco) ===== */
+  :root { --accent: #2E78FF; } /* cor única para Voltar/Avançar (muda aqui se quiser) */
+
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: #fff !important;     /* fundo branco */
+    color: #0f172a;                   /* cinza-azulado legível */
+    font: 500 15px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  /* layout empurra as ações para o rodapé */
+  .page {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  /* cabeçalho: título centrado, tudo quadrado */
+  .header {
+    display: grid;
+    grid-template-columns: 32px 1fr 32px; /* mantém o span “32px” que você já tem */
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    grid-column: 2;
+    text-align: center;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  /* cartão branco com bordas quadradas */
+  .card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0;               /* quadrado */
+    padding: 14px;
+  }
+  /* “Banco” centralizado, como pediu */
+  .card h2 {
+    margin: 0 0 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  /* lista de bancos: opções centradas, quadradas */
+  .method-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .method-list li {
+    border: 1px solid #e5e7eb;
+    border-radius: 0;               /* quadrado */
+    padding: 12px 14px;
+    text-align: center;             /* nome do banco centralizado */
+    cursor: pointer;
+    user-select: none;
+    background: #fff;
+    transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .method-list li:hover { background: #f8fafc; }
+  .method-list li.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent), white 65%) inset;
+  }
+
+  /* barra de ações fixa no fim da página */
+  .actions-row {
+    margin-top: auto;               /* empurra para baixo */
+    display: flex;
+    justify-content: space-between; /* lados opostos */
+    gap: 12px;
+    padding-top: 14px;
+  }
+
+  /* botões iguais, tamanho “comum”, mesma cor e quadrados */
+  .btn-primary,
+  .btn-secondary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #fff;
+    height: 40px;                   /* tamanho comum */
+    width: 46%;                     /* iguais, lados opostos */
+    border-radius: 0;               /* quadrados */
+    font-weight: 700;
+    letter-spacing: .2px;
+    box-shadow: 0 2px 10px rgba(46,120,255,.20);
+    transition: filter .12s ease, transform .04s ease;
+  }
+  .btn-primary:hover,
+  .btn-secondary-link:hover { filter: brightness(1.05); }
+  .btn-primary:active,
+  .btn-secondary-link:active { transform: translateY(1px); }
+
+  /* estado desabilitado do “Avançar” até escolher um banco (JS já faz) */
+  .btn-primary:disabled {
+    opacity: .45;
+    pointer-events: none;
+    box-shadow: none;
+  }
+</style>
 </head>
 <body>
   <div class="page">
