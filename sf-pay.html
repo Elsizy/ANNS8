@@ -107,6 +107,10 @@
     letter-spacing: .2px;
     box-shadow: 0 2px 10px rgba(46,120,255,.20);
     transition: filter .12s ease, transform .04s ease;
+    margin: 0;                /* remove margens padrão */
+    padding: 0;               /* garante que padding seja controlado por height */
+    line-height: normal;      /* impede que o texto cause desalinhamento */
+    box-sizing: border-box;   /* tamanho exato */
   }
   .btn-primary:hover,
   .btn-secondary-link:hover { filter: brightness(1.05); }
@@ -119,14 +123,7 @@
     pointer-events: none;
     box-shadow: none;
   }
-  .btn-secondary-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 46%;
-  text-decoration: none;
-  }
+
 </style>
 </head>
 <body>
