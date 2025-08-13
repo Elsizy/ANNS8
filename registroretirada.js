@@ -61,13 +61,12 @@ function renderItem(w) {
   const metaTop = document.createElement("div");
   metaTop.className = "meta-top";
 
-  // referência/ID se existir (não aparece na 1ª imagem, mas existe na 2ª — deixo discreto e opcional)
+  // Mostra apenas o nome do banco; nunca o UID
   const refSpan = document.createElement("span");
   refSpan.className = "ref";
-  const reference =
-    w.reference || w.ref || w.txId || w.tx || w.id || "";
-  if (reference) refSpan.textContent = reference;
-
+  const bankName = (w.bankName || w.bank || "").toString().trim();
+  if (bankName) refSpan.textContent = bankName;
+  
   const dates = document.createElement("div");
   dates.className = "dates";
   const d1 = document.createElement("div");
