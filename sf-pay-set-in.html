@@ -100,14 +100,7 @@ input[type="text"]{
 }
 
 /* Barra esquerda (Voltar) fixa no rodapé */
-.actions-row{
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  width: calc(50% - 6px); /* metade - metade do gap (gap final ≈ 12px) */
-  margin: 0; padding: 0;
-  display: flex;
-}
+
 
 /* “Voltar” ocupa toda a metade esquerda, mesmo tamanho do “Enviar” */
 .actions-row .btn-secondary-link{
@@ -126,21 +119,7 @@ input[type="text"]{
 }
 
 /* “Enviar” fixa no rodapé, lado direito, mesmo tamanho do Voltar */
-#send{
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-  width: calc(50% - 6px);
-  height: 40px;
-  margin: 0;              /* remove empurrão */
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: #fff;
-  border-radius: 0;       /* quadrado */
-  font-weight: 700;
-  letter-spacing: .2px;
-  box-shadow: 0 2px 10px rgba(46,120,255,.2);
-}
+
 #send:disabled{opacity:.45;pointer-events:none;box-shadow:none}
 
 /* (opcional) deixa a nota “colar” ao rodapé, mas sem sobrepor os botões */
@@ -189,7 +168,7 @@ input[type="text"]{
       <div class="actions-row">
         <a href="sf-pay-set.html" class="btn-secondary-link">Voltar</a>
       
-      <button id="send" class="btn-primary" style="margin-top: 14px;">Enviar</button>
+      <button id="send" class="btn-primary">Enviar</button>
       </div>
     </section>
   </div>
