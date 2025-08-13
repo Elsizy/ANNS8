@@ -88,6 +88,106 @@
   outline: 2px solid color-mix(in srgb, var(--accent), white 35%) !important;
   outline-offset: 2px !important;
     }
+  /* ===== Overrides precisos do modal de Recarga ===== */
+#deposit-modal .modal.dep-modal { 
+  position: relative; 
+  --accent: #ff5fa7; /* se quiser azul da 2ª imagem: #2E78FF */
+  --btn-w: 200px;    /* largura do botão como na 2ª imagem (~200px) */
+}
+
+/* Fechar (X) no canto DIREITO */
+#deposit-modal .dep-close{
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  left: auto !important;
+  width: 36px !important; height: 36px !important;
+  border-radius: 10px !important;
+  background: rgba(255,255,255,0.08) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  display: grid !important; place-items: center !important;
+}
+
+/* Título central */
+#deposit-modal .dep-title{
+  color: var(--accent) !important;
+  text-align: center !important;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  margin: 18px 0 8px !important;
+}
+
+/* "Saldo da conta" central + valor central */
+#deposit-modal .dep-balance{
+  display: grid !important;
+  justify-items: center !important;
+  gap: 6px !important;
+  margin: 0 0 10px !important;
+}
+#deposit-modal .dep-balance .lbl{
+  font-size: 14px !important;
+  opacity: .9 !important;
+  text-align: center !important;
+}
+#deposit-modal .dep-balance .val{
+  display: inline-flex !important;
+  gap: 6px !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  text-align: center !important;
+}
+
+/* Linha Montante(KZ) | valor na mesma linha, sem "faixa branca" */
+#deposit-modal .dep-field{
+  display: grid !important;
+  grid-template-columns: max-content 1fr !important;
+  align-items: center !important;
+  column-gap: 14px !important;
+  margin: 14px 0 6px !important;
+}
+#deposit-modal .dep-label{
+  margin: 0 !important;
+  white-space: nowrap !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  letter-spacing: .2px !important;
+}
+
+/* Input estilizado como texto (sem fundo branco) */
+#deposit-modal .dep-input{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  height: auto !important;
+  padding: 0 !important;
+  color: #e9e9ee !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+  width: 130px !important;   /* largura enxuta como na 2ª imagem */
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  text-align: left !important;
+}
+
+/* Separador e canal com respiro igual */
+#deposit-modal .dep-sep{ margin: 12px 0 10px !important; }
+#deposit-modal .dep-channel{ margin-bottom: 12px !important; }
+
+/* Botão Confirmar: mesma LARGURA da 2ª imagem, centralizado */
+#deposit-modal .dep-confirm{
+  background: var(--accent) !important; /* mude para #2E78FF para ficar azul como a 2ª img */
+  color: #fff !important;
+  border: 0 !important;
+  height: 44px !important;
+  width: var(--btn-w) !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  display: block !important;
+  margin: 12px auto 0 !important;  /* centraliza */
+  box-shadow: 0 6px 18px rgba(0,0,0,.18) !important;
+                                                    }
   </style>
 </head>
 <body class="has-bottom-nav">
