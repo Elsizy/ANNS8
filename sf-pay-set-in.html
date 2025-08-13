@@ -55,7 +55,7 @@ label[for="proof-file"]:hover{
 .form-group:first-of-type .hint{display:none}
 
 /* ===== Espaçamento de 3 cm até o nome do depositante ===== */
-.form-group + .form-group{margin-top:0,5cm}
+.form-group + .form-group{margin-top:0.5cm}
 
 /* campo do nome: visual limpo, quadrado */
 input[type="text"]{
@@ -86,6 +86,65 @@ input[type="text"]{
   box-shadow:0 2px 10px rgba(46,120,255,.2);
 }
 #send:disabled{opacity:.45;pointer-events:none;box-shadow:none}
+    /* O card vira “container” dos botões fixos e reserva espaço pra eles */
+.card{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  gap:12px;
+  padding:14px;
+  box-sizing:border-box;
+  background:#fff;
+  position: relative;
+  padding-bottom: 72px; /* espaço pros botões (40px alt + respiro) */
+}
+
+/* Barra esquerda (Voltar) fixa no rodapé */
+.actions-row{
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  width: calc(50% - 6px); /* metade - metade do gap (gap final ≈ 12px) */
+  margin: 0; padding: 0;
+  display: flex;
+}
+
+/* “Voltar” ocupa toda a metade esquerda, mesmo tamanho do “Enviar” */
+.actions-row .btn-secondary-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  border:1px solid var(--accent);
+  background:var(--accent);
+  color:#fff;
+  height:40px;            /* igual aos outros screens */
+  width:100%;
+  border-radius:0;        /* quadrado */
+  font-weight:700;
+  letter-spacing:.2px;
+}
+
+/* “Enviar” fixa no rodapé, lado direito, mesmo tamanho do Voltar */
+#send{
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: calc(50% - 6px);
+  height: 40px;
+  margin: 0;              /* remove empurrão */
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  border-radius: 0;       /* quadrado */
+  font-weight: 700;
+  letter-spacing: .2px;
+  box-shadow: 0 2px 10px rgba(46,120,255,.2);
+}
+#send:disabled{opacity:.45;pointer-events:none;box-shadow:none}
+
+/* (opcional) deixa a nota “colar” ao rodapé, mas sem sobrepor os botões */
+.warning{ margin-top: auto; }
   </style>
 </head>
 <body>
