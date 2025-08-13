@@ -407,4 +407,86 @@ body::after {
 }
 /* end *//* outro final */
 /* ===== Modal Recarga — Fiel ao print ===== */
-   
+/* ===== Modal de Recarga – ajustes finos ===== */
+
+/* Cor de destaque única para título e botão (ajuste se desejar) */
+:root { --aes-accent: #ff5fa7; } /* tom rosa do print */
+
+/* Título centralizado e com a cor de destaque */
+.dep-modal .dep-title{
+  color: var(--aes-accent);
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  margin: 6px 0 14px;
+}
+
+/* Bloco do saldo centralizado */
+.dep-modal .dep-balance{
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 6px;
+  margin: 4px 0 16px;
+}
+.dep-modal .dep-balance .lbl{
+  text-align: center;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+.dep-modal .dep-balance .val{
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.dep-modal .dep-balance .val .currency{
+  letter-spacing: .3px;
+  opacity: .9;
+}
+
+/* “Montante (KZ)” à esquerda e input à direita, mesma linha */
+.dep-modal .dep-field{
+  display: grid;
+  grid-template-columns: max-content 1fr; /* label se ajusta, input ocupa o resto */
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 10px;
+}
+.dep-modal .dep-label{
+  margin: 0;
+  white-space: nowrap;     /* impede quebra do texto do label */
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+.dep-modal .dep-input{
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+/* Linha separadora mantém respiro consistente */
+.dep-modal .dep-sep{ margin: 10px 0 14px; }
+
+/* Botão Confirmar com a MESMA cor do título */
+.dep-modal .dep-confirm{
+  background: var(--aes-accent);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  height: 44px;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0 6px 18px rgba(255, 95, 167, .22);
+  transition: transform .04s ease, filter .12s ease;
+}
+.dep-modal .dep-confirm:hover{ filter: brightness(1.05); }
+.dep-modal .dep-confirm:active{ transform: translateY(1px); }
+.dep-modal .dep-confirm:focus-visible{
+  outline: 2px solid color-mix(in srgb, var(--aes-accent), white 35%);
+  outline-offset: 2px;
+                 }   
