@@ -8,132 +8,132 @@
   <style>
     .copy-row {
     /* ===== sf-pay-set (estilo branco, quadrado e alinhado ao sf-pay) ===== */
-:root { --accent: #2E78FF; } /* mesma cor dos botões da sf-pay.html */
+    :root { --accent: #2E78FF; } /* mesma cor dos botões da sf-pay.html */
 
-html, body { height: 100%; }
-body {
-  margin: 0;
-  background: #fff; /* fundo branco */
-  color: #0f172a;
-  font: 500 15px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
-}
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: #fff; /* fundo branco */
+      color: #0f172a;
+      font: 500 15px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
 
 /* Layout que empurra os botões para o final da página sem mexer no HTML */
-.page {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  box-sizing: border-box;
-}
-.header {
-  display: grid;
-  grid-template-columns: 32px 1fr 32px; /* mantém o span de 32px que já existe */
-  align-items: center;
-  margin-bottom: 12px;
-}
-.header h1 {
-  grid-column: 2;
-  text-align: center;
-  margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-}
+    .page {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      box-sizing: border-box;
+   }
+    .header {
+      display: grid;
+      grid-template-columns: 32px 1fr 32px; /* mantém o span de 32px que já existe */
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .header h1 {
+      grid-column: 2;
+      text-align: center;
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+    }
 
 /* Card quadrado, ocupa o espaço para empurrar as ações ao rodapé */
-.card {
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 0;              /* bordas 0 */
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;                       /* cresce para permitir ações no fim */
-}
-.card h2 {
-  margin: 0 0 12px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-}
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 0;              /* bordas 0 */
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;                       /* cresce para permitir ações no fim */
+   }
+    .card h2 {
+      margin: 0 0 12px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+    }
 
 /* Grupos e linha de copiar – tudo quadrado */
-.form-group { margin-bottom: 12px; }
-.form-group label {
-  display: block;
-  font-weight: 600;
-  margin: 0 0 6px;
-}
-.copy-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 10px;
-}
-.copy-row .value {
-  flex: 1;
-  background: #fff;              /* sem faixa cinza */
-  border: 1px solid #e5e7eb;
-  border-radius: 0;              /* bordas 0 */
-  padding: 8px 10px;
-  word-break: break-all;
-}
-.copy-btn {
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  border-radius: 0;              /* bordas 0 */
-  padding: 8px 10px;
-  cursor: pointer;
-}
+    .form-group { margin-bottom: 12px; }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin: 0 0 6px;
+    }
+   .copy-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 10px;
+   }
+    .copy-row .value {
+      flex: 1;
+      background: #fff;              /* sem faixa cinza */
+      border: 1px solid #e5e7eb;
+      border-radius: 0;              /* bordas 0 */
+      padding: 8px 10px;
+      word-break: break-all;
+    }
+   .copy-btn {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 0;              /* bordas 0 */
+      padding: 8px 10px;
+      cursor: pointer;
+    }
 
-/* Nota antes dos botões – “formato de notas” */
-.warning {
-  margin-top: 8px;
-  font-size: 13px;
-  color: #5b3d00;
-  background: #fff6e6;
-  border: 1px solid #ffdeba;
-  border-left: 4px solid var(--accent); /* destaque tipo “nota” */
-  border-radius: 0;                      /* bordas 0 */
-  padding: 10px 12px;
-}
+     /* Nota antes dos botões – “formato de notas” */
+   .warning {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #5b3d00;
+      background: #fff6e6;
+      border: 1px solid #ffdeba;
+      border-left: 4px solid var(--accent); /* destaque tipo “nota” */
+      border-radius: 0;                      /* bordas 0 */
+      padding: 10px 12px;
+    }
 
 /* Ações no FINAL da página, mesma linha, mesma cor e mesmo tamanho da sf-pay */
-.actions-row {
-  margin-top: auto;              /* fica no fim do card/página */
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding-top: 14px;
-}
+    .actions-row {
+      margin-top: auto;              /* fica no fim do card/página */
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+     padding-top: 14px;
+   }
 
 /* Botões iguais (link e button), quadrados, mesma cor/tamanho */
-.btn-primary,
-.btn-secondary-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: #fff;
-  height: 40px;                  /* tamanho “comum” */
-  width: 46%;                    /* iguais e em lados opostos */
-  border-radius: 0;              /* bordas 0 */
-  font-weight: 700;
-  letter-spacing: .2px;
-  box-shadow: 0 2px 10px rgba(46,120,255,.20);
-  transition: filter .12s ease, transform .04s ease;
-  margin: 0;                     /* evita desalinhamento */
-  padding: 0;                    /* idem */
-  line-height: normal;           /* idem */
-  box-sizing: border-box;
-}
-.btn-primary:hover,
-.btn-secondary-link:hover { filter: brightness(1.05); }
-.btn-primary:active,
-.btn-secondary-link:active { transform: translateY(1px); }
-.btn-primary:disabled { opacity: .45; pointer-events: none; box-shadow: none; }
+    .btn-primary,
+    .btn-secondary-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      height: 40px;                  /* tamanho “comum” */
+      width: 46%;                    /* iguais e em lados opostos */
+      border-radius: 0;              /* bordas 0 */
+      font-weight: 700;
+      letter-spacing: .2px;
+      box-shadow: 0 2px 10px rgba(46,120,255,.20);
+      transition: filter .12s ease, transform .04s ease;
+      margin: 0;                     /* evita desalinhamento */
+      padding: 0;                    /* idem */
+      line-height: normal;           /* idem */
+      box-sizing: border-box;
+    }
+    .btn-primary:hover,
+    .btn-secondary-link:hover { filter: brightness(1.05); }
+    .btn-primary:active,
+    .btn-secondary-link:active { transform: translateY(1px); }
+    .btn-primary:disabled { opacity: .45; pointer-events: none; box-shadow: none; }
   </style>
 </head>
 <body>
