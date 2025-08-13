@@ -6,6 +6,40 @@
   <title>Sf-Pay • Dados para pagamento</title>
   
   <style>
+      :root { --accent: #2E78FF; } /* cor única para Voltar/Avançar (muda aqui se quiser) */
+
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: #fff !important;     /* fundo branco */
+    color: #0f172a;                   /* cinza-azulado legível */
+    font: 500 15px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  /* layout empurra as ações para o rodapé */
+  .page {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  /* cabeçalho: título centrado, tudo quadrado */
+  .header {
+    display: grid;
+    grid-template-columns: 32px 1fr 32px; /* mantém o span “32px” que você já tem */
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    grid-column: 2;
+    text-align: center;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
     .copy-row {
       display: flex;
       align-items: center;
