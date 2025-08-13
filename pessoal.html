@@ -183,7 +183,47 @@
       
     </nav>
   </main>
+  <!-- Modal de Recarga (Depósito) -->
+<div id="deposit-modal" class="modal-overlay" hidden>
+  <div class="modal dep-modal" role="dialog" aria-modal="true" aria-labelledby="dep-title">
+    <button type="button" class="dep-close" id="dep-close" aria-label="Fechar">✕</button>
 
+    <h2 id="dep-title" class="dep-title">Recarga</h2>
+
+    <div class="dep-balance">
+      <div class="lbl">Saldo da conta</div>
+      <div class="val">
+        <span class="currency">KZ</span>
+        <span id="dep-saldo">0</span>
+      </div>
+    </div>
+
+    <div class="dep-field">
+      <label for="deposit-amount">Montante(KZ)</label>
+      <input type="number" id="deposit-amount" inputmode="numeric" min="1" step="1" placeholder="Ex.: 5000" />
+    </div>
+
+    <hr class="dep-sep" />
+
+    <div class="dep-channel" role="group" aria-label="Selecionar canal">
+      <label class="channel-option">
+        <input type="radio" name="deposit-channel" value="sf-pay-in" checked />
+        <span class="mark" aria-hidden="true">
+          <!-- check redondo estilo profissional -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 12l3 3 5-6"></path>
+          </svg>
+        </span>
+        <span class="ch-text">Canal 1</span>
+      </label>
+    </div>
+
+    <p id="deposit-error" class="dep-error" hidden>—</p>
+
+    <button type="button" id="continue" class="dep-confirm">Confirmar</button>
+  </div>
+</div>
   <!-- Modal alterar senha (mantido, IDs preservados) -->
   <div id="change-pass-overlay" class="modal-overlay" hidden>
     <div class="modal">
