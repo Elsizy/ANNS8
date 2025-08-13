@@ -2,28 +2,29 @@
 import { auth } from "./firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-/** Mantemos a mesma chave de rascunho */
 export const DRAFT_KEY = "deposit_draft_v1";
 
-/** Canal único (pode crescer no futuro) */
+// Canal único exibido no modal (rótulo fica no HTML)
 const DEFAULT_METHOD_ID = "sf-pay-in";
-
-/** Mantemos regra de mínimo para não quebrar fluxo posterior */
-const MIN_DEPOSIT = 5000;
 
 let currentUser = null;
 
-// DOM (IDs compatíveis com o modal novo)
-const openBtn       = document.getElementById("open-deposito");
-const modalOverlay  = document.getElementById("deposit-modal");
-const closeBtn      = document.getElementById("dep-close");
-const amountInput   = document.getElementById("deposit-amount");
-const confirmBtn    = document.getElementById("continue");
-const errorBox      = document.getElementById("deposit-error");
-const saldoCardEl   = document.getElementById("saldo");     // existente no painel
-const saldoModalEl  = document.getElementById("dep-saldo"); // valor dentro do modal
+// Janela de horário e depósito mínimo (mantidos)
+const DEPOSIT_START_H = 9;    // 09h
+const DEPOSIT_END_H   = 21;   // 21h (exclusivo)
+const MIN_DEPOSIT     = 5000; // ajuste se necessário
 
-// ===== Auth (essência preservada) =====
+// DOM (pessoal.html)
+const openBtn   = document.getElementById("open-deposito");
+const overlay   = document.getElementById("deposit-modal");
+const closeBtn  = document.getElementById("dep-close");
+const saldoBig  = document.getElementById("saldo");      // do cartão grande
+const saldoDep  = document.getElementById("dep-saldo");  // dentro do modal
+const amountEl  = document.getElementById("deposit-amount");
+const confirmEl = document.getElementById("continue");
+const errBox    = document.getElementById("deposit-error");
+
+// ----- Auth -----
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     window.location.href = "login.html";
@@ -32,83 +33,73 @@ onAuthStateChanged(auth, (user) => {
   currentUser = user;
 });
 
-// ===== Abrir / Fechar modal =====
-if (openBtn) {
-  openBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    hydrateSaldoInModal();
-    amountInput.value = "";
-    hideError();
-    showModal();
-  });
+// ----- Abrir / Fechar -----
+function openModal() {
+  // copiar o saldo do painel grande para o modal
+  const txt = (saldoBig?.textContent || "").replace(/[^0-9,.\s]/g,"").trim();
+  saldoDep.textContent = txt || "0";
+
+  // rascunho anterior (se existir)
+  try {
+    const old = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "null");
+    amountEl.value = old?.amountBase ? String(old.amountBase) : "";
+  } catch { /* noop */ }
+
+  hideError();
+  overlay.hidden = false;
+  // foco no input
+  setTimeout(()=> amountEl?.focus(), 50);
 }
+function closeModal() { overlay.hidden = true; hideError(); }
 
-if (closeBtn) {
-  closeBtn.addEventListener("click", () => hideModal());
+openBtn?.addEventListener("click", (e) => { e.preventDefault(); openModal(); });
+closeBtn?.addEventListener("click", closeModal);
+overlay?.addEventListener("click", (e) => {
+  if (e.target === overlay) closeModal(); // fecha ao tocar fora
+});
+
+// ----- Validações / Navegação -----
+confirmEl?.addEventListener("click", () => {
+  hideError();
+
+  const raw = Number((amountEl.value || "").replace(/\s/g,""));
+  if (!raw || raw <= 0) {
+    showError("Informe um valor válido.");
+    return;
+  }
+  if (raw < MIN_DEPOSIT) {
+    showError(`O depósito mínimo é <strong>Kz ${MIN_DEPOSIT.toLocaleString("pt-PT")}</strong>.`);
+    return;
+  }
+  if (!isWithinWindow()) {
+    showError(`Depósitos disponíveis entre <strong>${DEPOSIT_START_H}h</strong> e <strong>${DEPOSIT_END_H}h</strong>.`);
+    return;
+  }
+
+  const draft = {
+    uid: currentUser?.uid || null,
+    amountBase: Math.floor(raw),
+    method: DEFAULT_METHOD_ID, // canal único
+    bank: null,
+    bankData: null,
+    amountExact: null,
+  };
+  sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+
+  window.location.href = "sf-pay-in.html";
+});
+
+// ----- helpers -----
+function isWithinWindow(d = new Date()) {
+  const h = d.getHours();
+  return h >= DEPOSIT_START_H && h < DEPOSIT_END_H;
 }
-
-function showModal() {
-  if (!modalOverlay) return;
-  modalOverlay.removeAttribute("hidden");
-  setTimeout(() => amountInput?.focus(), 0);
-}
-function hideModal() {
-  if (!modalOverlay) return;
-  modalOverlay.setAttribute("hidden", "");
-}
-
-// ===== Confirmar (essência do fluxo original + validações mínimas) =====
-if (confirmBtn) {
-  confirmBtn.addEventListener("click", () => {
-    hideError();
-
-    const raw = parseFloat((amountInput?.value || "0").replace(",", "."));
-    if (!raw || raw <= 0) {
-      return showError("Informe um valor válido.");
-    }
-    if (raw < MIN_DEPOSIT) {
-      return showError(`O depósito mínimo é <strong>Kz ${MIN_DEPOSIT.toLocaleString("pt-PT")}</strong>.`);
-    }
-
-    // método/canal (único por enquanto)
-    const checked = document.querySelector('input[name="deposit-channel"]:checked');
-    const methodId = checked?.value || DEFAULT_METHOD_ID;
-
-    // Guarda rascunho como no projeto original
-    const draft = {
-      uid: currentUser?.uid || null,
-      amountBase: Math.floor(raw),
-      method: methodId,
-      bank: null,
-      bankData: null,
-      amountExact: null,
-    };
-    sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-
-    // Avança para o fluxo do canal (pedido do cliente)
-    window.location.href = "sf-pay-in.html";
-  });
-}
-
-// ===== Utilidades =====
-function hydrateSaldoInModal() {
-  // lê do painel "Saldo da conta" (ex.: "Kz 0,00") e joga no modal
-  if (!saldoCardEl || !saldoModalEl) return;
-  const rawText = (saldoCardEl.textContent || "").replace(/[^\d,.-]/g, "");
-  // tenta converter (pt) "0,00" -> 0
-  const normalized = rawText.replace(/\./g, "").replace(",", ".");
-  const num = parseFloat(normalized);
-  saldoModalEl.textContent = Number.isFinite(num) ? num.toLocaleString("pt-PT") : "0";
-}
-
-function showError(htmlMsg) {
-  if (!errorBox) return;
-  errorBox.innerHTML = htmlMsg;
-  errorBox.removeAttribute("hidden");
-  errorBox.classList.add("show");
+function showError(html) {
+  if (!errBox) return;
+  errBox.innerHTML = html;
+  errBox.hidden = false;
 }
 function hideError() {
-  if (!errorBox) return;
-  errorBox.setAttribute("hidden", "");
-  errorBox.classList.remove("show");
-}
+  if (!errBox) return;
+  errBox.hidden = true;
+  }
