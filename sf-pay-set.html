@@ -7,45 +7,6 @@
   <link rel="stylesheet" href="deposito.css" />
   <style>
     .copy-row {
-    /* ===== sf-pay-set (estilo branco, quadrado e alinhado ao sf-pay) ===== */
-    :root { --accent: #2E78FF; } /* mesma cor dos botões da sf-pay.html */
-
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      background: #fff; /* fundo branco */
-      color: #0f172a;
-      font: 500 15px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
-    }
-
-
-    .header {
-      display: grid;
-      grid-template-columns: 32px 1fr 32px; /* mantém o span de 32px que já existe */
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    .header h1 {
-      grid-column: 2;
-      text-align: center;
-      margin: 0;
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-     /* Nota antes dos botões – “formato de notas” */
-    .warning {
-      margin-top: 8px;
-      font-size: 13px;
-      color: #5b3d00;
-      background: #fff6e6;
-      border: 1px solid #ffdeba;
-      border-left: 4px solid var(--accent); /* destaque tipo “nota” */
-      border-radius: 0;                      /* bordas 0 */
-      padding: 10px 12px;
-    }
-
-    .copy-row {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -66,14 +27,14 @@
       padding: 8px 10px;
       cursor: pointer;
     }
-   /* .warning {
+    .warning {
       margin-top: 14px;
       font-size: 13px;
       color: #b35b00;
       background: #fff6e6;
       border: 1px solid #ffdeba;
       border-radius: 8px;
-      padding: 10px; */
+      padding: 10px;
     }
   </style>
 </head>
@@ -127,4 +88,4 @@
   <script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./sf-pay-set.js"></script>
 </body>
-  </html>
+</html>
