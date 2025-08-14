@@ -2,122 +2,195 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Descarregar App</title>
+  <meta name="theme-color" content="#071733" />
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: url('960x0.jpg') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      color: #fff;
+    :root{
+      --bg:#071733;
+      --bg-2:#05132a;
+      --card:#0b1f33;
+      --text:#ffffff;
+      --muted:rgba(255,255,255,.65);
+      --soft:rgba(255,255,255,.10);
+      --accent:#2E78FF;
+      --accent-2:#5aa0ff;
+      --radius:18px;
+      --maxw:460px;
     }
 
-    .overlay {
-      background: rgba(0,0,0,0.6);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      color:var(--text);
+      font:500 15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.65)),
+        url("960x0.jpg") center/cover no-repeat,
+        linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 75%);
+      display:flex; flex-direction:column;
+      min-height:100vh;
     }
 
-    .container {
-      position: relative;
-      z-index: 1;
-      background: rgba(255,255,255,0.95);
-      padding: 30px 20px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      animation: fadeIn 0.8s ease-out;
+    /* Topbar no padrão do projeto */
+    .topbar{
+      position:sticky; top:0; z-index:5;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:16px 14px 8px;
+      background:linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.25) 120%);
+    }
+    .back{
+      color:#fff; text-decoration:none;
+      display:inline-flex; align-items:center; justify-content:center;
+      width:36px; height:36px;
+      border-radius:10px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .page-title{margin:0; font-size:18px; font-weight:700; text-align:center; flex:1}
+    .right-placeholder{width:36px;height:36px;display:inline-block}
+
+    /* Container central */
+    .container{
+      max-width:var(--maxw);
+      margin:24px auto;
+      padding:0 16px 32px;
+      width:100%;
+      display:flex; align-items:center; justify-content:center;
+      flex:1;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .card{
+      width:100%;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius);
+      box-shadow: 0 18px 45px rgba(0,0,0,.45);
+      padding:24px 20px;
+      text-align:center;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      animation: rise .6s ease-out;
+    }
+    @keyframes rise{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:translateY(0)}}
+
+    .app-icon{
+      width:112px; height:112px;
+      border-radius:24px;
+      object-fit:cover;
+      box-shadow: 0 8px 22px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.18);
+      margin-bottom:12px;
     }
 
-    .app-icon {
-      width: 120px;
-      height: 120px;
-      border-radius: 24px;
-      object-fit: cover;
-      margin-bottom: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    .app-name{margin:6px 0 4px; font-size:22px; font-weight:800; letter-spacing:.2px}
+    .subtitle{margin:0 0 14px; font-size:13px; color:var(--muted)}
+
+    .meta{
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      color:var(--muted); font-size:12px; margin-bottom:16px;
+    }
+    .meta .dot{width:4px; height:4px; border-radius:999px; background:var(--muted); opacity:.8}
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:100%;
+      height:48px;
+      padding:0 16px;
+      border-radius:12px;
+      font-weight:800; letter-spacing:.2px;
+      border:1px solid transparent;
+      text-decoration:none;
+      transition: transform .08s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+      cursor:pointer;
+    }
+    .btn:active{ transform: translateY(1px) }
+
+    .btn-primary{
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#fff;
+      box-shadow: 0 10px 24px rgba(46,120,255,.35);
+    }
+    .btn-primary:hover{
+      box-shadow: 0 12px 28px rgba(46,120,255,.45);
     }
 
-    h1 {
-      font-size: 22px;
-      margin-bottom: 10px;
-      color: #222;
+    .btn-secondary{
+      margin-top:10px;
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn-secondary:hover{
+      background:rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.28);
     }
 
-    p {
-      font-size: 15px;
-      color: #444;
-      margin-bottom: 20px;
-      line-height: 1.4;
+    .helper{
+      margin-top:14px;
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    .helper strong{ color:#fff }
+
+    /* Pezinho */
+    .foot{
+      text-align:center; color:rgba(255,255,255,.45);
+      font-size:11px; padding:10px 0 18px;
     }
 
-    .btn-download {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 8px;
-      background: linear-gradient(45deg, #28a745, #34d058);
-      color: #fff;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      margin-bottom: 12px;
-    }
-
-    .btn-download:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 14px rgba(40,167,69,0.4);
-    }
-
-    .btn-back {
-      display: block;
-      padding: 12px;
-      font-size: 15px;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 8px;
-      background: #6c757d;
-      color: #fff;
-      transition: background 0.2s ease;
-    }
-
-    .btn-back:hover {
-      background: #5a6268;
+    /* Responsivo */
+    @media (max-width:420px){
+      .card{ padding:20px 16px }
+      .app-icon{ width:100px; height:100px; border-radius:20px }
+      .app-name{ font-size:20px }
     }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
+  <!-- Topbar padrão -->
+  <header class="topbar">
+    <a class="back" href="pessoal.html" aria-label="Voltar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <h1 class="page-title">Descarregar App</h1>
+    <span class="right-placeholder" aria-hidden="true"></span>
+  </header>
 
-  <div class="container">
-    <img src="AES@2x.png" alt="App Icon" class="app-icon" />
-    <h1>ANSS - Ansys Inc.</h1>
-    <p>Baixe a versão oficial do nosso aplicativo e tenha acesso rápido, seguro e otimizado aos nossos serviços.</p>
-    <a href="SEU-LINK-DE-DOWNLOAD-AQUI" class="btn-download">⬇ Download App</a>
-    <a href="pessoal.html" class="btn-back">Voltar</a>
-  </div>
-</body>
-</html>    <h1>ANSS - Ansys inc.</h1>
-    <p>Descarregue a versão oficial do nosso aplicativo e tenha acesso rápido e seguro ao nosso serviço.</p>
-    <a href="" class="btn-download">Download App</a>
-    <a href="pessoal.html" class="btn-back">Voltar</a>
-  </div>
+  <main class="container">
+    <section class="card" aria-labelledby="app-title">
+      <img src="AES@2x.png" alt="Ícone do app" class="app-icon" />
+      <h2 id="app-title" class="app-name">ANSS — Ansys Inc.</h2>
+      <p class="subtitle">Aplicativo oficial. Rápido, seguro e otimizado para o teu dispositivo.</p>
+
+      <div class="meta">
+        <span>Android (.apk)</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Instalação direta</span>
+      </div>
+
+      <!-- 🔗 Substitui o href abaixo pelo MESMO link de download que já usas no projeto -->
+      <a href="COLE_AQUI_O_SEU_LINK_DE_DOWNLOAD" class="btn btn-primary">⬇ Baixar app</a>
+
+      <a href="pessoal.html" class="btn btn-secondary">Voltar</a>
+
+      <p class="helper">
+        Dica: se o download não começar, <strong>toca novamente</strong> no botão.
+        Em alguns dispositivos, verifica a pasta <strong>Downloads</strong> para instalar o arquivo.
+      </p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    © <span id="y"></span> ANSS. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    // ano no rodapé
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
