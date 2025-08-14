@@ -63,6 +63,85 @@ function hideBuySuccessModal() {
   if (ov) ov.style.display = "none";
 }
 
+// --- Modal de CONFIRMAÇÃO de compra (injetado via JS) ---
+function ensureBuyConfirmModal() {
+  if (document.getElementById("buy-confirm-overlay")) return;
+
+  const style = document.createElement("style");
+  style.id = "buy-confirm-style";
+  style.textContent = `
+    .buy-overlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.6); z-index:9999}
+    .buy-confirm-card{background:#fff; border-radius:14px; padding:22px 18px; max-width:380px; width:92%; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.18)}
+    .buy-title{font-size:18px; margin:6px 0 4px; color:#111}
+    .buy-desc{font-size:14px; color:#555; margin:0}
+    .buy-actions{display:flex; gap:10px; margin-top:16px}
+    .buy-btn{flex:1; border:0; border-radius:10px; padding:10px 14px; font-weight:600; cursor:pointer}
+    .buy-btn-cancel{background:#f2f3f5; color:#333}
+    .buy-btn-ok{background:#6f66ff; color:#fff}
+    .buy-btn:focus{outline:2px solid rgba(111,102,255,.35); outline-offset:2px}
+    .buy-icon{width:40px; height:40px; color:#6f66ff}
+  `;
+  document.head.appendChild(style);
+
+  const overlay = document.createElement("div");
+  overlay.id = "buy-confirm-overlay";
+  overlay.className = "buy-overlay";
+  overlay.innerHTML = `
+    <div class="buy-confirm-card" role="dialog" aria-modal="true" aria-labelledby="buy-confirm-title" tabindex="-1">
+      <svg class="buy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" stroke-opacity="0.2"></circle>
+        <path d="M12 8v5"></path><circle cx="12" cy="16" r="1"></circle>
+      </svg>
+      <h3 id="buy-confirm-title" class="buy-title">Confirmar compra</h3>
+      <p id="buy-confirm-desc" class="buy-desc"></p>
+      <div class="buy-actions">
+        <button id="buy-confirm-cancel" class="buy-btn buy-btn-cancel" type="button">Cancelar</button>
+        <button id="buy-confirm-ok" class="buy-btn buy-btn-ok" type="button">Confirmar</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+function confirmPurchaseUI({ productName, price }) {
+  ensureBuyConfirmModal();
+
+  const ov = document.getElementById("buy-confirm-overlay");
+  const desc = document.getElementById("buy-confirm-desc");
+  const btnCancel = document.getElementById("buy-confirm-cancel");
+  const btnOk = document.getElementById("buy-confirm-ok");
+  const card = ov.querySelector(".buy-confirm-card");
+
+  desc.innerHTML = `Você vai usar <strong>${formatKz(price)}</strong> para comprar <strong>${productName}</strong>. Deseja continuar?`;
+  ov.style.display = "flex";
+  card?.focus?.();
+
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = (val) => {
+      if (done) return;
+      done = true;
+      ov.style.display = "none";
+      // limpa handlers
+      btnCancel.onclick = null;
+      btnOk.onclick = null;
+      ov.onclick = null;
+      document.removeEventListener("keydown", onKey);
+      resolve(val);
+    };
+    const onKey = (e) => {
+      if (e.key === "Escape") finish(false);
+      if (e.key === "Enter") finish(true);
+    };
+
+    btnCancel.onclick = () => finish(false);
+    btnOk.onclick = () => finish(true);
+    ov.onclick = (e) => { if (e.target === ov) finish(false); };
+    document.addEventListener("keydown", onKey);
+    btnOk.focus();
+  });
+}
+
 const ICON_EYE = `
   <svg class="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -329,40 +408,43 @@ function renderProdutos({ uid, saldo, compras }) {
       const btn = e.currentTarget;
       if (btn.disabled) return;
 
-      btn.disabled = true;
-      btn.textContent = "Processando...";
+      // 1) Identifica o produto
+const productId = e.currentTarget.dataset.id;
+const product = PRODUTOS.find(x => x.id === productId);
+if (!product) return;
 
-      // Reativa o botão após 4 segundos
-      setTimeout(() => {
-         btn.disabled = false;
-         btn.textContent = "Comprar";
-      }, 4000);
-      const productId = e.currentTarget.dataset.id;
-      const product = PRODUTOS.find(x => x.id === productId);
-      if (!product) return;
+// 2) Atualiza dados do usuário do DB (evita usar 'saldo' antigo)
+const uSnap = await get(ref(db, `usuarios/${uid}`));
+if (!uSnap.exists()) return alert("Usuário não encontrado no DB.");
 
-      // Atualiza dados do usuário do DB (evita usar 'saldo' antigo)
-      const uSnap = await get(ref(db, `usuarios/${uid}`));
-      if (!uSnap.exists()) return alert("Usuário não encontrado no DB.");
+const userData = uSnap.val();
+const saldoAtual = userData.saldo || 0;
+const comprasAtuais = userData.compras || {};
+const countAtual = comprasAtuais[productId]?.count || 0;
 
-      const userData = uSnap.val();
-      const saldoAtual = userData.saldo || 0;
-      const comprasAtuais = userData.compras || {};
-      const countAtual = comprasAtuais[productId]?.count || 0;
+// 3) Regras/validações rápidas
+if (countAtual >= MAX_COMPRAS_POR_PRODUTO) {
+  alert("Você já atingiu o limite de 9 compras para este produto.");
+  return;
+}
+if (saldoAtual < product.preco) {
+  alert("Saldo insuficiente para esta compra, faça um deposito.");
+  return;
+}
 
-      if (countAtual >= MAX_COMPRAS_POR_PRODUTO) {
-        alert("Você já atingiu o limite de 9 compras para este produto.");
-        return;
-      }
+// 4) Pergunta no modal ESTILIZADO (substitui o confirm nativo)
+const ok = await confirmPurchaseUI({ productName: product.nome, price: product.preco });
+if (!ok) return;
 
-      if (saldoAtual < product.preco) {
-        alert("Saldo insuficiente para esta compra, faça um deposito.");
-        
-        return;
-      }
+// 5) Só agora bloqueia o botão e mostra "Processando..."
+btn.disabled = true;
+btn.textContent = "Processando...";
 
-      const ok = confirm(`Vai usar ${formatKz(product.preco)} para comprar ${product.nome}. Confirmar?`);
-      if (!ok) return;
+// Mantém sua UX de reativar em 4s
+setTimeout(() => {
+  btn.disabled = false;
+  btn.textContent = "Comprar";
+}, 4000);
 
       try {
         // Monta a compra
