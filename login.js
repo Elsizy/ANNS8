@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       showLoginSuccessModal();
       setTimeout(() => {
         window.location.href = role === "admin" ? "admin.html" : "home.html";
-      }, 1800); // mesmo padrão que você usou no signup
+      }, 3000); // mesmo padrão que você usou no signup
     } catch (err) {
       console.error("Erro de login:", err);
       alert("Erro ao fazer login: " + (err?.message || err));
