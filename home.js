@@ -550,7 +550,7 @@ function calcTotalComissaoDiaria(userData) {
 
 function formatKz(v) {
   return `Kz ${Number(v || 0).toLocaleString("pt-PT", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
   })}`;
                  }
