@@ -33,6 +33,11 @@ const modal          = document.getElementById("bank-modal");
 const bankListEl     = document.getElementById("bank-list");
 const closeModalBtn  = document.getElementById("close-modal");
 
+// ----- feedback modal -----
+const feedbackModal = document.getElementById("feedback-modal");
+const feedbackText  = document.getElementById("feedback-text");
+const feedbackClose = document.getElementById("feedback-close");
+
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "login.html";
@@ -90,6 +95,41 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+// Modal de feedback (success | error)
+let feedbackTimer = null;
+
+function showFeedback(type, message, { autoclose = 2000 } = {}) {
+  if (!feedbackModal) return alert(message); // fallback
+  // limpa estado
+  feedbackModal.classList.remove("success","error","hidden","show");
+  // aplica tipo + mensagem
+  feedbackModal.classList.add(type); // "success" ou "error"
+  feedbackText.textContent = message;
+
+  // mostra
+  requestAnimationFrame(() => feedbackModal.classList.add("show"));
+
+  // foco e acessibilidade
+  feedbackClose?.focus();
+
+  // autoclose
+  if (feedbackTimer) clearTimeout(feedbackTimer);
+  if (autoclose) {
+    feedbackTimer = setTimeout(hideFeedback, autoclose);
+  }
+}
+function hideFeedback() {
+  if (!feedbackModal) return;
+  feedbackModal.classList.remove("show");
+  // opcional: esconder totalmente após a animação
+  setTimeout(() => feedbackModal.classList.add("hidden"), 180);
+  if (feedbackTimer) { clearTimeout(feedbackTimer); feedbackTimer = null; }
+}
+// interações
+feedbackClose?.addEventListener("click", hideFeedback);
+feedbackModal?.addEventListener("click", (e) => { if (e.target === feedbackModal) hideFeedback(); });
+window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideFeedback(); });
+
 function buildBankList(accs) {
   bankListEl.innerHTML = "";
   Object.entries(accs).forEach(([id, acc]) => {
@@ -131,7 +171,7 @@ async function onSubmit() {
   // Bloqueio de horário (somente das 9h às 18h)  <<< NOVO
   const now = new Date();
   const hora = now.getHours();
-  if (hora < 9 || hora >= 19) {
+  if (hora < 9 || hora >= 21) {
     showError("Os saques só estão disponíveis das 9h às 21h.");
     return;
   }
@@ -142,7 +182,7 @@ async function onSubmit() {
     return;
   }
   if (hasOpenWithdrawal) {
-    alert("Você já possui um pedido de retirada pendente. Aguarde a conclusão para solicitar outro.");
+    showFeedback("error", "Você já possui um pedido de retirada pendente. Aguarde a conclusão para solicitar outro.");
     return;
   }
 
