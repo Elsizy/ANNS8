@@ -71,7 +71,7 @@ onAuthStateChanged(auth, async (user) => {
     // 3) Carrega contas bancárias (se não tiver, manda criar)
     const accSnap = await get(ref(db, `usuarios/${uid}/bankAccounts`));
     if (!accSnap.exists()) {
-      showFeedback(("error", "Você precisa cadastrar uma conta bancária antes de retirar.");
+      alert("Você precisa cadastrar uma conta bancária antes de retirar.");
       window.location.href = "conta.html";
       return;
     }
@@ -270,4 +270,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-                                               }
+  }
