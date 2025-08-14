@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notificações • AES</title>
+
+  <!-- mesma fonte do projeto -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="news.css" />
+</head>
+<body>
+  <div class="page-root">
+    <header class="topbar">
+      <a class="back" href="pessoal.html" aria-label="Voltar">
+        <!-- seta igual à das outras páginas -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <h1 class="page-title">Notificações</h1>
+      <span class="right-placeholder" aria-hidden="true"></span>
+    </header>
+
+    <main class="container">
+      <section class="list-wrap">
+        <!-- lista de notificações (vazia por enquanto) -->
+        <div id="list" class="notif-list"></div>
+
+        <!-- estado vazio central -->
+        <div id="empty" class="empty-state" aria-live="polite">
+          <div class="empty-ico" aria-hidden="true">
+            <!-- sino -->
+            <svg viewBox="0 0 24 24" width="38" height="38" fill="none">
+              <path d="M15 17H9a5 5 0 0 1-5-5V9a7 7 0 1 1 14 0v3a5 5 0 0 1-5 5Z" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M10 20a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="empty-title">Ainda não há nenhuma notícia</p>
+          <p class="empty-sub">Fique atento — avisaremos por aqui.</p>
+        </div>
+
+        <div class="end-note">— Não mais —</div>
+      </section>
+    </main>
+  </div>
+
+  <!-- JS simples para controlar o estado vazio e, no futuro, renderizar cards -->
+  <script src="news.js" defer></script>
+</body>
+            </html>
