@@ -144,7 +144,7 @@ function buildDetails(d) {
 
   const right = document.createElement("div");
   right.className = "dates";
-  right.textContent = iban ? `IBAN: ${iban}` : (method && bank ? `Método: ${method}` : "");
+  right.textContent = ibanMasked ? `IBAN: ${ibanMasked}` : (method && bank ? `Método: ${method}` : "");
 
   wrap.appendChild(left);
   wrap.appendChild(right);
