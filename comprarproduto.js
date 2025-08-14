@@ -160,7 +160,7 @@ async function creditItemComissao(prodId, itemId, lastPayAt, comissao) {
 }
 
 function formatKz(value) {
-  return `Kz ${Number(value || 0).toLocaleString("pt-PT", { minimumFractionDigits: 2 })}`;
+  return `Kz ${Number(value || 0).toLocaleString("pt-PT", { minimumFractionDigits: 0 })}`;
 }
 
 function formatDate(ts) {
