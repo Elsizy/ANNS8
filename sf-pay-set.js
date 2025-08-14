@@ -1,10 +1,11 @@
-// sf-pay-set.js (corrigido)
+// sf-pay-set.js
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const DRAFT_KEY = "deposit_draft_v1";
 
+const methodEl      = document.getElementById("bank-method");
 const titularEl     = document.getElementById("titular");
 const ibanEl        = document.getElementById("iban");
 const amountExactEl = document.getElementById("amount-exact");
@@ -13,26 +14,21 @@ const goNextBtn     = document.getElementById("go-next");
 let draft = null;
 
 onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "login.html";
-    return;
-  }
+  if (!user) { location.href = "login.html"; return; }
 
   draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "{}");
   if (!draft?.amountBase || !draft?.method) {
     alert("Fluxo de depósito inválido. Recomece.");
-    window.location.href = "deposito.html";
+    location.href = "deposito.html";
     return;
   }
 
-  // >>> AQUI ESTAVA O ERRO: usar o ID salvo em draft.bankData.id <<<
+  // carrega dados atualizados do banco pelo ID salvo
   const bankId = draft?.bankData?.id;
   if (bankId) {
     const bankSnap = await get(ref(db, `adminBanks/${bankId}`));
     if (bankSnap.exists()) {
       const b = bankSnap.val();
-      titularEl.textContent = b.holder || "—";
-      ibanEl.textContent = b.iban || "—";
       draft.bank = b.name || draft.bank || "";
       draft.bankData = {
         id: bankId,
@@ -40,45 +36,38 @@ onAuthStateChanged(auth, async (user) => {
         iban: b.iban || "",
         holder: b.holder || ""
       };
-    } else {
-      // fallback se o ID não existir mais
-      titularEl.textContent = "—";
-      ibanEl.textContent = "—";
-      draft.bankData = { id: bankId, name: draft.bank || "", iban: "", holder: "" };
     }
-  } else {
-    // fallback extremo (usuário veio direto pra cá sem passar pelo sf-pay.html)
-    titularEl.textContent = "—";
-    ibanEl.textContent = "—";
-    draft.bankData = { id: null, name: draft.bank || "", iban: "", holder: "" };
   }
 
-  // 2) Gera valor exato se ainda não existir
-  if (!draft.amountExact) {
-    draft.amountExact = gerarValorExato(draft.amountBase);
-  }
+  // preencher campos (usa draft, com fallback)
+  methodEl.textContent  = draft?.bankData?.name || draft?.bank || "—";
+  titularEl.textContent = draft?.bankData?.holder || "—";
+  ibanEl.textContent    = draft?.bankData?.iban || "—";
+
+  // gerar valor exato se não existir
+  if (!draft.amountExact) draft.amountExact = gerarValorExato(draft.amountBase);
   amountExactEl.textContent = formatKz(draft.amountExact);
 
-  // salva o draft atualizado
   sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
 
-  // 3) Botão copiar
+  // copiar (botões azuis da direita)
   document.querySelectorAll(".copy-btn").forEach((btn) => {
-    const sel = btn.getAttribute("data-copy");
     btn.addEventListener("click", async () => {
+      const sel = btn.getAttribute("data-copy");
+      const val = document.querySelector(sel)?.textContent?.trim() || "";
       try {
-        const val = document.querySelector(sel)?.textContent || "";
         await navigator.clipboard.writeText(val);
-        const old = btn.textContent;
-        btn.textContent = "Copiado!";
-        setTimeout(() => (btn.textContent = old), 1200);
-      } catch (_) {}
+        const svg = btn.querySelector("svg");
+        const old = svg.outerHTML;
+        // feedback rápido: vira um check
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
+        setTimeout(()=> btn.innerHTML = old, 1200);
+      } catch {}
     });
   });
 
-  // 4) Avançar
   goNextBtn.addEventListener("click", () => {
-    window.location.href = "sf-pay-set-in.html";
+    location.href = "sf-pay-set-in.html";
   });
 });
 
@@ -92,4 +81,4 @@ function formatKz(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
-  }
+                      }
