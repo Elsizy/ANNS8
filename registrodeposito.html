@@ -3,29 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registros de Depósitos • ANNS8</title>
+  <title>Depositar registos • AES</title>
 
+  <!-- mesma fonte da página de retirada -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="registrodeposito.css" />
 </head>
 <body>
-  <div class="page">
-    <header class="header">
-      <a href="pessoal.html" class="back">← Voltar</a>
-      <h1>Registros de Depósitos</h1>
-      <span style="width:32px;"></span>
+  <div class="page-root">
+    <header class="topbar">
+      <a class="back" href="pessoal.html" aria-label="Voltar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <h1 class="page-title">Depositar registos</h1>
+      <span class="right-placeholder" aria-hidden="true"></span>
     </header>
 
-    <section class="card">
-      <div id="skeleton">
-        <div class="sk-row"></div>
-        <div class="sk-row"></div>
-        <div class="sk-row"></div>
-      </div>
-
-      <div id="list" class="list hidden"></div>
-    </section>
+    <main class="container">
+      <section class="list-wrap">
+        <!-- idêntico à estrutura da retirada -->
+        <div id="list" class="deposit-list">
+          <p class="empty" id="empty">Nenhum registo de depósito.</p>
+        </div>
+        <div class="end-note">— Não mais —</div>
+      </section>
+    </main>
   </div>
 
+  <!-- scripts -->
   <script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./registrodeposito.js"></script>
 </body>
