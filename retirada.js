@@ -196,7 +196,7 @@ async function onSubmit() {
     return;
   }
   if (v < MIN_WITHDRAW) {
-    showFeedback(" error","O valor mínimo para retirada é ${formatKz(MIN_WITHDRAW)}.");
+    alert(`O valor mínimo para retirada é ${formatKz(MIN_WITHDRAW)}.`);
     return;
   }
   if (v > saldoAtual) {
