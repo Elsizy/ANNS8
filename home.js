@@ -440,6 +440,8 @@ if (!ok) return;
 btn.disabled = true;
 btn.textContent = "Processando...";
 
+window.location.href = "comprarproduto.html";      
+      
 // Mantém sua UX de reativar em 4s
 setTimeout(() => {
   btn.disabled = false;
