@@ -1,207 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sf-Pay • Dados para pagamento</title>
-  
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>SF-PAY • Pagar</title>
   <style>
-      :root { --accent: #2E78FF; } /* cor única para Voltar/Avançar (muda aqui se quiser) */
-
-  html, body { height: 100%; }
-  body {
-    margin: 0;
-    background: #fff !important;     /* fundo branco */
-    color: #0f172a;                   /* cinza-azulado legível */
-    font: 500 15px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
-  }
-
-  /* layout empurra as ações para o rodapé */
-  .page {
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    box-sizing: border-box;
-  }
-
-  /* cabeçalho: título centrado, tudo quadrado */
-  .header {
-    display: grid;
-    grid-template-columns: 32px 1fr 32px; /* mantém o span “32px” que você já tem */
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  .header h1 {
-    grid-column: 2;
-    text-align: center;
-    margin: 0;
-    font-size: 20px;
-    font-weight: 700;
-   }
-    
-    .copy-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .copy-row .value {
-      flex: 1;
-      background: #f6f7fb;
-      border: 1px solid #e5e9f2;
-      border-radius: 6px;
-      padding: 8px 10px;
-      word-break: break-all;
-    }
-    .copy-btn {
-      background: #e8eaf3;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 10px;
-      cursor: pointer;
-    }
-    .warning {
-      margin-top: 14px;
-      font-size: 13px;
-      color: #b35b00;
-      /*margin-top: auto;*/
-      background: #fff6e6;
-      border: 1px solid #ffdeba;
-      border-radius: 8px;
-      padding: 10px;
-    }
-      /* barra de ações fixa no fim da página */
-    .actions-row {
-      margin-top: auto;               /* empurra para baixo */
-      display: flex;
-      justify-content: space-between; /* lados opostos */
-      gap: 12px;
-      padding-top: 14px;
-    }
-    .card{
-      display: flex;
-      flex-direction: column;
-      flex: 1;      /* ocupa o espaço livre para empurrar o rodapé */
-      padding: 14px;       /* mantenha se já tiver */
-      box-sizing: border-box;
-    }
-
-  /* botões iguais, tamanho “comum”, mesma cor e quadrados */
-  .btn-primary,
-  /* botões iguais, tamanho “comum”, mesma cor e com raio 10px */
-.btn-primary,
-.btn-secondary-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: #fff;
-  height: 40px;
-  width: 46%;
-  border-radius: 10px;           /* <— unidade corrigida */
-  font-weight: 700;
-  letter-spacing: .2px;
-  box-shadow: 0 2px 10px rgba(46,120,255,.20);
-  transition: filter .12s ease, transform .04s ease;
-  margin: 0;
-  padding: 0;
-  line-height: normal;
-  box-sizing: border-box;
-  -webkit-appearance: none;      /* evita estilo nativo em iOS */
-  appearance: none;              /* evita estilo nativo em Android/desktop */
-}
-
-/* reforço de especificidade — use se ainda houver override externo */
-.actions-row .btn-primary,
-.actions-row .btn-secondary-link {
-  border-radius: 10px !important; /* garante vitória se algo estiver sobrescrevendo */
-      }
-  .btn-primary:hover,
-  .btn-secondary-link:hover { filter: brightness(1.05); }
-  .btn-primary:active,
-  .btn-secondary-link:active { transform: translateY(1px); }
-
-  /* estado desabilitado do “Avançar” até escolher um banco (JS já faz) */
-  .btn-primary:disabled {
-    opacity: .45;
-    pointer-events: none;
-    box-shadow: none;
-    }
-    .warning {
-      margin-top: 8px;
-      font-size: 13px;
-      color: #5b3d00;
-      /*margin-top: auto;*/
-      background: #fff6e6;
-      border: 1px solid #ffdeba;
-      border-left: 4px solid var(--accent); /* destaque tipo “nota” */
-      border-radius: 0;                      /* bordas 0 */
-      padding: 10px 12px;
-    }
-    .card {
-  flex: 1; /* empurra .actions-row para baixo */
-}
-
-.actions-row a,
-.actions-row button {
-  flex: 1; /* botões iguais */
-  gap: 12px !important;
-      }
+    :root{ --brand:#39d2c7; --progress:#49b36a; --text:#0f172a; --stroke:#e5e7eb; --muted:#64748b; --maxw:420px }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;background:#fff;color:var(--text);font:500 15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;display:flex;align-items:center;justify-content:center}
+    .wrap{width:100%;max-width:var(--maxw);padding:18px 16px 22px;border:1px solid #efefef;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+    .brand{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:16px}
+    .brand-mark{width:40px;height:28px;border-radius:6px;background:linear-gradient(135deg,#6fe6dc,#2fc9be)}
+    .brand-name{font-weight:800;font-size:26px;color:#39d2c7}
+    .steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;position:relative;margin:8px 8px 18px}
+    .steps::before{content:"";position:absolute;top:18px;left:calc(16px + 22px);right:calc(16px + 22px);height:3px;background:var(--progress)}
+    .step{display:grid;justify-items:center;gap:6px}
+    .dot{width:36px;height:36px;border-radius:999px;display:grid;place-items:center;border:2px solid var(--progress);color:var(--progress);background:#fff;font-weight:800}
+    .step.active .dot{background:var(--progress);color:#fff}
+    .step label{font-size:14px;color:#3c82c9;font-weight:700}
+    .panel{border:1px solid var(--stroke);border-radius:8px;padding:14px}
+    .row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed #e7e7e7}
+    .row:last-child{border-bottom:0}
+    .k{color:#334155}
+    .v{font-weight:700}
+    .copy{border:1px solid var(--brand);color:var(--brand);background:transparent;border-radius:999px;height:30px;padding:0 10px;font-weight:700;cursor:pointer}
+    .actions{display:flex;gap:12px;margin-top:14px}
+    .btn{flex:1;height:44px;border-radius:999px;border:1px solid var(--brand);color:var(--brand);background:transparent;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+    .btn.primary{background:var(--brand);color:#fff}
   </style>
 </head>
 <body>
-  <div class="page">
-    <header class="header">
-      
-      <h1>Dados para pagamento</h1>
-      <span style="width:32px;"></span>
-    </header>
+  <main class="wrap">
+    <div class="brand"><div class="brand-mark"></div><div class="brand-name">SF-PAY</div></div>
+    <div class="steps">
+      <div class="step"><div class="dot">1</div><label>Escolher</label></div>
+      <div class="step active"><div class="dot">2</div><label>Pagar</label></div>
+      <div class="step"><div class="dot">3</div><label>Comprovativo</label></div>
+    </div>
 
-    <section class="card">
-      <h2 style="margin: 0 0 10px; text-align: center; font-size: 16px; font-weight: 700;">
-  Transferir exatamente estes dados
-      </h2>
-
-      <div class="form-group">
-        <label>Titular</label>
-        <div class="copy-row">
-          <div class="value" id="titular">—</div>
-          <button class="copy-btn" data-copy="#titular">Copiar</button>
-        </div>
+    <section class="panel" aria-label="Dados para pagamento">
+      <div class="row">
+        <span class="k">Banco</span>
+        <span class="v" id="bank-name">—</span>
       </div>
-
-      <div class="form-group">
-        <label>IBAN</label>
-        <div class="copy-row">
-          <div class="value" id="iban">—</div>
-          <button class="copy-btn" data-copy="#iban">Copiar</button>
-        </div>
+      <div class="row">
+        <span class="k">Titular</span>
+        <span class="v" id="holder">—</span>
       </div>
-
-      <div class="form-group">
-        <label>Valor exato a depositar</label>
-        <div class="copy-row">
-          <div class="value" id="amount-exact">Kz 0,00</div>
-          <button class="copy-btn" data-copy="#amount-exact">Copiar</button>
-        </div>
+      <div class="row">
+        <span class="k">IBAN</span>
+        <span class="v" id="iban">—</span>
       </div>
-
-      <div class="warning">
-        Envie <strong>exatamente</strong> o valor exibido acima (incluindo os cêntimos). Valores divergentes podem atrasar a validação do seu depósito.
+      <div class="row">
+        <span class="k">Valor</span>
+        <span class="v" id="amount">—</span>
       </div>
-
-      <div class="actions-row">
-        <a href="sf-pay.html" class="btn-secondary-link">Voltar</a>
-        <button id="go-next" class="btn-primary">Avançar</button>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="copy" data-copy="#iban">Copiar IBAN</button>
+        <button class="copy" data-copy="#holder">Copiar Titular</button>
       </div>
     </section>
-  </div>
 
-  <!-- Firebase + JS -->
-  <script type="module" src="./firebase-config.js"></script>
-  <script type="module" src="./sf-pay-set.js"></script>
+    <div class="actions">
+      <a href="sf-pay.html" class="btn">Anterior</a>
+      <a href="sf-pay-set-in.html" class="btn primary">Próxima etapa</a>
+    </div>
+  </main>
+
+  <script>
+    const DRAFT_KEY = "deposit_draft_v1";
+    let draft = {};
+    try{ draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "{}"); }catch{}
+    document.getElementById("bank-name").textContent = draft?.bankData?.name || "—";
+    document.getElementById("holder").textContent    = draft?.bankData?.holder || "—";
+    document.getElementById("iban").textContent      = draft?.bankData?.iban || "—";
+    document.getElementById("amount").textContent    = (draft?.amountExact ?? draft?.amount ?? 0).toLocaleString("pt-PT",{minimumFractionDigits:2, maximumFractionDigits:2}) + " KZ";
+
+    document.querySelectorAll(".copy").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const sel = btn.getAttribute("data-copy");
+        const el  = document.querySelector(sel);
+        if(!el) return;
+        navigator.clipboard.writeText(el.textContent.trim()).then(()=>{
+          btn.textContent = "Copiado!";
+          setTimeout(()=>btn.textContent = sel==="#iban"?"Copiar IBAN":"Copiar Titular", 1200);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
