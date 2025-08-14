@@ -248,8 +248,8 @@ async function onSave() {
   const holder = holderEl?.value.trim() || "";
   const iban = (ibanEl?.value || "").replace(/\D+/g, "");
 
-  if (!bank) return alert("Selecione o banco.");
-  if (!holder) return alert("Informe o nome do titular.");
+  if (!bank) return showFeedback("error", "Selecione o banco.");
+  if (!holder) return showFeedback("error", "Informe o nome do titular.");
   if (!iban || iban.length !== IBAN_MAX) {
     return showFeedback("error", `O IBAN deve ter exatamente ${IBAN_MAX} dígitos.`);
   }
@@ -307,7 +307,7 @@ async function onDelete(id) {
     await renderAccounts();
   } catch (e) {
     console.error("Erro ao remover:", e);
-    alert("Falha ao remover a conta.");
+    showFeedback("error", "Falha ao remover a conta.");
   }
 }
 
