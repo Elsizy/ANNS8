@@ -41,6 +41,10 @@ const closeBankBtn   = document.getElementById("close-bank-modal");
 const accountsModal  = document.getElementById("accounts-modal");
 const openAccountsBtn= document.getElementById("open-accounts-btn");
 const closeAccountsBtn = document.getElementById("close-accounts-modal");
+// ----- feedback modal -----
+const feedbackModal = document.getElementById("feedback-modal");
+const feedbackText  = document.getElementById("feedback-text");
+const feedbackClose = document.getElementById("feedback-close");
 
 /* =========================
    INICIALIZAÇÃO
@@ -103,6 +107,41 @@ function buildBankList() {
     bankListEl.appendChild(li);
   });
 }
+
+// Modal de feedback (success | error)
+let feedbackTimer = null;
+
+function showFeedback(type, message, { autoclose = 2000 } = {}) {
+  if (!feedbackModal) return alert(message); // fallback
+  // limpa estado
+  feedbackModal.classList.remove("success","error","hidden","show");
+  // aplica tipo + mensagem
+  feedbackModal.classList.add(type); // "success" ou "error"
+  feedbackText.textContent = message;
+
+  // mostra
+  requestAnimationFrame(() => feedbackModal.classList.add("show"));
+
+  // foco e acessibilidade
+  feedbackClose?.focus();
+
+  // autoclose
+  if (feedbackTimer) clearTimeout(feedbackTimer);
+  if (autoclose) {
+    feedbackTimer = setTimeout(hideFeedback, autoclose);
+  }
+}
+function hideFeedback() {
+  if (!feedbackModal) return;
+  feedbackModal.classList.remove("show");
+  // opcional: esconder totalmente após a animação
+  setTimeout(() => feedbackModal.classList.add("hidden"), 180);
+  if (feedbackTimer) { clearTimeout(feedbackTimer); feedbackTimer = null; }
+}
+// interações
+feedbackClose?.addEventListener("click", hideFeedback);
+feedbackModal?.addEventListener("click", (e) => { if (e.target === feedbackModal) hideFeedback(); });
+window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideFeedback(); });
 
 async function renderAccounts() {
   if (!listEl) return;
@@ -240,8 +279,10 @@ async function onSave() {
 
     // limpa formulário
     clearForm();
-    await renderAccounts(); // atualiza lista modal
-    alert("Conta salva com sucesso.");
+    // ...
+await renderAccounts(); // atualiza lista
+showFeedback("success", "Conta salva com sucesso.");
+// ...
   } catch (e) {
     console.error("Erro salvando conta:", e);
     alert("Erro ao salvar a conta bancária.");
