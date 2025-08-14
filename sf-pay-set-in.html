@@ -264,7 +264,13 @@ input[type="text"]{
       
 
       <div class="form-group">
-        <label for="proof-file">Comprovativo (imagem / PDF)</label>
+        <label for="proof-file" id="proof-box">
+          <span class="placeholder">
+            <strong>Carregar imagem</strong>
+            <small>JPG, PNG ou PDF</small>
+         </span>
+         <img id="proof-preview" alt="Pré-visualização do comprovativo" />
+        </label>
         <input type="file" id="proof-file" accept="image/*,.pdf" />
         <p class="hint">Formatos aceites: JPG, PNG, PDF.</p>
       </div>
