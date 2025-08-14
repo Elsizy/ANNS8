@@ -127,24 +127,25 @@ function chooseConfirmDate(d) {
 }
 
 /** Linha de detalhes (banco + IBAN mascarado ou método) */
+/** Linha de detalhes (banco + IBAN SEM máscara ou método) */
 function buildDetails(d) {
   const bank = d.bank || d.bankName;
   const method = d.method;
-  const ibanMasked = d?.bankData?.iban ? maskIban(d.bankData.iban) : null;
+  const iban = d?.bankData?.iban ?? null; // <-- sem máscara
 
-  const hasSomething = bank || method || ibanMasked;
+  const hasSomething = bank || method || iban;
   if (!hasSomething) return null;
 
   const wrap = document.createElement("div");
   wrap.className = "meta-top"; // reaproveita o estilo (mesmo tamanho de fonte)
-
+  
   const left = document.createElement("span");
   left.className = "ref";
   left.textContent = bank ? `Banco: ${bank}` : (method ? `Método: ${method}` : "");
 
   const right = document.createElement("div");
   right.className = "dates";
-  right.textContent = ibanMasked ? `IBAN: ${ibanMasked}` : (method && bank ? `Método: ${method}` : "");
+  right.textContent = iban ? `IBAN: ${iban}` : (method && bank ? `Método: ${method}` : "");
 
   wrap.appendChild(left);
   wrap.appendChild(right);
