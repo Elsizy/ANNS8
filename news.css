@@ -1,0 +1,88 @@
+:root{
+  --bg:#071733;
+  --bg-2:#05132a;
+  --card:#0b1f33;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.60);
+  --soft:rgba(255,255,255,0.12);
+  --ok:#14b46f;
+  --warn:#ffb74d;
+  --rej:#e74c3c;
+  --radius:14px;
+  --maxw:460px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background: linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 75%);
+  color:var(--text);
+  font-family:'Poppins',system-ui,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.page-root{min-height:100vh;padding-bottom:64px}
+
+/* Topbar – igual ao restante do projeto */
+.topbar{
+  position:sticky; top:0; z-index:10;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:16px 14px 8px;
+  background:linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.2) 120%);
+}
+.back{color:var(--text); text-decoration:none; display:inline-flex; width:36px; height:36px; align-items:center; justify-content:center}
+.page-title{margin:0; font-size:18px; font-weight:700; text-align:center; flex:1}
+.right-placeholder{width:36px;height:36px;display:inline-block}
+
+/* Container */
+.container{max-width:var(--maxw); margin:10px auto; padding:0 14px}
+.list-wrap{margin-top:8px}
+
+/* Lista de notificações (cards) – pronto pro futuro */
+.notif-list .item{
+  position:relative;
+  display:grid;
+  grid-template-columns: 64px 1fr;
+  gap:14px;
+  align-items:center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius);
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+.notif-ico{
+  width:40px;height:40px;border-radius:999px;
+  display:grid; place-items:center;
+  background:var(--soft); color:var(--text);
+}
+.item-body .title{font-weight:700; font-size:15px; margin-bottom:4px}
+.item-body .desc{font-size:13px; color:var(--muted)}
+.item-body .date{font-size:12px; color:rgba(255,255,255,.50); margin-top:6px}
+
+/* Estado vazio centralizado */
+.empty-state{
+  text-align:center;
+  color:var(--muted);
+  display:grid;
+  justify-items:center;
+  gap:8px;
+  padding:38px 12px 28px;
+}
+.empty-ico{
+  width:64px;height:64px;border-radius:999px;
+  display:grid; place-items:center;
+  background: rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+  color:rgba(255,255,255,0.85);
+}
+.empty-title{margin:0; font-weight:700; color:#fff; opacity:.85}
+.empty-sub{margin:0; font-size:13px}
+
+/* Rodapé “Não mais” */
+.end-note{ text-align:center; color:rgba(255,255,255,0.36); margin-top:6px; font-size:11px }
+
+/* Responsivo */
+@media (max-width:420px){
+  .notif-list .item{ grid-template-columns:58px 1fr; padding:14px }
+           }
