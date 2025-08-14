@@ -2,253 +2,238 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sf-Pay • Escolher Banco</title>
- 
- 
-<style>
-  /* ===== sf-pay (look próprio, simples e branco) ===== */
-  :root { --accent: #2E78FF; } /* cor única para Voltar/Avançar (muda aqui se quiser) */
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SF-PAY • Escolher Banco</title>
+  <style>
+    /* ===== Cores idênticas ao visual do print ===== */
+    :root{
+      --brand: #39d2c7;          /* “TT PAY” turquesa — agora SF-PAY */
+      --progress: #49b36a;       /* linha/círculos verdes do passo */
+      --text: #0f172a;           /* cinza-azulado legível */
+      --muted: #64748b;          /* descrição */
+      --stroke: #e5e7eb;         /* borda caixas */
+      --radius: 8px;             /* cantos retinhos como no print */
+      --maxw: 420px;
+    }
 
-  html, body { height: 100%; }
-  body {
-    margin: 0;
-    background: #fff !important;     /* fundo branco */
-    color: #0f172a;                   /* cinza-azulado legível */
-    font: 500 15px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
-  }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:#fff;
+      color:var(--text);
+      font:500 15px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      display:flex; align-items:center; justify-content:center;
+    }
 
-  /* layout empurra as ações para o rodapé */
-  .page {
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    box-sizing: border-box;
-  }
+    .wrap{
+      width:100%; max-width:var(--maxw);
+      padding:18px 16px 22px;
+      border:1px solid #efefef;       /* moldura leve como no print */
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.04);
+    }
 
-  /* cabeçalho: título centrado, tudo quadrado */
-  .header {
-    display: grid;
-    grid-template-columns: 32px 1fr 32px; /* mantém o span “32px” que você já tem */
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  .header h1 {
-    grid-column: 2;
-    text-align: center;
-    margin: 0;
-    font-size: 20px;
-    font-weight: 700;
-  }
+    /* ===== Logo SF-PAY (posição/tamanho do print) ===== */
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      justify-content:center;
+      margin-bottom:16px;
+    }
+    .brand-mark{
+      width:40px; height:28px; border-radius:6px;
+      background: linear-gradient(135deg, #6fe6dc, #2fc9be);
+      position:relative; overflow:hidden;
+    }
+    .brand-mark::after{
+      content:""; position:absolute; inset:0;
+      background:
+        linear-gradient( to bottom right, transparent 52%, rgba(255,255,255,.9) 53% 70%, transparent 71% );
+      mix-blend-mode: screen; opacity:.85;
+    }
+    .brand-name{
+      font-weight:800; font-size:26px; letter-spacing:.5px;
+      color: var(--brand);
+    }
 
-  /* cartão branco com bordas quadradas */
- /* .card {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 0;               /* quadrado */
- /*   padding: 14px;
-  }
-  /* “Banco” centralizado, como pediu */
-  .card h2 {
-    margin: 0 0 10px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 700;
-  }
+    /* ===== Stepper (3 passos) — igual ao print ===== */
+    .steps{
+      display:grid; grid-template-columns: 1fr 1fr 1fr;
+      align-items:center; gap:14px;
+      position:relative; margin:8px 8px 18px;
+    }
+    .steps::before{
+      content:""; position:absolute; top:18px; left:calc(16px + 22px); right:calc(16px + 22px);
+      height:3px; background:var(--progress); /* linha verde */
+    }
+    .step{
+      display:grid; justify-items:center; gap:6px;
+    }
+    .dot{
+      width:36px; height:36px; border-radius:999px;
+      display:grid; place-items:center;
+      border:2px solid var(--progress);
+      background:#fff; color:var(--progress); font-weight:800;
+    }
+    .step.active .dot{
+      background:var(--progress); color:#fff; /* passo ativo cheio */
+    }
+    .step label{ font-size:14px; color:#3c82c9; font-weight:700 } /* legenda azul claro como no print */
 
-  /* lista de bancos: opções centradas, quadradas */
-  .method-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 10px;
-  }
-  .method-list li {
-    border: 1px solid #e5e7eb;
-    border-radius: 0;               /* quadrado */
-    padding: 12px 14px;
-    text-align: center;             /* nome do banco centralizado */
-    cursor: pointer;
-    user-select: none;
-    background: #fff;
-    transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
-  }
-  .method-list li:hover { background: #f8fafc; }
-  .method-list li.active {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent), white 65%) inset;
-  }
+    /* ===== Lista de bancos (botões grandes) ===== */
+    .bank-list{ display:grid; gap:12px; margin:18px 0 }
+    .bank{
+      border:1px solid var(--stroke); border-radius: var(--radius);
+      padding:12px 14px; text-align:center; cursor:pointer; user-select:none;
+      transition: background .12s ease, border-color .12s ease, box-shadow .12s ease;
+      background:#f8fbfd;
+    }
+    .bank:hover{ background:#eef6ff }
+    .bank.active{
+      border-color:#79c0ff;
+      box-shadow: 0 0 0 2px rgba(123, 190, 255, .35) inset;
+      background:#fff;
+    }
 
-  /* barra de ações fixa no fim da página */
-  .actions-row {
-    margin-top: auto;               /* empurra para baixo */
-    display: flex;
-    justify-content: space-between; /* lados opostos */
-    gap: 12px;
-    padding-top: 14px;
-  }
+    /* ===== Barra de ações em baixo (igual, 2 botões mesma linha) ===== */
+    .actions{
+      display:flex; gap:12px; justify-content:space-between; margin-top:10px;
+    }
+    .btn{
+      flex:1; height:44px; border-radius: 999px; /* no print o botão é oval */
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight:700; letter-spacing:.2px; text-decoration:none; cursor:pointer;
+      border:1px solid var(--brand); background:transparent; color:var(--brand);
+      transition: filter .12s ease, transform .04s ease;
+    }
+    .btn:hover{ filter:brightness(1.05) }
+    .btn:active{ transform: translateY(1px) }
+    .btn.primary{ background: var(--brand); color:#fff }
+    .btn.primary:disabled{ opacity:.4; pointer-events:none }
 
-  /* botões iguais, tamanho “comum”, mesma cor e quadrados */
-  .btn-primary,
-  .btn-secondary-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    border: 1px solid var(--accent);
-    background: var(--accent);
-    color: #fff;
-    height: 40px;                   /* tamanho comum */
-    width: 46%;                     /* iguais, lados opostos */
-    border-radius: 10;               /* quadrados */
-    font-weight: 700;
-    letter-spacing: .2px;
-    box-shadow: 0 2px 10px rgba(46,120,255,.20);
-    transition: filter .12s ease, transform .04s ease;
-    margin: 0;                /* remove margens padrão */
-    padding: 0;               /* garante que padding seja controlado por height */
-    line-height: normal;      /* impede que o texto cause desalinhamento */
-    box-sizing: border-box;   /* tamanho exato */
-  }
-  .btn-primary:hover,
-  .btn-secondary-link:hover { filter: brightness(1.05); }
-  .btn-primary:active,
-  .btn-secondary-link:active { transform: translateY(1px); }
-
-  /* estado desabilitado do “Avançar” até escolher um banco (JS já faz) */
-  .btn-primary:disabled {
-    opacity: .45;
-    pointer-events: none;
-    box-shadow: none;
-  }
-
-</style>
+    /* “rodapé” descritivo leve */
+    .hint{ margin-top:12px; text-align:center; color:var(--muted); font-size:12px }
+  </style>
 </head>
 <body>
-  <div class="page">
-    <header class="header">
-      
-      <h1>Escolha o Banco</h1>
-      <span style="width:32px;"></span>
-    </header>
+  <main class="wrap" role="main">
+    <!-- Logo -->
+    <div class="brand" aria-label="SF-PAY">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div class="brand-name">SF-PAY</div>
+    </div>
 
-    <section class="card" id="banks-card">
-      <h2>Banco</h2>
-      <ul class="method-list" id="bank-list"></ul>
+    <!-- Stepper -->
+    <div class="steps" aria-label="Passos do pagamento">
+      <div class="step active">
+        <div class="dot">1</div>
+        <label>Escolher</label>
+      </div>
+      <div class="step">
+        <div class="dot">2</div>
+        <label>Pagar</label>
+      </div>
+      <div class="step">
+        <div class="dot">3</div>
+        <label>Comprovativo</label>
+      </div>
+    </div>
+
+    <!-- Bancos -->
+    <section aria-labelledby="t-banco">
+      <h2 id="t-banco" style="margin:0 0 8px; font-size:16px; font-weight:700; text-align:left; color:#234;">
+        Banco
+      </h2>
+      <div id="bank-list" class="bank-list" role="listbox" aria-label="Escolha o banco"></div>
     </section>
 
-    <div class="actions-row">
-      <a href="pessoal.html" class="btn-secondary-link">Voltar</a>
-      <button id="go-next" class="btn-primary" disabled>Avançar</button>
+    <!-- Ações -->
+    <div class="actions">
+      <a class="btn" href="pessoal.html">Anterior</a>
+      <button id="next" class="btn primary" disabled>Próxima etapa</button>
     </div>
-  </div>
 
+    <p class="hint">Selecione um banco para continuar.</p>
+  </main>
+
+  <!-- Lógica (usa adminBanks; fallback estático) -->
   <script type="module">
-    import { auth, db } from "./firebase-config.js";
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
     const DRAFT_KEY = "deposit_draft_v1";
-
     const bankListEl = document.getElementById("bank-list");
-    const btnNext = document.getElementById("go-next");
+    const nextBtn    = document.getElementById("next");
 
     let draft = null;
-    let selectedBankId = null;
-    let adminBanks = {};
+    let selectedKey = null;
+    let ADMIN_BANKS = {};
 
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
+    // tenta carregar rascunho
+    try{
+      draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "{}");
+    }catch{ draft = {}; }
+
+    // tenta Firebase (se existir), senão usa fallback
+    (async function loadBanks(){
+      try{
+        // importa só se existir o ficheiro de config
+        const { auth, db } = await import("./firebase-config.js");
+        const { onAuthStateChanged } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+        const { ref, get } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js");
+
+        onAuthStateChanged(auth, async (user) => {
+          if (!user) { location.href = "login.html"; return; }
+          const snap = await get(ref(db, "adminBanks"));
+          ADMIN_BANKS = snap.exists() ? snap.val() : {};
+          render();
+        });
+      }catch(e){
+        // fallback: estático no mesmo layout
+        ADMIN_BANKS = {
+          atl: { name:"ATL" },
+          bfa: { name:"BFA" },
+          bai: { name:"BAI" },
+        };
+        render();
       }
+    })();
 
-      draft = loadDraft();
-      if (!draft) {
-        alert("Depósito não encontrado. Recomece.");
-        window.location.href = "deposito.html";
-        return;
-      }
-
-      // lê bancos do admin
-      await loadAdminBanks();
-      renderBanks();
-    });
-
-    function loadDraft() {
-      try {
-        const raw = sessionStorage.getItem(DRAFT_KEY);
-        return raw ? JSON.parse(raw) : null;
-      } catch {
-        return null;
-      }
-    }
-
-    async function loadAdminBanks() {
-      try {
-        const snap = await get(ref(db, "adminBanks"));
-        adminBanks = snap.exists() ? snap.val() : {};
-      } catch (e) {
-        console.error("Erro ao ler adminBanks:", e);
-        adminBanks = {};
-      }
-    }
-
-    function renderBanks() {
+    function render(){
       bankListEl.innerHTML = "";
-
-      const keys = Object.keys(adminBanks);
-      if (!keys.length) {
-        const li = document.createElement("li");
-        li.textContent = "Nenhum banco definido pelo administrador.";
-        li.style.opacity = ".7";
-        bankListEl.appendChild(li);
+      const keys = Object.keys(ADMIN_BANKS);
+      if (!keys.length){
+        bankListEl.innerHTML = `<div class="bank" style="opacity:.6">Nenhum banco disponível</div>`;
         return;
       }
 
-      keys.forEach((id) => {
-        const b = adminBanks[id];
-        const li = document.createElement("li");
-        li.textContent = `${b.name || "-"} `;
+      keys.forEach((k) => {
+        const b = ADMIN_BANKS[k];
+        const li = document.createElement("button");
+        li.type = "button";
+        li.className = "bank";
+        li.role = "option";
+        li.textContent = (b?.name || "").toString().trim() || "—";
         li.addEventListener("click", () => {
-          selectedBankId = id;
-          Array.from(bankListEl.children).forEach((el) => el.classList.remove("active"));
+          selectedKey = k;
+          [...bankListEl.children].forEach(el => el.classList.remove("active"));
           li.classList.add("active");
-          btnNext.disabled = false;
+          nextBtn.disabled = false;
         });
         bankListEl.appendChild(li);
       });
 
-      btnNext.addEventListener("click", () => {
-        if (!selectedBankId) return;
-
-        const bankData = adminBanks[selectedBankId];
-
-        // guarda no draft
-        draft.bank = bankData?.name || "";
+      nextBtn.addEventListener("click", () => {
+        if (!selectedKey) return;
+        const b = ADMIN_BANKS[selectedKey] || {};
+        draft.bank = b.name || "";
         draft.bankData = {
-          id: selectedBankId,
-          name: bankData?.name || "",
-          iban: bankData?.iban || "xxxx",
-          holder: bankData?.holder || "xxxx"
+          id: selectedKey,
+          name: b.name || "",
+          iban: b.iban || "",          // admin pode preencher no DB
+          holder: b.holder || ""
         };
-
         sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-
-        // segue para a próxima etapa do seu fluxo
-        window.location.href = "sf-pay-set.html";
+        location.href = "sf-pay-set.html";
       });
-    }
-
-    function maskIban(iban) {
-      const digits = (iban || "").replace(/\D+/g, "");
-      if (digits.length <= 7) return digits;
-      const visible = digits.slice(0, 7);
-      const hiddenCount = Math.max(0, digits.length - 7);
-      return `${visible}${"•".repeat(hiddenCount)}`;
     }
   </script>
 </body>
-</html>
+  </html>
