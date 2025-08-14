@@ -24,13 +24,16 @@
   });
 })();
 
-  // ===== Busca no FAQ (case-insensitive e sem acentos) =====
+// Busca no FAQ (case-insensitive e ignora acentos)
+(function () {
+  const list       = document.querySelector(".faq-list");
+  if (!list) return;
+
   const searchInput = document.getElementById("faq-search");
   const clearBtn    = document.getElementById("faq-clear");
   const emptyMsg    = document.getElementById("faq-empty");
-  const faqItems    = Array.from(document.querySelectorAll(".faq-item"));
+  const items       = Array.from(list.querySelectorAll(".faq-item"));
 
-  // Remove acentos e normaliza
   function norm(str){
     return (str || "")
       .toString()
@@ -41,35 +44,28 @@
 
   function applyFilter(q){
     const n = norm(q);
-    let visibleCount = 0;
+    let visible = 0;
 
-    faqItems.forEach(item => {
-      // Pesquisamos em pergunta + resposta
-      const text = norm(item.textContent);
-      const hit = !n || text.includes(n);
+    items.forEach(it => {
+      const text = norm(it.textContent);
+      const hit  = !n || text.includes(n);
+      it.style.display = hit ? "" : "none";
+      if (hit) visible++;
 
-      // Mostra/oculta
-      item.style.display = hit ? "" : "none";
-      if (hit) visibleCount++;
-
-      // (Opcional) se não há busca, recolhe tudo
-      if (!n) item.classList.remove("active");
+      // ao limpar a busca, recolhe os <details>
+      if (!n && it.tagName.toLowerCase() === "details") it.open = false;
     });
 
-    // Mensagem "sem resultados"
-    emptyMsg.style.display = (n && visibleCount === 0) ? "block" : "none";
+    if (emptyMsg) emptyMsg.style.display = (n && visible === 0) ? "block" : "none";
   }
 
-  // Digitação
   searchInput?.addEventListener("input", () => applyFilter(searchInput.value));
-
-  // Botão limpar
   clearBtn?.addEventListener("click", () => {
     searchInput.value = "";
     applyFilter("");
     searchInput.focus();
   });
 
-  // Inicializa sem filtro
+  // inicializa sem filtro
   applyFilter("");
-
+})();
