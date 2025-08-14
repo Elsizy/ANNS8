@@ -14,6 +14,55 @@ import {
 
 import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO } from "./products.js";
 
+// --- Modal de SUCESSO de compra (injetado via JS) ---
+const PURCHASE_SUCCESS_DELAY_MS = 3000; // << ajuste aqui o tempo antes de recarregar (ms)
+
+function ensureBuySuccessModal() {
+  if (document.getElementById("buy-success-overlay")) return;
+
+  const style = document.createElement("style");
+  style.id = "buy-success-style";
+  style.textContent = `
+    .buy-overlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.6); z-index:9999}
+    .buy-card{background:#fff; border-radius:14px; padding:24px 20px; max-width:360px; width:92%; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.18)}
+    .buy-title{font-size:18px; margin:8px 0 6px; color:#111}
+    .buy-desc{font-size:14px; color:#555; margin:0 0 4px}
+    .buy-hint{font-size:12px; color:#777}
+    .buy-icon{width:44px; height:44px}
+  `;
+  document.head.appendChild(style);
+
+  const overlay = document.createElement("div");
+  overlay.id = "buy-success-overlay";
+  overlay.className = "buy-overlay";
+  overlay.innerHTML = `
+    <div class="buy-card" role="dialog" aria-modal="true" aria-labelledby="buy-title" tabindex="-1">
+      <svg class="buy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#2ecc71">
+        <path d="M20 6L9 17l-5-5"/>
+        <circle cx="12" cy="12" r="10" stroke-opacity="0.2"></circle>
+      </svg>
+      <h3 id="buy-title" class="buy-title">Compra concluída</h3>
+      <p id="buy-desc" class="buy-desc"></p>
+      <p class="buy-hint">A página será atualizada automaticamente…</p>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+function showBuySuccessModal({ productName, price }) {
+  ensureBuySuccessModal();
+  const ov = document.getElementById("buy-success-overlay");
+  const desc = document.getElementById("buy-desc");
+  if (desc) desc.innerHTML = `Você adquiriu <strong>${productName}</strong> por <strong>${formatKz(price)}</strong>.`;
+  ov.style.display = "flex";
+  ov.querySelector(".buy-card")?.focus?.();
+}
+
+function hideBuySuccessModal() {
+  const ov = document.getElementById("buy-success-overlay");
+  if (ov) ov.style.display = "none";
+}
+
 const ICON_EYE = `
   <svg class="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -307,8 +356,8 @@ function renderProdutos({ uid, saldo, compras }) {
       }
 
       if (saldoAtual < product.preco) {
-        alert("Saldo insuficiente para esta compra.");
-        window.location.href = "deposito.html";
+        alert("Saldo insuficiente para esta compra, faça um deposito.");
+        
         return;
       }
 
@@ -375,8 +424,10 @@ function renderProdutos({ uid, saldo, compras }) {
         // paga comissão de rede (A/B/C) no ato da compra
         await payReferralCommissions(uid, product);
 
-        alert("Produto comprado com sucesso!");
-        window.location.reload();
+        showBuySuccessModal({ productName: product.nome, price: product.preco });
+        setTimeout(() => {
+          window.location.reload();
+        }, PURCHASE_SUCCESS_DELAY_MS);
       } catch (err) {
         console.error("Erro ao comprar produto:", err);
         alert("Erro ao comprar produto.");
