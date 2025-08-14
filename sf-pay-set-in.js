@@ -1,141 +1,116 @@
-// sf-pay-set-in.js
-import { auth, db } from "./firebase-config.js";
-import {
-  onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  ref as dbRef,
-  push,
-  update,
-  get,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+// === SF-PAY – Passo 3 (Enviar comprovativo) ===
+// Redireciona para sf-pay-sucess.html somente se upload+gravação derem certo.
 
-// === ALTERAÇÃO: usamos Supabase em vez de Firebase Storage ===
+import { auth, db } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { ref as dbRef, push, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+// Upload do comprovativo (Supabase)
 import { uploadProof } from "./supabase-upload.js";
 
-/** Onde guardamos o rascunho desde deposito.js */
 const DRAFT_KEY = "deposit_draft_v1";
 
-/* DOM */
-const nameInput = document.getElementById("depositant-name");
-const fileInput = document.getElementById("proof-file");
+// === DOM (mantém IDs do seu HTML atual) ===
+const fileInput = document.getElementById("proof-file");       // (antes: proof-input)
+const nameInput = document.getElementById("depositant-name");  // (antes: payer-name)
 const sendBtn   = document.getElementById("send");
 
-let currentUser = null;
+let user  = null;
 let draft = null;
 
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "login.html";
-    return;
-  }
-  currentUser = user;
+// Habilita o botão se nome + arquivo estiverem preenchidos
+function refreshButtonState() {
+  const hasName = !!(nameInput?.value || "").trim();
+  const hasFile = !!(fileInput?.files && fileInput.files[0]);
+  if (sendBtn) sendBtn.disabled = !(hasName && hasFile);
+}
 
-  // carrega o draft
+// listeners
+nameInput?.addEventListener("input", refreshButtonState);
+fileInput?.addEventListener("change", refreshButtonState);
+
+// estado inicial
+refreshButtonState();
+
+onAuthStateChanged(auth, async (u) => {
+  if (!u) { window.location.href = "login.html"; return; }
+  user = u;
+
+  // carrega rascunho
   const raw = sessionStorage.getItem(DRAFT_KEY);
-  if (!raw) {
-    alert("Fluxo de depósito não encontrado. Recomece.");
-    window.location.href = "deposito.html";
-    return;
-  }
+  if (!raw) { alert("Fluxo de depósito não encontrado. Recomece."); window.location.href = "deposito.html"; return; }
 
   try {
     draft = JSON.parse(raw);
-    console.log("[sf-pay-set-in] draft carregado:", draft);
+  } catch {
+    alert("Rascunho inválido. Recomece."); window.location.href = "deposito.html"; return;
+  }
 
-    // segurança extra
-    if (
-      !draft?.uid ||
-      !draft?.amountBase ||
-      !draft?.method ||
-      !draft?.bank ||
-      !draft?.bankData
-    ) {
-      alert("Informações do depósito incompletas. Recomece.");
-      window.location.href = "deposito.html";
-      return;
-    }
-
-    // garante amountExact
-    if (typeof draft.amountExact !== "number" || Number.isNaN(draft.amountExact)) {
-      draft.amountExact = draft.amountBase;
-      sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-    }
-
-    // **Registra o click aqui, só depois que tudo está validado**
-    sendBtn?.addEventListener("click", onSend);
-
-  } catch (e) {
-    console.error("[sf-pay-set-in] erro ao parsear draft:", e);
-    alert("Rascunho inválido. Recomece.");
-    window.location.href = "deposito.html";
+  // valida fluxo essencial
+  if (!draft?.uid || !draft?.amountBase || !draft?.method || !draft?.bank || !draft?.bankData) {
+    alert("Informações do depósito incompletas. Recomece.");
+    window.location.href = "deposito.html"; 
     return;
   }
+
+  // garante amountExact
+  if (typeof draft.amountExact !== "number" || Number.isNaN(draft.amountExact)) {
+    draft.amountExact = draft.amountBase;
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  }
+
+  // registra o click somente depois de tudo validado
+  sendBtn?.addEventListener("click", onSend);
 });
 
 async function onSend() {
-  if (!currentUser || !draft) {
-    console.warn("[sf-pay-set-in] Sem user ou draft, abortando.");
-    return;
-  }
-
   const depositantName = (nameInput.value || "").trim();
   const file = fileInput.files?.[0];
 
-  if (!depositantName) {
-    alert("Informe o nome do depositante.");
-    return;
-  }
-  if (!file) {
-    alert("Anexe o comprovativo (imagem ou PDF).");
-    return;
-  }
+  if (!depositantName) { alert("Informe o nome do pagador."); return; }
+  if (!file) { alert("Anexe o comprovativo (imagem ou PDF)."); return; }
+
+  // (opcional) checar tamanho: ex. 10MB
+  // if (file.size > 10 * 1024 * 1024) { alert("Arquivo muito grande (máx. 10MB)."); return; }
 
   sendBtn.disabled = true;
+  const originalText = sendBtn.textContent;
+  sendBtn.textContent = "Enviando...";
 
   try {
-    // 1) sobe o comprovativo (AGORA VIA SUPABASE)
-    const proofUrl = await uploadProof(file, currentUser.uid);
+    // 1) Sobe o comprovativo para a Supabase
+    const proofUrl = await uploadProof(file, user.uid);
 
-    // 2) gera um id e grava requisição global + histórico do usuário
+    // 2) Gera ID e grava em /depositRequests e /usuarios/{uid}/deposits/{id}
     const reqRef = push(dbRef(db, "depositRequests"));
     const id = reqRef.key;
 
     const payload = {
       id,
-      uid: currentUser.uid,
-      method: draft.method,
+      uid: user.uid,
+      method: draft.method,        // "SF-PAY" (garantir que veio setado dos passos anteriores)
       amountBase: draft.amountBase,
       amountExact: draft.amountExact,
       bank: draft.bank,
-      bankData: draft.bankData, // { name, holder, iban }
+      bankData: draft.bankData,    // { id, name, holder, iban }
       depositantName,
       proofUrl,
       status: "pending",
       createdAt: Date.now()
     };
 
-    console.log("[sf-pay-set-in] payload que será salvo:", payload);
-
     const updates = {};
     updates[`depositRequests/${id}`] = payload;
-    updates[`usuarios/${currentUser.uid}/deposits/${id}`] = payload;
-
+    updates[`usuarios/${user.uid}/deposits/${id}`] = payload;
     await update(dbRef(db), updates);
 
-    // limpa o draft
+    // 3) limpa rascunho e redireciona SOMENTE no sucesso
     sessionStorage.removeItem(DRAFT_KEY);
-
-    alert("Depósito enviado com sucesso! Aguarde a validação.");
-    window.location.href = "registrodeposito.html";
+    window.location.href = "sf-pay-sucess.html";
   } catch (err) {
-    console.error("[sf-pay-set-in] Falha ao enviar depósito:", err);
-    alert("Falha ao enviar o depósito: " + (err?.message || JSON.stringify(err)));
-  } finally {
+    console.error("[sf-pay-set-in] falha no envio:", err);
+    alert("Falha ao enviar o depósito: " + (err?.message || "tente novamente."));
     sendBtn.disabled = false;
+    sendBtn.textContent = originalText;
   }
 }
-
-function sanitizeFilename(name) {
-  return name.replace(/[^\w.\-]+/g, "_");
-  }
