@@ -178,7 +178,7 @@ async function onSubmit() {
 
   // Bloqueios adicionais (mantidos)
   if (!hasAnyProduct) {
-    alert("Para retirar fundos é necessário ter comprado pelo menos 1 produto.");
+    showFeedback("error", "Para retirar fundos é necessário ter comprado pelo menos 1 produto.");
     return;
   }
   if (hasOpenWithdrawal) {
@@ -192,21 +192,21 @@ async function onSubmit() {
     return;
   }
   if (!v || v <= 0) {
-    alert("Digite um valor válido.");
+    showFeedback("error", "Digite um valor válido.");
     return;
   }
   if (v < MIN_WITHDRAW) {
-    alert(`O valor mínimo para retirada é ${formatKz(MIN_WITHDRAW)}.`);
+    showFeedback(" error", `O valor mínimo para retirada é ${formatKz(MIN_WITHDRAW)}.`);
     return;
   }
   if (v > saldoAtual) {
-    alert("Saldo insuficiente.");
+    showFeedback("error", "Saldo insuficiente.");
     return;
   }
 
   const acc = accounts[pickedAccountId];
   if (!acc) {
-    alert("Conta bancária inválida.");
+    showFeedback("error", "Conta bancária inválida.");
     return;
   }
 
