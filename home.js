@@ -440,7 +440,7 @@ if (!ok) return;
 btn.disabled = true;
 btn.textContent = "Processando...";
 
-window.location.href = "comprarproduto.html";      
+   
       
 // Mantém sua UX de reativar em 4s
 setTimeout(() => {
@@ -510,7 +510,7 @@ setTimeout(() => {
 
         showBuySuccessModal({ productName: product.nome, price: product.preco });
         setTimeout(() => {
-          window.location.reload();
+          window.location.href = "comprarproduto.html";
         }, PURCHASE_SUCCESS_DELAY_MS);
       } catch (err) {
         console.error("Erro ao comprar produto:", err);
