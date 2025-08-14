@@ -6,72 +6,96 @@
   <title>Descarregar App</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
       margin: 0;
       padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('960x0.jpg') no-repeat center center/cover;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      text-align: center;
+      color: #fff;
+    }
+
+    .overlay {
+      background: rgba(0,0,0,0.6);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
     }
 
     .container {
-      background: #fff;
-      padding: 20px 15px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.95);
+      padding: 30px 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
       width: 90%;
-      max-width: 360px;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-out;
     }
 
-    .AES@2x {
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .app-icon {
       width: 120px;
       height: 120px;
-      border-radius: 20px;
+      border-radius: 24px;
       object-fit: cover;
       margin-bottom: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
 
     h1 {
-      font-size: 20px;
+      font-size: 22px;
       margin-bottom: 10px;
-      color: #333;
+      color: #222;
     }
 
     p {
-      font-size: 14px;
-      color: #555;
+      font-size: 15px;
+      color: #444;
       margin-bottom: 20px;
+      line-height: 1.4;
     }
 
-    .btn-download,
-    .btn-back {
+    .btn-download {
       display: block;
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       font-size: 16px;
       font-weight: bold;
       text-decoration: none;
       border-radius: 8px;
-      transition: background 0.2s ease;
-      margin-bottom: 10px;
-    }
-
-    .btn-download {
-      background: #28a745;
+      background: linear-gradient(45deg, #28a745, #34d058);
       color: #fff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-bottom: 12px;
     }
 
     .btn-download:hover {
-      background: #218838;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(40,167,69,0.4);
     }
 
     .btn-back {
+      display: block;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
       background: #6c757d;
       color: #fff;
+      transition: background 0.2s ease;
     }
 
     .btn-back:hover {
@@ -80,9 +104,17 @@
   </style>
 </head>
 <body>
+  <div class="overlay"></div>
+
   <div class="container">
     <img src="AES@2x.png" alt="App Icon" class="app-icon" />
-    <h1>ANSS - Ansys inc.</h1>
+    <h1>ANSS - Ansys Inc.</h1>
+    <p>Baixe a versão oficial do nosso aplicativo e tenha acesso rápido, seguro e otimizado aos nossos serviços.</p>
+    <a href="SEU-LINK-DE-DOWNLOAD-AQUI" class="btn-download">⬇ Download App</a>
+    <a href="pessoal.html" class="btn-back">Voltar</a>
+  </div>
+</body>
+</html>    <h1>ANSS - Ansys inc.</h1>
     <p>Descarregue a versão oficial do nosso aplicativo e tenha acesso rápido e seguro ao nosso serviço.</p>
     <a href="" class="btn-download">Download App</a>
     <a href="pessoal.html" class="btn-back">Voltar</a>
