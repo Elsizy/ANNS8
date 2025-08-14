@@ -1,28 +1,83 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pagamento Concluído</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Envoyé avec succès</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background-color: #fff;
+    html, body { height: 100%; margin: 0 }
+    body{
+      /* gradiente bem próximo ao da imagem */
+      background: linear-gradient(90deg, #3f7bf7 0%, #7a46f2 50%, #ff2fa6 100%);
+      display: flex;
+      align-items: flex-start;     /* conteúdo mais alto na tela, como no print */
+      justify-content: center;
+      color: #fff;
+      font: 500 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      overflow: hidden;
+      min-height: 100dvh;
     }
-    body {
-      background: url('payment-sucess.jpg') no-repeat center center;
-      background-size: cover;
+
+    .wrap{
+      text-align: center;
+      width: min(640px, 92vw);
+      margin-top: 14vh;            /* posiciona como no exemplo */
+      padding: 0 16px;
+      user-select: none;
+    }
+
+    .check{
+      width: 140px; height: 140px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: #39d269;         /* verde vivo */
+      display: grid; place-items: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+    .check svg{ width: 64%; height: 64% }
+
+    h1{
+      font-weight: 800;
+      font-size: 28px;
+      margin: 10px 0 10px;
+    }
+
+    p{
+      font-weight: 500;
+      font-size: 18px;
+      margin: 0;
+      opacity: .95;
+    }
+
+    @media (min-width: 768px){
+      h1{ font-size: 32px }
+      p { font-size: 20px }
     }
   </style>
+
+  <!-- Redireciona após 4 segundos -->
   <script>
-    // Redireciona após 4 segundos
-    setTimeout(() => {
-      window.location.href = "pessoal.html";
-    }, 4000);
+    setTimeout(() => { window.location.href = "pessoal.html"; }, 4000);
   </script>
+  <!-- Fallback caso JS esteja desativado -->
+  <noscript>
+    <meta http-equiv="refresh" content="4; url=pessoal.html">
+  </noscript>
 </head>
 <body>
+  <div class="wrap" aria-live="polite">
+    <div class="check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6L9 17l-5-5"></path>
+      </svg>
+    </div>
+
+    <h1>Envoyé avec succès</h1>
+    <p>
+      Votre commande a été soumise avec succès. Veuillez attendre patiemment la
+      vérification. Les fonds devraient arriver sur votre compte sur la plateforme
+      dans 10 minutes.
+    </p>
+  </div>
 </body>
-</html>
+          </html>
