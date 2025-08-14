@@ -251,7 +251,7 @@ async function onSave() {
   if (!bank) return alert("Selecione o banco.");
   if (!holder) return alert("Informe o nome do titular.");
   if (!iban || iban.length !== IBAN_MAX) {
-    return alert(`O IBAN deve ter exatamente ${IBAN_MAX} dígitos.`);
+    return showFeedback("error", `O IBAN deve ter exatamente ${IBAN_MAX} dígitos.`);
   }
 
   saveBtn.disabled = true;
