@@ -188,7 +188,7 @@ async function onSubmit() {
 
   const v = parseFloat(valorInput.value || "0");
   if (!pickedAccountId) {
-    alert("Escolha um banco.");
+    showFeedback("error", "Escolha um banco.");
     return;
   }
   if (!v || v <= 0) {
