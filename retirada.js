@@ -131,8 +131,8 @@ async function onSubmit() {
   // Bloqueio de horário (somente das 9h às 18h)  <<< NOVO
   const now = new Date();
   const hora = now.getHours();
-  if (hora < 9 || hora >= 18) {
-    showError("Os saques só estão disponíveis das 9h às 18h.");
+  if (hora < 9 || hora >= 19) {
+    showError("Os saques só estão disponíveis das 9h às 22h.");
     return;
   }
 
