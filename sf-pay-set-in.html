@@ -45,8 +45,6 @@ label[for="proof-file"]{
   text-align:center;
   transition:border-color .2s, box-shadow .2s, transform .05s;
 }
-label[for="proof-file"]::before{content:"Carregar imagem";font-weight:700}
-label[for="proof-file"]::after{content:"JPG, PNG ou PDF";font-size:12px;opacity:.7;margin-top:6px}
 label[for="proof-file"]:hover{
   border-color:var(--accent);
   box-shadow:0 0 0 3px color-mix(in srgb, var(--accent), transparent 70%);
@@ -250,6 +248,52 @@ input[type="text"]{
   appearance: none;
   overflow: hidden;
 }
+    /* === Pré-visualização dentro do quadrado === */
+#proof-box{
+  place-self:center;
+  display:grid;
+  justify-items:center;
+  align-items:center;
+  width: clamp(180px, 50vw, 220px);
+  aspect-ratio: 1 / 1;          /* mantém o quadrado perfeito */
+  border: 2px dashed #cbd5e1;
+  border-radius: 0;
+  background: #f8fafc;
+  color: #334155;
+  cursor: pointer;
+  padding: 16px;
+  text-align: center;
+  position: relative;           /* necessário pro <img> ocupar tudo */
+  overflow: hidden;             /* corta a imagem ao quadrado */
+  transition: border-color .2s, box-shadow .2s, transform .05s;
+}
+
+#proof-box:hover{
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent), transparent 70%);
+}
+
+/* texto do placeholder (mostra antes de escolher o ficheiro) */
+#proof-box .placeholder{
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  pointer-events: none;
+}
+
+/* imagem de preview: ocupa todo o quadrado, mas começa oculta */
+#proof-preview{
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;            /* preenche sem deformar */
+}
+
+/* quando tiver preview, esconde o texto e mostra a imagem */
+#proof-box.has-preview .placeholder{ display: none; }
+#proof-box.has-preview #proof-preview{ display: block; }
   </style>
 </head>
 <body>
