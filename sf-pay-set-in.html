@@ -6,364 +6,55 @@
   <title>Sf-Pay • Enviar comprovativo</title>
   <link rel="stylesheet" href="deposito.css" />
   <style>
-    :root { --accent:#2E78FF; }
-
-html,body{height:100%}
-body{
-  margin:0;
-  background:#fff;                 /* fundo branco */
-  color:#0f172a;
-  font:500 15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
-}
-
-.page{min-height:100dvh;display:flex;flex-direction:column;padding:16px;box-sizing:border-box}
-
-.header{display:grid;grid-template-columns:32px 1fr 32px;align-items:center;margin-bottom:12px}
-.header h1{grid-column:2;text-align:center;margin:0;font-size:20px;font-weight:700}
-
-/* conteúdo principal ocupa a tela e empurra as ações para baixo */
-.card{display:flex;flex-direction:column;flex:1;gap:12px;padding:14px;box-sizing:border-box;background:#fff}
-
-/* ===== Upload “profissional e dinâmico” ===== */
-/* esconde o input nativo mas mantém acessível pelo <label for> */
-#proof-file{
-  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
-  clip:rect(0,0,0,0);white-space:nowrap;border:0;
-}
-/* transforma o label em uma “caixa” clicável centralizada */
-label[for="proof-file"]{
-  place-self:center;
-  display:grid;justify-items:center;align-items:center;
-  width:clamp(180px,50vw,220px);
-  aspect-ratio: 1 / 1;
-  border:2px dashed #cbd5e1;
-  border-radius:0;                 /* quadrado */
-  background:#f8fafc;
-  color:#334155;
-  cursor:pointer;
-  padding:16px;
-  text-align:center;
-  transition:border-color .2s, box-shadow .2s, transform .05s;
-}
-label[for="proof-file"]:hover{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px color-mix(in srgb, var(--accent), transparent 70%);
-}
-/* oculta a dica pequena, já que a caixa já explica */
-.form-group:first-of-type .hint{display:none}
-
-/* ===== Espaçamento de 3 cm até o nome do depositante ===== */
-.form-group + .form-group{margin-top:0.5cm}
-
-/* campo do nome: visual limpo, quadrado */
-input[type="text"]{
-  height:44px;border:1px solid #e5e7eb;border-radius:0;
-  padding:0 12px;font-size:15px;width:100%;box-sizing:border-box;
-}
-
-/* Nota/aviso desce com o conteúdo e fica antes dos botões */
-.warning{
-  margin-top: 1px;                 /* empurra para a base do card */
-  font-size:13px;color:#5b3d00;
-  background:#fff6e6;border:1px solid #ffdeba;border-left:4px solid var(--accent);
-  border-radius:0;padding:10px 12px;
-}
-
-/* Ações no rodapé */
-.actions-row{display:flex;justify-content:flex-start;gap:12px;margin-top:12px}
-.btn-secondary-link{
-  display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
-  border:1px solid var(--accent);background:var(--accent);color:#fff;
-  height:40px;border-radius:0;padding:0 16px;font-weight:700;letter-spacing:.2px;
-}
-
-/* Botão Enviar logo abaixo */
-#send{
-  margin-top:10px;height:44px;border:1px solid var(--accent);
-  background:var(--accent);color:#fff;border-radius:5;font-weight:700;letter-spacing:.2px;
-  box-shadow:0 2px 10px rgba(46,120,255,.2);
-}
-#send:disabled{opacity:.45;pointer-events:none;box-shadow:none}
-    /* O card vira “container” dos botões fixos e reserva espaço pra eles */
-.card{
-  display:flex;
-  flex-direction:column;
-  flex:1;
-  gap:12px;
-  padding:14px;
-  box-sizing:border-box;
-  background:#fff;
-  position: relative;
-  padding-bottom: 72px; /* espaço pros botões (40px alt + respiro) */
-}
-
-/* Barra esquerda (Voltar) fixa no rodapé */
-
-
-/* “Voltar” ocupa toda a metade esquerda, mesmo tamanho do “Enviar” */
-.actions-row .btn-secondary-link{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-  border:1px solid var(--accent);
-  background:var(--accent);
-  color:#fff;
-  height:40px;            /* igual aos outros screens */
-  width:100%;
-  border-radius:10px;        /* quadrado */
-  font-weight:700;
-  letter-spacing:.2px;
-}
-
-/* “Enviar” fixa no rodapé, lado direito, mesmo tamanho do Voltar */
-
-#send:disabled{opacity:.45;pointer-events:none;box-shadow:none}
-
-/* (opcional) deixa a nota “colar” ao rodapé, mas sem sobrepor os botões */
-.warning{ margin-top: auto; }
-    .actions-row {
-  display: flex;
-  justify-content: space-between; /* um para a esquerda, outro para a direita */
-  margin-top: 12px;
-}
-
-.actions-row .btn-secondary-link,
-.actions-row .btn-primary {
-  height: 44px;
-  border-radius: 10px;
-  padding: 0 16px;
-  font-weight: 700;
-}
-    /* Ações no rodapé — mesma linha, mesmo tamanho, espaçadas */
-.actions-row{
-  margin-top: auto;        /* empurra os botões pro fim do card/página */
-  display: flex;
-  gap: 12px;               /* espaço entre os dois botões */
-}
-
-.actions-row .btn-secondary-link,
-.actions-row .btn-primary{
-  flex: 1 1 0;             /* tamanhos iguais (50% cada, considerando o gap) */
-  height: 44px;
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: #fff;
-  border-radius: 10px;
-  font-weight: 700;
-  letter-spacing: .2px;
-  padding: 0 16px;
-  box-shadow: 0 2px 10px rgba(46,120,255,.2);
-}
-
-/* garante que nada empurre o Enviar pra baixo */
-#send{ margin-top: 0 !important; }
-    /* Aviso normal (não ocupa o espaço livre) */
-.card .warning{
-  margin-top: 5px !important;
-}
-
-/* Botões vão para o rodapé do .card */
-.card{
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.card .actions-row{
-  margin-top: auto;           /* empurra a barra para o fundo */
-  display: flex;
-  gap: 12px;
-}
-
-.card .actions-row .btn-secondary-link,
-.card .actions-row .btn-primary{
-  flex: 1 1 0;                /* tamanhos iguais */
-  height: 44px;
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: #fff;
-  border-radius: 10px;
-  font-weight: 700;
-  letter-spacing: .2px;
-  padding: 0 16px;
-  box-shadow: 0 2px 10px rgba(46,120,255,.2);
-}
-
-/* segurança: não deixe nada empurrar o Enviar para baixo */
-#send{ margin-top: 0 !important; }
-    /* ======= FIX FINAL: força os botões no fundo ======= */
-
-/* 1) Garante altura de tela em todos os browsers */
-.page{
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
-}
-
-/* 2) Zera truques antigos que seguravam a barra para cima */
-.card{
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  position: static !important;          /* não precisamos mais de position */
-  padding-bottom: 14px !important;      /* remove o padding-bottom:72px */
-}
-
-/* 3) A nota fica normal, NÃO ocupa o espaço livre */
-.card .warning{
-  margin-top: 5px !important;
-}
-
-/* 4) A barra de ações é quem consome o espaço livre e vai ao rodapé */
-.card .actions-row{
-  margin-top: auto !important;
-  display: flex;
-  gap: 12px;
-}
-
-/* 5) Botões do mesmo tamanho, mesma linha */
-.card .actions-row .btn-secondary-link,
-.card .actions-row .btn-primary{
-  flex: 1 1 0;
-  height: 44px;
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: #fff;
-  border-radius: 10px;
-  font-weight: 700;
-  letter-spacing: .2px;
-  padding: 0 16px;
-  box-shadow: 0 2px 10px rgba(46,120,255,.2);
-}
-
-/* 6) Segurança: nada empurra o Enviar para baixo */
-#send{ margin-top: 0 !important; }
-    /* FIX: radius dos botões no rodapé */
-.card .actions-row a.btn-secondary-link,
-.card .actions-row .btn-primary,
-#send.btn-primary {
-  border-radius: 10px !important;
-  -webkit-appearance: none;
-  appearance: none;
-  overflow: hidden;
-}
-    /* === Pré-visualização dentro do quadrado === */
-#proof-box{
-  place-self:center;
-  display:grid;
-  justify-items:center;
-  align-items:center;
-  width: clamp(180px, 50vw, 220px);
-  aspect-ratio: 1 / 1;          /* mantém o quadrado perfeito */
-  border: 2px dashed #cbd5e1;
-  border-radius: 0;
-  background: #f8fafc;
-  color: #334155;
-  cursor: pointer;
-  padding: 16px;
-  text-align: center;
-  position: relative;           /* necessário pro <img> ocupar tudo */
-  overflow: hidden;             /* corta a imagem ao quadrado */
-  transition: border-color .2s, box-shadow .2s, transform .05s;
-}
-
-#proof-box:hover{
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent), transparent 70%);
-}
-
-/* texto do placeholder (mostra antes de escolher o ficheiro) */
-#proof-box .placeholder{
-  display: grid;
-  gap: 6px;
-  justify-items: center;
-  pointer-events: none;
-}
-
-/* imagem de preview: ocupa todo o quadrado, mas começa oculta */
-#proof-preview{
-  display: none;
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;            /* preenche sem deformar */
-}
-
-/* quando tiver preview, esconde o texto e mostra a imagem */
-#proof-box.has-preview .placeholder{ display: none; }
-#proof-box.has-preview #proof-preview{ display: block; }
+    .hint {
+      font-size: 12px;
+      color: #777;
+      margin: 6px 0 0;
+    }
+    .note {
+      color: #b35b00;
+      background: #fff6e6;
+      border: 1px solid #ffdeba;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 14px;
+      font-size: 13px;
+    }
   </style>
 </head>
 <body>
   <div class="page">
     <header class="header">
-      
+      <a href="sf-pay-set.html" class="back">← Voltar</a>
       <h1>Enviar comprovativo</h1>
       <span style="width:32px;"></span>
     </header>
 
     <section class="card">
-      
-
-      <div class="form-group">
-        <label for="proof-file" id="proof-box">
-          <span class="placeholder">
-            <strong>Carregar imagem</strong>
-            <small>JPG, PNG ou PDF</small>
-         </span>
-         <img id="proof-preview" alt="Pré-visualização do comprovativo" />
-        </label>
-        <input type="file" id="proof-file" accept="image/*,.pdf" />
-        <p class="hint">Formatos aceites: JPG, PNG, PDF.</p>
-      </div>
       <div class="form-group">
         <label for="depositant-name">Nome do depositante</label>
         <input type="text" id="depositant-name" placeholder="Seu nome no comprovativo" autocomplete="name" />
       </div>
 
-      <div class="warning">
+      <div class="form-group">
+        <label for="proof-file">Comprovativo (imagem / PDF)</label>
+        <input type="file" id="proof-file" accept="image/*,.pdf" />
+        <p class="hint">Formatos aceites: JPG, PNG, PDF.</p>
+      </div>
+
+      <div class="note">
         Após o envio, aguarde pacientemente até 30 minutos pela validação do seu depósito.
       </div>
 
-      
+      <button id="send" class="btn-primary" style="margin-top: 14px;">Enviar</button>
+
       <div class="actions-row">
         <a href="sf-pay-set.html" class="btn-secondary-link">Voltar</a>
-      
-      <button id="send" class="btn-primary">Enviar</button>
       </div>
     </section>
   </div>
 
   <script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./sf-pay-set-in.js"></script>
-  <script type="module">
-  const input   = document.getElementById('proof-file');
-  const box     = document.getElementById('proof-box');
-  const preview = document.getElementById('proof-preview');
-
-  input.addEventListener('change', () => {
-    const file = input.files && input.files[0];
-    if (!file) {
-      // sem ficheiro => volta ao estado inicial
-      box.classList.remove('has-preview');
-      preview.removeAttribute('src');
-      return;
-    }
-
-    // Se for imagem, mostra a miniatura no quadrado
-    if (file.type.startsWith('image/')) {
-      const url = URL.createObjectURL(file);
-      preview.src = url;
-      box.classList.add('has-preview');
-      return;
-    }
-
-    // Se for PDF, não dá para miniatura nativa — volta ao placeholder
-    box.classList.remove('has-preview');
-    preview.removeAttribute('src');
-  });
-                                          </script>
 </body>
 </html>
