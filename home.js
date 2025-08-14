@@ -30,7 +30,7 @@ const ICON_EYE_OFF = `
 /** 24h em ms */
 const DAY_MS = 24 * 60 * 60 * 1000;
 /** Percentuais de rede aplicados SOBRE O PREÇO do produto */
-const REF_PERC_ON_PURCHASE = { A: 0.30, B: 0.03, C: 0.01 };
+const REF_PERC_ON_PURCHASE = { A: 0.25, B: 0.03, C: 0.01 };
 
 /* =========================
    CACHE (TTL = 60s)
@@ -302,7 +302,7 @@ function renderProdutos({ uid, saldo, compras }) {
       const countAtual = comprasAtuais[productId]?.count || 0;
 
       if (countAtual >= MAX_COMPRAS_POR_PRODUTO) {
-        alert("Você já atingiu o limite de 3 compras para este produto.");
+        alert("Você já atingiu o limite de 9 compras para este produto.");
         return;
       }
 
