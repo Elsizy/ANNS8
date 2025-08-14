@@ -23,7 +23,7 @@
     });
   });
 })();
-<script>
+
   // ===== Busca no FAQ (case-insensitive e sem acentos) =====
   const searchInput = document.getElementById("faq-search");
   const clearBtn    = document.getElementById("faq-clear");
@@ -72,4 +72,4 @@
 
   // Inicializa sem filtro
   applyFilter("");
-</script>
+
