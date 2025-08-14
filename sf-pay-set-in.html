@@ -338,5 +338,32 @@ input[type="text"]{
 
   <script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./sf-pay-set-in.js"></script>
+  <script type="module">
+  const input   = document.getElementById('proof-file');
+  const box     = document.getElementById('proof-box');
+  const preview = document.getElementById('proof-preview');
+
+  input.addEventListener('change', () => {
+    const file = input.files && input.files[0];
+    if (!file) {
+      // sem ficheiro => volta ao estado inicial
+      box.classList.remove('has-preview');
+      preview.removeAttribute('src');
+      return;
+    }
+
+    // Se for imagem, mostra a miniatura no quadrado
+    if (file.type.startsWith('image/')) {
+      const url = URL.createObjectURL(file);
+      preview.src = url;
+      box.classList.add('has-preview');
+      return;
+    }
+
+    // Se for PDF, não dá para miniatura nativa — volta ao placeholder
+    box.classList.remove('has-preview');
+    preview.removeAttribute('src');
+  });
+                                          </script>
 </body>
 </html>
