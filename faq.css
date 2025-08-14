@@ -97,3 +97,48 @@ body{
   .qdot{ width:26px; height:26px }
   .page-title{ font-size:17px }
   }
+/* === FAQ: busca === */
+:root { --accent: #2E78FF; } /* usa a mesma cor do teu projeto, se já existir pode ignorar */
+
+.faq-search{
+  position: relative;
+  margin: 12px 0 16px;
+}
+
+#faq-search{
+  width: 100%;
+  height: 44px;
+  padding: 0 44px 0 14px;          /* espaço pro botão de limpar */
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 10px;
+  background: #f8f8f8;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+#faq-search:focus{
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(46,120,255,.15);
+  background: #fff;
+}
+
+#faq-clear{
+  position: absolute;
+  right: 6px; top: 50%;
+  transform: translateY(-50%);
+  height: 32px; width: 32px;
+  border: 0; border-radius: 8px;
+  background: transparent;
+  font-size: 18px; line-height: 1;
+  cursor: pointer;
+  color: rgba(0,0,0,.55);
+}
+#faq-clear:hover{ background: rgba(0,0,0,.06); }
+
+.faq-empty{
+  margin: 8px 0 0;
+  font-size: .95rem;
+  color: rgba(0,0,0,.55);
+  text-align: center;
+  }
