@@ -241,6 +241,15 @@ input[type="text"]{
 
 /* 6) Segurança: nada empurra o Enviar para baixo */
 #send{ margin-top: 0 !important; }
+    /* FIX: radius dos botões no rodapé */
+.card .actions-row a.btn-secondary-link,
+.card .actions-row .btn-primary,
+#send.btn-primary {
+  border-radius: 3px !important;
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+}
   </style>
 </head>
 <body>
