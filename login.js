@@ -37,7 +37,7 @@ function ensureLoginSuccessModal() {
         <circle cx="12" cy="12" r="10" stroke-opacity="0.2"></circle>
       </svg>
       <h3 id="lg-title" class="lg-title">Sessão iniciada com sucesso</h3>
-      <p class="lg-desc">Bem-vindo(a) de volta à <strong>ANNS8</strong>.</p>
+      <p class="lg-desc">Bem-vindo(a) de volta à <strong>AES energies</strong>.</p>
       <p class="lg-hint">Você será redirecionado automaticamente…</p>
     </div>
   `;
