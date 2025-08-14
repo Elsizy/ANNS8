@@ -216,8 +216,8 @@ function ensureSignupSuccessModal() {
         <circle cx="12" cy="12" r="10" stroke-opacity="0.2"></circle>
       </svg>
       <h3 id="su-title" class="su-title">Conta criada com sucesso</h3>
-      <p class="su-desc">Bem-vindo(a) à <strong>ANNS8</strong>. Pode iniciar sessão para começar.</p>
-      <button id="su-ok" class="su-btn su-btn-primary" type="button">Ir para o login</button>
+      <p class="su-desc">Bem-vindo(a) à <strong>AES energies</strong>. Pode iniciar sessão para começar.</p>
+      <button id="su-ok" class="su-btn su-btn-primary" type="button">Ir para o login</button> 
     </div>
   `;
   document.body.appendChild(overlay);
@@ -322,7 +322,7 @@ async function onSubmit(e) {
     );
 
     showSignupSuccessModal();
-    setTimeout(() => window.location.href = "login.html", 1800);
+    setTimeout(() => window.location.href = "login.html", 3000);
   } catch (err) {
     console.error("[SIGNUP][DB ERROR]", err);
     alert(
