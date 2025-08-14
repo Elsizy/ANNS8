@@ -187,6 +187,67 @@ document.addEventListener("DOMContentLoaded", async () => {
   form.addEventListener("submit", onSubmit);
 });
 
+// --- Modal de sucesso injetado via JS (sem mexer no HTML) ---
+function ensureSignupSuccessModal() {
+  if (document.getElementById("signup-success-overlay")) return;
+
+  // CSS inline do modal
+  const style = document.createElement("style");
+  style.id = "signup-success-style";
+  style.textContent = `
+    .su-overlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.6); z-index:9999}
+    .su-card{background:#fff; border-radius:14px; padding:24px 20px; max-width:360px; width:92%; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.18)}
+    .su-title{font-size:18px; margin:8px 0 6px; color:#111}
+    .su-desc{font-size:14px; color:#555; margin:0 0 18px}
+    .su-btn{display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:10px; border:0; cursor:pointer; font-weight:600}
+    .su-btn-primary{background:#3da5ff; color:#fff}
+    .su-icon{width:44px; height:44px}
+  `;
+  document.head.appendChild(style);
+
+  // HTML do modal
+  const overlay = document.createElement("div");
+  overlay.id = "signup-success-overlay";
+  overlay.className = "su-overlay";
+  overlay.innerHTML = `
+    <div class="su-card" role="dialog" aria-modal="true" aria-labelledby="su-title">
+      <svg class="su-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#2ecc71">
+        <path d="M20 6L9 17l-5-5"/>
+        <circle cx="12" cy="12" r="10" stroke-opacity="0.2"></circle>
+      </svg>
+      <h3 id="su-title" class="su-title">Conta criada com sucesso</h3>
+      <p class="su-desc">Bem-vindo(a) à <strong>ANNS8</strong>. Pode iniciar sessão para começar.</p>
+      <button id="su-ok" class="su-btn su-btn-primary" type="button">Ir para o login</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  // Eventos
+  const ok = overlay.querySelector("#su-ok");
+  ok.addEventListener("click", () => {
+    hideSignupSuccessModal();
+    window.location.href = "login.html";
+  });
+
+  // Fechar com Enter
+  overlay.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") ok.click();
+  });
+}
+
+function showSignupSuccessModal() {
+  ensureSignupSuccessModal();
+  const ov = document.getElementById("signup-success-overlay");
+  ov.style.display = "flex";
+  // foco para acessibilidade
+  ov.querySelector(".su-card")?.focus?.();
+}
+
+function hideSignupSuccessModal() {
+  const ov = document.getElementById("signup-success-overlay");
+  if (ov) ov.style.display = "none";
+                          }
+
 async function onSubmit(e) {
   e.preventDefault();
 
@@ -260,8 +321,8 @@ async function onSubmit(e) {
       `Timeout ao gravar no Realtime Database (${SAVE_TIMEOUT_MS / 1000}s)`
     );
 
-    alert("Conta criada com sucesso!");
-    window.location.href = "login.html";
+    showSignupSuccessModal();
+    setTimeout(() => window.location.href = "login.html", 1800);
   } catch (err) {
     console.error("[SIGNUP][DB ERROR]", err);
     alert(
