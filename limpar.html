@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Tornar Admin</title>
   <style>
-    :root{--bg:#0b0f17;--card:#131a26;--muted:#94a3b8;--text:#e6eef6;--accent:#3b82f6;--ok:#10b981;--err:#ef4444}
+    :root{--bg:#0b0f17;--card:#131a26;--muted:#94a3b8;--text:#e6eef6;--accent:#3b82f6;--ok:#10b981}
     *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial}
     .wrap{max-width:720px;margin:32px auto;padding:20px}
     .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;padding:20px}
@@ -17,7 +17,6 @@
     .btn{background:#111827;color:var(--text);border:1px solid #1f2937}
     .btn-accent{background:var(--accent);color:#fff}
     .btn-ok{background:var(--ok);color:#052e26}
-    .btn-err{background:var(--err);color:#fff}
     .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0;padding:12px;background:#0f1520;border:1px solid #1f2937;border-radius:12px}
     .log{white-space:pre-wrap;background:#0f1520;border:1px solid #1f2937;border-radius:12px;padding:12px;min-height:100px}
     code{background:#0f1520;border:1px solid #1f2937;padding:2px 6px;border-radius:6px}
@@ -26,8 +25,8 @@
 <body>
   <div class="wrap">
     <div class="card">
-      <h1>Tornar usuário atual em <code>/admin</code></h1>
-      <p>Cria (ou faz login) com e-mail/senha e marca <code>admin/&lt;uid&gt; = true</code> no Realtime Database.</p>
+      <h1>Tornar usuário atual <code>admin</code></h1>
+      <p>Cria/entra com e-mail e marca <code>/admin/&lt;uid&gt; = true</code> e <code>/usuarios/&lt;uid&gt;/role = "admin"</code>.</p>
 
       <div class="bar">
         <div id="who">Não autenticado</div>
@@ -52,20 +51,21 @@
   </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    // --- SDK v10.12.2 (igual ao seu projeto antigo)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
       getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
       onAuthStateChanged, signOut, setPersistence, browserLocalPersistence
-    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    // === SUA CONFIG ===
+    // === CONFIG DO SEU NOVO PROJETO ===
     const firebaseConfig = {
       apiKey: "AIzaSyDnd53WofoxaKUfTtQiyA6B3KkCYicUFVE",
       authDomain: "aesinc-1b8a9.firebaseapp.com",
       databaseURL: "https://aesinc-1b8a9-default-rtdb.europe-west1.firebasedatabase.app",
       projectId: "aesinc-1b8a9",
-      storageBucket: "aesinc-1b8a9.firebasestorage.app",
+      storageBucket: "aesinc-1b8a9.appspot.com", // bucket correto
       messagingSenderId: "241657630880",
       appId: "1:241657630880:web:3342e177b87480427fb9c5"
     };
@@ -75,8 +75,8 @@
     const db = getDatabase(app);
     setPersistence(auth, browserLocalPersistence);
 
-    const $ = id => document.getElementById(id);
-    const log = msg => { $("log").textContent = `[${new Date().toLocaleTimeString()}] ${msg}\n` + $("log").textContent; };
+    const $ = (id) => document.getElementById(id);
+    const log = (msg) => { $("log").textContent = `[${new Date().toLocaleTimeString()}] ${msg}\n` + $("log").textContent; };
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -92,7 +92,6 @@
       const email = $("email").value.trim();
       const password = $("password").value;
       if (!email || !password) return alert("Informe e-mail e senha.");
-
       try {
         const cred = await createUserWithEmailAndPassword(auth, email, password);
         log(`✅ Usuário criado: ${cred.user.uid}`);
@@ -111,12 +110,30 @@
       log("Sessão encerrada.");
     };
 
+    async function mirrorAdminRole(uid, email) {
+      const uref = ref(db, `usuarios/${uid}`);
+      const snap = await get(uref);
+      if (!snap.exists()) {
+        await set(uref, {
+          uid,
+          email: email || null,
+          role: "admin",
+          criadoEm: new Date().toISOString()
+        });
+      } else {
+        await update(uref, { role: "admin" });
+      }
+    }
+
     $("makeAdminBtn").onclick = async () => {
       const user = auth.currentUser;
       if (!user) return alert("Faça login primeiro.");
       try {
+        // 1) bandeira central de privilégios
         await set(ref(db, `admin/${user.uid}`), true);
-        log(`🏷️ Marcado como admin em /admin/${user.uid}`);
+        // 2) compatibilidade com seu login.js
+        await mirrorAdminRole(user.uid, user.email);
+        log(`🏷️ Admin marcado em /admin/${user.uid} e /usuarios/${user.uid}/role=admin`);
         alert("Agora você é admin.");
       } catch (e) {
         console.error(e); alert(e.message); log("❌ " + e.message);
@@ -127,8 +144,9 @@
       const user = auth.currentUser;
       if (!user) return alert("Faça login primeiro.");
       try {
-        const snap = await get(ref(db, `admin/${user.uid}`));
-        log(snap.exists() ? "✅ Você É admin." : "⚠️ Você NÃO é admin.");
+        const a = await get(ref(db, `admin/${user.uid}`));
+        const r = await get(ref(db, `usuarios/${user.uid}/role`));
+        log(`${a.exists() && a.val() === true ? "✅ /admin ok" : "⚠️ /admin ausente"} | role: ${r.exists() ? r.val() : "—"}`);
       } catch (e) {
         console.error(e); alert(e.message); log("❌ " + e.message);
       }
