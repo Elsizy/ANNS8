@@ -1,16 +1,16 @@
-// firebase-config.js (modular)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+// firebase-config.js (CDN, modular)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBj-MK1oOk6lIJZT8KrSsllwSqoMHfUkzQ",
-  authDomain: "anns8-5fc26.firebaseapp.com",
-  databaseURL: "https://anns8-5fc26-default-rtdb.firebaseio.com",
-  projectId: "anns8-5fc26",
-  storageBucket: "anns8-5fc26.appspot.com",
-  messagingSenderId: "259361189676",
-  appId: "1:259361189676:web:a9d54cee391b9f0f468689"
+  apiKey: "AIzaSyDnd53WofoxaKUfTtQiyA6B3KkCYicUFVE",
+  authDomain: "aesinc-1b8a9.firebaseapp.com",
+  databaseURL: "https://aesinc-1b8a9-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "aesinc-1b8a9",
+  storageBucket: "aesinc-1b8a9.appspot.com", // ← bucket correto
+  messagingSenderId: "241657630880",
+  appId: "1:241657630880:web:3342e177b87480427fb9c5"
 };
 
 const app = initializeApp(firebaseConfig);
