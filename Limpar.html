@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Limpar RTDB (Manter /admin)</title>
+</head>
+<body>
+  <h1>Limpar RTDB (Manter /admin)</h1>
+  <button id="limparBtn">LIMPAR BASE</button>
+
+  <script type="module">
+    import { ref, get, set, remove } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    import { db } from "./firebase-config.js";
+
+    async function limparRTDBMantendoAdmin() {
+      try {
+        // 1. Ler /admin
+        const adminRef = ref(db, 'admin');
+        const adminSnapshot = await get(adminRef);
+        const adminData = adminSnapshot.exists() ? adminSnapshot.val() : null;
+
+        // 2. Apagar tudo
+        await remove(ref(db, '/'));
+
+        // 3. Restaurar /admin
+        if (adminData) {
+          await set(adminRef, adminData);
+        }
+
+        alert("✅ Base de dados limpa, /admin mantido!");
+      } catch (error) {
+        alert("❌ Erro: " + error.message);
+        console.error(error);
+      }
+    }
+
+    document.getElementById("limparBtn").addEventListener("click", limparRTDBMantendoAdmin);
+  </script>
+</body>
+</html>
