@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tornar Admin</title>
+  <style>
+    :root{--bg:#0b0f17;--card:#131a26;--muted:#94a3b8;--text:#e6eef6;--accent:#3b82f6;--ok:#10b981;--err:#ef4444}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    .wrap{max-width:720px;margin:32px auto;padding:20px}
+    .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;padding:20px}
+    h1{margin:0 0 8px;font-size:22px}
+    p{margin:6px 0;color:var(--muted)}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    input{flex:1;min-width:220px;background:#0f1520;border:1px solid #1f2937;color:var(--text);padding:12px;border-radius:12px}
+    button{cursor:pointer;border:0;padding:12px 16px;border-radius:12px;font-weight:600}
+    .btn{background:#111827;color:var(--text);border:1px solid #1f2937}
+    .btn-accent{background:var(--accent);color:#fff}
+    .btn-ok{background:var(--ok);color:#052e26}
+    .btn-err{background:var(--err);color:#fff}
+    .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0;padding:12px;background:#0f1520;border:1px solid #1f2937;border-radius:12px}
+    .log{white-space:pre-wrap;background:#0f1520;border:1px solid #1f2937;border-radius:12px;padding:12px;min-height:100px}
+    code{background:#0f1520;border:1px solid #1f2937;padding:2px 6px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Tornar usuário atual em <code>/admin</code></h1>
+      <p>Cria (ou faz login) com e-mail/senha e marca <code>admin/&lt;uid&gt; = true</code> no Realtime Database.</p>
+
+      <div class="bar">
+        <div id="who">Não autenticado</div>
+        <div class="row">
+          <button id="logoutBtn" class="btn" style="display:none">Sair</button>
+        </div>
+      </div>
+
+      <div class="row" style="margin:10px 0 0">
+        <input id="email" type="email" placeholder="E-mail do admin" />
+        <input id="password" type="password" placeholder="Senha" />
+      </div>
+
+      <div class="row" style="margin:12px 0">
+        <button id="createOrLoginBtn" class="btn-accent">Criar ou Entrar</button>
+        <button id="makeAdminBtn" class="btn-ok">Marcar como Admin</button>
+        <button id="checkBtn" class="btn">Verificar status</button>
+      </div>
+
+      <div id="log" class="log">Pronto.</div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import {
+      getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+      onAuthStateChanged, signOut, setPersistence, browserLocalPersistence
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+    // === SUA CONFIG ===
+    const firebaseConfig = {
+      apiKey: "AIzaSyDnd53WofoxaKUfTtQiyA6B3KkCYicUFVE",
+      authDomain: "aesinc-1b8a9.firebaseapp.com",
+      databaseURL: "https://aesinc-1b8a9-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "aesinc-1b8a9",
+      storageBucket: "aesinc-1b8a9.firebasestorage.app",
+      messagingSenderId: "241657630880",
+      appId: "1:241657630880:web:3342e177b87480427fb9c5"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+    setPersistence(auth, browserLocalPersistence);
+
+    const $ = id => document.getElementById(id);
+    const log = msg => { $("log").textContent = `[${new Date().toLocaleTimeString()}] ${msg}\n` + $("log").textContent; };
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        $("who").textContent = `Autenticado: ${user.email || user.uid}`;
+        $("logoutBtn").style.display = "inline-block";
+      } else {
+        $("who").textContent = "Não autenticado";
+        $("logoutBtn").style.display = "none";
+      }
+    });
+
+    $("createOrLoginBtn").onclick = async () => {
+      const email = $("email").value.trim();
+      const password = $("password").value;
+      if (!email || !password) return alert("Informe e-mail e senha.");
+
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        log(`✅ Usuário criado: ${cred.user.uid}`);
+      } catch (e) {
+        if (e.code === "auth/email-already-in-use") {
+          const cred = await signInWithEmailAndPassword(auth, email, password);
+          log(`🔐 Login OK: ${cred.user.uid}`);
+        } else {
+          console.error(e); alert(e.message); log("❌ " + e.message);
+        }
+      }
+    };
+
+    $("logoutBtn").onclick = async () => {
+      await signOut(auth);
+      log("Sessão encerrada.");
+    };
+
+    $("makeAdminBtn").onclick = async () => {
+      const user = auth.currentUser;
+      if (!user) return alert("Faça login primeiro.");
+      try {
+        await set(ref(db, `admin/${user.uid}`), true);
+        log(`🏷️ Marcado como admin em /admin/${user.uid}`);
+        alert("Agora você é admin.");
+      } catch (e) {
+        console.error(e); alert(e.message); log("❌ " + e.message);
+      }
+    };
+
+    $("checkBtn").onclick = async () => {
+      const user = auth.currentUser;
+      if (!user) return alert("Faça login primeiro.");
+      try {
+        const snap = await get(ref(db, `admin/${user.uid}`));
+        log(snap.exists() ? "✅ Você É admin." : "⚠️ Você NÃO é admin.");
+      } catch (e) {
+        console.error(e); alert(e.message); log("❌ " + e.message);
+      }
+    };
+  </script>
+</body>
+</html>
