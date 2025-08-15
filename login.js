@@ -1,17 +1,18 @@
-// login.js
+// login.js — usa customClaims + fallback no RTDB
 import { auth, db } from "./firebase-config.js";
 import {
   setPersistence,
   browserLocalPersistence,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  reload,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   ref,
-  get
+  get,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// --- Modal de sucesso para LOGIN (injetado via JS, sem alterar HTML) ---
+/* ========= Modal de sucesso (igual ao seu) ========= */
 function ensureLoginSuccessModal() {
   if (document.getElementById("login-success-overlay")) return;
 
@@ -43,19 +44,53 @@ function ensureLoginSuccessModal() {
   `;
   document.body.appendChild(overlay);
 }
-
 function showLoginSuccessModal() {
   ensureLoginSuccessModal();
   const ov = document.getElementById("login-success-overlay");
   ov.style.display = "flex";
   ov.querySelector(".lg-card")?.focus?.();
 }
-
 function hideLoginSuccessModal() {
   const ov = document.getElementById("login-success-overlay");
   if (ov) ov.style.display = "none";
 }
 
+/* ========= Helpers para checar se é admin ========= */
+async function isAdminViaClaims(user, { forceRefresh = false } = {}) {
+  try {
+    const token = await user.getIdTokenResult(forceRefresh);
+    return !!token.claims?.admin;
+  } catch (e) {
+    console.warn("[LOGIN] Falha ao ler claims:", e);
+    return false;
+  }
+}
+async function isAdminFallbackRTDB(uid) {
+  try {
+    const [roleSnap, flagSnap] = await Promise.all([
+      get(ref(db, `usuarios/${uid}/role`)),
+      get(ref(db, `admin/${uid}`)),
+    ]);
+    const role = roleSnap.exists() ? roleSnap.val() : null;
+    const flag = flagSnap.exists() ? flagSnap.val() : null;
+    return role === "admin" || flag === true;
+  } catch (e) {
+    console.warn("[LOGIN] Falha no fallback RTDB:", e);
+    return false;
+  }
+}
+async function isAdmin(user) {
+  if (!user) return false;
+
+  // 1) tenta via claims (força refresh para pegar claims recém-setadas)
+  const hasClaim = await isAdminViaClaims(user, { forceRefresh: true });
+  if (hasClaim) return true;
+
+  // 2) fallback compatível com sua estrutura antiga
+  return await isAdminFallbackRTDB(user.uid);
+}
+
+/* ========= Main ========= */
 document.addEventListener("DOMContentLoaded", async () => {
   const btn = document.getElementById("loginBtn");
   if (!btn) {
@@ -63,28 +98,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Persistência local
   try {
     await setPersistence(auth, browserLocalPersistence);
   } catch (e) {
     console.warn("Persistência não aplicada:", e);
   }
 
-  // Se o usuário já estiver logado, decide o redirect aqui também
+  // Se já estiver logado, decidir o redirect usando claims + fallback
   onAuthStateChanged(auth, async (user) => {
     if (!user) return;
-
     try {
-      const roleSnap = await get(ref(db, `usuarios/${user.uid}/role`));
-      const role = roleSnap.exists() ? roleSnap.val() : null;
-      if (role === "admin") {
-        window.location.href = "admin.html";
-      } else {
-        window.location.href = "home.html";
-      }
+      const admin = await isAdmin(user);
+      window.location.href = admin ? "admin.html" : "home.html";
     } catch (e) {
-      console.warn("Falha ao ler role do usuário logado:", e);
-      // fallback seguro
+      console.warn("Falha ao decidir redirect do usuário logado:", e);
       window.location.href = "home.html";
     }
   });
@@ -101,19 +128,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, senha);
 
-      // Descobre se é admin
-      let role = null;
-      try {
-        const roleSnap = await get(ref(db, `usuarios/${user.uid}/role`));
-        role = roleSnap.exists() ? roleSnap.val() : null;
-      } catch (e) {
-        console.warn("Falha ao consultar role:", e);
-      }
+      // força recarregar dados do usuário (opcional)
+      try { await reload(user); } catch (_) {}
+
+      const admin = await isAdmin(user);
 
       showLoginSuccessModal();
       setTimeout(() => {
-        window.location.href = role === "admin" ? "admin.html" : "home.html";
-      }, 4000); // mesmo padrão que você usou no signup
+        window.location.href = admin ? "admin.html" : "home.html";
+      }, 4000);
     } catch (err) {
       console.error("Erro de login:", err);
       alert("Erro ao fazer login: " + (err?.message || err));
