@@ -1,40 +1,55 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Limpar RTDB (Manter /admin)</title>
-</head>
-<body>
-  <h1>Limpar RTDB (Manter /admin)</h1>
-  <button id="limparBtn">LIMPAR BASE</button>
+<meta charset="utf-8" />
+<title>Configurar Admin (novo projeto)</title>
+<body style="font-family:system-ui;padding:24px;max-width:600px;margin:auto;">
+  <h2>Configurar Admin</h2>
+  <p>Cria um usuário no Auth e marca como admin no RTDB (<code>/admin/&lt;uid&gt; = true</code>).</p>
+  <div style="display:flex; gap:8px; margin:12px 0;">
+    <input id="email" type="email" placeholder="E-mail do admin" style="flex:1; padding:8px;">
+    <input id="password" type="password" placeholder="Senha" style="flex:1; padding:8px;">
+    <button id="go">Criar admin</button>
+  </div>
+  <pre id="out" style="background:#111;color:#eee;padding:12px;border-radius:8px;white-space:pre-wrap;"></pre>
 
   <script type="module">
-    import { ref, get, set, remove } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
-    import { db } from "./firebase-config.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-    async function limparRTDBMantendoAdmin() {
+    // ⬇️ COLE AQUI O MESMO CONFIG DO NOVO PROJETO
+    const firebaseConfig = {
+      apiKey: "SUA_API_KEY",
+      authDomain: "SEU_PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://SEU_PROJECT_ID-default-rtdb.firebaseio.com",
+      projectId: "SEU_PROJECT_ID",
+      storageBucket: "SEU_PROJECT_ID.firebasestorage.app",
+      messagingSenderId: "SEU_SENDER_ID",
+      appId: "SUA_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    const $ = id => document.getElementById(id);
+    const log = m => $("out").textContent += m + "\n";
+
+    $("go").onclick = async () => {
+      const email = $("email").value.trim();
+      const password = $("password").value;
+      if (!email || !password) return alert("Preencha e-mail e senha.");
+
       try {
-        // 1. Ler /admin
-        const adminRef = ref(db, 'admin');
-        const adminSnapshot = await get(adminRef);
-        const adminData = adminSnapshot.exists() ? adminSnapshot.val() : null;
-
-        // 2. Apagar tudo
-        await remove(ref(db, '/'));
-
-        // 3. Restaurar /admin
-        if (adminData) {
-          await set(adminRef, adminData);
-        }
-
-        alert("✅ Base de dados limpa, /admin mantido!");
-      } catch (error) {
-        alert("❌ Erro: " + error.message);
-        console.error(error);
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        log("✅ Usuário criado: " + cred.user.uid);
+        await set(ref(db, `admin/${cred.user.uid}`), true);
+        log("✅ Marcado como admin em /admin/" + cred.user.uid);
+        alert("Admin criado e marcado!");
+      } catch (e) {
+        console.error(e); log("❌ Erro: " + e.message); alert(e.message);
       }
-    }
-
-    document.getElementById("limparBtn").addEventListener("click", limparRTDBMantendoAdmin);
+    };
   </script>
 </body>
 </html>
