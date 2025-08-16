@@ -14,7 +14,79 @@ import {
 
 import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO } from "./products.js";
 
+const feedbackModal = document.getElementById("feedback-modal");
+const feedbackText  = document.getElementById("feedback-text");
+const feedbackClose = document.getElementById("feedback-close");
 
+// Modal de feedback (success | error)
+let feedbackTimer = null;
+
+function showFeedback(type, message, { autoclose = 2000 } = {}) {
+  if (!feedbackModal) return alert(message); // fallback
+  // limpa estado
+  feedbackModal.classList.remove("success","error","hidden","show");
+  // aplica tipo + mensagem
+  feedbackModal.classList.add(type); // "success" ou "error"
+  feedbackText.textContent = message;
+
+  // mostra
+  requestAnimationFrame(() => feedbackModal.classList.add("show"));
+
+  // foco e acessibilidade
+  feedbackClose?.focus();
+
+  // autoclose
+  if (feedbackTimer) clearTimeout(feedbackTimer);
+  if (autoclose) {
+    feedbackTimer = setTimeout(hideFeedback, autoclose);
+  }
+}
+function hideFeedback() {
+  if (!feedbackModal) return;
+  feedbackModal.classList.remove("show");
+  // opcional: esconder totalmente após a animação
+  setTimeout(() => feedbackModal.classList.add("hidden"), 180);
+  if (feedbackTimer) { clearTimeout(feedbackTimer); feedbackTimer = null; }
+}
+// interações
+feedbackClose?.addEventListener("click", hideFeedback);
+feedbackModal?.addEventListener("click", (e) => { if (e.target === feedbackModal) hideFeedback(); });
+window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideFeedback(); });
+
+// Modal de feedback (success | error)
+let feedbackTimer = null;
+
+function showFeedback(type, message, { autoclose = 3000 } = {}) {
+  if (!feedbackModal) return alert(message); // fallback
+  // limpa estado
+  feedbackModal.classList.remove("success","error","hidden","show");
+  // aplica tipo + mensagem
+  feedbackModal.classList.add(type); // "success" ou "error"
+  feedbackText.textContent = message;
+
+  // mostra
+  requestAnimationFrame(() => feedbackModal.classList.add("show"));
+
+  // foco e acessibilidade
+  feedbackClose?.focus();
+
+  // autoclose
+  if (feedbackTimer) clearTimeout(feedbackTimer);
+  if (autoclose) {
+    feedbackTimer = setTimeout(hideFeedback, autoclose);
+  }
+}
+function hideFeedback() {
+  if (!feedbackModal) return;
+  feedbackModal.classList.remove("show");
+  // opcional: esconder totalmente após a animação
+  setTimeout(() => feedbackModal.classList.add("hidden"), 180);
+  if (feedbackTimer) { clearTimeout(feedbackTimer); feedbackTimer = null; }
+}
+// interações
+feedbackClose?.addEventListener("click", hideFeedback);
+feedbackModal?.addEventListener("click", (e) => { if (e.target === feedbackModal) hideFeedback(); });
+window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideFeedback(); });
 
 // --- Modal de SUCESSO de compra (injetado via JS) ---
 const PURCHASE_SUCCESS_DELAY_MS = 3000; // << ajuste aqui o tempo antes de recarregar (ms)
@@ -430,7 +502,7 @@ if (countAtual >= MAX_COMPRAS_POR_PRODUTO) {
   return;
 }
 if (saldoAtual < product.preco) {
-  alert("Saldo insuficiente para esta compra, faça um deposito.");
+  showFeedback("error", "Saldo insuficiente para esta compra, faça um deposito.");
   return;
 }
 
