@@ -222,7 +222,7 @@ onAuthStateChanged(auth, async (user) => {
     enviarBtn.addEventListener("click", onSubmit);
   } catch (e) {
     console.error("Erro ao carregar dados de retirada:", e);
-    alert("Falha ao carregar dados. Tente novamente.");
+    showFeedback("error", "Falha ao carregar dados. Tente novamente.");
   }
 });
 
