@@ -49,7 +49,7 @@ onAuthStateChanged(auth, async (user) => {
   try {
     const uSnap = await get(ref(db, `usuarios/${uid}`));
     if (!uSnap.exists()) {
-      alert("Usuário não encontrado.");
+      showFeedback("error", "Usuário não encontrado.");
       window.location.href = "login.html";
       return;
     }
@@ -93,14 +93,14 @@ onAuthStateChanged(auth, async (user) => {
     enviarBtn.addEventListener("click", onSubmit);
   } catch (e) {
     console.error("Erro ao carregar dados de retirada:", e);
-    alert("Falha ao carregar dados. Tente novamente.");
+    showFeedback("error", "Falha ao carregar dados. Tente novamente.");
   }
 });
 
 // Modal de feedback (success | error)
 let feedbackTimer = null;
 
-function showFeedback(type, message, { autoclose = 2000 } = {}) {
+function showFeedback(type, message, { autoclose = 3000 } = {}) {
   if (!feedbackModal) return alert(message); // fallback
   // limpa estado
   feedbackModal.classList.remove("success","error","hidden","show");
@@ -174,7 +174,7 @@ async function onSubmit() {
   const now = new Date();
   const hora = now.getHours();
   if (hora < 9 || hora >= 21) {
-    showError("Os saques só estão disponíveis das 9h às 21h.");
+    showFeedback("Os saques só estão disponíveis das 9h às 21h.");
     return;
   }
 
@@ -198,7 +198,7 @@ async function onSubmit() {
     return;
   }
   if (v < MIN_WITHDRAW) {
-    alert(`O valor mínimo para retirada é ${formatKz(MIN_WITHDRAW)}.`);
+    showFeedback(" error", `O valor mínimo para retirada é ${formatKz(MIN_WITHDRAW)}.`);
     return;
   }
   if (v > saldoAtual) {
