@@ -21,7 +21,7 @@ const feedbackClose = document.getElementById("feedback-close");
 // Modal de feedback (success | error)
 let feedbackTimer = null;
 
-function showFeedback(type, message, { autoclose = 2000 } = {}) {
+function showFeedback(type, message, { autoclose = 3000 } = {}) {
   if (!feedbackModal) return alert(message); // fallback
   // limpa estado
   feedbackModal.classList.remove("success","error","hidden","show");
@@ -463,11 +463,11 @@ const countAtual = comprasAtuais[productId]?.count || 0;
 
 // 3) Regras/validações rápidas
 if (countAtual >= MAX_COMPRAS_POR_PRODUTO) {
-  alert("Você já atingiu o limite de 9 compras para este produto.");
+  showFeedback("error", "Você já atingiu o limite de 9 compras para este produto.");
   return;
 }
 if (saldoAtual < product.preco) {
-  alert("Saldo insuficiente para esta compra, faça um deposito.");
+  showFeedback("error", "Saldo insuficiente para esta compra, faça um deposito.");
   return;
 }
 
@@ -553,7 +553,7 @@ setTimeout(() => {
         }, PURCHASE_SUCCESS_DELAY_MS);
       } catch (err) {
         console.error("Erro ao comprar produto:", err);
-        alert("Erro ao comprar produto.");
+        showFeedback("error", "Erro ao comprar produto.");
       }
     });
   });
