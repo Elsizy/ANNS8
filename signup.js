@@ -17,6 +17,9 @@ const SAVE_TIMEOUT_MS = 15000; // 15s
 const LOCK_REFERRAL_IF_URL = true; // trava o input se veio via URL
 const REF_CODE_LEN = 8; // tamanho do código curto
 
+const feedbackModal = document.getElementById("feedback-modal");
+const feedbackText  = document.getElementById("feedback-text");
+const feedbackClose = document.getElementById("feedback-close");
 /* =========================
    HELPERS
 ========================= */
@@ -335,6 +338,41 @@ async function onSubmit(e) {
     enableBtn(btn);
   }
 }
+
+// Modal de feedback (success | error)
+let feedbackTimer = null;
+
+function showFeedback(type, message, { autoclose = 2000 } = {}) {
+  if (!feedbackModal) return alert(message); // fallback
+  // limpa estado
+  feedbackModal.classList.remove("success","error","hidden","show");
+  // aplica tipo + mensagem
+  feedbackModal.classList.add(type); // "success" ou "error"
+  feedbackText.textContent = message;
+
+  // mostra
+  requestAnimationFrame(() => feedbackModal.classList.add("show"));
+
+  // foco e acessibilidade
+  feedbackClose?.focus();
+
+  // autoclose
+  if (feedbackTimer) clearTimeout(feedbackTimer);
+  if (autoclose) {
+    feedbackTimer = setTimeout(hideFeedback, autoclose);
+  }
+}
+function hideFeedback() {
+  if (!feedbackModal) return;
+  feedbackModal.classList.remove("show");
+  // opcional: esconder totalmente após a animação
+  setTimeout(() => feedbackModal.classList.add("hidden"), 180);
+  if (feedbackTimer) { clearTimeout(feedbackTimer); feedbackTimer = null; }
+}
+// interações
+feedbackClose?.addEventListener("click", hideFeedback);
+feedbackModal?.addEventListener("click", (e) => { if (e.target === feedbackModal) hideFeedback(); });
+window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideFeedback(); });
 
 /* =========================
    SHOW / HIDE PASSWORD  (mantive e integrei com os botões SVG)
