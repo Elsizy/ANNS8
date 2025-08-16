@@ -1,4 +1,4 @@
-// login.js — usa customClaims + fallback no RTDB
+// login.js — corrigido (apenas 1 DOMContentLoaded)
 import { auth, db } from "./firebase-config.js";
 import {
   setPersistence,
@@ -7,15 +7,11 @@ import {
   onAuthStateChanged,
   reload,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  ref,
-  get,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-/* ========= Modal de sucesso (igual ao seu) ========= */
+/* ========= Modal de sucesso ========= */
 function ensureLoginSuccessModal() {
   if (document.getElementById("login-success-overlay")) return;
-
   const style = document.createElement("style");
   style.id = "login-success-style";
   style.textContent = `
@@ -50,12 +46,8 @@ function showLoginSuccessModal() {
   ov.style.display = "flex";
   ov.querySelector(".lg-card")?.focus?.();
 }
-function hideLoginSuccessModal() {
-  const ov = document.getElementById("login-success-overlay");
-  if (ov) ov.style.display = "none";
-}
 
-/* ========= Helpers para checar se é admin ========= */
+/* ========= Helpers admin ========= */
 async function isAdminViaClaims(user, { forceRefresh = false } = {}) {
   try {
     const token = await user.getIdTokenResult(forceRefresh);
@@ -81,12 +73,8 @@ async function isAdminFallbackRTDB(uid) {
 }
 async function isAdmin(user) {
   if (!user) return false;
-
-  // 1) tenta via claims (força refresh para pegar claims recém-setadas)
   const hasClaim = await isAdminViaClaims(user, { forceRefresh: true });
   if (hasClaim) return true;
-
-  // 2) fallback compatível com sua estrutura antiga
   return await isAdminFallbackRTDB(user.uid);
 }
 
@@ -98,42 +86,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // 1) persistência
   try {
     await setPersistence(auth, browserLocalPersistence);
   } catch (e) {
     console.warn("Persistência não aplicada:", e);
   }
 
-document.addEventListener("DOMContentLoaded", async () => {
+  // 2) detectar logout e silenciar auto-redirect
   const params = new URLSearchParams(location.search);
-  const cameFromLogout = params.get("logout") === "1" || sessionStorage.getItem("forceFreshLogin") === "1";
+  const cameFromLogout =
+    params.get("logout") === "1" ||
+    sessionStorage.getItem("forceFreshLogin") === "1";
 
-  // Se acabamos de sair de outra conta:
-  //  - garanta que não reste nenhuma sessão pendurada
-  //  - NÃO faça redirect automático nesta visita à login.html
   if (cameFromLogout) {
     sessionStorage.removeItem("forceFreshLogin");
     try { await auth.signOut(); } catch (_) {}
+    // limpa ?logout=1 da URL para não “preso” no estado
+    try { history.replaceState(null, "", location.pathname); } catch (_) {}
   }
-  
-  
+
+  // 3) auto-redirect apenas se não viemos do logout
   onAuthStateChanged(auth, async (user) => {
-    // se não há user, não faz nada
     if (!user) return;
-
-    // NÃO redireciona automaticamente quando acabamos de sair
     if (cameFromLogout) return;
-
     try {
       const admin = await isAdmin(user);
-      window.location.href = admin ? "admin.html" : "home.html";
+      window.location.replace(admin ? "admin.html" : "home.html");
     } catch (e) {
       console.warn("Falha ao decidir redirect do usuário logado:", e);
-      window.location.href = "home.html";
+      window.location.replace("home.html");
     }
   });
 
-  btn.addEventListener("click", async () => {
+  // 4) clique no botão (login manual)
+  btn.addEventListener("click", async (e) => {
+    e.preventDefault();
     const email = document.getElementById("email").value.trim();
     const senha = document.getElementById("senha").value.trim();
 
@@ -144,19 +132,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, senha);
-
-      // força recarregar dados do usuário (opcional)
       try { await reload(user); } catch (_) {}
-
       const admin = await isAdmin(user);
-
       showLoginSuccessModal();
       setTimeout(() => {
-        window.location.href = admin ? "admin.html" : "home.html";
+        window.location.replace(admin ? "admin.html" : "home.html");
       }, 4000);
     } catch (err) {
       console.error("Erro de login:", err);
       alert("Erro ao fazer login: " + (err?.message || err));
     }
+  });
+
+  // 5) Enter para submeter
+  document.getElementById("senha")?.addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter") btn.click();
   });
 });
