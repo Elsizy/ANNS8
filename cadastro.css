@@ -139,3 +139,32 @@ input:focus{
   .signup-hero{ display:none }
   .signup-card{ padding:26px }
   }
+:root{
+  --brand:#39d2c7;
+  --ok1:#22c55e; --ok2:#16a34a;
+  --err1:#ef4444; --err2:#dc2626;
+  --overlay:rgba(15,23,42,.55);
+}
+
+.app-modal{position:fixed; inset:0; display:grid; place-items:center;
+  background:var(--overlay); z-index:9999; opacity:0; pointer-events:none;
+  transition:opacity .18s ease;}
+.app-modal.show{opacity:1; pointer-events:auto;}
+.app-modal.hidden{display:none;} /* caso queira começar invisível */
+
+.modal-card{width:min(92vw,420px); background:#fff; border-radius:16px;
+  padding:18px 16px; text-align:center; box-shadow:0 12px 30px rgba(0,0,0,.15);
+  transform:translateY(6px) scale(.98); transition:transform .18s ease;}
+.app-modal.show .modal-card{transform:translateY(0) scale(1);}
+
+.modal-icon{width:56px; height:56px; border-radius:999px; margin:2px auto 10px;
+  display:grid; place-items:center; font-size:28px; color:#fff; font-weight:800;}
+.app-modal.success .modal-icon{background:linear-gradient(135deg,var(--ok1),var(--ok2));}
+.app-modal.error   .modal-icon{background:linear-gradient(135deg,var(--err1),var(--err2));}
+
+.modal-text{margin:0 8px 12px; color:#0f172a; font:600 15px/1.35 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;}
+
+.modal-close{border:0; background:var(--brand); color:#fff; height:40px;
+  border-radius:10px; padding:0 18px; font-weight:700; cursor:pointer;
+  box-shadow:0 2px 10px rgba(57,210,199,.25);}
+.modal-close:active{transform:translateY(1px);}
