@@ -121,7 +121,7 @@ async function isAdmin(user) {
 document.addEventListener("DOMContentLoaded", async () => {
   const btn = document.getElementById("loginBtn");
   if (!btn) {
-    alert("Erro: Botão não encontrado.");
+    showFeedback("error", "Erro: Botão não encontrado.");
     return;
   }
 
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const senha = document.getElementById("senha").value.trim();
 
     if (!email || !senha) {
-      alert("Preencha todos os campos!");
+      showFeedback("error", "Preencha todos os campos!");
       return;
     }
 
