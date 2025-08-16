@@ -68,33 +68,6 @@ onAuthStateChanged(auth, async (user) => {
       hasOpenWithdrawal = vals.some(w => w.status === "pending" || w.status === "processing");
     }
 
-    // 3) Carrega contas bancárias (se não tiver, manda criar)
-    const accSnap = await get(ref(db, `usuarios/${uid}/bankAccounts`));
-    if (!accSnap.exists()) {
-      alert("Você precisa cadastrar uma conta bancária antes de retirar.");
-      window.location.href = "conta.html";
-      return;
-    }
-
-    accounts = accSnap.val();
-
-    // mostra saldo
-    saldoEl.textContent = formatKz(saldoAtual);
-
-    // monta lista de bancos
-    buildBankList(accounts);
-
-    // listeners
-    bankBtn.addEventListener("click", () => modal.classList.remove("hidden"));
-    closeModalBtn.addEventListener("click", () => modal.classList.add("hidden"));
-    valorInput.addEventListener("input", calcResumo);
-    enviarBtn.addEventListener("click", onSubmit);
-  } catch (e) {
-    console.error("Erro ao carregar dados de retirada:", e);
-    alert("Falha ao carregar dados. Tente novamente.");
-  }
-});
-
 // Modal de feedback (success | error)
 let feedbackTimer = null;
 
@@ -129,6 +102,35 @@ function hideFeedback() {
 feedbackClose?.addEventListener("click", hideFeedback);
 feedbackModal?.addEventListener("click", (e) => { if (e.target === feedbackModal) hideFeedback(); });
 window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideFeedback(); });
+    
+    // 3) Carrega contas bancárias (se não tiver, manda criar)
+    const accSnap = await get(ref(db, `usuarios/${uid}/bankAccounts`));
+    if (!accSnap.exists()) {
+      showFeedback("Você precisa cadastrar uma conta bancária antes de retirar.");
+      window.location.href = "conta.html";
+      return;
+    }
+
+    accounts = accSnap.val();
+
+    // mostra saldo
+    saldoEl.textContent = formatKz(saldoAtual);
+
+    // monta lista de bancos
+    buildBankList(accounts);
+
+    // listeners
+    bankBtn.addEventListener("click", () => modal.classList.remove("hidden"));
+    closeModalBtn.addEventListener("click", () => modal.classList.add("hidden"));
+    valorInput.addEventListener("input", calcResumo);
+    enviarBtn.addEventListener("click", onSubmit);
+  } catch (e) {
+    console.error("Erro ao carregar dados de retirada:", e);
+    alert("Falha ao carregar dados. Tente novamente.");
+  }
+});
+
+
 
 function buildBankList(accs) {
   bankListEl.innerHTML = "";
