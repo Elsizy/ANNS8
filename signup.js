@@ -269,7 +269,7 @@ async function onSubmit(e) {
   }
 
   if (password !== confirmPassword) {
-    alert("As senhas não coincidem.");
+    showFeedback("error", "As senhas não coincidem.");
     return;
   }
 
@@ -280,7 +280,7 @@ async function onSubmit(e) {
     const cred = await createUserWithEmailAndPassword(auth, email, password);
     user = cred.user;
   } catch (err) {
-    alert(mapFirebaseError(err));
+    showFeedback("error", mapFirebaseError(err));
     enableBtn(btn);
     return;
   }
