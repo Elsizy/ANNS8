@@ -14,6 +14,10 @@ import {
 
 import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO } from "./products.js";
 
+const feedbackModal = document.getElementById("feedback-modal");
+const feedbackText  = document.getElementById("feedback-text");
+const feedbackClose = document.getElementById("feedback-close");
+
 // --- Modal de SUCESSO de compra (injetado via JS) ---
 const PURCHASE_SUCCESS_DELAY_MS = 3000; // << ajuste aqui o tempo antes de recarregar (ms)
 
