@@ -708,3 +708,9 @@ h2 {
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* leve brilho/sombra */
   margin: 0;
 }
+/* Garantir que o SVG ocupe o mesmo espaço do emoji anterior */
+.info-ticker .icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
