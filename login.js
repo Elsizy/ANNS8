@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }, 4000);
     } catch (err) {
       console.error("Erro de login:", err);
-      alert("Erro ao fazer login: " + (err?.message || err));
+      showFeedback("error", "Erro ao fazer login: " + (err?.message || err));
     }
   });
 
