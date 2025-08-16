@@ -180,7 +180,7 @@ onAuthStateChanged(auth, async (user) => {
   try {
     const uSnap = await get(ref(db, `usuarios/${uid}`));
     if (!uSnap.exists()) {
-      alert("Usuário não encontrado.");
+      showFeedback("error", "Usuário não encontrado.");
       window.location.href = "login.html";
       return;
     }
@@ -202,7 +202,7 @@ onAuthStateChanged(auth, async (user) => {
     // 3) Carrega contas bancárias (se não tiver, manda criar)
     const accSnap = await get(ref(db, `usuarios/${uid}/bankAccounts`));
     if (!accSnap.exists()) {
-      alert("Você precisa cadastrar uma conta bancária antes de retirar.");
+      showFeedback("error", "Você precisa cadastrar uma conta bancária antes de retirar.");
       window.location.href = "conta.html";
       return;
     }
