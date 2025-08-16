@@ -174,7 +174,7 @@ async function onSubmit() {
   const now = new Date();
   const hora = now.getHours();
   if (hora < 9 || hora >= 21) {
-    showFeedback("Os saques só estão disponíveis das 9h às 21h.");
+    showFeedback("error", "Os saques só estão disponíveis das 9h às 21h.");
     return;
   }
 
