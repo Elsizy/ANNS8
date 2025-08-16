@@ -104,9 +104,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.warn("Persistência não aplicada:", e);
   }
 
-  // Se já estiver logado, decidir o redirect usando claims + fallback
+document.addEventListener("DOMContentLoaded", async () => {
+  const params = new URLSearchParams(location.search);
+  const cameFromLogout = params.get("logout") === "1" || sessionStorage.getItem("forceFreshLogin") === "1";
+
+  // Se acabamos de sair de outra conta:
+  //  - garanta que não reste nenhuma sessão pendurada
+  //  - NÃO faça redirect automático nesta visita à login.html
+  if (cameFromLogout) {
+    sessionStorage.removeItem("forceFreshLogin");
+    try { await auth.signOut(); } catch (_) {}
+  }
+  
+  
   onAuthStateChanged(auth, async (user) => {
+    // se não há user, não faz nada
     if (!user) return;
+
+    // NÃO redireciona automaticamente quando acabamos de sair
+    if (cameFromLogout) return;
+
     try {
       const admin = await isAdmin(user);
       window.location.href = admin ? "admin.html" : "home.html";
