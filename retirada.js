@@ -257,11 +257,11 @@ async function onSubmit() {
 
     await update(ref(db), updates);
 
-    alert("Pedido de retirada enviado com sucesso! Aguarde o processamento.");
+    showFeedback("sucess", "Pedido de retirada enviado com sucesso! Aguarde o processamento.");
     window.location.href = "registroretirada.html";
   } catch (e) {
     console.error(e);
-    alert("Erro ao enviar o pedido de retirada.");
+    showFeedback("error", "Erro ao enviar o pedido de retirada.");
   } finally {
     enviarBtn.disabled = false;
   }
@@ -269,7 +269,7 @@ async function onSubmit() {
 
 function formatKz(v) {
   return `Kz ${Number(v || 0).toLocaleString("pt-PT", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
   })}`;
   }
