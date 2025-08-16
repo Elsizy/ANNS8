@@ -18,7 +18,7 @@ import {
  * CONFIG
  * ===========================
  */
-const TAXA_RETIRADA = 0.15; // já usada no front do usuário
+const TAXA_RETIRADA = 0.10; // já usada no front do usuário
 let ADMIN_UID = null;       // uid do admin logado
 let editingBankId = null;
 
