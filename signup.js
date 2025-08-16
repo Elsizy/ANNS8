@@ -264,7 +264,7 @@ async function onSubmit(e) {
   const termsAccepted = document.getElementById("terms").checked;
 
   if (!termsAccepted) {
-    alert("Você precisa aceitar os termos e condições.");
+    showFeedback("error", "Você precisa aceitar os termos e condições.");
     return;
   }
 
