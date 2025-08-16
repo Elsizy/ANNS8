@@ -9,46 +9,10 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-
 const feedbackModal = document.getElementById("feedback-modal");
 const feedbackText  = document.getElementById("feedback-text");
 const feedbackClose = document.getElementById("feedback-close");
 
-
-// Modal de feedback (success | error)
-let feedbackTimer = null;
-
-function showFeedback(type, message, { autoclose = 2000 } = {}) {
-  if (!feedbackModal) return alert(message); // fallback
-  // limpa estado
-  feedbackModal.classList.remove("success","error","hidden","show");
-  // aplica tipo + mensagem
-  feedbackModal.classList.add(type); // "success" ou "error"
-  feedbackText.textContent = message;
-
-  // mostra
-  requestAnimationFrame(() => feedbackModal.classList.add("show"));
-
-  // foco e acessibilidade
-  feedbackClose?.focus();
-
-  // autoclose
-  if (feedbackTimer) clearTimeout(feedbackTimer);
-  if (autoclose) {
-    feedbackTimer = setTimeout(hideFeedback, autoclose);
-  }
-}
-function hideFeedback() {
-  if (!feedbackModal) return;
-  feedbackModal.classList.remove("show");
-  // opcional: esconder totalmente após a animação
-  setTimeout(() => feedbackModal.classList.add("hidden"), 180);
-  if (feedbackTimer) { clearTimeout(feedbackTimer); feedbackTimer = null; }
-}
-// interações
-feedbackClose?.addEventListener("click", hideFeedback);
-feedbackModal?.addEventListener("click", (e) => { if (e.target === feedbackModal) hideFeedback(); });
-window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideFeedback(); });
 // Modal de feedback (success | error)
 let feedbackTimer = null;
 
@@ -83,7 +47,6 @@ function hideFeedback() {
 feedbackClose?.addEventListener("click", hideFeedback);
 feedbackModal?.addEventListener("click", (e) => { if (e.target === feedbackModal) hideFeedback(); });
 window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideFeedback(); });
-
 
 /* ========= Modal de sucesso ========= */
 function ensureLoginSuccessModal() {
@@ -158,7 +121,7 @@ async function isAdmin(user) {
 document.addEventListener("DOMContentLoaded", async () => {
   const btn = document.getElementById("loginBtn");
   if (!btn) {
-    showFeedback("error", "Erro: Botão não encontrado.");
+    alert("Erro: Botão não encontrado.");
     return;
   }
 
@@ -202,7 +165,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const senha = document.getElementById("senha").value.trim();
 
     if (!email || !senha) {
-      showFeedback("error", "Preencha todos os campos!");
+      alert("Preencha todos os campos!");
       return;
     }
 
@@ -216,7 +179,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }, 4000);
     } catch (err) {
       console.error("Erro de login:", err);
-      showFeedback("error", "Erro ao fazer login: " + (err?.message || err));
+      alert("Erro ao fazer login: " + (err?.message || err));
     }
   });
 
