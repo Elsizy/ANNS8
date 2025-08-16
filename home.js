@@ -21,6 +21,41 @@ const feedbackClose = document.getElementById("feedback-close");
 // Modal de feedback (success | error)
 let feedbackTimer = null;
 
+function showFeedback(type, message, { autoclose = 2000 } = {}) {
+  if (!feedbackModal) return alert(message); // fallback
+  // limpa estado
+  feedbackModal.classList.remove("success","error","hidden","show");
+  // aplica tipo + mensagem
+  feedbackModal.classList.add(type); // "success" ou "error"
+  feedbackText.textContent = message;
+
+  // mostra
+  requestAnimationFrame(() => feedbackModal.classList.add("show"));
+
+  // foco e acessibilidade
+  feedbackClose?.focus();
+
+  // autoclose
+  if (feedbackTimer) clearTimeout(feedbackTimer);
+  if (autoclose) {
+    feedbackTimer = setTimeout(hideFeedback, autoclose);
+  }
+}
+function hideFeedback() {
+  if (!feedbackModal) return;
+  feedbackModal.classList.remove("show");
+  // opcional: esconder totalmente após a animação
+  setTimeout(() => feedbackModal.classList.add("hidden"), 180);
+  if (feedbackTimer) { clearTimeout(feedbackTimer); feedbackTimer = null; }
+}
+// interações
+feedbackClose?.addEventListener("click", hideFeedback);
+feedbackModal?.addEventListener("click", (e) => { if (e.target === feedbackModal) hideFeedback(); });
+window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideFeedback(); });
+
+// Modal de feedback (success | error)
+let feedbackTimer = null;
+
 function showFeedback(type, message, { autoclose = 3000 } = {}) {
   if (!feedbackModal) return alert(message); // fallback
   // limpa estado
