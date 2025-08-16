@@ -52,7 +52,7 @@ function enableBtn(btn) {
 }
 
 function mapFirebaseError(error) {
-  switch showFeedback("error", error?.code) {
+  switch (error?.code) {
     case "auth/email-already-in-use":
       return "Este email já está em uso." ;
     case "auth/invalid-email":
