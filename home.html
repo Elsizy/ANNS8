@@ -69,12 +69,24 @@
   </a>
   </div>
     <!-- Aviso rolante -->
-    <div class="info-ticker">
-      <span class="icon">🔉</span>
-      <div class="ticker-track">
-        <div class="ticker-text">
-          Conheça a AES, uma empresa líder em energia, listada na Fortune 500, que defende um futuro sustentável por meio de soluções energéticas inteligentes. Junte-se à nossa equipe inovadora... /div>
-      </div>
+<div class="info-ticker" role="region" aria-label="Avisos importantes">
+  <!-- SVG do megafone -->
+  <svg class="ticker-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Corpo do megafone -->
+      <path d="M3 11v2l10 4V7L3 11z"/>
+      <!-- Bocal / prolongamento -->
+      <path d="M13 7l6-3v16l-6-3"/>
+      <!-- Cabo/pegador -->
+      <path d="M7 13l-1 5a2 2 0 0 0 3.5 1.5L10 17"/>
+    </g>
+  </svg>
+
+  <div class="ticker-track" aria-live="polite">
+    <div class="ticker-text">
+      Conheça a AES, uma empresa líder em energia, listada na Fortune 500, que defende um futuro sustentável por meio de soluções energéticas inteligentes. Junte-se à nossa equipe inovadora...
+    </div>
+  </div>
     </div>
 
     <h2>AES Energias</h2>
