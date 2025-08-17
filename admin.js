@@ -369,7 +369,7 @@ function attachWithdrawalListeners() {
           </p>
           <p class="meta">
             Valor bruto: <strong>${formatKz(wd.amountGross)}</strong> •
-            Valor líquido ( -15% ): <strong>${formatKz(wd.amountNet)}</strong>
+            Valor líquido ( -10% ): <strong>${formatKz(wd.amountNet)}</strong>
           </p>
           <p class="meta">Solicitado em: ${tsToPt(wd.createdAt)}</p>
           <span class="status ${wd.status}">${wd.status}</span>
