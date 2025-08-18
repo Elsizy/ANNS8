@@ -151,10 +151,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (cameFromLogout) return;
     try {
       const admin = await isAdmin(user);
-      window.location.replace(admin ? "admin.html" : "home.html");
+
+      // >>> ALTERAÇÃO ÚNICA: esperar 12s antes do redirect automático <<<
+      setTimeout(() => {
+        window.location.replace(admin ? "admin.html" : "home.html");
+      }, 12000);
+
     } catch (e) {
       console.warn("Falha ao decidir redirect do usuário logado:", e);
-      window.location.replace("home.html");
+
+      // >>> ALTERAÇÃO ÚNICA: mesma espera de 12s no fallback <<<
+      setTimeout(() => {
+        window.location.replace("home.html");
+      }, 12000);
     }
   });
 
