@@ -183,6 +183,124 @@ function confirmPurchaseUI({ productName, price }) {
   });
 }
 
+// === POPUP de Anúncio (canal Telegram) ======================================
+function ensureAnnouncementModal() {
+  if (document.getElementById("annc-overlay")) return;
+
+  const style = document.createElement("style");
+  style.id = "annc-style";
+  style.textContent = `
+    .annc-overlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.6); z-index:100000}
+    .annc-card{
+      position:relative; background:#0b0d12; color:#e9eef5; border-radius:16px;
+      padding:22px 20px 18px; width:min(92vw, 520px); box-shadow:0 16px 48px rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.06); transform:scale(.98); opacity:0; transition:opacity .18s ease, transform .18s ease;
+    }
+    .annc-overlay.show .annc-card{opacity:1; transform:scale(1)}
+    .annc-title{font-size:18px; line-height:1.2; margin:0 0 10px; font-weight:700; letter-spacing:.2px}
+    .annc-text{font-size:14px; line-height:1.55; margin:0 0 16px; color:#c8d1dc}
+    .annc-actions{display:flex; gap:10px; flex-wrap:wrap}
+    .annc-btn{
+      appearance:none; border:0; border-radius:12px; padding:10px 14px; font-weight:700; cursor:pointer;
+      background:#6f66ff; color:#fff; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+      transition:filter .15s ease, transform .05s ease;
+    }
+    .annc-btn:active{transform:translateY(1px)}
+    .annc-btn:focus{outline:2px solid rgba(111,102,255,.45); outline-offset:2px}
+    .annc-ghost{background:#1a1f2a; color:#d6deea}
+    .annc-ghost:hover{filter:brightness(1.1)}
+    .annc-btn:hover{filter:brightness(1.05)}
+    .annc-close{
+      position:absolute; top:10px; right:10px; width:34px; height:34px; border:0; border-radius:10px; cursor:pointer;
+      background:transparent; color:#9aa6b2; display:inline-flex; align-items:center; justify-content:center;
+      transition:background .15s ease, color .15s ease;
+    }
+    .annc-close:hover{background:rgba(255,255,255,.06); color:#e9eef5}
+    .annc-close:focus{outline:2px solid rgba(255,255,255,.35); outline-offset:2px}
+    .annc-x{width:18px; height:18px}
+  `;
+  document.head.appendChild(style);
+
+  const overlay = document.createElement("div");
+  overlay.id = "annc-overlay";
+  overlay.className = "annc-overlay";
+  overlay.innerHTML = `
+    <div class="annc-card" role="dialog" aria-modal="true" aria-labelledby="annc-title" tabindex="-1">
+      <button class="annc-close" type="button" aria-label="Fechar anúncio">
+        <svg class="annc-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <h3 id="annc-title" class="annc-title">Canal de discussão oficial</h3>
+      <p class="annc-text">
+        Após uma reunião interna, o departamento de tecnologia e gestão, seguiu a sugestão de alguns funcionários
+        e decidiu abrir um canal de discussão oficial.
+      </p>
+
+      <div class="annc-actions">
+        <a id="annc-go" class="annc-btn" href="https://t.me/AES_energies" target="_blank" rel="noopener noreferrer">
+          Acessar o canal
+        </a>
+        <button id="annc-later" class="annc-btn annc-ghost" type="button">Agora não</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  // Wire-up
+  const card = overlay.querySelector(".annc-card");
+  const btnClose = overlay.querySelector(".annc-close");
+  const btnLater = overlay.querySelector("#annc-later");
+
+  const hide = () => {
+    overlay.classList.remove("show");
+    overlay.style.display = "none";
+    document.documentElement.style.overflow = ""; // libera scroll
+    document.removeEventListener("keydown", onKey);
+    overlay.onclick = null;
+    btnClose.onclick = null;
+    btnLater.onclick = null;
+  };
+  const onKey = (e) => { if (e.key === "Escape") hide(); };
+
+  overlay.onclick = (e) => { if (e.target === overlay) hide(); };
+  btnClose.onclick = hide;
+  btnLater.onclick = hide;
+
+  // Guarda refs para uso externo
+  overlay.__annc_hide__ = hide;
+  overlay.__annc_card__ = card;
+}
+
+function showAnnouncementModal() {
+  ensureAnnouncementModal();
+  const ov = document.getElementById("annc-overlay");
+  ov.style.display = "flex";
+  // trava scroll da página enquanto o modal está aberto
+  document.documentElement.style.overflow = "hidden";
+
+  // pequeno atraso para animar
+  requestAnimationFrame(() => ov.classList.add("show"));
+
+  // foco inicial no botão primário
+  const goBtn = document.getElementById("annc-go");
+  (goBtn && typeof goBtn.focus === "function") && goBtn.focus();
+
+  // tecla ESC para fechar
+  const onKey = (e) => { if (e.key === "Escape") ov.__annc_hide__?.(); };
+  document.addEventListener("keydown", onKey);
+}
+
+// Abre assim que o DOM estiver pronto (é a primeira coisa que o visitante vê)
+document.addEventListener("DOMContentLoaded", () => {
+  showAnnouncementModal();
+});
+// ============================================================================
+// (fim do popup)
+
 const ICON_EYE = `
   <svg class="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
