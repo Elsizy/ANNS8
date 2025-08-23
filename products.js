@@ -1,6 +1,6 @@
 // products.js
 export const PRODUTOS = [
-  { id: "nex-1",  nome: "Projeto 1",  preco: 5000,    comissao: 750  },
+  { id: "nex-1",  nome: "Projeto 1",  preco: 5000,    comissao: 500  },
   { id: "nex-2",  nome: "Projeto 2",  preco: 12000,   comissao: 1200 },
   { id: "nex-3",  nome: "Projeto 3",  preco: 32000,   comissao: 3200 },
   { id: "nex-4",  nome: "Projeto 4",  preco: 53000,   comissao: 5300},
