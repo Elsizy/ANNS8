@@ -298,21 +298,15 @@ function showError(msg) {
   }, 4000);
 }
 
-
 async function onSubmit() {
-   // Bloqueio de horário (somente das 9h às 21h)
-   const now = new Date();
-+  const dia = now.getDay(); // 0 = domingo
-+  if (dia === 0) {
-+    showError("Hoje é feriado.");
-+    return;
-+  }
-   const hora = now.getHours();
-   if (hora < 9 || hora >= 21) {
-     showError("Os saques só estão disponíveis das 9h às 21h.");
-     return;
-   }
-  
+  // Bloqueio de horário (somente das 9h às 21h)
+  const now = new Date();
+  const hora = now.getHours();
+  if (hora < 9 || hora >= 21) {
+    showError("Os saques só estão disponíveis das 9h às 21h.");
+    return;
+  }
+
   // Bloqueios adicionais (mantidos)
   if (!hasAnyProduct) {
     showFeedback("error", "Para retirar fundos é necessário ter comprado pelo menos 1 produto.");
