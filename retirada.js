@@ -301,6 +301,11 @@ function showError(msg) {
 async function onSubmit() {
   // Bloqueio de horário (somente das 9h às 21h)
   const now = new Date();
+  const dia = now.getDay(); // 0 = domingo
+  if (dia === 0) {
+    showError("Os saques não estão disponíveis aos domingos.");
+    return;
+  }
   const hora = now.getHours();
   if (hora < 9 || hora >= 21) {
     showError("Os saques só estão disponíveis das 9h às 21h.");
