@@ -79,7 +79,7 @@ function renderProdutosComprados(compras) {
           <p>Taxa de lucro: <span style="color:#3da5ff;">12%</span></p>
           <p>Renda diária: <span style="color:#3da5ff;">${formatKz(produto.preco * 0.12)}</span></p>
           <p>Renda total : <span style="color:#3da5ff;">${formatKz(produto.preco * 0.12 * 45)}</span></p>
-          <p>Disponível : <span style="color:#3da5ff;">9</span></p>
+          <p>Disponível : <span style="color:#3da5ff;">5</span></p>
 
           <p class="status">Comprado em: ${formatDate(compradoEm)}</p>
 
