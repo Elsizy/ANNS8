@@ -73,8 +73,8 @@ function ensureLoginSuccessModal() {
         <circle cx="12" cy="12" r="10" stroke-opacity="0.2"></circle>
       </svg>
       <h3 id="lg-title" class="lg-title">Sessão iniciada com sucesso</h3>
-      <p class="lg-desc">Bem-vindo(a) de volta à <strong>AES energies</strong>.</p>
-      <p class="lg-hint">Você será redirecionado automaticamente…</p>
+      <p class="lg-desc"><strong>Atlas Energy</strong>.</p>
+      
     </div>
   `;
   document.body.appendChild(overlay);
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       // >>> ALTERAÇÃO ÚNICA: esperar 12s antes do redirect automático <<<
       setTimeout(() => {
         window.location.replace(admin ? "admin.html" : "home.html");
-      }, 12000);
+      }, 10000);
 
     } catch (e) {
       console.warn("Falha ao decidir redirect do usuário logado:", e);
