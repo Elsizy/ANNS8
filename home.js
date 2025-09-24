@@ -236,12 +236,11 @@ function ensureAnnouncementModal() {
 
       <h3 id="annc-title" class="annc-title">Canal de discussão oficial</h3>
       <p class="annc-text">
-        Após uma reunião interna, o departamento de tecnologia e gestão, seguiu a sugestão de alguns funcionários
-        e decidiu abrir um canal de discussão oficial.
+      Acessa Ao nosso canal para ter acesso à todas informações, actualizações e promoções da plataforma. 
       </p>
 
       <div class="annc-actions">
-        <a id="annc-go" class="annc-btn" href="https://t.me/AES_energies" target="_blank" rel="noopener noreferrer">
+        <a id="annc-go" class="annc-btn" href="https://t.me/Atlasinc_energy" target="_blank" rel="noopener noreferrer">
           Acessar o canal
         </a>
         <button id="annc-later" class="annc-btn annc-ghost" type="button">Agora não</button>
