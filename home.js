@@ -236,11 +236,11 @@ function ensureAnnouncementModal() {
 
       <h3 id="annc-title" class="annc-title">Canal de discussão oficial</h3>
       <p class="annc-text">
-      Acessa Ao nosso canal para ter acesso à todas informações, actualizações e promoções da plataforma. 
+      Acessa Ao nosso canal para ter acesso à todas informações, actualizações e promoções da empresa. 
       </p>
 
       <div class="annc-actions">
-        <a id="annc-go" class="annc-btn" href="https://t.me/Atlasinc_energy" target="_blank" rel="noopener noreferrer">
+        <a id="annc-go" class="annc-btn" href="https://t.me/STNGinc_tank" target="_blank" rel="noopener noreferrer">
           Acessar o canal
         </a>
         <button id="annc-later" class="annc-btn annc-ghost" type="button">Agora não</button>
@@ -541,7 +541,7 @@ function renderProdutos({ uid, saldo, compras }) {
     const disabled = count >= MAX_COMPRAS_POR_PRODUTO;
 
     const div = document.createElement("div");
-    div.className = "produto";
+    div.className = "Tank ";
     div.innerHTML = `
       <div class="produto-info" style="text-align:left; font-size:13px; line-height:1.4;">
       <p><strong>${p.nome}</strong></p>
