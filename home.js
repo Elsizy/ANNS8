@@ -541,7 +541,7 @@ function renderProdutos({ uid, saldo, compras }) {
     const disabled = count >= MAX_COMPRAS_POR_PRODUTO;
 
     const div = document.createElement("div");
-    div.className = "Tank ";
+    div.className = "produto";
     div.innerHTML = `
       <div class="produto-info" style="text-align:left; font-size:13px; line-height:1.4;">
       <p><strong>${p.nome}</strong></p>
