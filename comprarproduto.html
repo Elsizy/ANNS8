@@ -1,0 +1,49 @@
+<!-- comprarproduto.html -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comprar Produtos</title>
+
+  <link rel="stylesheet" href="home.css" />
+  <link rel="stylesheet" href="bottom-nav.css" />
+</head>
+
+<body>
+
+<div class="dashboard">
+
+  <h2>Comprar Produtos</h2>
+
+  <!-- Skeleton -->
+  <div class="produtos-skeleton" id="produtos-skeleton">
+    <div class="skeleton-item"></div>
+    <div class="skeleton-item"></div>
+    <div class="skeleton-item"></div>
+  </div>
+
+  <!-- Lista real -->
+  <div class="produtos-container" id="produtos-container"></div>
+
+</div>
+
+<!-- feedback modal (mesmo sistema da home) -->
+<div id="feedback-modal" class="app-modal hidden">
+  <div class="modal-card">
+    <div class="modal-icon">✓</div>
+    <p id="feedback-text" class="modal-text">Mensagem…</p>
+    <button id="feedback-close" class="modal-close">OK</button>
+  </div>
+</div>
+
+<!-- scripts NECESSÁRIOS PARA COMPRA -->
+<script type="module" src="./firebase-config.js"></script>
+<script type="module" src="./products.js"></script>
+<script type="module" src="./home.js"></script>
+
+<script src="bottom-nav.js" defer></script>
+<script type="module" src="bottom-nav.js"></script>
+
+</body>
+</html>
