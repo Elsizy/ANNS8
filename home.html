@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="bottom-nav.css" />
 </head>
 <body>
-  <!-- Barra superior fixa -->
+
+<!-- Barra superior fixa -->
 <div class="top-bar">
   <div class="lang-section">
     <div class="lang-circle">PT</div>
@@ -22,143 +23,70 @@
     </svg>
   </a>
 </div>
-  <div class="dashboard">
-    <div class="stats">
-      <div class="perfil-container">
-       <img src="original_imagesoriginal_imageshttpsg.foolcdn.comeditorialimages475273getty.jpg" alt="Perfil" class="perfil-img">
+
+<div class="dashboard">
+
+  <div class="stats">
+    <div class="perfil-container">
+      <img src="DJI_0060-1-1.jpg" alt="Perfil" class="perfil-img">
+    </div>
+  </div>
+
+  <div class="menu-links">
+    <a href="faq.html" class="menu-item">FAQ Suporte</a>
+    <a href="retirada.html" class="menu-item">Cancelamento</a>
+    <a href="suporte.html" class="menu-item">Serviços</a>
+    <a href="conta.html" class="menu-item">N° conta</a>
+  </div>
+
+  <!-- Ticker -->
+  <div class="info-ticker">
+    <span class="icon">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor">
+        <polygon points="11 5 6 9 3 9 3 15 6 15 11 19 11 5"></polygon>
+        <path d="M15 8a5 5 0 0 1 0 8"></path>
+        <path d="M19 5a9 9 0 0 1 0 14"></path>
+      </svg>
+    </span>
+
+    <div class="ticker-track">
+      <div class="ticker-text">
+        Scorp Tank Inc - A empresa representa energia moderna, tecnologia e inovação operacional.
       </div>
     </div>
-
-    <div class="menu-links">
-      <a href="faq.html" class="menu-item">
-    <!-- Ícone de depósito -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"
-         stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 5v14m0 0-5-5m5 5 5-5M5 19h14" />
-      </svg>
-      <span>FAQ Suporte</span>
-      </a>
-
-  <a href="retirada.html" class="menu-item">
-    <!-- Ícone de retirada -->
-    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"
-         stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5m0 0 5 5m-5-5-5 5M5 5h14" />
-    </svg>
-    <span>Cancelamento</span>
-  </a>
-
-  <a href="suporte.html" class="menu-item">
-    <!-- Ícone de suporte -->
-    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"
-         stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <path d="M9.09 9a3 3 0 1 1 5.82 1c0 2-3 2-3 4m.01 4h.01" />
-    </svg>
-    <span>Serviços</span>
-  </a>
-
-  <a href="conta.html" class="menu-item">
-    <!-- Ícone de conta -->
-    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"
-         stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="8" r="4" />
-      <path d="M6 20v-2a6 6 0 0 1 12 0v2" />
-    </svg>
-    <span>N° conta</span>
-  </a>
   </div>
-    <!-- Aviso rolante -->
-    <div class="info-ticker">
-     <span class="icon">
-  <!-- SVG “volume” (estilo feather) — só traço, herda a cor do texto -->
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
-       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-       aria-hidden="true" focusable="false">
-    <polygon points="11 5 6 9 3 9 3 15 6 15 11 19 11 5"></polygon>
-    <path d="M15 8a5 5 0 0 1 0 8"></path>
-    <path d="M19 5a9 9 0 0 1 0 14"></path>
-  </svg>
-     </span>
-      <div class="ticker-track">
-        <div class="ticker-text">
-          Scorp Tank Inc
-A Scorp Tank Inc representa o espírito da energia moderna: ousadia, tecnologia e foco em soluções de alto desempenho. Atuando no setor energético com visão estratégica, a empresa se posiciona como uma organização que combina eficiência operacional com inovação constante.
-Pontos fortes:
-Forte aposta em tecnologia e modernização.
-Estrutura adaptável a mercados emergentes.
-       
-       </div>
-      </div>
-    </div>
 
-    <h2>Scorpio Tankers</h2>
+  <h2>Scorpio Tankers</h2>
 
-    <!-- Loader Skeleton -->
-    <div class="produtos-skeleton" id="produtos-skeleton">
-      <div class="skeleton-item"></div>
-      <div class="skeleton-item"></div>
-      <div class="skeleton-item"></div>
-    </div>
+  <!-- IMPORTANTE: removido produtos daqui -->
+  <!-- skeleton removido -->
 
-    <!-- Lista real -->
-    <div class="produtos-container" id="produtos-container"></div>
+</div>
+
+<!-- Bottom nav -->
+<nav class="bottom-nav" role="navigation" aria-label="Navegação principal">
+  <a href="home.html" class="nav-item">Casa</a>
+
+  <!-- AGORA REDIRECIONA PARA NOVA PÁGINA -->
+  <a href="comprarproduto.html" class="nav-item">Produtos</a>
+
+  <a href="equipa.html" class="nav-item">Equipa</a>
+  <a href="pessoal.html" class="nav-item">Perfil</a>
+</nav>
+
+<!-- feedback modal (mantido intacto) -->
+<div id="feedback-modal" class="app-modal hidden">
+  <div class="modal-card">
+    <div class="modal-icon">✓</div>
+    <p id="feedback-text" class="modal-text">Mensagem…</p>
+    <button id="feedback-close" class="modal-close">OK</button>
   </div>
-  <!-- Barra inferior fixa -->
-  <!-- Bottom nav -->
-  <nav class="bottom-nav" role="navigation" aria-label="Navegação principal">
-  <a href="home.html" class="nav-item" data-key="home" title="Casa">
-    <span class="icon svg" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>
-      </svg>
-    </span>
-    <span class="label">Casa</span>
-  </a>
+</div>
 
-  <a href="comprarproduto.html" class="nav-item" data-key="produtos" title="Produtos">
-    <span class="icon svg" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 19h16M4 15h16M4 11h16M4 7h16"/>
-      </svg>
-    </span>
-    <span class="label">Produtos</span>
-  </a>
+<!-- scripts (HOME NÃO USA MAIS PRODUTOS LOGICAMENTE) -->
+<script type="module" src="./firebase-config.js"></script>
+<script src="bottom-nav.js" defer></script>
+<script type="module" src="bottom-nav.js"></script>
 
-  <a href="equipa.html" class="nav-item" data-key="equipa" title="Equipa">
-    <span class="icon svg" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="7" r="4"/>
-        <path d="M5.5 21a7.5 7.5 0 0 1 13 0"/>
-      </svg>
-    </span>
-    <span class="label">Equipa</span>
-  </a>
-
-  <a href="pessoal.html" class="nav-item" data-key="perfil" title="Perfil">
-    <span class="icon svg" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="8" r="4"/>
-        <path d="M6 21v-2a4 4 0 0 1 12 0v2"/>
-      </svg>
-    </span>
-    <span class="label">Perfil</span>
-  </a>
-      </nav>
-  <!-- Modal de feedback reutilizável -->
-  <div id="feedback-modal" class="app-modal hidden" role="dialog" aria-modal="true" aria-live="polite">
-    <div class="modal-card" role="document">
-      <div class="modal-icon" aria-hidden="true">✓</div>
-      <p id="feedback-text" class="modal-text">Mensagem…</p>
-      <button id="feedback-close" class="modal-close" type="button" aria-label="Fechar">OK</button>
-    </div>
-  </div>
-  
-  <!-- Módulos -->
-  <script type="module" src="./firebase-config.js"></script>
-  <script type="module" src="./products.js"></script>
-  <script type="module" src="./home.js"></script>
-  <script src="bottom-nav.js" defer></script>
-  <script type="module" src="bottom-nav.js"></script>
 </body>
-  </html>
+    </html>
