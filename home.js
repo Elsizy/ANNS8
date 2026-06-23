@@ -531,35 +531,130 @@ async function pushMovement(uid, movement) {
  * e limita a 3 compras por produto.
  */
 function renderProdutos({ uid, saldo, compras }) {
-  const container = document.getElementById("produtos-container");
-  if (!container) return;
-  container.innerHTML = "";
 
-  PRODUTOS.forEach((p) => {
-    const infoCompra = compras?.[p.id];
-    const count = infoCompra?.count || 0;
-    const disabled = count >= MAX_COMPRAS_POR_PRODUTO;
+const container = document.getElementById("produtos-container");
 
-    const div = document.createElement("div");
-    div.className = "produto";
-    div.innerHTML = `
-      <div class="produto-info" style="text-align:left; font-size:13px; line-height:1.4;">
-      <p><strong>${p.nome}</strong></p>
-  <p style="margin:0; color:#fff;">Preço : <span style="color:#3da5ff;">${formatKz(p.preco)}</span></p>
-  <p style="margin:0; color:#fff;">Ciclo : <span style="color:#3da5ff;">45 dias</span></p>
-  <p style="margin:0; color:#fff;">Taxa de lucro : <span style="color:#3da5ff;">12%</span></p>
-  <p style="margin:0; color:#fff;">Renda diária : <span style="color:#3da5ff;">${formatKz(p.preco * 0.12)}</span></p>
-  <p style="margin:0; color:#fff;">Disponivel : <span style="color:#3da5ff;">5</span></p>
-  
-  </div>
+if (!container) return;
+
+container.innerHTML = "";
+
+
+PRODUTOS.forEach((p)=>{
+
+
+const infoCompra = compras?.[p.id];
+
+const count = infoCompra?.count || 0;
+
+const disabled = count >= MAX_COMPRAS_POR_PRODUTO;
+
+
+const rendaDiaria = p.preco * 0.12;
+
+const rendaTotal = rendaDiaria * 45;
+
+
+
+const div=document.createElement("div");
+
+div.className="produto";
+
+
+div.innerHTML=`
+
+<div class="produto-image">
+
+<img src="lmt.jpg" alt="${p.nome}">
+
 </div>
-      <button class="btn-buy" ${disabled ? "disabled" : ""} data-id="${p.id}">
-        ${disabled ? "Limite atingido" : "Comprar"}
-      </button>
-      
-    `;
-    container.appendChild(div);
-  });
+
+
+
+<div class="produto-info">
+
+
+
+<div class="produto-top">
+
+<p class="produto-title">
+${p.nome}
+</p>
+
+</div>
+
+
+
+<div class="produto-details">
+
+
+<p>
+
+<span class="label-left">
+Preço
+</span>
+
+<span class="value">
+${formatKz(p.preco)}
+</span>
+
+</p>
+
+
+
+<p>
+
+<span class="label-left">
+Renda diária
+</span>
+
+<span class="value gold">
+${formatKz(rendaDiaria)}
+</span>
+
+</p>
+
+
+
+<p>
+
+<span class="label-left">
+Renda total
+</span>
+
+<span class="value">
+${formatKz(rendaTotal)}
+</span>
+
+</p>
+
+
+
+</div>
+
+
+
+<button
+class="btn-buy"
+data-id="${p.id}"
+${disabled ? "disabled" : ""}
+>
+
+${disabled ? "Limite atingido" : "Comprar"}
+
+</button>
+
+
+
+</div>
+
+
+`;
+
+container.appendChild(div);
+
+
+});
+
 
   container.querySelectorAll(".btn-buy").forEach((btn) => {
     btn.addEventListener("click", async (e) => {
