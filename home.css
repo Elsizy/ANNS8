@@ -224,6 +224,17 @@ h2 {
 /* produto body — linhas compactas, rótulo + valor na mesma linha
    usamos as classes já esperadas pelo seu JS: label-left / value / status
 */
+   display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background: linear-gradient(180deg, var(--home-card-dark-a) 0%, var(--home-card-dark-b) 100%);
+  border-radius: var(--card-radius);
+  padding: 14px;
+  margin-bottom: 16px;
+  color: var(--text-value);
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(255,255,255,0.02);
+   }
 .produto-body { display:flex; flex-direction:column; gap:6px; }
 .produto-body p {
   margin: 0;
