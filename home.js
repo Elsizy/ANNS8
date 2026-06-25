@@ -564,8 +564,7 @@ div.innerHTML=`
 
 <div class="produto-image">
 
-<img src="original_imagesoriginal_imageshttpsg.foolcdn.comeditorialimages475273getty.jpg" alt="${p.nome}">
-
+<img src="${p.imagem}" alt="${p.nome}">
 </div>
 
 
