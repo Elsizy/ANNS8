@@ -649,29 +649,7 @@ gap:14px;
 
 
 
-.produto{
 
-
-display:flex;
-
-align-items:flex-start;
-
-gap:16px;
-
-background:#050505;
-
-border:1px solid rgba(255,255,255,.08);
-
-border-radius:4px;
-
-padding:16px;
-
-min-height:180px;
-
-box-shadow:
-0 8px 25px rgba(0,0,0,.45);
-
-}
 
 
 
