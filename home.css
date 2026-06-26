@@ -1035,6 +1035,58 @@ opacity:.45;
 
 /* CARD PRINCIPAL */
 
+.produto{
+
+display:flex;
+align-items:stretch;
+
+background:
+linear-gradient(
+135deg,
+rgba(5,12,25,.98),
+rgba(2,5,12,.98)
+);
+
+background:
+linear-gradient(
+125deg,
+#03060d 0%,
+#07101d 40%,
+#020408 100%
+);
+border:1px solid rgba(255,190,40,.45);
+
+border-radius:14px;
+
+padding:0;
+
+overflow:hidden;
+
+min-height:165px;
+
+position:relative;
+
+box-shadow:
+0 0 18px rgba(255,190,40,.12);
+clip-path:
+polygon(
+0 18px,
+18px 0,
+calc(100% - 18px) 0,
+100% 18px,
+100% calc(100% - 18px),
+calc(100% - 18px) 100%,
+18px 100%,
+0 calc(100% - 18px)
+);
+
+border:1px solid rgba(255,185,30,.75);
+
+box-shadow:
+0 0 0 1px rgba(255,220,120,.08),
+0 0 18px rgba(255,180,20,.18),
+0 0 45px rgba(255,180,20,.06);
+}
 
 
 
@@ -1244,55 +1296,11 @@ overflow:hidden;
 ......... 
 
 .produto{
-
-display:flex;
-align-items:stretch;
-
-background:
-linear-gradient(
-135deg,
-rgba(5,12,25,.98),
-rgba(2,5,12,.98)
-);
-
-background:
-linear-gradient(
-125deg,
-#03060d 0%,
-#07101d 40%,
-#020408 100%
-);
-border:1px solid rgba(255,190,40,.45);
-
-border-radius:14px;
-
-padding:0;
-
-overflow:hidden;
-
-min-height:165px;
-
-position:relative;
-
-box-shadow:
-0 0 18px rgba(255,190,40,.12);
-clip-path:
-polygon(
-0 18px,
-18px 0,
-calc(100% - 18px) 0,
-100% 18px,
-100% calc(100% - 18px),
-calc(100% - 18px) 100%,
-18px 100%,
-0 calc(100% - 18px)
-);
-
 border:1px solid rgba(255,185,30,.75);
 
 box-shadow:
 0 0 0 1px rgba(255,220,120,.08),
 0 0 18px rgba(255,180,20,.18),
 0 0 45px rgba(255,180,20,.06);
-}
+              }
 
