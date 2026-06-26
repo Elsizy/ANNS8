@@ -1117,6 +1117,8 @@ pointer-events:none;
 content:"";
 position:absolute;
 inset:0;
+pointer-events:none;
+z-index:2;
 
 clip-path:inherit;
 
@@ -1126,13 +1128,6 @@ box-shadow:
 0 0 10px rgba(255,180,20,.55),
 0 0 20px rgba(255,180,20,.25);
 
-pointer-events:none;
-z-index:2;
-}
-.produto::before{
-content:"";
-position:absolute;
-inset:0;
 background:
 linear-gradient(
 135deg,
