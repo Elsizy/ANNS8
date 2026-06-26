@@ -209,10 +209,10 @@ h2 {
 
 /* base do card produto — usa mesmo tom escuro do home original, mas com radii/espacamentos do pessoal */
 
-  
+  .produto{
 
 /* left region with main content (title + body) */
-/* .produto-left { flex: 1; min-width: 0; display:flex; flex-direction:column; gap:8px; } */
+ .produto-left { flex: 1; min-width: 0; display:flex; flex-direction:column; gap:8px; } 
 
 /* top row: title and action (keeps same structure) */
 .produto-top { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:6px; }
