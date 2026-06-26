@@ -1091,27 +1091,22 @@ box-shadow:
 
 
 /* brilho tecnológico */
-
 .produto::after{
-
 content:"";
-
 position:absolute;
-
 inset:0;
 
-border-radius:14px;
-
-pointer-events:none;
+clip-path:inherit;
 
 background:
 linear-gradient(
 90deg,
 transparent,
-rgba(255,210,70,.08),
+rgba(255,210,70,.06),
 transparent
 );
 
+pointer-events:none;
 }
 
 .produto::before{
