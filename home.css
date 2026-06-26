@@ -1142,21 +1142,6 @@ height:auto;
 
 
 
-/* TITULO */
-
-.produto-title{
-
-font-size:22px;
-
-font-weight:700;
-
-color:#ffffff;
-
-margin:0 0 15px;
-
-letter-spacing:.5px;
-
-}
 
 
 
@@ -1266,25 +1251,6 @@ color:#777;
 border-color:rgba(255,255,255,.18);
 
 background:transparent;
-
-}
-
-
-/* TÍTULO DA PÁGINA */
-
-h2{
-
-font-size:42px;
-
-font-weight:700;
-
-color:#ffe7aa;
-
-text-shadow:
-
-0 0 12px rgba(255,190,50,.45);
-
-margin-bottom:40px;
 
 }
 
