@@ -1108,6 +1108,74 @@ pointer-events:none;
 z-index:2;
 }
 
+.produto{
+position:relative;
+display:flex;
+align-items:stretch;
+
+background:
+linear-gradient(
+125deg,
+#03060d 0%,
+#07101d 40%,
+#020408 100%
+);
+
+clip-path:
+polygon(
+0 26px,
+26px 0,
+calc(100% - 26px) 0,
+100% 26px,
+100% calc(100% - 26px),
+calc(100% - 26px) 100%,
+26px 100%,
+0 calc(100% - 26px)
+);
+
+overflow:visible;
+
+border:none;
+
+box-shadow:
+0 0 18px rgba(255,180,20,.18),
+0 0 45px rgba(255,180,20,.06);
+}
+
+.produto::before{
+content:"";
+position:absolute;
+inset:0;
+
+clip-path:inherit;
+
+border:1px solid rgba(255,190,40,.85);
+
+box-shadow:
+0 0 10px rgba(255,180,20,.55),
+0 0 20px rgba(255,180,20,.25);
+
+pointer-events:none;
+z-index:2;
+}
+
+.produto::after{
+content:"";
+position:absolute;
+inset:0;
+
+clip-path:inherit;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(255,210,70,.06),
+transparent
+);
+
+pointer-events:none;
+   }
 /* IMAGEM */
 
 .produto-image{
