@@ -1061,7 +1061,17 @@ position:relative;
 
 box-shadow:
 0 0 18px rgba(255,190,40,.12);
-
+clip-path:
+polygon(
+0 18px,
+18px 0,
+calc(100% - 18px) 0,
+100% 18px,
+100% calc(100% - 18px),
+calc(100% - 18px) 100%,
+18px 100%,
+0 calc(100% - 18px)
+);
 }
 
 
@@ -1271,14 +1281,4 @@ overflow:hidden;
 }
 ......... 
 
-clip-path:
-polygon(
-0 18px,
-18px 0,
-calc(100% - 18px) 0,
-100% 18px,
-100% calc(100% - 18px),
-calc(100% - 18px) 100%,
-18px 100%,
-0 calc(100% - 18px)
-);
+
