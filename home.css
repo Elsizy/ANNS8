@@ -1326,3 +1326,40 @@ transparent,
 transparent
 );
 }
+
+body{
+background:
+radial-gradient(
+circle at top center,
+rgba(255,190,40,.15),
+transparent 22%
+),
+linear-gradient(
+180deg,
+#01030a,
+#020611,
+#01030a
+);
+   }
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+opacity:.06;
+
+background-image:
+linear-gradient(
+rgba(255,190,40,.15) 1px,
+transparent 1px
+),
+linear-gradient(
+90deg,
+rgba(255,190,40,.15) 1px,
+transparent 1px
+);
+
+background-size:
+90px 90px;
+}
