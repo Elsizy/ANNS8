@@ -1267,3 +1267,7 @@ transparent 35%
 #030713;
 
               }
+.produto-info{
+min-width:0;
+overflow:hidden;
+}
