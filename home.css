@@ -1020,3 +1020,288 @@ background:rgba(255,255,255,0.06);
 opacity:.45;
 
    }
+
+............... 
+/* =====================================
+   PRODUTO PREMIUM FINAL
+   AJUSTE PARA MODELO REFERÊNCIA
+===================================== */
+
+
+.produtos-container{
+    gap:18px;
+}
+
+
+/* CARD PRINCIPAL */
+
+.produto{
+
+display:flex;
+align-items:stretch;
+
+background:
+linear-gradient(
+135deg,
+rgba(5,12,25,.98),
+rgba(2,5,12,.98)
+);
+
+border:1px solid rgba(255,190,40,.45);
+
+border-radius:14px;
+
+padding:0;
+
+overflow:hidden;
+
+min-height:165px;
+
+position:relative;
+
+box-shadow:
+0 0 18px rgba(255,190,40,.12);
+
+}
+
+
+
+/* brilho tecnológico */
+
+.produto::after{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+border-radius:14px;
+
+pointer-events:none;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(255,210,70,.08),
+transparent
+);
+
+}
+
+
+
+/* IMAGEM */
+
+.produto-image{
+
+width:34%;
+
+height:auto;
+
+min-height:165px;
+
+overflow:hidden;
+
+background:#000;
+
+flex-shrink:0;
+
+}
+
+
+
+.produto-image img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+
+
+/* PARTE DIREITA */
+
+.produto-info{
+
+flex:1;
+
+padding:18px 20px;
+
+display:flex;
+
+flex-direction:column;
+
+height:auto;
+
+}
+
+
+
+/* TITULO */
+
+.produto-title{
+
+font-size:22px;
+
+font-weight:700;
+
+color:#ffffff;
+
+margin:0 0 15px;
+
+letter-spacing:.5px;
+
+}
+
+
+
+/* LINHAS */
+
+.produto-details p{
+
+display:flex;
+
+align-items:center;
+
+margin:5px 0;
+
+font-size:17px;
+
+}
+
+
+
+/* LABEL */
+
+.label-left{
+
+min-width:145px;
+
+color:#969696;
+
+font-weight:400;
+
+}
+
+
+
+/* VALORES */
+
+.value{
+
+color:#eeeeee;
+
+font-weight:500;
+
+}
+
+
+
+.value.gold{
+
+color:#e4bd55;
+
+font-weight:600;
+
+}
+
+
+
+/* BOTÃO */
+
+.btn-buy{
+
+
+margin-top:auto;
+
+height:54px;
+
+width:100%;
+
+
+background:
+rgba(0,0,0,.15);
+
+
+border:
+
+1px solid rgba(230,190,70,.75);
+
+
+border-radius:8px;
+
+
+color:#f4d477;
+
+
+font-size:18px;
+
+
+font-weight:600;
+
+
+}
+
+
+
+.btn-buy:hover{
+
+background:
+
+rgba(255,200,60,.08);
+
+}
+
+
+
+.btn-buy:disabled{
+
+color:#777;
+
+border-color:rgba(255,255,255,.18);
+
+background:transparent;
+
+}
+
+
+/* TÍTULO DA PÁGINA */
+
+h2{
+
+font-size:42px;
+
+font-weight:700;
+
+color:#ffe7aa;
+
+text-shadow:
+
+0 0 12px rgba(255,190,50,.45);
+
+margin-bottom:40px;
+
+}
+
+
+
+/* FUNDO GERAL */
+
+body{
+
+background:
+
+radial-gradient(
+circle at top,
+rgba(255,190,50,.08),
+transparent 35%
+),
+
+#030713;
+
+              }
