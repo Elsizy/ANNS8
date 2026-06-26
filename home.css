@@ -1095,10 +1095,14 @@ linear-gradient(
 
 
 /* brilho tecnológico */
+
+
 .produto::after{
 content:"";
 position:absolute;
 inset:0;
+pointer-events:none;
+z-index:1;
 
 clip-path:inherit;
 
@@ -1109,10 +1113,7 @@ transparent,
 rgba(255,210,70,.06),
 transparent
 );
-
-pointer-events:none;
 }
-
 .produto::before{
 content:"";
 position:absolute;
@@ -1137,22 +1138,7 @@ transparent 44%
 );
 }
 
-.produto::after{
-content:"";
-position:absolute;
-width:120px;
-height:2px;
-background:
-linear-gradient(
-90deg,
-transparent,
-#ffcb53,
-transparent
-);
-top:0;
-left:50%;
-transform:translateX(-50%);
-}
+
 
 .produto .corner-glow{
 position:absolute;
