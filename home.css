@@ -1310,3 +1310,19 @@ rgba(255,255,255,.025) 43%,
 transparent 44%
 );
    }
+h2::after{
+content:"";
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+bottom:-8px;
+width:140px;
+height:2px;
+background:
+linear-gradient(
+90deg,
+transparent,
+#ffcb53,
+transparent
+);
+}
