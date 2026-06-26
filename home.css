@@ -1269,3 +1269,20 @@ transparent 35%
 min-width:0;
 overflow:hidden;
      }
+
+.produto::after{
+content:"";
+position:absolute;
+width:120px;
+height:2px;
+background:
+linear-gradient(
+90deg,
+transparent,
+#ffcb53,
+transparent
+);
+top:0;
+left:50%;
+transform:translateX(-50%);
+     }
