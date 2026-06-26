@@ -1164,15 +1164,11 @@ font-size:17px;
 /* LABEL */
 
 .label-left{
-
-min-width:145px;
-
-color:#969696;
-
-font-weight:400;
-
-}
-
+    min-width:95px;
+    width:95px;
+    color:#969696;
+    font-weight:400;
+   }
 
 
 /* VALORES */
