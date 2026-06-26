@@ -212,7 +212,7 @@ h2 {
   
 
 /* left region with main content (title + body) */
-.produto-left { flex: 1; min-width: 0; display:flex; flex-direction:column; gap:8px; }
+/* .produto-left { flex: 1; min-width: 0; display:flex; flex-direction:column; gap:8px; } */
 
 /* top row: title and action (keeps same structure) */
 .produto-top { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:6px; }
