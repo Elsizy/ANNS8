@@ -1286,3 +1286,21 @@ top:0;
 left:50%;
 transform:translateX(-50%);
      }
+
+.produto::after{
+content:"";
+position:absolute;
+inset:0;
+
+clip-path:inherit;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(255,210,70,.06),
+transparent
+);
+
+pointer-events:none;
+   }
