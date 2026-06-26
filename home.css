@@ -1293,3 +1293,15 @@ left:50%;
 transform:translateX(-50%);
      }
 
+.produto::before{
+content:"";
+position:absolute;
+inset:0;
+background:
+linear-gradient(
+135deg,
+transparent 42%,
+rgba(255,255,255,.025) 43%,
+transparent 44%
+);
+   }
