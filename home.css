@@ -1061,7 +1061,13 @@ position:relative;
 
 box-shadow:
 0 0 18px rgba(255,190,40,.12);
-
+background:
+linear-gradient(
+125deg,
+#03060d 0%,
+#07101d 40%,
+#020408 100%
+);
 }
 
 
