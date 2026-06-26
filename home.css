@@ -1228,7 +1228,12 @@ font-size:16px;
 
 
 font-weight:600;
-
+background:
+linear-gradient(
+180deg,
+rgba(10,10,10,.4),
+rgba(0,0,0,.85)
+);
 
 }
 
