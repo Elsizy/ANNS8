@@ -1142,6 +1142,34 @@ transparent 44%
 );
 }
 
+.produto::after{
+content:"";
+position:absolute;
+width:120px;
+height:2px;
+background:
+linear-gradient(
+90deg,
+transparent,
+#ffcb53,
+transparent
+);
+top:0;
+left:50%;
+transform:translateX(-50%);
+}
+
+.produto .corner-glow{
+position:absolute;
+width:35px;
+height:35px;
+background:
+radial-gradient(
+circle,
+rgba(255,210,70,.8),
+transparent 70%
+);
+   }
 /* IMAGEM */
 
 .produto-image{
