@@ -222,3 +222,35 @@ border-bottom:
             rgba(255,190,40,.35)
         );
 }
+
+.market-line{
+    width:82px;
+    height:34px;
+}
+
+.market-line polyline{
+    fill:none;
+    stroke:#e2b94c;
+    stroke-width:2.3;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+
+    filter:
+        drop-shadow(
+            0 0 4px
+            rgba(
+                255,
+                190,
+                40,
+                .45
+            )
+        );
+}
+
+.market-line.up polyline{
+    stroke:#e3bb55;
+}
+
+.market-line.down polyline{
+    stroke:#d7ae49;
+    }
