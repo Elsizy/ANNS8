@@ -268,3 +268,9 @@ border-bottom:
             rgba(255,190,40,.18)
         );
         }
+
+.market-coin span{
+    font-size:17px;
+    font-weight:500;
+    color:#ffffff;
+}
