@@ -7,11 +7,11 @@ const pairs = [
 ];
 
 const iconMap = {
-    BTCUSDT: "btc.png",
-    ETHUSDT: "eth.png",
-    BNBUSDT: "bnb.png",
-    SOLUSDT: "sol.png",
-    XRPUSDT: "xrp.png"
+    BTCUSDT: "BTC.png",
+    ETHUSDT: "ETH.png",
+    BNBUSDT: "BNB.png",
+    SOLUSDT: "SOL.png",
+    XRPUSDT: "XRP.png"
 };
 
 const chartMap = {
