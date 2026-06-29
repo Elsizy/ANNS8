@@ -191,3 +191,34 @@ border-bottom:
     rgba(255,190,40,.08);
 
 }
+.market-footer{
+    text-align:center;
+    padding:22px;
+    color:#e4bd55;
+    font-size:18px;
+    }
+.market-change.negative{
+    box-shadow:
+        inset 0 0 15px rgba(255,80,80,.05),
+        0 0 12px rgba(255,80,80,.08);
+    }
+.market-change.positive{
+    box-shadow:
+        inset 0 0 15px rgba(255,190,40,.05),
+        0 0 12px rgba(255,190,40,.08);
+                   }
+.market-chart img{
+    filter:
+        drop-shadow(
+            0 0 6px
+            rgba(255,190,40,.35)
+        );
+    }
+
+.coin-icon{
+    filter:
+        drop-shadow(
+            0 0 8px
+            rgba(255,190,40,.35)
+        );
+}
