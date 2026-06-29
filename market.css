@@ -254,3 +254,17 @@ border-bottom:
 .market-line.down polyline{
     stroke:#d7ae49;
     }
+.coin-icon{
+    width:28px;
+    height:28px;
+
+    object-fit:contain;
+
+    flex-shrink:0;
+
+    filter:
+        drop-shadow(
+            0 0 8px
+            rgba(255,190,40,.18)
+        );
+        }
