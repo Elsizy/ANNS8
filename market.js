@@ -99,7 +99,7 @@ async function loadMarket() {
                         <div class="market-coin">
 
                             <img
-                                src="assets/coins/${iconMap[item.symbol]}"
+                                src="${iconMap[item.symbol]}"
                                 class="coin-icon"
                                 alt="${symbol}"
                             >
@@ -119,7 +119,7 @@ async function loadMarket() {
                     <div class="market-chart">
 
                         <img
-                            src="assets/charts/${
+                            src="${
                                 positive
                                 ? chartMap.positive
                                 : chartMap.negative
