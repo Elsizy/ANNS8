@@ -60,29 +60,55 @@ async function loadMarket() {
                             <div class="market-row">
 
                                 <div class="market-pair">
-                                    ${symbol}
+
+                                    <div class="market-coin">
+
+                                        <img
+                src="assets/coins/${iconMap[item.symbol]}"
+                class="coin-icon"
+                                        >
+
+                                        <span>
+                                            ${symbol}
+                                        </span>
+
+                                     </div>
+
+                                 </div>
+
+                                 <div class="market-price">
+                                     ${price}
+                                 </div>
+
+                                 <div class="market-chart">
+
+                                     <img
+                                         src="assets/charts/${
+                                             positive
+                                             ? chartMap.positive
+                                             : chartMap.negative
+                                         }"
+                                     >
+
+                                
                                 </div>
 
-                                <div class="market-price">
-                                    ${price}
-                                </div>
+    <div class="
+        market-change
+        ${positive
+            ? "positive"
+            : "negative"}
+    ">
+        ${
+            positive
+            ? "+"
+            : ""
+        }
+        ${percent}%
+    </div>
 
-                                <div class="
-                                    market-change
-                                    ${positive
-                                        ? "positive"
-                                        : "negative"}
-                                ">
-                                    ${
-                                        positive
-                                        ? "+"
-                                        : ""
-                                    }
-                                    ${percent}%
-                                </div>
-
-                            </div>
-                        `;
+</div>
+`;
                     }).join("")
                 }
 
