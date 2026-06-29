@@ -6,6 +6,19 @@ const pairs = [
     "XRPUSDT"
 ];
 
+const iconMap = {
+    BTCUSDT: "btc.png",
+    ETHUSDT: "eth.png",
+    BNBUSDT: "bnb.png",
+    SOLUSDT: "sol.png",
+    XRPUSDT: "xrp.png"
+};
+
+const chartMap = {
+    positive: "up.svg",
+    negative: "down.svg"
+};
+
 async function loadMarket() {
 
     const container =
