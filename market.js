@@ -14,10 +14,7 @@ const iconMap = {
     XRPUSDT: "XRP.png"
 };
 
-const chartMap = {
-    positive: "up.svg",
-    negative: "down.svg"
-};
+
 
 async function loadMarket() {
 
@@ -96,19 +93,58 @@ async function loadMarket() {
 
                     <div class="market-pair">
 
-                        <div class="market-coin">
+                        <div class="market-chart">
 
-                            <img
-                                src="${iconMap[item.symbol]}"
-                                class="coin-icon"
-                                alt="${symbol}"
-                            >
+    <svg
+        viewBox="0 0 100 40"
+        class="
+            market-line
+            ${positive ? "up" : "down"}
+        "
+    >
 
-                            <span>
-                                ${symbol}
-                            </span>
+        ${
+            positive
+            ? `
+            <polyline
+                points="
+                0,28
+                10,24
+                20,26
+                30,18
+                40,22
+                50,14
+                60,20
+                70,12
+                80,16
+                90,8
+                100,10
+                "
+            />
+            `
+            :
+            `
+            <polyline
+                points="
+                0,12
+                10,16
+                20,14
+                30,22
+                40,18
+                50,26
+                60,20
+                70,30
+                80,24
+                90,34
+                100,32
+                "
+            />
+            `
+        }
 
-                        </div>
+    </svg>
+
+</div>
 
                     </div>
 
