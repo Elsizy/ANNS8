@@ -170,7 +170,7 @@ flex-shrink:0;
 .market-coin{
 display:flex;
 align-items:center;
-gap:12px;
+gap:10px;
 }
 .market-row{
 display:grid;
