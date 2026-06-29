@@ -1281,6 +1281,7 @@ min-width:0;
 overflow:hidden;
      }
 
+
 .produto::after{
 content:"";
 position:absolute;
@@ -1302,6 +1303,9 @@ transform:translateX(-50%);
 content:"";
 position:absolute;
 inset:0;
+
+pointer-events:none;
+
 background:
 linear-gradient(
 135deg,
@@ -1310,6 +1314,7 @@ rgba(255,255,255,.025) 43%,
 transparent 44%
 );
    }
+
 h2::after{
 content:"";
 position:absolute;
