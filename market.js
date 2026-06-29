@@ -14,8 +14,6 @@ const iconMap = {
     XRPUSDT: "XRP.png"
 };
 
-
-
 async function loadMarket() {
 
     const container =
@@ -27,15 +25,16 @@ async function loadMarket() {
 
     try {
 
-        const requests = pairs.map(
-            pair =>
-                fetch(
-                    `https://api.binance.com/api/v3/ticker/24hr?symbol=${pair}`
-                )
-                .then(
-                    response => response.json()
-                )
-        );
+        const requests =
+            pairs.map(
+                pair =>
+                    fetch(
+                        `https://api.binance.com/api/v3/ticker/24hr?symbol=${pair}`
+                    )
+                    .then(
+                        response => response.json()
+                    )
+            );
 
         const data =
             await Promise.all(
@@ -47,17 +46,10 @@ async function loadMarket() {
 
             <div class="market-header">
 
-                <span>
-                    Pares de Moedas
-                </span>
-
-                <span>
-                    Preço Live
-                </span>
-
-                <span>
-                    24h %
-                </span>
+                <span>Pares de Moedas</span>
+                <span>Preço Live</span>
+                <span></span>
+                <span>24h %</span>
 
             </div>
 
@@ -75,8 +67,8 @@ async function loadMarket() {
                     ).toLocaleString(
                         "pt-PT",
                         {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
+                            minimumFractionDigits:2,
+                            maximumFractionDigits:2
                         }
                     );
 
@@ -93,58 +85,19 @@ async function loadMarket() {
 
                     <div class="market-pair">
 
-                        <div class="market-chart">
+                        <div class="market-coin">
 
-    <svg
-        viewBox="0 0 100 40"
-        class="
-            market-line
-            ${positive ? "up" : "down"}
-        "
-    >
+                            <img
+                                src="${iconMap[item.symbol]}"
+                                class="coin-icon"
+                                alt="${symbol}"
+                            >
 
-        ${
-            positive
-            ? `
-            <polyline
-                points="
-                0,28
-                10,24
-                20,26
-                30,18
-                40,22
-                50,14
-                60,20
-                70,12
-                80,16
-                90,8
-                100,10
-                "
-            />
-            `
-            :
-            `
-            <polyline
-                points="
-                0,12
-                10,16
-                20,14
-                30,22
-                40,18
-                50,26
-                60,20
-                70,30
-                80,24
-                90,34
-                100,32
-                "
-            />
-            `
-        }
+                            <span>
+                                ${symbol}
+                            </span>
 
-    </svg>
-
-</div>
+                        </div>
 
                     </div>
 
@@ -154,14 +107,55 @@ async function loadMarket() {
 
                     <div class="market-chart">
 
-                        <img
-                            src="${
-                                positive
-                                ? chartMap.positive
-                                : chartMap.negative
-                            }"
-                            alt="chart"
+                        <svg
+                            viewBox="0 0 100 40"
+                            class="
+                                market-line
+                                ${positive ? "up" : "down"}
+                            "
                         >
+
+                            ${
+                                positive
+                                ?
+                                `
+                                <polyline
+                                    points="
+                                    0,28
+                                    10,24
+                                    20,26
+                                    30,18
+                                    40,22
+                                    50,14
+                                    60,20
+                                    70,12
+                                    80,16
+                                    90,8
+                                    100,10
+                                    "
+                                />
+                                `
+                                :
+                                `
+                                <polyline
+                                    points="
+                                    0,12
+                                    10,16
+                                    20,14
+                                    30,22
+                                    40,18
+                                    50,26
+                                    60,20
+                                    70,30
+                                    80,24
+                                    90,34
+                                    100,32
+                                    "
+                                />
+                                `
+                            }
+
+                        </svg>
 
                     </div>
 
@@ -173,15 +167,12 @@ async function loadMarket() {
                             : "negative"
                         }
                     ">
-
                         ${
                             positive
                             ? "+"
                             : ""
                         }
-
                         ${percent}%
-
                     </div>
 
                 </div>
@@ -190,9 +181,7 @@ async function loadMarket() {
             }).join("")}
 
             <div class="market-footer">
-
                 Ver todos os pares →
-
             </div>
 
         </div>
