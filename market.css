@@ -115,3 +115,79 @@
     background:
     rgba(255,60,60,.08);
 }
+
+
+.market-change.negative{
+color:#ff6767;
+
+border:  
+    1px solid  
+    rgba(255,70,70,.35);  
+
+background:  
+    rgba(255,70,70,.08);
+
+}
+.market-change.positive{
+color:#f0c75d;
+
+border:  
+    1px solid  
+    rgba(255,190,40,.35);  
+
+background:  
+    rgba(255,190,40,.08);
+
+}
+.market-change{
+width:92px;
+height:44px;
+
+display:flex;  
+justify-content:center;  
+align-items:center;  
+
+border-radius:14px;  
+
+font-size:15px;  
+font-weight:600;
+
+}
+.market-chart img{
+width:78px;
+opacity:.92;
+}
+.market-chart{
+display:flex;
+justify-content:center;
+}
+.coin-icon{
+width:34px;
+height:34px;
+object-fit:contain;
+flex-shrink:0;
+}
+.market-coin{
+display:flex;
+align-items:center;
+gap:12px;
+}
+.market-row{
+display:grid;
+grid-template-columns:
+1.7fr
+1fr
+90px
+95px;
+
+align-items:center;  
+
+min-height:82px;  
+
+padding:0 18px;  
+
+border-bottom:  
+    1px solid  
+    rgba(255,190,40,.08);
+
+}
