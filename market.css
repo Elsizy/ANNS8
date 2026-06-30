@@ -744,3 +744,17 @@ font-weight:500;
 letter-spacing:-0.2px;
 
 }
+
+.. 
+. 
+.market-footer{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:6px;
+
+    }
