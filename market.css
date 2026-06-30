@@ -19,38 +19,9 @@
 /* ========================= */
 
 
-.market-row{
-
-    display:grid;
 
 
-    grid-template-columns:
-    1.65fr
-    1fr
-    55px
-    65px;
 
-
-    align-items:center;
-
-
-    min-height:62px;
-
-
-    padding:0 12px;
-
-
-    border-bottom:
-    1px solid rgba(255,190,40,.08);
-
-}
-
-
-.market-row:last-child{
-
-    border-bottom:none;
-
-}
 
 
 
@@ -370,7 +341,7 @@
 
     padding-right:10px;
 
-}
+    }
 
 
 
@@ -461,3 +432,26 @@ border-bottom:
 1px solid rgba(255,190,40,.08);
 
                  }
+
+.market-row{
+
+display:grid;
+
+grid-template-columns:
+
+1.55fr
+0.95fr
+72px
+78px;
+
+align-items:center;
+
+min-height:56px;
+
+padding:0 14px;
+
+border-bottom:
+
+1px solid rgba(255,190,40,.06);
+
+}
