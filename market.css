@@ -54,65 +54,6 @@
 /* ========================= */
 
 
-.market-chart{
-
-
-    width:55px;
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-}
-
-
-
-.market-line{
-
-
-    width:50px;
-
-
-    height:18px;
-
-
-}
-
-
-
-.market-line polyline{
-
-
-    fill:none;
-
-
-    stroke:#e0b54a;
-
-
-    stroke-width:2;
-
-
-    stroke-linecap:round;
-
-
-    stroke-linejoin:round;
-
-
-    filter:
-    drop-shadow(
-    0 0 3px rgba(255,190,40,.35)
-    );
-
-}
-
-
-
 
 
 .market-line.up polyline{
@@ -492,5 +433,57 @@ filter:
 drop-shadow(
 0 0 2px rgba(255,190,40,.25)
 );
+
+    }
+
+.market-change{
+
+width:74px;
+
+height:34px;
+
+border-radius:12px;
+
+font-size:14px;
+
+font-weight:600;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+justify-self:end;
+
+margin-left:8px;
+
+}
+
+.market-change.positive{
+
+color:#F0C65C;
+
+border:
+
+1px solid rgba(255,190,40,.32);
+
+background:
+
+rgba(255,190,40,.06);
+
+    }
+
+.market-change.negative{
+
+color:#F56A6A;
+
+border:
+
+1px solid rgba(255,70,70,.30);
+
+background:
+
+rgba(255,70,70,.06);
 
     }
