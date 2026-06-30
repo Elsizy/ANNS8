@@ -404,7 +404,6 @@ h2 {
   left: 0;
   right: 0;
   height: 45px;
-  background-color: #1c1c1c; /* mesma cor predominante do projeto */
   color: #fff;
   display: flex;
   align-items: center;
@@ -461,12 +460,7 @@ h2 {
   font-weight: bold;
   color: #3da5ff;
 }
-.top-bar {
-  background-color: #2a7de1; /* azul vibrante */
-}
-.top-bar {
-  background-color: #1f1f1f; /* mais claro que o fundo, mas ainda escuro */
-}
+
 .menu-links {
   display: flex;
   justify-content: space-around;
@@ -1319,3 +1313,14 @@ background-attachment:scroll;
 background-color:#060606;
 
    }
+.header{
+
+position:relative;
+
+z-index:50;
+
+background:transparent;
+
+box-shadow:none;
+
+}
