@@ -208,19 +208,28 @@ margin-left:8px;
 
 }
 
+
 .market-change.positive{
 
-color:#F0C65C;
+color:#f6d87d;
 
-border:
-
-1px solid rgba(255,190,40,.32);
+border:1px solid rgba(227,185,74,.38);
 
 background:
+linear-gradient(
+180deg,
+rgba(255,221,120,.09) 0%,
+rgba(255,190,40,.04) 100%
+);
 
-rgba(255,190,40,.06);
+text-shadow:
+0 0 4px rgba(255,210,90,.20);
 
-    }
+box-shadow:
+inset 0 1px 0 rgba(255,240,170,.14),
+0 0 5px rgba(227,185,74,.06);
+
+}
 
 .market-change.negative{
 
@@ -516,23 +525,24 @@ margin-left:4px;
 
 color:#f6d87d;
 
-text-shadow:
-
-0 0 4px rgba(255,205,70,.18);
+border:1px solid rgba(227,185,74,.38);
 
 background:
-
 linear-gradient(
 180deg,
-rgba(255,215,90,.08),
-rgba(255,170,40,.03)
+rgba(255,221,120,.09) 0%,
+rgba(255,190,40,.04) 100%
 );
 
+text-shadow:
+0 0 4px rgba(255,210,90,.20);
+
 box-shadow:
+inset 0 1px 0 rgba(255,240,170,.14),
+0 0 5px rgba(227,185,74,.06);
 
-inset 0 1px 0 rgba(255,235,160,.12);
+               }
 
-}
 
 .market-change.negative{
 
