@@ -93,7 +93,7 @@ async function loadMarket() {
                                 alt="${symbol}"
                             >
 
-                            <span>
+                            <span class="market-symbol">
                                 ${symbol}
                             </span>
 
