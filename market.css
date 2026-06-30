@@ -678,3 +678,11 @@ align-items:center;
 gap:6px;
 
     }
+
+.market-header-right{
+
+text-align:right;
+
+padding-right:2px;
+
+    }
