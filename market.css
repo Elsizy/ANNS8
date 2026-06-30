@@ -456,3 +456,41 @@ color:#ECECEC;
 white-space:nowrap;
 
     }
+
+.market-chart{
+
+width:72px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:flex-start;
+
+padding-left:4px;
+
+}
+
+.market-line{
+
+width:58px;
+
+height:18px;
+
+    }
+
+.market-line polyline{
+
+stroke-width:2;
+
+stroke-linecap:round;
+
+stroke-linejoin:round;
+
+filter:
+
+drop-shadow(
+0 0 2px rgba(255,190,40,.25)
+);
+
+    }
