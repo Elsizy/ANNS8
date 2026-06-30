@@ -49,7 +49,7 @@ async function loadMarket() {
                 <span>Pares de Moedas</span>
                 <span>Preço Live</span>
                 <span></span>
-                <span>24h %</span>
+                <span> 24h%</span>
 
             </div>
 
@@ -68,7 +68,7 @@ async function loadMarket() {
                         "pt-PT",
                         {
                         
-                            maximumFractionDigits:2
+                            maximumFractionDigits:4
                         }
                     );
 
@@ -179,7 +179,12 @@ points="
             }).join("")}
 
             <div class="market-footer">
-                Ver todos os pares →
+            <span>
+                Ver todos os pares 
+            </span>
+            <span Class=“footer-arrow”>
+                →
+            </span>
             </div>
 
         </div>
