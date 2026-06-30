@@ -726,3 +726,17 @@ opacity:.72;
 letter-spacing:.05px;
 
     }
+
+.market-price{
+
+font-size:11px;
+
+font-weight:500;
+
+font-variant-numeric:tabular-nums;
+
+font-feature-settings:"tnum";
+
+letter-spacing:-.2px;
+
+}
