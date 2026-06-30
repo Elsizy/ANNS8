@@ -56,10 +56,16 @@ async function loadMarket() {
             ${data.map(item => {
 
                 const symbol =
-                    item.symbol.replace(
-                        "USDT",
-                        '<span class="usdt">/USDT</span>'
-                    );
+    item.symbol.replace(
+        "USDT",
+        "/USDT"
+    );
+
+const symbolHtml =
+    item.symbol.replace(
+        "USDT",
+        '<span class="usdt">/USDT</span>'
+    );
 
                 const price =
                     Number(
@@ -94,7 +100,7 @@ async function loadMarket() {
                             >
 
                             <span class="market-symbol">
-                                ${symbol}
+                                ${symbolHtml}
                             </span>
 
                         </div>
@@ -178,7 +184,7 @@ points="
 
             }).join("")}
 
-            <div Class="market-footer">
+            <div class=“market-footer”>
             <span>
                 Ver todos os pares 
             </span>
