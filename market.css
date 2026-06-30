@@ -389,7 +389,7 @@
 
 .market-card{
 
-    margin:16px 0px;
+    margin:16px autopx;
 
     width:100%;
 
