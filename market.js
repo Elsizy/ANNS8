@@ -188,7 +188,7 @@ points="
             <span>
                 Ver todos os pares 
             </span>
-            <span Class=“footer-arrow”>
+            <span Class="footer-arrow">
                 →
             </span>
             </div>
