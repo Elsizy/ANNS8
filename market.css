@@ -78,87 +78,6 @@
 /* ========================= */
 
 
-.market-change{
-
-
-    width:65px;
-
-
-    height:30px;
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-    border-radius:11px;
-
-
-    font-size:12px;
-
-
-    font-weight:600;
-
-
-    justify-self:end;
-
-
-}
-
-
-
-
-.market-change.positive{
-
-
-    color:#f2c75d;
-
-
-    border:
-
-    1px solid
-
-    rgba(255,190,40,.35);
-
-
-
-    background:
-
-    rgba(255,190,40,.08);
-
-
-}
-
-
-
-.market-change.negative{
-
-
-    color:#ff6767;
-
-
-    border:
-
-    1px solid
-
-    rgba(255,70,70,.35);
-
-
-
-    background:
-
-    rgba(255,70,70,.08);
-
-
-}
-
-
-
 
 /* ========================= */
 /* RODAPÉ */
@@ -200,7 +119,7 @@
 
     margin:16px 1px;
 
-    width:98%;
+    width98%;
 
 }
 
