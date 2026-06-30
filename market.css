@@ -39,20 +39,7 @@
 
 
 
-.market-coin span{
 
-    font-size:16px;
-
-
-    font-weight:500;
-
-
-    color:#ffffff;
-
-
-    white-space:nowrap;
-
-}
 
 
 
@@ -463,3 +450,15 @@ drop-shadow(
 );
 
     }
+
+.market-coin span{
+
+font-size:15px;
+
+font-weight:500;
+
+color:#FFF;
+
+white-space:nowrap;
+
+     }
