@@ -10,30 +10,7 @@
 /* CABEÇALHO */
 /* ========================= */
 
-.market-header{
 
-    display:grid;
-
-    grid-template-columns:
-    1.65fr
-    1fr
-    55px
-    65px;
-
-
-    align-items:center;
-
-    padding:14px 12px;
-
-
-    color:#8d8d8d;
-
-    font-size:14px;
-
-    border-bottom:
-    1px solid rgba(255,190,40,.10);
-
-}
 
 
 
@@ -460,3 +437,27 @@ box-shadow:
 0 0 14px rgba(255,180,20,.045);
 
     }
+.market-header{
+
+display:grid;
+
+grid-template-columns:
+
+1.55fr
+0.95fr
+72px
+78px;
+
+align-items:center;
+
+padding:12px 14px;
+
+font-size:14px;
+
+color:#7e7e7e;
+
+border-bottom:
+
+1px solid rgba(255,190,40,.08);
+
+                 }
