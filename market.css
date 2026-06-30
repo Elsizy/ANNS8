@@ -92,78 +92,7 @@
 /* ========================= */
 
 
-@media(max-width:420px){
 
-
-.market-card{
-
-    margin:16px 1px;
-
-    width98%;
-
-}
-
-
-
-.market-header,
-.market-row{
-
-
-    grid-template-columns:
-
-    1.55fr
-    .95fr
-    50px
-    60px;
-
-
-
-    padding-left:10px;
-
-    padding-right:10px;
-
-    }
-
-
-
-.market-coin span{
-
-    font-size:14px;
-
-}
-
-
-
-.market-price{
-
-    font-size:13px;
-
-}
-
-
-
-.coin-icon{
-
-    width:26px;
-
-    height:26px;
-
-}
-
-
-
-.market-change{
-
-    width:60px;
-
-    height:28px;
-
-    font-size:12px;
-
-}
-
-
-                   }
 .market-card{
 
 margin:18px 12px;
@@ -400,3 +329,73 @@ color:#D9B04C;
 text-align:center;
 
              }
+
+@media(max-width:420px){
+
+.market-card{
+
+margin:16px 2px;
+
+width:98.5%;
+
+}
+
+.market-header,
+.market-row{
+
+grid-template-columns:
+
+1.52fr
+0.92fr
+66px
+72px;
+
+padding-left:12px;
+
+padding-right:12px;
+
+}
+
+.market-row{
+
+min-height:54px;
+
+}
+
+.coin-icon{
+
+width:28px;
+
+height:28px;
+
+}
+
+.market-coin span{
+
+font-size:14px;
+
+}
+
+.market-price{
+
+font-size:13px;
+
+}
+
+.market-line{
+
+width:54px;
+
+}
+
+.market-change{
+
+width:68px;
+
+height:31px;
+
+font-size:13px;
+
+}
+
+    }
