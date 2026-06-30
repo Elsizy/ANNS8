@@ -31,17 +31,7 @@
 /* ========================= */
 
 
-.market-coin{
 
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    min-width:0;
-
-}
 
 
 
@@ -453,5 +443,17 @@ padding:0 14px;
 border-bottom:
 
 1px solid rgba(255,190,40,.06);
+
+}
+
+.market-coin{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+min-width:0;
 
 }
