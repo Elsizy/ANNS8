@@ -57,8 +57,8 @@ async function loadMarket() {
 
                 const symbol =
                     item.symbol.replace(
-                        "USDT",
-                        "/USDT"
+"USDT",
+'<span class="usdt">/USDT</span>'
                     );
 
                 const price =
