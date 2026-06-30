@@ -108,7 +108,7 @@ async function loadMarket() {
                     <div class="market-chart">
 
                         <svg
-                            viewBox="0 0 100 40"
+                            viewBox="0 0 100 24"
                             class="
                                 market-line
                                 ${positive ? "up" : "down"}
