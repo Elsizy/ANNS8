@@ -2,28 +2,7 @@
 /* CARD PRINCIPAL */
 /* ========================= */
 
-.market-card{
 
-    margin:18px 12px;
-
-    width:calc(100% - 24px);
-
-    border:1px solid rgba(255,190,40,.30);
-
-    border-radius:24px;
-
-    overflow:hidden;
-
-    background:
-    linear-gradient(
-        180deg,
-        rgba(9,9,9,.98),
-        rgba(2,5,12,.99)
-    );
-
-    box-shadow:
-    0 0 20px rgba(255,180,20,.06);
-}
 
 
 
@@ -456,3 +435,28 @@
 
 
                    }
+.market-card{
+
+margin:18px 12px;
+
+width:calc(100% - 24px);
+
+border:1px solid rgba(255,190,40,.22);
+
+border-radius:24px;
+
+overflow:hidden;
+
+background:
+
+linear-gradient(
+180deg,
+rgba(9,9,9,.985),
+rgba(3,5,12,.995)
+);
+
+box-shadow:
+
+0 0 14px rgba(255,180,20,.045);
+
+    }
