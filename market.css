@@ -389,9 +389,9 @@
 
 .market-card{
 
-    margin:16px 8px;
+    margin:16px 1px;
 
-    width:calc(100% - 16px);
+    width:98%;
 
 }
 
