@@ -10,7 +10,7 @@
 
     border:1px solid rgba(255,190,40,.30);
 
-    border-radius:28px;
+    border-radius:24px;
 
     overflow:hidden;
 
@@ -22,7 +22,7 @@
     );
 
     box-shadow:
-    0 0 25px rgba(255,180,20,.08);
+    0 0 20px rgba(255,180,20,.06);
 }
 
 
@@ -36,24 +36,25 @@
     display:grid;
 
     grid-template-columns:
-        minmax(120px,1.8fr)
-        minmax(90px,1fr)
-        70px
-        82px;
+    1.65fr
+    1fr
+    55px
+    65px;
 
 
     align-items:center;
 
-    padding:18px 18px;
+    padding:14px 12px;
+
 
     color:#8d8d8d;
 
-    font-size:15px;
+    font-size:14px;
 
     border-bottom:
     1px solid rgba(255,190,40,.10);
-}
 
+}
 
 
 
@@ -61,25 +62,26 @@
 /* LINHAS */
 /* ========================= */
 
+
 .market-row{
 
     display:grid;
 
 
     grid-template-columns:
-        minmax(120px,1.8fr)
-        minmax(90px,1fr)
-        70px
-        82px;
+    1.65fr
+    1fr
+    55px
+    65px;
 
 
     align-items:center;
 
 
-    min-height:82px;
+    min-height:62px;
 
 
-    padding:0 18px;
+    padding:0 12px;
 
 
     border-bottom:
@@ -96,6 +98,7 @@
 
 
 
+
 /* ========================= */
 /* MOEDA */
 /* ========================= */
@@ -107,28 +110,30 @@
 
     align-items:center;
 
-    gap:12px;
+    gap:8px;
 
     min-width:0;
 
 }
 
 
+
 .coin-icon{
 
-    width:34px;
+    width:28px;
 
-    height:34px;
+    height:28px;
+
 
     object-fit:contain;
+
 
     flex-shrink:0;
 
 
     filter:
     drop-shadow(
-        0 0 6px
-        rgba(255,190,40,.18)
+    0 0 5px rgba(255,190,40,.18)
     );
 
 }
@@ -137,15 +142,19 @@
 
 .market-coin span{
 
-    font-size:18px;
+    font-size:16px;
+
 
     font-weight:500;
 
+
     color:#ffffff;
+
 
     white-space:nowrap;
 
 }
+
 
 
 
@@ -156,15 +165,19 @@
 
 .market-price{
 
-    font-size:17px;
+    font-size:15px;
+
 
     font-weight:500;
 
+
     color:#ececec;
+
 
     white-space:nowrap;
 
 }
+
 
 
 
@@ -176,12 +189,14 @@
 .market-chart{
 
 
-    width:70px;
+    width:55px;
 
 
     display:flex;
 
+
     justify-content:center;
+
 
     align-items:center;
 
@@ -193,9 +208,10 @@
 .market-line{
 
 
-    width:62px;
+    width:50px;
 
-    height:24px;
+
+    height:18px;
 
 
 }
@@ -211,7 +227,7 @@
     stroke:#e0b54a;
 
 
-    stroke-width:2.2;
+    stroke-width:2;
 
 
     stroke-linecap:round;
@@ -222,11 +238,13 @@
 
     filter:
     drop-shadow(
-        0 0 4px
-        rgba(255,190,40,.45)
+    0 0 3px rgba(255,190,40,.35)
     );
 
 }
+
+
+
 
 
 .market-line.up polyline{
@@ -254,10 +272,10 @@
 .market-change{
 
 
-    width:82px;
+    width:65px;
 
 
-    height:38px;
+    height:30px;
 
 
     display:flex;
@@ -269,10 +287,10 @@
     align-items:center;
 
 
-    border-radius:13px;
+    border-radius:11px;
 
 
-    font-size:15px;
+    font-size:13px;
 
 
     font-weight:600;
@@ -285,6 +303,7 @@
 
 
 
+
 .market-change.positive{
 
 
@@ -292,25 +311,19 @@
 
 
     border:
+
     1px solid
+
     rgba(255,190,40,.35);
 
 
 
     background:
+
     rgba(255,190,40,.08);
 
 
-
-    box-shadow:
-
-    inset 0 0 15px rgba(255,190,40,.05),
-
-    0 0 12px rgba(255,190,40,.08);
-
-
 }
-
 
 
 
@@ -321,24 +334,20 @@
 
 
     border:
+
     1px solid
+
     rgba(255,70,70,.35);
 
 
 
     background:
+
     rgba(255,70,70,.08);
 
 
-
-    box-shadow:
-
-    inset 0 0 15px rgba(255,70,70,.05),
-
-    0 0 12px rgba(255,70,70,.08);
-
-
 }
+
 
 
 
@@ -353,13 +362,13 @@
     text-align:center;
 
 
-    padding:18px;
+    padding:15px;
 
 
     color:#ddb34c;
 
 
-    font-size:18px;
+    font-size:16px;
 
 
     font-weight:500;
@@ -369,8 +378,9 @@
 
 
 
+
 /* ========================= */
-/* AJUSTE PARA CELULARES */
+/* CELULARES PEQUENOS */
 /* ========================= */
 
 
@@ -379,9 +389,9 @@
 
 .market-card{
 
-    margin:16px 10px;
+    margin:16px 8px;
 
-    width:calc(100% - 20px);
+    width:calc(100% - 16px);
 
 }
 
@@ -393,16 +403,16 @@
 
     grid-template-columns:
 
-    minmax(110px,1.7fr)
-    minmax(80px,1fr)
-    58px
-    76px;
+    1.55fr
+    .95fr
+    50px
+    60px;
 
 
-    padding-left:14px;
 
-    padding-right:14px;
+    padding-left:10px;
 
+    padding-right:10px;
 
 }
 
@@ -410,7 +420,7 @@
 
 .market-coin span{
 
-    font-size:16px;
+    font-size:15px;
 
 }
 
@@ -418,7 +428,17 @@
 
 .market-price{
 
-    font-size:15px;
+    font-size:14px;
+
+}
+
+
+
+.coin-icon{
+
+    width:26px;
+
+    height:26px;
 
 }
 
@@ -426,11 +446,13 @@
 
 .market-change{
 
-    width:76px;
+    width:60px;
 
-    font-size:14px;
+    height:28px;
+
+    font-size:12px;
 
 }
 
 
-    }
+                   }
