@@ -49,24 +49,6 @@
 /* ========================= */
 
 
-.market-price{
-
-    font-size:15px;
-
-
-    font-weight:500;
-
-
-    color:#ececec;
-
-
-    white-space:nowrap;
-
-}
-
-
-
-
 /* ========================= */
 /* MINI GRÁFICO */
 /* ========================= */
@@ -462,3 +444,15 @@ color:#FFF;
 white-space:nowrap;
 
      }
+
+.market-price{
+
+font-size:14px;
+
+font-weight:500;
+
+color:#ECECEC;
+
+white-space:nowrap;
+
+    }
