@@ -35,25 +35,7 @@
 
 
 
-.coin-icon{
 
-    width:28px;
-
-    height:28px;
-
-
-    object-fit:contain;
-
-
-    flex-shrink:0;
-
-
-    filter:
-    drop-shadow(
-    0 0 5px rgba(255,190,40,.18)
-    );
-
-}
 
 
 
@@ -457,3 +439,27 @@ gap:10px;
 min-width:0;
 
 }
+
+.coin-icon{
+
+width:30px;
+
+height:30px;
+
+border-radius:50%;
+
+overflow:hidden;
+
+background:#090909;
+
+object-fit:cover;
+
+flex-shrink:0;
+
+filter:
+
+drop-shadow(
+0 0 4px rgba(255,190,40,.14)
+);
+
+    }
