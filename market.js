@@ -49,7 +49,7 @@ async function loadMarket() {
                 <span>Pares de Moedas</span>
                 <span>Preço Live</span>
                 <span></span>
-                <span> 24h%</span>
+                <span class="market-header-right">24h %</span>
 
             </div>
 
