@@ -84,26 +84,6 @@
 /* ========================= */
 
 
-.market-footer{
-
-
-    text-align:center;
-
-
-    padding:15px;
-
-
-    color:#ddb34c;
-
-
-    font-size:15px;
-
-
-    font-weight:500;
-
-
-}
-
 
 
 
@@ -406,3 +386,17 @@ background:
 rgba(255,70,70,.06);
 
     }
+
+.market-footer{
+
+padding:18px 0;
+
+font-size:17px;
+
+font-weight:600;
+
+color:#D9B04C;
+
+text-align:center;
+
+             }
