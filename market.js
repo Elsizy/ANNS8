@@ -67,7 +67,7 @@ async function loadMarket() {
                     ).toLocaleString(
                         "pt-PT",
                         {
-                            minimumFractionDigits:2,
+                        
                             maximumFractionDigits:2
                         }
                     );
@@ -83,7 +83,7 @@ async function loadMarket() {
                 return `
                 <div class="market-row">
 
-                    <div class="market-pair">
+                    
 
                         <div class="market-coin">
 
@@ -99,7 +99,7 @@ async function loadMarket() {
 
                         </div>
 
-                    </div>
+                    
 
                     <div class="market-price">
                         ${price}
