@@ -129,22 +129,7 @@ body::after {
   gap: 8px;
 }
 
-/* Eye button (preserva comportamento do JS) */
-.eye-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 2px 4px;
-  display: flex;
-  align-items: center;
-}
-.eye-btn svg {
-  width: 20px;
-  height: 20px;
-  stroke: var(--muted-strong);
-  transition: stroke 0.18s ease;
-}
-.eye-btn:hover svg { stroke: #fff; }
+
 
 /* -------------------------
    Menu links (preserva aparência funcional)
@@ -170,23 +155,8 @@ body::after {
 /* -------------------------
    Info ticker (mesma função/visu)
    ------------------------- */
-.info-ticker {
-  display:flex;
-  align-items:center;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.03);
-  border-radius: 10px;
-  padding: 6px 10px;
-  margin: 14px 0 18px;
-  overflow: hidden;
-  color: var(--muted-strong);
-}
-.info-ticker .icon { margin-right: 8px; flex: 0 0 auto; }
-.ticker-track { flex:1; overflow:hidden; position:relative; height:20px; }
-.ticker-text {
-  position:absolute; white-space:nowrap; will-change:transform;
-  animation: ticker 30s linear infinite; font-size:14px; opacity:0.95; color:var(--muted-strong);
-}
+
+
 @keyframes ticker { 0%{ transform: translateX(100%);} 100%{ transform: translateX(-100%);} }
 
 /* Section heading */
