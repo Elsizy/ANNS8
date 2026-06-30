@@ -178,7 +178,7 @@ points="
 
             }).join("")}
 
-            <div class="market-footer">
+            <div Class="market-footer">
             <span>
                 Ver todos os pares 
             </span>
