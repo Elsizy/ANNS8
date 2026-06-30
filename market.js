@@ -184,14 +184,14 @@ points="
 
             }).join("")}
 
-            <div class=“market-footer”>
-            <span>
-                Ver todos os pares 
-            </span>
-            <span Class="footer-arrow">
-                →
-            </span>
-            </div>
+            <div class="market-footer">
+    <span>
+        Ver todos os pares
+    </span>
+    <span class="footer-arrow">
+        →
+    </span>
+</div>
 
         </div>
         `;
