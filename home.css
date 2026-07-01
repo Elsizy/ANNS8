@@ -1526,3 +1526,43 @@ height:auto;
 object-fit:cover;
 
 }
+
+.dashboard::before{
+
+content:"";
+
+position:absolute;
+
+top:-180px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+width:700px;
+
+height:700px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+
+circle,
+
+rgba(255,190,40,.18),
+
+rgba(255,190,40,.08),
+
+transparent 72%
+
+);
+
+filter:blur(90px);
+
+pointer-events:none;
+
+z-index:-1;
+
+   }
