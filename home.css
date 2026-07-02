@@ -1124,17 +1124,7 @@ background:transparent;
 
 /* FUNDO GERAL */
 
-body{
 
-background:
-
-radial-gradient(
-circle at top,
-rgba(255,190,50,.08),
-transparent 35%
-),
-
-#030713;
 
               }
 .produto-info{
