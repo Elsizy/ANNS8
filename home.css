@@ -64,15 +64,7 @@ body {
   mix-blend-mode: overlay;
 }
 
-/* overlay suave para contraste como no pessoal.css */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: rgba(7,6,26,var(--overlay-opacity));
-  z-index: 1;
-}
+
 
 /* -------------------------
    Dashboard container (preserva nome e dimensões)
