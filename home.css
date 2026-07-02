@@ -93,9 +93,6 @@ body {
    ------------------------- */
 
 
-@keyframes ticker { 0%{ transform: translateX(100%);} 100%{ transform: translateX(-100%);} }
-
-
 /* -------------------------
 
 /* label e value — mantêm o comportamento do código anterior,
