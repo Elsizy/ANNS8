@@ -293,24 +293,6 @@ h2 {
 
 
 
-.menu-links {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin: 20px 0 16px;
-}
-.menu-links a {
-  background: #fff;
-  color: #1c2e4a;
-  padding: 10px 8px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  text-align: center;
-  font-size: 14px;
-}
-
-
 @keyframes ticker {
   0%   { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
