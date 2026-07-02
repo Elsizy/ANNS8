@@ -24,7 +24,8 @@
   --svg-opacity: 0.72;
   --overlay-opacity: 0.56;
 
-  
+
+   
 }
 
 /* -------------------------
@@ -129,53 +130,6 @@ h2 {
 }
 
 /* -------------------------
-   Produtos — card layout (preserva nomes e comportamentos)
-   - estilos revisados para casar com pessoal.css
-   ------------------------- */
-.produtos-container {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 12px;
-}
-
-/* base do card produto — usa mesmo tom escuro do home original, mas com radii/espacamentos do pessoal */
-
-  .produto{
-
-/* left region with main content (title + body) */
- .produto-left { flex: 1; min-width: 0; display:flex; flex-direction:column; gap:8px; } 
-
-/* top row: title and action (keeps same structure) */
-.produto-top { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:6px; }
-.produto-title { margin:0; font-size:16px; font-weight:700; color: #f3f7ff; }
-
-/* right region (logo / badge) */
-.produto-right { margin-left: 16px; display:flex; align-items:center; flex-shrink:0; }
-
-/* produto body — linhas compactas, rótulo + valor na mesma linha
-   usamos as classes já esperadas pelo seu JS: label-left / value / status
-*/
-   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  background: linear-gradient(180deg, var(--home-card-dark-a) 0%, var(--home-card-dark-b) 100%);
-  border-radius: var(--card-radius);
-  padding: 14px;
-  margin-bottom: 16px;
-  color: var(--text-value);
-  box-shadow: var(--card-shadow);
-  border: 1px solid rgba(255,255,255,0.02);
-   }
-.produto-body { display:flex; flex-direction:column; gap:6px; }
-.produto-body p {
-  margin: 0;
-  font-size: 13px;
-  color: #bcd0f8;
-  display:flex;
-  align-items:center;
-  line-height:1;
-}
 
 /* label e value — mantêm o comportamento do código anterior,
    porém ajustados para tipografia mais fina e compacta (pessoal.css feel)
