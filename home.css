@@ -672,23 +672,7 @@ height:100%;
 object-fit:cover;
 
 }
-.produto {
 
-display:flex;
-
-align-items:flex-start;
-
-background:#050505;
-
-border:1px solid rgba(255,255,255,.08);
-
-padding:16px;
-
-gap:16px;
-
-min-height:160px;
-
-}
 
 .produto {
 
