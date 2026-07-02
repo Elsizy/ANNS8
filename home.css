@@ -6,51 +6,7 @@
 /* -------------------------
    Variáveis (base pessoal.css)
    ------------------------- */
-:root{
-  --bg-page: #07061a; /* usa fundo do pessoal.css */
-  --panel-grad-left: #8b5cf6;
-  --panel-grad-right:#ff5aa8;
-  --card-radius: 18px;
-  --card-padding: 18px;
-  --card-min-height: 100px;
-  --muted: rgba(255,255,255,0.72);
-  --muted-strong: rgba(255,255,255,0.92);
-  --action-border-width: 2.5px;
-  --action-border-color: rgba(255,255,255,0.08);
-  --menu-item-radius: 16px;
-  --btn-radius: 12px;
-  --btn-padding-vertical: 12px;
-  --btn-padding-horizontal: 16px;
-  --svg-opacity: 0.72;
-  --overlay-opacity: 0.56;
 
-  /* cores secundárias para home (mantém compatibilidade com antigas regras) */
-  --home-accent-blue: #4aa3ff;
-  --home-accent-blue-2: #2f8cff;
-  --home-card-dark-a: #2a3140;
-  --home-card-dark-b: #232833;
-  --text-muted: #7fa1cf;
-  --text-value: #e7f3ff;
-  --card-shadow: 0 8px 20px rgba(3,7,18,0.6);
-}
-
-/* -------------------------
-   Reset / base
-   ------------------------- */
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-body {
-  margin: 0;
-  min-height: 100%;
-  /* usar o fundo do pessoal.css para consistência */
-  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -ms-touch-action: manipulation;
-}
 
 /* opcional: svg de circuito em tela inteira (se presente no HTML) */
 .circuit-svg-full {
