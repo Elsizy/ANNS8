@@ -281,13 +281,6 @@ h2 {
   color: #3da5ff;
 }
 
-.menu-links {
-  display: flex;
-  justify-content: space-around;
-  background-color: #1f1f1f; /* ou cor do seu design */
-  padding: 10px 0;
-}
-
 
 .menu-item svg {
   margin-bottom: 4px;
