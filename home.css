@@ -53,14 +53,7 @@ body {
 /* -------------------------
    Dashboard container (preserva nome e dimensões)
    ------------------------- */
-.dashboard {
-  padding: 18px;
-  max-width: 960px;
-  margin: 0 auto;
-  padding-bottom: 120px;
-  position: relative;
-  z-index: 4;
-}
+
 
 /* -------------------------
    Stats / cards (mantém estrutura)
