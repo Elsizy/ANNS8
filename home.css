@@ -281,11 +281,6 @@ h2 {
   color: #3da5ff;
 }
 
-.menu-item {
-  font-size: 14px; /* ou 0.875rem */
-  font-weight: 500; /* mantém legível mas sem pesar */
-  line-height: 1.4; /* melhora espaçamento vertical */
-}
 .menu-links * {
   font-size: 10px;
   font-weight: 300;
