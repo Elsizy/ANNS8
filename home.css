@@ -1207,7 +1207,7 @@ margin-bottom:18px;
 
 .menu-links{
 
-display:grid;
+
 
 grid-template-columns:repeat(4,1fr);
 
