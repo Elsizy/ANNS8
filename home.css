@@ -1411,6 +1411,6 @@ transform:none;
 transform:scale(.985);
 
 }
-menu-links{
+.menu-links{
    display:grid;
 }
