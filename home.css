@@ -284,7 +284,24 @@ h2 {
 
 .menu-item svg {
   margin-bottom: 4px;
-
+  color: #3da5ff; /* azul do tema */
+}
+.menu-item {
+  background: transparent;
+}
+.menu-links {
+  background: inherit !important;
+}
+.menu-item {
+  font-size: 14px; /* ou 0.875rem */
+  font-weight: 500; /* mantém legível mas sem pesar */
+  line-height: 1.4; /* melhora espaçamento vertical */
+}
+.menu-links * {
+  font-size: 10px;
+  font-weight: 300;
+  line-height: 1.4;
+}
 h2 {
   color: #fff;       /* deixa o texto branco */
   text-align: center; /* centraliza horizontalmente */
