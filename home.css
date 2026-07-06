@@ -1410,4 +1410,7 @@ transform:none;
 
 transform:scale(.985);
 
-   }
+}
+menu-links{
+   display:grid;
+}
