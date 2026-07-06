@@ -1205,19 +1205,7 @@ margin-bottom:18px;
 }
 
 
-.menu-links{
 
-
-
-grid-template-columns:repeat(4,1fr);
-
-gap:14px;
-
-margin-top:18px;
-
-margin-bottom:18px;
-
-}
 .perfil-img{
 
 display:block;
