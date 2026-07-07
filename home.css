@@ -1186,23 +1186,7 @@ padding:
 padding-top:46px;
 
    }
-.perfil-container{
-
-width:100%;
-
-overflow:hidden;
-
-border-radius:24px;
-
-background:transparent;
-
-box-shadow:
-
-0 18px 45px rgba(0,0,0,.45);
-
-margin-bottom:2px;
-
-}
+ 
 
 
 
@@ -1443,5 +1427,33 @@ margin-top:4px;
 margin-bottom:15px;
 
 gap:11px;
+
+   }
+
+.perfil-container{
+
+position:relative;
+
+width:100%;
+
+height:378px;
+
+overflow:hidden;
+
+border-radius:26px;
+
+background:#050505;
+
+border:1px solid rgba(229,184,72,.42);
+
+box-shadow:
+
+0 16px 38px rgba(0,0,0,.55),
+
+0 0 18px rgba(229,184,72,.08);
+
+margin-bottom:18px;
+
+isolation:isolate;
 
    }
