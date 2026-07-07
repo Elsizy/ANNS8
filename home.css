@@ -1238,7 +1238,15 @@ object-fit:cover;
    AJUSTE 100% DA REFERÊNCIA
 ==========================================================*/
 
+.menu-links{
 
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+
+
+   }
 .menu-links{
    display:grid;
    grid-template-columns:repeat(4,1fr);
