@@ -1417,3 +1417,25 @@ transparent
 );
 
    }
+
+.menu-item::after{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+background:linear-gradient(
+
+180deg,
+
+rgba(255,255,255,.015),
+
+transparent 42%
+
+);
+
+pointer-events:none;
+
+                  }
