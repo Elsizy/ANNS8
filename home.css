@@ -1275,7 +1275,6 @@ position:absolute;
 left:10px;
 right:10px;
 top:0;
-
 height:1px;
 
 background:
@@ -1415,3 +1414,20 @@ overflow:hidden;
 text-decoration:none;
 
    }
+
+.menu-item::before{
+
+left:12px;
+
+right:12px;
+
+height:.8px;
+
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,214,110,.55),
+transparent
+);
+
+}
