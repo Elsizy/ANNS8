@@ -1237,20 +1237,7 @@ object-fit:cover;
    MENU PREMIUM
    AJUSTE 100% DA REFERÊNCIA
 ==========================================================*/
-.menu-links{
-display:grid;
-display:grid;
-grid-template-columns:repeat(4,1fr);
 
-gap:12px;
-
-margin:18px 0 20px;
-
-padding:0;
-
-background:transparent;
-
-}
 
 .menu-item{
 
@@ -1403,4 +1390,12 @@ transform:scale(.985);
    grid-template-columns:repeat(4,1fr);
    gap:10px;
    margin-bottom:15px;
+}
+.menu-links{
+
+    
+    padding:0;
+
+    background:transparent;
+
 }
