@@ -1578,3 +1578,44 @@ gap:11px;
     background:rgba(255,194,40,.08);
 
    }
+
+.perfil-container::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:26px;
+
+    border:1px solid rgba(247,196,74,.30);
+
+    pointer-events:none;
+
+}
+
+.perfil-container::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    right:0;
+
+    height:2px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,208,90,.9),
+        transparent
+    );
+
+}
