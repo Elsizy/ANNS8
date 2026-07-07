@@ -1414,3 +1414,21 @@ box-shadow:
 0 4px 12px rgba(0,0,0,.48);
 
 }
+
+.menu-item{
+
+height:98px;
+
+aspect-ratio:1/1;
+
+padding-top:15px;
+
+padding-bottom:12px;
+
+padding-left:4px;
+
+padding-right:4px;
+
+justify-content:flex-start;
+
+}
