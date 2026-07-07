@@ -1403,3 +1403,46 @@ transform:scale(.985);
 }
 
 
+/* ....... */
+
+.menu-item{
+
+position:relative;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:flex-start;
+
+align-items:center;
+
+height:92px;
+
+padding-top:13px;
+
+padding-bottom:10px;
+
+padding-left:6px;
+
+padding-right:6px;
+
+border-radius:16px;
+
+background:linear-gradient(
+180deg,
+#0b0b0b,
+#070707
+);
+
+border:0.8px solid rgba(221,176,63,.32);
+
+box-shadow:
+
+0 3px 10px rgba(0,0,0,.42);
+
+overflow:hidden;
+
+text-decoration:none;
+
+   }
