@@ -1396,22 +1396,7 @@ text-decoration:none;
 
    }
 
-.menu-item::before{
 
-left:12px;
-
-right:12px;
-
-height:.8px;
-
-background:linear-gradient(
-90deg,
-transparent,
-rgba(255,214,110,.55),
-transparent
-);
-
-}
 .menu-item::before{
 
 content:"";
