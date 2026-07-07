@@ -1496,7 +1496,7 @@ gap:11px;
 
 .hero-content{
 
-    max-width:250px;
+    max-width:200px;
 
 }
 
@@ -1518,13 +1518,13 @@ gap:11px;
 
     display:block;
 
-    margin-top:0px;
+    margin-top:1px;
 
-    margin-bottom:0px;
+    margin-bottom:1px;
 
     color:#f1c64d;
 
-    font-size:25px;
+    font-size:30px;
 
     font-weight:800;
 
