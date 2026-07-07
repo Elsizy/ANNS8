@@ -1271,16 +1271,7 @@ text-decoration:none;
 
 
 
-.menu-item:hover{
 
-border-color:rgba(230,185,70,.40);
-
-box-shadow:
-0 10px 22px rgba(0,0,0,.50);
-
-transform:none;
-
-}
 
 .menu-item:active{
 
@@ -1412,5 +1403,14 @@ line-height:1.15;
 letter-spacing:0;
 
 color:#f5f5f5;
+
+}
+.menu-item:hover{
+
+border-color:rgba(233,186,70,.34);
+
+box-shadow:
+
+0 4px 12px rgba(0,0,0,.48);
 
 }
