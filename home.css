@@ -1255,38 +1255,7 @@ grid-template-columns:repeat(4,1fr);
    margin:20px 0 18px;
    padding:0;
 }
-.menu-item{
 
-position:relative;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-
-height:104px;
-
-padding:12px 8px 10px;
-
-border-radius:18px;
-
-background:
-linear-gradient(
-180deg,
-#0d0d0d,
-#090909
-);
-
-border:1px solid rgba(220,175,65,.28);
-
-box-shadow:
-0 8px 18px rgba(0,0,0,.42);
-
-overflow:hidden;
-
-text-decoration:none;
-
-}
 
 .menu-item:link,
 .menu-item:visited,
