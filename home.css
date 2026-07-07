@@ -1247,6 +1247,14 @@ grid-template-columns:repeat(4,1fr);
 
 
    }
+.menu-links{
+   display:grid;
+   grid-template-columns:repeat(4,1fr);
+   gap:11px;
+   margin-bottom:15px;
+   margin:20px 0 18px;
+   padding:0;
+}
 .menu-item{
 
 position:relative;
@@ -1394,11 +1402,4 @@ transform:scale(.985);
 
 }
 
-.menu-links{
-   display:grid;
-   grid-template-columns:repeat(4,1fr);
-   gap:11px;
-   margin-bottom:15px;
-   margin:20px 0 18px;
-   padding:0;
-}
+
