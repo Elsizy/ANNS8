@@ -1335,7 +1335,10 @@ left:10px;
 right:10px;
 top:0;
 height:1px;
+height:.8px;
 
+opacity:.65;
+   
 background:
 linear-gradient(
 90deg,
