@@ -1430,26 +1430,6 @@ gap:11px;
 
    }
 
-
-.perfil-container{
-
-width:100%;
-
-overflow:hidden;
-
-border-radius:20px;
-
-background:transparent;
-
-box-shadow:
-
-0 16px 38px rgba(0,0,0,.55),
-
-0 0 18px rgba(229,184,72,.08);
-
-margin-bottom:2px;
-
-   }
 .perfil-container{
 
     position:relative;
