@@ -1269,32 +1269,6 @@ text-decoration:none;
 
 
 
-
-.menu-icon{
-
-width:30px;
-
-height:30px;
-
-margin-bottom:10px;
-
-stroke:#efc548;
-
-stroke-width:1.9;
-
-fill:none;
-
-color:#efc548;
-
-display:block;
-
-filter:
-drop-shadow(
-0 0 4px rgba(255,198,70,.20)
-);
-
-}
-
 .menu-item span{
 
 margin:0;
@@ -1422,3 +1396,25 @@ transparent 42%
 pointer-events:none;
 
                   }
+
+.menu-icon{
+
+width:27px;
+
+height:27px;
+
+margin-bottom:9px;
+
+stroke:#efc548;
+
+stroke-width:1.75;
+
+fill:none;
+
+display:block;
+
+filter:drop-shadow(
+0 0 3px rgba(255,198,70,.16)
+);
+
+             }
