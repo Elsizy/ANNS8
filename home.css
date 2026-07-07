@@ -1434,16 +1434,20 @@ gap:11px;
 
 position:relative;
 
-width:100%;
+border:1px solid rgba(229,184,72,.42);
 
+isolation:isolate;
+
+   }
+.perfil-container{
+
+width:100%;
 
 overflow:hidden;
 
-border-radius:26px;
+border-radius:10px;
 
-background:#050505;
-
-border:1px solid rgba(229,184,72,.42);
+background:transparent;
 
 box-shadow:
 
@@ -1452,7 +1456,5 @@ box-shadow:
 0 0 18px rgba(229,184,72,.08);
 
 margin-bottom:2px;
-
-isolation:isolate;
 
    }
