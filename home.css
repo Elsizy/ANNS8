@@ -1403,24 +1403,4 @@ transform:scale(.985);
    gap:10px;
    margin-bottom:15px;
 }
-.menu-links{
 
-    
-    padding:0;
-
-    background:transparent;
-
-}
-.menu-links{
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:11px;
-
-margin:20px 0 18px;
-
-padding:0;
-
-   }
