@@ -150,8 +150,8 @@ body {
   -webkit-user-select: none;
 }
 
-/* end of home.css */  overflow: hidden;
-}
+/* end of home.css */
+
 
 .card .label {
   font-size: 12px;
@@ -1238,15 +1238,7 @@ object-fit:cover;
    AJUSTE 100% DA REFERÊNCIA
 ==========================================================*/
 
-.menu-links{
 
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-
-
-   }
 .menu-links{
    display:grid;
    grid-template-columns:repeat(4,1fr);
