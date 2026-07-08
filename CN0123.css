@@ -58,42 +58,6 @@ pointer-events:none;
 
 }
 
-.invite-button{
-
-pointer-events:auto;
-
-border:none;
-
-cursor:pointer;
-
-height:20px;
-
-padding:0 20px;
-
-border-radius:999px;
-
-background:linear-gradient(
-180deg,
-#F8D257 0%,
-#E2AF2A 100%
-);
-
-color:#1b1405;
-
-font-size:9px;
-
-font-weight:400;
-
-letter-spacing:.10px;
-
-box-shadow:
-0 8px 18px rgba(235,181,37,.25);
-
-transition:
-transform .25s,
-box-shadow .25s;
-
-}
 
 .invite-card:hover .invite-button{
 
@@ -126,24 +90,4 @@ padding:16px;
 
 }
 
-.invite-button{
-
-height:20px;
-
-padding:0 15px;
-
-font-size:9px;
-
 }
-
-.invite-button{
-    right:16px;
-    bottom:14px;
-    transform:translate(-3px,-2px);
-  }
-}
-.invite-button{
-    right:25px;
-    bottom:25px;
-    transform:translate(-3px,-2px);
-  }
