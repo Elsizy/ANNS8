@@ -10,7 +10,7 @@ width:calc(100% - 24px);
 
 height:118px;
 
-border-radius:22px;
+border-radius:15px;
 
 overflow:hidden;
 
@@ -90,7 +90,7 @@ justify-content:center;
 
 margin:0;
 
-font-size:17px;
+font-size:15px;
 
 font-weight:600;
 
@@ -106,7 +106,7 @@ letter-spacing:.2px;
 
 margin:8px 0 0;
 
-font-size:13px;
+font-size:11px;
 
 line-height:1.45;
 
@@ -124,7 +124,7 @@ align-items:center;
 
 gap:6px;
 
-font-size:15px;
+font-size:13px;
 
 font-weight:500;
 
@@ -162,19 +162,19 @@ padding-right:18px;
 
 .security-content h3{
 
-font-size:16px;
+font-size:14px;
 
 }
 
 .security-content p{
 
-font-size:12px;
+font-size:10px;
 
 }
 
 .security-link{
 
-font-size:14px;
+font-size:12px;
 
 }
 
