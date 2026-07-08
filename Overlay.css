@@ -141,7 +141,7 @@ transform:translateX(4px);
 
 .security-card{
 
-height:102px;
+height:94px;
 
 margin:18px 8px 96px;
 
@@ -151,9 +151,9 @@ width:calc(100% - 16px);
 
 .security-content{
 
-width:58%;
+width:60%;
 
-padding-right:15px;
+padding-right:16px;
 
 }
 
