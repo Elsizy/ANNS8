@@ -91,3 +91,52 @@ padding:16px;
 }
 
 }
+.invite-button{
+
+pointer-events:auto;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+height:52px;
+
+min-width:315px;
+
+padding:0 34px;
+
+border:none;
+
+border-radius:28px;
+
+cursor:pointer;
+
+background:
+linear-gradient(
+180deg,
+#FFD76A 0%,
+#F5C544 38%,
+#D99C1B 100%
+);
+
+color:#181818;
+
+font-size:16px;
+
+font-weight:700;
+
+letter-spacing:.4px;
+
+box-shadow:
+
+0 10px 22px rgba(223,171,45,.42),
+
+inset 0 1px 0 rgba(255,255,255,.45);
+
+transition:
+transform .25s,
+box-shadow .25s;
+
+}
