@@ -15,7 +15,7 @@
 
 .market-card{
 
-margin:18px 12px;
+margin:12px 12px;
 
 width:calc(100% - 24px);
 
@@ -332,12 +332,12 @@ font-size:13px;
 .......... 
 .market-card{
 
-margin:16px 10px;
+margin:12px 10px;
 width:calc(100% - 20px);
 
 border:1px solid rgba(255,190,40,.18);
 
-border-radius:20px;
+border-radius:15px;
 
 overflow:hidden;
 
