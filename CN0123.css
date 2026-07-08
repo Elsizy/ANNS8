@@ -4,7 +4,7 @@ position:relative;
 
 display:block;
 
-width:calc(100% - 10px);
+width:calc(100% - 1px);
 
 margin:5px 4px 108px;
 
@@ -52,7 +52,7 @@ align-items:flex-end;
 
 justify-content:flex-end;
 
-padding:1px;
+padding:18px;
 
 pointer-events:none;
 
