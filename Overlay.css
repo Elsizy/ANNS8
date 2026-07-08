@@ -138,19 +138,19 @@ transform:translateX(4px);
 
 .security-card{
 
-height:114px;
+height:102px;
 
-margin:18px 10px 96px;
+margin:18px 8px 96px;
 
-width:calc(100% - 20px);
+width:calc(100% - 16px);
 
 }
 
 .security-content{
 
-width:60%;
+width:58%;
 
-padding-right:18px;
+padding-right:15px;
 
 }
 
@@ -158,17 +158,23 @@ padding-right:18px;
 
 font-size:13px;
 
+line-height:1.05;
+
 }
 
 .security-content p{
 
-font-size:9px;
+font-size:9.5px;
+
+line-height:1.25;
 
 }
 
 .security-link{
 
 font-size:11px;
+
+margin-top:7px;
 
 }
 
