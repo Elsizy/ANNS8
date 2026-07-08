@@ -4,22 +4,39 @@ position:relative;
 
 display:block;
 
-width:calc(100% - 12px);
+width:calc(100% - 10px);
 
-margin:8px 6px 108px;
+margin:5px 4px 108px;
 
-height:188px;
+height:176px;
 
-border-radius:18px;
+border-radius:15px;
 
 overflow:hidden;
 
-background:#070707;
+background:transparent;
 
 text-decoration:none;
 
-box-shadow:
-0 12px 30px rgba(0,0,0,.30);
+}
+
+.invite-image{
+
+position:absolute;
+
+inset:0;
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+object-position:center;
+
+display:block;
+
+transform:scale(1.01);
 
 }
 
