@@ -20,6 +20,7 @@ text-decoration:none;
 
 }
 
+
 .invite-image{
 
 position:absolute;
@@ -30,16 +31,15 @@ width:100%;
 
 height:100%;
 
-object-fit:cover;
-
-object-position:center;
-
 display:block;
 
-transform:scale(1.01);
+object-fit:cover;
+
+object-position:center center;
+
+transform:scale(1.035);
 
 }
-
 .invite-overlay{
 
 position:absolute;
