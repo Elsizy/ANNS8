@@ -100,9 +100,9 @@ letter-spacing:.2px;
 
 margin:8px 0 0;
 
-font-size:11px;
+font-size:10px;
 
-line-height:1.45;
+line-height:1.28;
 
 color:#A9A9A9;
 
@@ -110,7 +110,7 @@ color:#A9A9A9;
 
 .security-link{
 
-margin-top:10px;
+margin-top:6px;
 
 display:inline-flex;
 
@@ -118,7 +118,7 @@ align-items:center;
 
 gap:6px;
 
-font-size:13px;
+font-size:12px;
 
 font-weight:500;
 
@@ -156,19 +156,19 @@ padding-right:18px;
 
 .security-content h3{
 
-font-size:14px;
+font-size:13px;
 
 }
 
 .security-content p{
 
-font-size:10px;
+font-size:9px;
 
 }
 
 .security-link{
 
-font-size:12px;
+font-size:11px;
 
 }
 
