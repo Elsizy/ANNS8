@@ -113,7 +113,7 @@ color:#A9A9A9;
 
 .security-link{
 
-margin-top:6px;
+margin-top:8px;
 
 display:inline-flex;
 
@@ -121,9 +121,9 @@ align-items:center;
 
 gap:6px;
 
-font-size:12px;
+font-size:13px;
 
-font-weight:500;
+font-weight:600;
 
 color:#D8AE49;
 
