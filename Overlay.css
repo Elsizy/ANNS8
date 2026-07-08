@@ -50,18 +50,19 @@ position:absolute;
 inset:0;
 
 
-background:
-linear-gradient(
-90deg,
-rgba(0,0,0,.00) 0%,
-rgba(0,0,0,.02) 34%,
-rgba(0,0,0,.12) 56%,
-rgba(0,0,0,.30) 100%
-);
+
 
 display:flex;
 
 align-items:center;
+background:
+linear-gradient(
+90deg,
+rgba(0,0,0,0) 0%,
+rgba(0,0,0,.02) 42%,
+rgba(0,0,0,.08) 65%,
+rgba(0,0,0,.20) 100%
+);
 
 justify-content:flex-end;
 
