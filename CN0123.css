@@ -78,19 +78,32 @@ transform:translateY(1px);
 
 .invite-card{
 
-height:170px;
+height:172px;
 
-margin:18px 6px 100px;
+margin:10px 6px 100px;
 
-}
+  }
+
 
 .invite-overlay{
 
-padding:16px;
+padding:
+
+0 14px 14px 0;
 
 }
 
+.invite-button{
+
+min-width:255px;
+
+height:46px;
+
+font-size:15px;
+
 }
+}
+
 .invite-button{
 
 pointer-events:auto;
