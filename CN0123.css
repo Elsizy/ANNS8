@@ -152,3 +152,16 @@ transform .25s,
 box-shadow .25s;
 
 }
+.invite-image{
+
+position:absolute;
+inset:0;
+
+width:100%;
+height:100%;
+
+object-fit:contain;
+
+background:#070707;
+
+  }
