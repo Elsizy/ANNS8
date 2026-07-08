@@ -8,7 +8,8 @@ width:calc(100% - 10px);
 
 margin:5px 4px 108px;
 
-height:176px;
+aspect-ratio: 940 / 320;
+height:auto;
 
 border-radius:1px;
 
@@ -153,15 +154,7 @@ box-shadow .25s;
 
 }
 .invite-image{
-
-position:absolute;
-inset:0;
-
 width:100%;
 height:100%;
-
 object-fit:contain;
-
-background:#070707;
-
   }
