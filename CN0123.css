@@ -99,9 +99,9 @@ align-items:center;
 
 justify-content:center;
 
-height:15px;
+height:13px;
 
-min-width:50px;
+min-width:48px;
 
 padding:0 10px;
 
@@ -120,11 +120,11 @@ linear-gradient(
 
 color:#181818;
 
-font-size:11px;
+font-size:9px;
 
-font-weight:700;
+font-weight:400;
 
-letter-spacing:.2px;
+letter-spacing:.1px;
 
 box-shadow:
 
@@ -154,7 +154,7 @@ align-items:flex-end;
 
 justify-content:flex-end;
 
-padding:0 18px 46px 0;
+padding:0 18px 36px 0;
 
 pointer-events:none;
 
