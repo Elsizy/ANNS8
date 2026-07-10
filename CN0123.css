@@ -6,7 +6,7 @@ display:block;
 
 width:calc(100% - 10px);
 
-margin:5px 4px 108px;
+margin:0px 4px 50px;
 
 aspect-ratio: 940 / 360;
 height:auto;
@@ -65,7 +65,7 @@ transform:translateY(1px);
 
 height:172px;
 
-margin:10px 6px 100px;
+margin:6px 6px 80px;
 
   }
 
