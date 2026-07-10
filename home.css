@@ -1654,29 +1654,3 @@ body{
 padding-bottom:env(safe-area-inset-bottom);
 
 }
-
-.dashboard::after{
-
-content:"";
-
-display:block;
-
-height:42px;
-
-width:100%;
-
-background:
-
-linear-gradient(
-
-180deg,
-
-transparent,
-
-rgba(255,190,40,.03) 35%,
-
-rgba(255,190,40,.08) 100%
-
-);
-
-   }
