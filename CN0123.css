@@ -41,23 +41,7 @@ object-position:center center;
 transform:scale(1.035);
 
 }
-.invite-overlay{
 
-position:absolute;
-
-inset:0;
-
-display:flex;
-
-align-items:flex-end;
-
-justify-content:flex-end;
-
-padding:0 18px 46px 0;
-
-pointer-events:none;
-
-}
 
 
 .invite-card:hover .invite-button{
