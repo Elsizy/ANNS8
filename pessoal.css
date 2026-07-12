@@ -567,3 +567,50 @@ body::after {
   outline: 2px solid color-mix(in srgb, var(--accent), white 35%) !important;
   outline-offset: 2px !important;
    }
+
+                 
+.body{
+
+margin:0;
+padding:0;
+overflow-x:hidden;
+
+font-family:'Poppins',sans-serif;
+color:#fff;
+
+background:
+
+radial-gradient(
+ellipse at top,
+rgba(255,188,55,.12) 0%,
+rgba(255,188,55,.05) 18%,
+transparent 42%
+),
+
+linear-gradient(
+180deg,
+rgba(2,2,2,.15) 0%,
+rgba(5,5,8,.55) 30%,
+rgba(7,7,10,.88) 65%,
+#040404 100%
+),
+
+url("banner.jpg");
+
+background-size:
+100% auto,
+100% auto,
+cover;
+
+background-repeat:no-repeat;
+
+background-position:
+top center,
+top center,
+top center;
+
+background-color:#040404;
+
+background-attachment:scroll;
+
+   }
