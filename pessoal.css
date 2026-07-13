@@ -661,4 +661,7 @@ background-attachment:scroll;
 
    }
 
-    
+  .action-item .chev{  
+     stroke:#f2bd47;
+     color:#f2bd47;
+  }
