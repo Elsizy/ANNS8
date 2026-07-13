@@ -150,8 +150,9 @@ body::after {
   gap: 14px; /* um pouco menor */
   background: linear-gradient(90deg, var(--panel-grad-left) 0%, var(--panel-grad-right) 100%);
   box-shadow:
-0 0 20px rgba(255,181,50,.08),
-inset 0 0 0 1px rgba(255,181,50,.04);
+0 0 10px rgba(255,184,55,.035),
+inset 0 1px 0 rgba(255,255,255,.015),
+inset 0 0 0 1px rgba(255,184,55,.025);
   min-height: var(--card-min-height);
   align-items:center;
   position: relative;
@@ -159,7 +160,7 @@ inset 0 0 0 1px rgba(255,181,50,.04);
   z-index: 5;
   border:
 
-1.5px solid rgba(255,181,50,.78);
+1.15px solid rgba(255,184,55,.52);
 }
 
 /* Left / right in card */
