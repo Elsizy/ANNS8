@@ -148,7 +148,13 @@ body::after {
   display:flex;
   justify-content:space-between;
   gap: 14px; /* um pouco menor */
-  background: linear-gradient(90deg, var(--panel-grad-left) 0%, var(--panel-grad-right) 100%);
+  background:
+linear-gradient(
+180deg,
+rgba(23,23,23,.98) 0%,
+rgba(14,14,14,.98) 55%,
+rgba(10,10,10,.98) 100%);
+   
   box-shadow:
 0 0 10px rgba(255,184,55,.035),
 inset 0 1px 0 rgba(255,255,255,.015),
