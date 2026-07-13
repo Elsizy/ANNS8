@@ -345,7 +345,7 @@ box-shadow:
   width: var(--icon-size-compact);
   height: var(--icon-size-compact);
   opacity:0.98;
-  stroke: #dfe7ff;
+  stroke:#f2bd47;
   stroke-width: var(--icon-stroke-compact);
 }
 
