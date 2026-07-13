@@ -9,8 +9,8 @@
 
 :root{
   --bg-page:#040404;
-  --panel-grad-left: #8b5cf6;
-  --panel-grad-right:#ff5aa8;
+  --panel-grad-left: #111111 0%;
+  --panel-grad-right:#090909 100%;
   --card-radius: 18px;                /* ligeiramente menor para aparência mais sólida */
   --card-padding: 20px;               /* reduzido para compactar */
   --card-min-height: 100px;           /* reduzido */
