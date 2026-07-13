@@ -306,7 +306,7 @@ box-shadow:
 }
 
 .btn-quick:active{ transform: translateY(1px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
-.btn-quick .ico{ display:inline-flex; width:26px; height:26px; align-items:center; justify-content:center; font-size:15px; }
+.btn-quick .ico{ display:inline-flex; width:26px; height:26px; align-items:center; justify-content:center; font-size:15px; stroke:#f2bd47; }
 
 /* Actions list — compact, solid borders, reduzidos em 20% conforme pedido */
 .actions{
