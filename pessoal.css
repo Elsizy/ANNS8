@@ -181,6 +181,7 @@ inset 0 0 0 1px rgba(255,181,50,.04);
   font-weight:600;  /* um pouco menos pesado */
   margin:6px 0 0 0;
   line-height:1;
+  color:#f8c24d;
 }
 
 /* shadow layer below */
