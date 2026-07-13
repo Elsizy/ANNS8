@@ -16,7 +16,8 @@
   --card-min-height: 100px;           /* reduzido */
   --muted: rgba(255,255,255,0.72);
   --muted-strong: rgba(255,255,255,0.9);
-  --action-border-width: 0.8px;       /* borda levemente mais visível */
+  --action-border-opacity: 0.50;
+  --action-border-width: 1px;       /* borda levemente mais visível */
   --action-border-color: rgba(255,184,55,.35);
   --menu-item-radius: 16px;           /* ligeiro ajuste */
   --menu-item-padding-vertical: 14px;  /* valor original preservado (backup) */
