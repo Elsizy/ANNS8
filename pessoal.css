@@ -199,6 +199,32 @@ inset 0 0 0 1px rgba(255,181,50,.04);
   opacity:0.95;
 }
 
+.balances-card{
+
+position:relative;
+
+     }
+
+.balances-card::before{
+
+content:"";
+
+position:absolute;
+
+left:50%;
+
+top:18px;
+
+bottom:18px;
+
+width:1px;
+
+background:
+
+rgba(255,190,70,.28);
+
+   }
+
 /* Quick actions
    -> Espaçamento superior fixo igual ao espaçamento painel↔ações (var(--gap-painel-acoes))
    -> Botões Recarga/Retirada: largura -30% e altura -20%, cantos -60%
