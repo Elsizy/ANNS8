@@ -278,8 +278,32 @@ rgba(255,190,70,.28);
 }
 
 /* mantém os gradientes */
-.btn-recarga{ background: linear-gradient(90deg, #7a2efa 0%, #b83afb 100%); }
-.btn-retirada{ background: linear-gradient(90deg, #ff5aa8 0%, #ff2e6a 100%); }
+.btn-recarga{ 
+   background:#0c0c0c;
+
+border:
+
+1.4px solid rgba(255,185,60,.55);
+
+color:#f3c04d;
+
+box-shadow:
+
+0 0 18px rgba(255,190,70,.06);
+}
+.btn-retirada{ 
+   background:#0c0c0c;
+
+border:
+
+1.4px solid rgba(255,185,60,.55);
+
+color:#f3c04d;
+
+box-shadow:
+
+0 0 18px rgba(255,190,70,.06);
+}
 
 .btn-quick:active{ transform: translateY(1px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
 .btn-quick .ico{ display:inline-flex; width:26px; height:26px; align-items:center; justify-content:center; font-size:15px; }
