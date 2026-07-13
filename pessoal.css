@@ -8,7 +8,7 @@
    ====================================================== */
 
 :root{
-  --bg-page: #07061a;
+  --bg-page:#040404;
   --panel-grad-left: #8b5cf6;
   --panel-grad-right:#ff5aa8;
   --card-radius: 18px;                /* ligeiramente menor para aparência mais sólida */
@@ -25,8 +25,8 @@
   --btn-padding-vertical: 12px;       /* botões um pouco menores */
   --btn-padding-horizontal: 16px;
   --bottom-nav-maxwidth: 720px;
-  --svg-opacity: 0.72;
-  --overlay-opacity: 0.56;
+  --svg-opacity: 0.14;
+  --overlay-opacity: 0.35;
   --focus-outline: 3px solid rgba(111,102,255,0.18);
 
   /* NOVAS VARIÁVEIS (compact / calculadas para as alterações pedidas) */
@@ -82,7 +82,7 @@ body::after {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: rgba(7,6,26,var(--overlay-opacity));
+  background: rgba(0,0,0,var(--overlay-opacity));
   z-index: 1;
 }
 
@@ -341,14 +341,6 @@ body::after {
   box-shadow: 0 8px 18px rgba(0,0,0,0.55);
 }
 
-/* Responsividade */
-@media (max-width:520px){
-  .g-name{ font-size:20px; }
-  .g-ola{ font-size:15px; }
-  .card-value{ font-size:18px; }         /* reduz em mobile */
-  .card-label{ font-size:12px; }
-  .btn-quick{ padding:10px 12px; font-size:14px; }
-  .balances-card{ padding:16px; min
 /* Responsividade */
 @media (max-width:520px){
   .g-name{ font-size:20px; }
