@@ -354,7 +354,7 @@ box-shadow:
 .action-item .text{
   flex:1;
   font-size: var(--action-font-compact);  /* 14px -> 11.2px */
-  font-weight:500;
+  font-weight:600;
   letter-spacing:0.08px;
   line-height:1.1;
   padding-right:6px;
