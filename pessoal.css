@@ -354,10 +354,11 @@ box-shadow:
 .action-item .text{
   flex:1;
   font-size: var(--action-font-compact);  /* 14px -> 11.2px */
-  font-weight:600;
+  font-weight:510;
   letter-spacing:0.08px;
   line-height:1.1;
   padding-right:6px;
+  font-opacity: 0.5;
 }
 .action-item .chev{
   color: rgba(255,255,255,0.62);
