@@ -327,7 +327,7 @@ box-shadow:
   align-items:center;
   gap: 9.6px; /* var(--action-gap-compact) em px direto para consistência */
   padding: 18px 22px; /* vertical/horizontal compactos */
-  border-radius: opacity.0.4, var(--menu-item-radius);
+  border-radius: var(--menu-item-radius);
   margin: 0 0px;
   background:#0a0a0a;
   border: var(--action-border-width) solid var(--action-border-color);
