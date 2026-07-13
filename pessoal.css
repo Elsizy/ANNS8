@@ -157,6 +157,9 @@ body::after {
   position: relative;
   overflow: visible;
   z-index: 5;
+  border:
+
+1.5px solid rgba(255,181,50,.78);
 }
 
 /* Left / right in card */
