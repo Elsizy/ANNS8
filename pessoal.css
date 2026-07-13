@@ -358,7 +358,7 @@ box-shadow:
   letter-spacing:0.08px;
   line-height:1.1;
   padding-right:6px;
-  opacity: 5;
+  opacity:0.4;
 }
 .action-item .chev{
   color: rgba(255,255,255,0.62);
