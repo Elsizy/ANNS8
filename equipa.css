@@ -186,11 +186,11 @@ font-size:12px;
   /*background: var(--accent-1);*/
 }
 .level-icon .icon-circle.alt{ 
-  background: var(--accent-2); 
+  /*background: var(--accent-2); */
 }
 
 .level-icon .icon-circle.alt2{ 
-  background: var(--accent-3); 
+  /*background: var(--accent-3); */
 }
 
 .level-icon{
