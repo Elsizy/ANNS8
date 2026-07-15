@@ -399,7 +399,7 @@ inset 0 1px 0 rgba(255,255,255,.012);
   width: var(--icon-size-compact);
   height: var(--icon-size-compact);
   opacity:0.98;
-  stroke:#f2bd47;
+  stroke:#e6b24a;
   stroke-width: var(--icon-stroke-compact);
 }
 
@@ -417,6 +417,7 @@ inset 0 1px 0 rgba(255,255,255,.012);
   color: rgba(255,255,255,0.62);
   font-size:18px;
   flex-shrink:0;
+  stroke:#e6b24a;
 }
 
 /* small hover — keep subtle */
