@@ -183,7 +183,7 @@ font-size:12px;
   height:48px;
   border-radius:12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-  background: var(--accent-1);
+  /*background: var(--accent-1);*/
 }
 .level-icon .icon-circle.alt{ 
   background: var(--accent-2); 
