@@ -149,7 +149,17 @@ box-shadow:
   font-weight:600
 }
 
-.level-desc{font-size:12px;color:var(--muted)}
+.level-desc{
+  font-size:12px;
+  color:var(--muted)
+}
+.level-desc{
+
+color:#b7b7b7;
+
+font-size:14px;
+
+}
 
 /* icon circle */
 .level-icon .icon-circle{
