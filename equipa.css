@@ -210,12 +210,13 @@ background:#121212;
 border:
 1px solid #b8892b;
 color:#d4a63d;
-border-radius:10px;
+border-radius:8px;
 height:30px;
+weight:50px;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:14px;
+font-size:12px;
 font-weight:400;
 }
 /* large full button bottom */
