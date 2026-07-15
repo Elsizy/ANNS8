@@ -290,9 +290,10 @@ rgba(255,190,70,.18);
    background:
 linear-gradient(
 180deg,
-rgba(36,36,36,.95) 0%,
-rgba(22,22,22,.98) 40%,
-rgba(11,11,11,.99) 100%);
+#2b2b2b 0%,
+#1d1d1d 32%,
+#111111 72%,
+#0b0b0b 100%);
 
 border:
 
@@ -331,6 +332,10 @@ box-shadow:
 0 2px 8px rgba(0,0,0,.35),
 
 inset 0 1px 0 rgba(255,255,255,.02);
+box-shadow:
+inset 0 1px 0 rgba(255,220,140,.14),
+inset 0 -1px 0 rgba(0,0,0,.55),
+0 0 18px rgba(255,190,70,.05);
 }
 
 .btn-recarga::before,
@@ -348,8 +353,6 @@ border-radius:inherit;
 
 height:28%;
 
-height:48%;
-
 background:
 linear-gradient(
 180deg,
@@ -357,7 +360,10 @@ rgba(255,255,255,.045),
 rgba(255,255,255,0));
 
 pointer-events:none;
-
+box-shadow:
+inset 0 1px 0 rgba(255,220,140,.14),
+inset 0 -1px 0 rgba(0,0,0,.55),
+0 0 18px rgba(255,190,70,.05);
 }
 .btn-quick:active{ transform: translateY(1px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
 .btn-quick .ico{ display:inline-flex; width:26px; height:26px; align-items:center; justify-content:center; font-size:15px; stroke:#f2bd47; }
