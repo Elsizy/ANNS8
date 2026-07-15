@@ -300,17 +300,12 @@ box-shadow:
 0 0 18px rgba(255,190,70,.06);
 }
 .btn-retirada{ 
-   background:#0c0c0c;
-
-border:
-
-1.4px solid rgba(255,185,60,.55);
-
-color:#f3c04d;
-
-box-shadow:
-
-0 0 18px rgba(255,190,70,.06);
+   background:
+linear-gradient(
+180deg,
+rgba(36,36,36,.95) 0%,
+rgba(22,22,22,.98) 40%,
+rgba(11,11,11,.99) 100%);
 }
 
 .btn-quick:active{ transform: translateY(1px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
