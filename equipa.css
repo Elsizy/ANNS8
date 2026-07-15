@@ -218,7 +218,21 @@ font-size:12px;
 font-weight:550;
 }
 /* large full button bottom */
-.btn-full{ display:block;text-align:center;background:linear-gradient(90deg,#5f67ff,#8759e3);color:white;border-radius:10px;padding:12px 16px;margin-top:18px;text-decoration:none;font-weight:700 }
+
+.btn-full{ 
+  display:block;
+  text-align:center;
+  background:#050505;
+  border:
+  1px solid #242424;
+  border-radius:10px;
+  color:white;
+  padding:12px 16px;
+  margin-top:18px;
+  text-decoration:none;
+  font-weight:700 
+}
+
 
 /* responsive tweaks */
 @media (max-width:420px){
