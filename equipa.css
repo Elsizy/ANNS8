@@ -285,7 +285,18 @@ font-weight:550;
   text-decoration:none;
   font-weight:700 
 }
+.level-svg{
 
+width:36px;
+
+height:36px;
+
+display:block;
+
+filter:
+drop-shadow(0 0 1px rgba(255,208,90,.35));
+
+}
 
 /* responsive tweaks */
 @media (max-width:420px){
