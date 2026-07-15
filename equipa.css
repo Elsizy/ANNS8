@@ -11,7 +11,7 @@
   --accent-1: linear-gradient(135deg,#ff7a5e,#c23bd8); /* icon 1 */
   --accent-2: linear-gradient(135deg,#6f7bff,#7fe0ff); /* icon 2 */
   --accent-3: linear-gradient(135deg,#ff7a5e,#f4a460); /* icon 3 */
-  --card-radius: 5px;
+  --card-radius: 14px;
   --container-width: 420px;
 }
 
@@ -43,7 +43,7 @@ linear-gradient(
   justify-content:space-between;
   gap:12px;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 12px;
+  border-radius: 9px;
   padding: 12px;
   margin-bottom: 16px;
   border:1px solid rgba(255,255,255,0.03);
