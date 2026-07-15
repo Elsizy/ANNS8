@@ -351,13 +351,13 @@ top:1px;
 
 border-radius:inherit;
 
-height:28%;
+height:26%;
 
 background:
 linear-gradient(
 180deg,
-rgba(255,255,255,.045),
-rgba(255,255,255,0));
+rgba(255,255,100,.045),
+rgba(255,255,100,0));
 
 pointer-events:none;
 
