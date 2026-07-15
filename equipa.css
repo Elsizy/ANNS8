@@ -43,7 +43,7 @@ linear-gradient(
   justify-content:space-between;
   gap:12px;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 9px;
+  border-radius: 12px;
   padding: 12px;
   margin-bottom: 16px;
   border:1px solid rgba(255,255,255,0.03);
@@ -64,7 +64,7 @@ border:
 
 1px solid rgba(193,142,45,.45);
 
-border-radius:22px;
+border-radius:12px;
 
 padding:20px;
 
