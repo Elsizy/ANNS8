@@ -144,19 +144,11 @@ box-shadow:
 .level-left{display:flex;flex-direction:column;gap:4px}
 
 .level-tag{
-  color:#b89cff;
+  color:#d4a63d;
   font-size:16px;
   font-weight:600
 }
-.level-tag{
 
-color:#d4a63d;
-
-font-size:22px;
-
-font-weight:700;
-
-  }
 .level-desc{font-size:12px;color:var(--muted)}
 
 /* icon circle */
