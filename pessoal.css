@@ -287,11 +287,16 @@ rgba(255,190,70,.18);
 
 /* mantém os gradientes */
 .btn-recarga{ 
-   background:#0c0c0c;
+   background:
+linear-gradient(
+180deg,
+rgba(36,36,36,.95) 0%,
+rgba(22,22,22,.98) 40%,
+rgba(11,11,11,.99) 100%);
 
 border:
 
-1.4px solid rgba(255,185,60,.55);
+1.4px solid rgba(255,185,60,.42);
 
 color:#f3c04d;
 
@@ -311,7 +316,7 @@ rgba(11,11,11,.99) 100%);
 
 border:
 
-1.4px solid rgba(255,185,60,.55);
+1.4px solid rgba(255,185,60,.42);
 
 color:#f3c04d;
 
