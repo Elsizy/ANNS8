@@ -360,10 +360,7 @@ rgba(255,255,255,.045),
 rgba(255,255,255,0));
 
 pointer-events:none;
-box-shadow:
-inset 0 1px 0 rgba(255,220,140,.14),
-inset 0 -1px 0 rgba(0,0,0,.55),
-0 0 18px rgba(255,190,70,.05);
+
 }
 .btn-quick:active{ transform: translateY(1px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
 .btn-quick .ico{ display:inline-flex; width:26px; height:26px; align-items:center; justify-content:center; font-size:15px; stroke:#f2bd47; }
