@@ -306,8 +306,45 @@ linear-gradient(
 rgba(36,36,36,.95) 0%,
 rgba(22,22,22,.98) 40%,
 rgba(11,11,11,.99) 100%);
+
+
+
+border:
+
+1.4px solid rgba(255,185,60,.55);
+
+color:#f3c04d;
+
+box-shadow:
+
+0 0 18px rgba(255,190,70,.06);
 }
 
+.btn-recarga::before,
+.btn-retirada::before{
+
+content:"";
+
+position:absolute;
+
+left:1px;
+right:1px;
+top:1px;
+
+height:48%;
+
+border-radius:inherit;
+
+background:
+
+linear-gradient(
+180deg,
+rgba(255,255,255,.045),
+rgba(255,255,255,0));
+
+pointer-events:none;
+
+}
 .btn-quick:active{ transform: translateY(1px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
 .btn-quick .ico{ display:inline-flex; width:26px; height:26px; align-items:center; justify-content:center; font-size:15px; stroke:#f2bd47; }
 
