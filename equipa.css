@@ -109,8 +109,9 @@ border-radius:8px;
   border:
   1px solid #b8892b;
   color:#d4a63d;
-  border-radius:10px;
-  font-size:10px;
+  border-radius:8px;
+  font-size:9px;
+  
 }
 
 #copy-feedback.hide{display:none}
