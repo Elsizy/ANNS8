@@ -11,7 +11,7 @@
   --accent-1: linear-gradient(135deg,#ff7a5e,#c23bd8); /* icon 1 */
   --accent-2: linear-gradient(135deg,#6f7bff,#7fe0ff); /* icon 2 */
   --accent-3: linear-gradient(135deg,#ff7a5e,#f4a460); /* icon 3 */
-  --card-radius: 14px;
+  --card-radius: 10px;
   --container-width: 420px;
 }
 
@@ -43,7 +43,7 @@ linear-gradient(
   justify-content:space-between;
   gap:12px;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 12px;
   margin-bottom: 16px;
   border:1px solid rgba(255,255,255,0.03);
@@ -64,7 +64,7 @@ border:
 
 1px solid rgba(193,142,45,.45);
 
-border-radius:12px;
+border-radius:10px;
 
 padding:20px;
 
@@ -84,7 +84,7 @@ border:
 
 1px solid rgba(193,142,45,.45);
 
-border-radius:24px;
+border-radius:10px;
 
 box-shadow:
 
@@ -101,7 +101,7 @@ box-shadow:
 
 /* icon circle */
 .level-icon .icon-circle{
-  display:inline-block;width:48px;height:48px;border-radius:14px;box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  display:inline-block;width:48px;height:48px;border-radius:12px;box-shadow: 0 6px 20px rgba(0,0,0,0.5);
   background: var(--accent-1);
 }
 .level-icon .icon-circle.alt{ background: var(--accent-2); }
