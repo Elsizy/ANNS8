@@ -92,11 +92,13 @@ linear-gradient(
 .link-row input{
   flex:1;
   padding:8px;
-  border-radius:8px;
   border:none;
-  background:rgba(255,255,255,0.02);
   color:var(--white);
   outline:none
+  background:#050505;
+border:
+1px solid #242424;
+border-radius:10px;
 }
 .btn-small{background:linear-gradient(90deg,#5f67ff,#8759e3);border:none;color:white;padding:8px 10px;border-radius:8px;cursor:pointer}
 #copy-feedback.hide{display:none}
