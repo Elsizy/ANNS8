@@ -7,7 +7,7 @@
   --card-bg: rgba(255,255,255,0.03);
   --card-bg-2: rgba(255,255,255,0.025);
   --muted: rgba(255,255,255,0.72);
-  --white: #ffffff;
+  --gold: #d4a63d;
   --accent-1: linear-gradient(135deg,#ff7a5e,#c23bd8); /* icon 1 */
   --accent-2: linear-gradient(135deg,#6f7bff,#7fe0ff); /* icon 2 */
   --accent-3: linear-gradient(135deg,#ff7a5e,#f4a460); /* icon 3 */
@@ -182,7 +182,13 @@ font-size:12px;
 /* each metric */
 .metric{ display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 4px }
 .metric-label{ font-size:12px;color:var(--muted); text-align:center }
-.metric-value{ font-size:18px;color:var(--white); font-weight:700; text-align:center }
+.metric-value{ 
+  font-size:18px;
+  color:var(--gold); 
+  font-weight:700; 
+  text-align:center 
+}
+
 
 /* small pct style to emphasize percent in last column */
 .pct-small{ font-size:16px;color:var(--white);font-weight:700 }
