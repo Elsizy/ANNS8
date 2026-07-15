@@ -100,7 +100,18 @@ border:
 1px solid #242424;
 border-radius:10px;
 }
-.btn-small{background:linear-gradient(90deg,#5f67ff,#8759e3);border:none;color:white;padding:8px 10px;border-radius:8px;cursor:pointer}
+.btn-small{
+  background:#111;
+  border:none;
+  padding:8px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  border:
+  2px solid #b8892b;
+  color:#d4a63d;
+  border-radius:12px;
+}
+
 #copy-feedback.hide{display:none}
 #copy-feedback{display:inline-block;margin-top:6px;color:#8ef08e}
 
