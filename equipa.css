@@ -184,14 +184,14 @@ font-size:12px;
 .metric-label{ font-size:12px;color:var(--muted); text-align:center }
 .metric-value{ 
   font-size:18px;
-  color:var(--gold); 
+  color:#d4a63d; 
   font-weight:700; 
   text-align:center 
 }
 
 
 /* small pct style to emphasize percent in last column */
-.pct-small{ font-size:16px;color:var(--white);font-weight:700 }
+.pct-small{ font-size:16px;color:#d4a63d;font-weight:700 }
 
 /* footer button centered */
 .card-footer{ display:flex; justify-content:center; margin-top:12px }
