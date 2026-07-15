@@ -142,7 +142,21 @@ box-shadow:
 /* header inside card */
 .level-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
 .level-left{display:flex;flex-direction:column;gap:4px}
-.level-tag{color:#b89cff;font-size:16px;font-weight:600}
+
+.level-tag{
+  color:#b89cff;
+  font-size:16px;
+  font-weight:600
+}
+.level-tag{
+
+color:#d4a63d;
+
+font-size:22px;
+
+font-weight:700;
+
+  }
 .level-desc{font-size:12px;color:var(--muted)}
 
 /* icon circle */
