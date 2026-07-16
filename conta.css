@@ -143,12 +143,35 @@ padding:28px;
 }
 
 /* picker button (JS needs id open-bank-picker and bank-name) */
-.picker-btn{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px; border-radius:12px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); color:var(--white); cursor:pointer; font-weight:700; }
+.picker-btn{ 
+   display:flex; 
+   align-items:center; 
+   justify-content:space-between; 
+   gap:12px; 
+   padding:10px 12px; 
+   border-radius:12px; 
+   background: rgba(255,255,255,0.02); 
+   border:1px solid rgba(255,255,255,0.03); 
+   color:var(--white); 
+   cursor:pointer; 
+   font-weight:700; 
+}
+
 .picker-btn #bank-name{ color:#eef2ff; }
 .picker-btn .chev{ color:var(--muted-2); margin-left:8px; }
 
 /* inputs */
-input[type="text"]{ width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.01); color:var(--white); font-size:14px; outline:none; }
+input[type="text"]{ 
+   width:100%; 
+   padding:12px 14px; 
+   border-radius:10px; 
+   border:1px solid rgba(216,174,73,.30); 
+   background:#050505; 
+   color:var(--white); 
+   font-size:14px; 
+   outline:none; 
+}
+
 input::placeholder{ color: rgba(255,255,255,0.22); }
 input:focus{ box-shadow: 0 10px 30px rgba(111,102,255,0.08); border-color: rgba(111,102,255,0.18); }
 
