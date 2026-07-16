@@ -58,7 +58,8 @@ button{font-family:inherit;border:0;background:none;cursor:pointer}
   top:0;
   z-index:60;
   padding:14px 12px;
-  border-bottom:1px solid rgba(255,255,255,0.03);
+  border-bottom:
+1px solid rgba(216,174,73,.20);
   background:#030303;
   box-shadow: 0 6px 20px rgba(0,0,0,0.35);
 }
