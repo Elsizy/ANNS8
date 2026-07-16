@@ -26,7 +26,21 @@
    Reset / Base
    ------------------------- */
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; background: linear-gradient(180deg, #07102b 0%, #0b1222 45%, #071226 100%); color:var(--white);}
+html,body{
+   height:100%;
+   margin:0;
+   font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,Arial; 
+   -webkit-font-smoothing:antialiased; 
+   -moz-osx-font-smoothing:grayscale; 
+   background:
+linear-gradient(
+180deg,
+#010101 0%,
+#050505 50%,
+#090909 100%
+);
+
+}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;border:0;background:none;cursor:pointer}
 
