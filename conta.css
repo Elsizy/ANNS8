@@ -135,7 +135,12 @@ padding:28px;
    Form Grid
    ------------------------- */
 .form-grid{ display:grid; grid-template-columns: 1fr; gap:12px; align-items:center; }
-.form-label, .label{ font-size:13px; color:var(--muted); margin-bottom:6px; display:block; }
+.form-label, .label{ 
+   font-size:13px;
+   color:#ECECEC; 
+   margin-bottom:6px; 
+   display:block; 
+}
 
 /* picker button (JS needs id open-bank-picker and bank-name) */
 .picker-btn{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px; border-radius:12px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); color:var(--white); cursor:pointer; font-weight:700; }
