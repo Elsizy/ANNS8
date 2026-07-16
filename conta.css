@@ -81,7 +81,7 @@ button{font-family:inherit;border:0;background:none;cursor:pointer}
 }
 
 .title-block{ flex:1; }
-.title{ margin:0; font-size:18px; font-weight:700; color:#f4f6ff; }
+.title{ margin:0; font-size:28px; font-weight:700; color:#white; }
 .subtitle{ margin:4px 0 0; font-size:13px; color:var(--muted); }
 
 /* logo circle */
