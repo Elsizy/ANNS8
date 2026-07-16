@@ -6,22 +6,6 @@
 /* -------------------------
    Variáveis
    ------------------------- */
-:root{
-  --bg-page: #040404;
-  --panel-left: #6f66ff;
-  --panel-right: #c254ff;
-  --card-radius: 14px;
-  --muted: rgba(255,255,255,0.72);
-  --muted-2: rgba(255,255,255,0.45);
-  --accent: #6f66ff;
-  --accent-2: #c254ff;
-  --glass: rgba(255,255,255,0.02);
-  --white: #eef2ff;
-  --shadow-lg: 0 18px 50px rgba(2,6,23,0.65);
-  --max-width: 980px;
-  --modal-overlay: rgba(2,6,23,0.88); /* mais sólido */
-  --modal-panel-bg: linear-gradient(180deg, rgba(10,12,25,0.98), rgba(6,8,18,0.98)); /* quase opaco */
-}
 
 :root{
   --bg-page:#040404;
