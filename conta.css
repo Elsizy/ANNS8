@@ -173,7 +173,7 @@ input[type="text"]{
    padding-left:28px;
 }
 
-input::placeholder{ color: rgba(255,255,255,0.22); }
+input::placeholder{ color:#787878; }
 input:focus{ box-shadow: 0 10px 30px rgba(111,102,255,0.08); border-color: rgba(111,102,255,0.18); }
 
 /* hint & helpers */
