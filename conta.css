@@ -64,13 +64,29 @@ button{font-family:inherit;border:0;background:none;cursor:pointer}
   box-shadow: 0 6px 20px rgba(0,0,0,0.35);
 }
 .topbar-inner{ max-width:var(--max-width); margin:0 auto; display:flex; gap:16px; align-items:center; }
-.back-btn{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:10px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); color:var(--white); font-weight:700;}
+.back-btn{ 
+   display:inline-flex; 
+   align-items:center; 
+   gap:8px; 
+   padding:8px 12px; 
+   border-radius:10px; 
+   background:#080808;
+
+   border:
+1px solid rgba(216,174,73,.40);
+
+   color:#E4B84E;
+   color:var(--white); 
+   font-weight:700;
+}
+
 .title-block{ flex:1; }
 .title{ margin:0; font-size:18px; font-weight:700; color:#f4f6ff; }
 .subtitle{ margin:4px 0 0; font-size:13px; color:var(--muted); }
 
 /* logo circle */
-.logo-circle{ background:#fff; color:#d32f2f; width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:50%; box-shadow:0 8px 18px rgba(0,0,0,0.45); font-weight:700; font-size:12px;}
+.logo-circle{ background:#fff; color:#d32f2f; width:44px; height:44px; display:flex; align-items:center; justify-content:center; borde  
+ r-radius:50%; box-shadow:0 8px 18px rgba(0,0,0,0.45); font-weight:700; font-size:12px;}
 
 /* -------------------------
    Main / Dashboard
