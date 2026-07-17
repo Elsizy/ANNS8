@@ -326,9 +326,30 @@ button:focus, input:focus, .picker-btn:focus, .bank-list li:focus { outline: 3px
   --overlay:rgba(0,0,0,.82);
 }
 
-.app-modal{position:fixed; inset:0; display:grid; place-items:center;
-  background:var(--overlay); z-index:9999; opacity:0; pointer-events:none;
+.app-modal{
   transition:opacity .18s ease;}
+
+.app-modal{
+    position:fixed;
+    inset:0;
+    display:grid;
+    place-items:center;
+
+    background:
+    radial-gradient(circle at center,
+    rgba(0,0,0,.30),
+    rgba(0,0,0,.86));
+
+    backdrop-filter:blur(6px);
+
+    z-index:9999;
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:.22s;
+}
+
 .app-modal.show{opacity:1; pointer-events:auto;}
 .app-modal.hidden{display:none;} /* caso queira começar invisível */
 
