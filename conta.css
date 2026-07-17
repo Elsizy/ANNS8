@@ -196,7 +196,7 @@ input:focus{ box-shadow: 0 10px 30px rgba(111,102,255,0.08); border-color: rgba(
    display:inline-flex; 
    align-items:center; 
    justify-content:Center;
-   height:40px;
+   height:60px;
    padding:10px 16px; 
    border-radius:12px; 
    background: linear-gradient(90deg,var(--accent) 0%, var(--accent-2) 100%); 
@@ -206,6 +206,9 @@ input:focus{ box-shadow: 0 10px 30px rgba(111,102,255,0.08); border-color: rgba(
    font-weight:700; 
    box-shadow:0 10px 30px rgba(111,102,255,0.12); 
    cursor:pointer; 
+   box-shadow:
+  inset 0 1px 0 rgba(255,255,255,.12),
+  0 0 18px rgba(226,187,85,.12);
 }
 
 
