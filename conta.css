@@ -137,7 +137,7 @@ padding:28px;
 .form-grid{ display:grid; grid-template-columns: 1fr; gap:12px; align-items:center; }
 .form-label, .label{ 
    font-size:13px;
-   color:#ECECEC; 
+   color:#fff; 
    margin-bottom:6px; 
    display:block; 
 }
