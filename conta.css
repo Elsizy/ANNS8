@@ -314,10 +314,16 @@ button:focus, input:focus, .picker-btn:focus, .bank-list li:focus { outline: 3px
 
 /* end */
 :root{
-  --brand:#39d2c7;
-  --ok1:#22c55e; --ok2:#16a34a;
-  --err1:#ef4444; --err2:#dc2626;
-  --overlay:rgba(15,23,42,.55);
+  --brand:#d8ae49;
+  --brand-dark:#a97d18;
+
+  --ok1:#d8ae49;
+  --ok2:#b88618;
+
+  --err1:#d65757;
+  --err2:#b63f3f;
+
+  --overlay:rgba(0,0,0,.82);
 }
 
 .app-modal{position:fixed; inset:0; display:grid; place-items:center;
