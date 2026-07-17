@@ -197,7 +197,12 @@ input:focus{ box-shadow: 0 10px 30px rgba(111,102,255,0.08); border-color: rgba(
    align-items:center; 
    padding:10px 16px; 
    border-radius:12px; 
-   background: linear-gradient(90deg,var(--accent) 0%, var(--accent-2) 100%); 
+   background:
+  linear-gradient(
+  90deg,
+  #8E6812,
+  #E2BB55
+  );
    color:#FFD870; 
    border:none; 
    font-weight:700; 
