@@ -198,46 +198,14 @@ input:focus{ box-shadow: 0 10px 30px rgba(111,102,255,0.08); border-color: rgba(
    padding:10px 16px; 
    border-radius:12px; 
    background: linear-gradient(90deg,var(--accent) 0%, var(--accent-2) 100%); 
-   color:#fff; 
+   color:#FFD870; 
    border:none; 
    font-weight:700; 
    box-shadow:0 10px 30px rgba(111,102,255,0.12); 
    cursor:pointer; 
 }
 
-.btn-primary{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
 
-  padding:0 26px;
-
-  background:
-  linear-gradient(
-  90deg,
-  #8E6812,
-  #E2BB55
-  );
-
-  color:#FFD870;
-
-  border:
-  1px solid rgba(255,210,120,.45);
-
-  height:70px;
-
-  border-radius:18px;
-
-  font-size:19px;
-
-  font-weight:700;
-
-  cursor:pointer;
-
-  box-shadow:
-  inset 0 1px 0 rgba(255,255,255,.12),
-  0 0 18px rgba(226,187,85,.12);
-   }
 
 .btn-primary:disabled{ 
    opacity:0.6; 
