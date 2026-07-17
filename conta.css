@@ -353,9 +353,24 @@ button:focus, input:focus, .picker-btn:focus, .bank-list li:focus { outline: 3px
 .app-modal.show{opacity:1; pointer-events:auto;}
 .app-modal.hidden{display:none;} /* caso queira começar invisível */
 
-.modal-card{width:min(92vw,420px); background:#fff; border-radius:16px;
-  padding:18px 16px; text-align:center; box-shadow:0 12px 30px rgba(0,0,0,.15);
-  transform:translateY(6px) scale(.98); transition:transform .18s ease;}
+.modal-card{
+    width:min(92vw,430px);
+    padding:26px;
+    border-radius:20px;
+    background:
+    linear-gradient(
+    180deg,
+    #0d0d0d,
+    #050505);
+    border:1px solid rgba(216,174,73,.30);
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.70),
+    0 0 22px rgba(216,174,73,.08);
+    text-align:center;
+    transform:translateY(8px) scale(.96);
+    transition:.22s;
+}
+
 .app-modal.show .modal-card{transform:translateY(0) scale(1);}
 
 .modal-icon{width:56px; height:56px; border-radius:999px; margin:2px auto 10px;
