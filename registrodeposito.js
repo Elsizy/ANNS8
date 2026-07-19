@@ -42,7 +42,7 @@ onAuthStateChanged(auth, async (user) => {
   
 
 
-function renderItem(dep) {
+/** function renderItem(dep) {
 
   const item = document.createElement("div");
   item.className = "item";
@@ -51,7 +51,7 @@ function renderItem(dep) {
      COLUNA STATUS
   ========================== */
 
-  const statusColumn = document.createElement("div");
+  /**const statusColumn = document.createElement("div");
   statusColumn.className = "status-column";
 
   const statusIcon = document.createElement("div");
@@ -80,19 +80,19 @@ function renderItem(dep) {
      DIVISOR
   ========================== */
 
-  const divider = document.createElement("div");
+ /** const divider = document.createElement("div");
   divider.className = "divider";
 
   /* ==========================
      GRID DIREITA
   ========================== */
 
-  const infoGrid = document.createElement("div");
+  /** const infoGrid = document.createElement("div");
   infoGrid.className = "info-grid";
 
   /* ---------- ENVIADO ---------- */
 
-  const sentColumn = document.createElement("div");
+ /** const sentColumn = document.createElement("div");
   sentColumn.className = "sent-column";
 
   const sentTitle = document.createElement("div");
@@ -115,7 +115,7 @@ function renderItem(dep) {
 
   /* ---------- CONFIRMADO ---------- */
 
-  const confirmColumn = document.createElement("div");
+  /**const confirmColumn = document.createElement("div");
   confirmColumn.className = "confirm-column";
 
   const confirmTitle = document.createElement("div");
@@ -150,7 +150,7 @@ function renderItem(dep) {
 
   /* ---------- VALOR ---------- */
 
-  const valueColumn = document.createElement("div");
+  /**const valueColumn = document.createElement("div");
   valueColumn.className = "value-column";
 
   const valueTitle = document.createElement("div");
@@ -172,7 +172,7 @@ function renderItem(dep) {
      MONTAGEM
   ========================== */
 
-  infoGrid.append(
+  /**infoGrid.append(
       sentColumn,
       confirmColumn,
       valueColumn
@@ -182,6 +182,130 @@ function renderItem(dep) {
       statusColumn,
       divider,
       infoGrid
+  );
+
+  listEl.appendChild(item);
+
+} */
+
+function renderItem(dep) {
+
+  const item = document.createElement("div");
+  item.className = "item";
+
+  //=========================
+  // COLUNA 1 - STATUS
+  //=========================
+
+  const statusCol = document.createElement("div");
+  statusCol.className = "status-col";
+
+  const dot = document.createElement("span");
+  dot.className = "status-dot " + statusClass(dep.status);
+
+  const status = document.createElement("span");
+  status.className = "status-text";
+  status.textContent = statusLabel(dep.status);
+
+  statusCol.append(dot, status);
+
+  //=========================
+  // COLUNA 2 - ENVIADO
+  //=========================
+
+  const sentCol = document.createElement("div");
+  sentCol.className = "sent-col";
+
+  const sentTitle = document.createElement("span");
+  sentTitle.className = "col-title";
+  sentTitle.textContent = "Enviado em";
+
+  const sent = formatDateParts(dep.createdAt);
+
+  const sentDate = document.createElement("span");
+  sentDate.className = "col-date";
+  sentDate.textContent = sent.date;
+
+  const sentHour = document.createElement("span");
+  sentHour.className = "col-hour";
+  sentHour.textContent = sent.time;
+
+  sentCol.append(sentTitle, sentDate, sentHour);
+
+  //=========================
+  // COLUNA 3 - CONFIRMADO
+  //=========================
+
+  const confirmCol = document.createElement("div");
+  confirmCol.className = "confirm-col";
+
+  const confirmTitle = document.createElement("span");
+  confirmTitle.className = "col-title";
+  confirmTitle.textContent = "Confirmado em";
+
+  confirmCol.appendChild(confirmTitle);
+
+  const confirmedAt = chooseConfirmDate(dep);
+
+  if (confirmedAt) {
+
+      const confirm = formatDateParts(confirmedAt);
+
+      const confirmDate = document.createElement("span");
+      confirmDate.className = "col-date";
+      confirmDate.textContent = confirm.date;
+
+      const confirmHour = document.createElement("span");
+      confirmHour.className = "col-hour";
+      confirmHour.textContent = confirm.time;
+
+      confirmCol.append(confirmDate, confirmHour);
+
+  } else {
+
+      const dash = document.createElement("span");
+      dash.className = "col-date";
+      dash.textContent = "—";
+
+      confirmCol.appendChild(dash);
+
+  }
+
+  //=========================
+  // COLUNA 4 - VALOR
+  //=========================
+
+  const valueCol = document.createElement("div");
+  valueCol.className = "value-col";
+
+  const valueTitle = document.createElement("span");
+  valueTitle.className = "col-title";
+  valueTitle.textContent = "Valor depositado";
+
+  const amount = document.createElement("div");
+  amount.className = "amount";
+
+  const kz = document.createElement("span");
+  kz.className = "currency";
+  kz.textContent = "KZ";
+
+  const number = document.createElement("span");
+  number.className = "value";
+  number.textContent = formatNumber(chooseAmount(dep));
+
+  amount.append(kz, number);
+
+  valueCol.append(valueTitle, amount);
+
+  //=========================
+  // MONTA O CARD
+  //=========================
+
+  item.append(
+      statusCol,
+      sentCol,
+      confirmCol,
+      valueCol
   );
 
   listEl.appendChild(item);
