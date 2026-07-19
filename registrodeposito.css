@@ -59,7 +59,21 @@ background-color:#030303;
 .right-placeholder{width:36px;height:36px;display:inline-block}
 
 /* Container */
-.container{max-width:var(--maxw); margin:10px auto; padding:0 14px}
+.container{
+  max-width:var(--maxw); 
+  margin:10px auto; 
+  padding:0 14px
+}
+
+.container{
+
+max-width:480px;
+
+padding:0 14px;
+
+margin:auto;
+
+}
 .list-wrap{margin-top:8px}
 .empty{opacity:.7; text-align:center; padding:28px 0; margin:0; color:var(--muted)}
 
