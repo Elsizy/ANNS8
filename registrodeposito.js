@@ -128,7 +128,7 @@ function chooseConfirmDate(d) {
 
 /** Linha de detalhes (banco + IBAN mascarado ou método) */
 /** Linha de detalhes (banco + IBAN SEM máscara ou método) */
-function buildDetails(d) {
+/** function buildDetails(d) {
   const bank = d.bank || d.bankName;
   const method = d.method;
   const iban = d?.bankData?.iban ?? null; // <-- sem máscara
@@ -150,7 +150,7 @@ function buildDetails(d) {
   wrap.appendChild(left);
   wrap.appendChild(right);
   return wrap;
-}
+}  *//
 
 function normalizeStatus(st) {
   if (!st) return "pending";
@@ -207,10 +207,10 @@ function formatDate(ts) {
   return `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
 }
 
-function maskIban(iban) {
+/** function maskIban(iban) {
   const digits = (iban || "").replace(/\D+/g, "");
   if (digits.length <= 7) return digits;
   const visible = digits.slice(0, 7);
   const hiddenCount = Math.max(0, digits.length - 7);
   return `${visible}${"•".repeat(hiddenCount)}`;
-}
+} *//
