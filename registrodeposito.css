@@ -180,7 +180,7 @@ box-shadow:
 .deposit-list .item{
 display:grid;
 grid-template-columns:
-35px
+50px
 1fr;
 align-items:center;
 padding:5px 5px;
