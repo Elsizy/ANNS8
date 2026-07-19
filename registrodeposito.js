@@ -436,3 +436,25 @@ function formatDate(ts) {
   return `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
 }
 
+function formatDateParts(ts) {
+  if (!ts) {
+    return {
+      date: "—",
+      time: "—"
+    };
+  }
+
+  const d = new Date(Number(ts) || ts);
+
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mi = String(d.getMinutes()).padStart(2, "0");
+
+  return {
+    date: `${dd}/${mm}/${yyyy}`,
+    time: `${hh}:${mi}`
+  };
+    }
