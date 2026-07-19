@@ -431,3 +431,17 @@ background:
 rgba(225,170,55,.45);
 
 }
+
+.deposit-grid{
+
+display:grid;
+
+grid-template-columns:
+
+1.05fr
+1.05fr
+1.18fr;
+
+column-gap:52px;
+
+  }
