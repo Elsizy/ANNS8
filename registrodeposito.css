@@ -380,9 +380,9 @@ font-size:11px;
 }
 .status-dot{
 
-width:35px;
+width:30px;
 
-height:35px;
+height:30px;
 
 border-radius:50%;
 
@@ -393,7 +393,7 @@ background:transparent;
   }
 .status-dot::after{
 
-background-size:25px;
+background-size:20px;
 
   }
 
@@ -401,9 +401,9 @@ background-size:25px;
 
 margin-top:1px;
 
-font-size:11px;
+font-size:9px;
 
-font-weight:700;
+font-weight:600;
 
 color:#22d16d;
 
@@ -422,7 +422,7 @@ content:"";
 
 position:absolute;
 
-left:0;
+left:-4;
 
 top:9px;
 
@@ -442,11 +442,11 @@ display:grid;
 
 grid-template-columns:
 
-1.20fr
-1.20fr
-1.18fr;
+1.15fr
+1.15fr
+1.13fr;
 
-column-gap:15px;
+column-gap:10px;
 
   }
 .grid-title{
