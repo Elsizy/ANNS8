@@ -718,3 +718,33 @@ letter-spacing:-0.03em;
     width:1px;
     background:rgba(225,170,55,.45);
                 }
+
+.deposit-list .item{
+    grid-template-columns:14% 86%;
+    padding:4.2% 4%;
+}
+
+.deposit-grid{
+    grid-template-columns:28% 28% 34%;
+    column-gap:5%;
+}
+
+.status-col::after{
+    right:-10px;
+}
+
+.item-body{
+    padding-left:4%;
+}
+
+.status-col{
+    gap:12%;
+}
+
+.status-text{
+    font-size:clamp(9px,2.5vw,15px);
+}
+
+.amount-col{
+    padding-left:6%;
+}
