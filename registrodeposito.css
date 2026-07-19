@@ -573,7 +573,7 @@ background-size:56%;
 }
 .status-text{
 
-font-size:clamp(12px,2.9vw,19px);
+font-size:clamp(10px,2.7vw,18px);
 
 font-weight:600;
 
@@ -616,11 +616,11 @@ display:grid;
 
 grid-template-columns:
 
-34%
-34%
-32%;
+31%
+31%
+37%;
 
-column-gap:7%;
+column-gap:5%;
 
 align-items:start;
 
@@ -718,6 +718,3 @@ letter-spacing:-0.03em;
     width:1px;
     background:rgba(225,170,55,.45);
                 }
-.item-body{
-    padding-left:5%;
-  }
