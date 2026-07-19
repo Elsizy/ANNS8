@@ -342,7 +342,8 @@ function renderItem(dep){
     status.className="status-text";
     status.textContent=statusLabel(dep.status);
 
-    left.append(dot,status);
+    //left.append(dot,status);
+    left.append(dot);
 
 
 
