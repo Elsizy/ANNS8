@@ -387,3 +387,8 @@ border:2px solid #1fd865;
 background:transparent;
 
   }
+.status-dot::after{
+
+background-size:52px;
+
+  }
