@@ -150,7 +150,7 @@ background-color:#030303;
 }
 
 /*********/
-.deposit-list .item{
+/* .deposit-list .item{
 
 grid-template-columns:72px 1fr;
 gap:18px;
@@ -166,7 +166,7 @@ border:1px solid rgba(255,255,255,.05);
 border-radius:14px;
 box-shadow:
 0 8px 22px rgba(0,0,0,.28);
-}
+} */
 
 .deposit-list .item{
 display:grid;
