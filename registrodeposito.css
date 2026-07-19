@@ -416,7 +416,7 @@ padding-left:10px;
 
 }
 
-.item-body::before{
+/*.item-body::before{
 
 content:"";
 
@@ -434,7 +434,7 @@ background:
 
 rgba(225,170,55,.45);
 
-}
+}*/
 
 .deposit-grid{
 
@@ -591,7 +591,7 @@ position:relative;
 padding-left:5%;
 
 }
-.item-body::before{
+/*.item-body::before{
 
 content:"";
 
@@ -609,7 +609,7 @@ background:
 
 rgba(220,170,55,.55);
 
-}
+} */
 .deposit-grid{
 
 display:grid;
