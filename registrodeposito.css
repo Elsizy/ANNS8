@@ -573,7 +573,7 @@ background-size:56%;
 }
 .status-text{
 
-font-size:clamp(10px,2.7vw,18px);
+font-size:clamp(9px,2.5vw,15px);
 
 font-weight:600;
 
