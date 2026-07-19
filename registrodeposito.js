@@ -38,81 +38,8 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-/** RENDER — 100% no estilo da página de retirada */
-/* function renderItem(dep) {
-  const item = document.createElement("div");
-  item.className = "item";
 
-  // Coluna esquerda (ícone + legenda)
-  const left = document.createElement("div");
-  left.className = "status-col";
-
-  const dot = document.createElement("span");
-  dot.className = "status-dot " + statusClass(dep.status);
-
-  const label = document.createElement("span");
-  label.className = "status-text";
-  label.textContent = statusLabel(dep.status);
-
-  left.appendChild(dot);
-  left.appendChild(label);
-
-  // Corpo (direita)
-  const body = document.createElement("div");
-  body.className = "item-body";
-
-  // Linha superior: método/banco à esquerda • datas à direita
-  const metaTop = document.createElement("div");
-  metaTop.className = "meta-top";
-
-  const refSpan = document.createElement("span");
-  refSpan.className = "ref";
-  // Mostra o que fizer mais sentido como “referência curta”
-  const shortRef = (dep.bank || dep.bankName || dep.method || "").toString().trim();
-  if (shortRef) refSpan.textContent = shortRef;
-
-  const dates = document.createElement("div");
-  dates.className = "dates";
-  const d1 = document.createElement("div");
-  d1.className = "line";
-  d1.textContent = `Enviado: ${formatDate(dep.createdAt)}`;
-  dates.appendChild(d1);
-
-  const confirmedAt = chooseConfirmDate(dep);
-  if (confirmedAt) {
-    const d2 = document.createElement("div");
-    d2.className = "line";
-    d2.textContent = `Confirmado: ${formatDate(confirmedAt)}`;
-    dates.appendChild(d2);
-  }
-
-  metaTop.appendChild(refSpan);
-  metaTop.appendChild(dates);
-
-  // Valor grande
-  const amount = document.createElement("div");
-  amount.className = "amount";
-  const prefix = document.createElement("span");
-  prefix.className = "prefix";
-  prefix.textContent = "KZ";
-  const value = document.createElement("span");
-  value.textContent = formatNumber(chooseAmount(dep));
-  amount.appendChild(prefix);
-  amount.appendChild(value);
-
-  // Monta
-  body.appendChild(metaTop);
-
-  // Linha opcional (IBAN/método) — se existir IBAN, mostre depois do metaTop
-  const detailsLine = buildDetails(dep);
-  if (detailsLine) body.appendChild(detailsLine);
-
-  body.appendChild(amount);
-
-  item.appendChild(left);
-  item.appendChild(body);
-  listEl.appendChild(item);
-} **/
+  
 
 
 function renderItem(dep) {
@@ -385,10 +312,3 @@ function formatDate(ts) {
   return `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
 }
 
-/*  function maskIban(iban) {
-  const digits = (iban || "").replace(/\D+/g, "");
-  if (digits.length <= 7) return digits;
-  const visible = digits.slice(0, 7);
-  const hiddenCount = Math.max(0, digits.length - 7);
-  return `${visible}${"•".repeat(hiddenCount)}`;
-} */
