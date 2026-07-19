@@ -487,3 +487,13 @@ box-shadow:
 transform:scale(.97);
 }
 .modal-close:active{transform:translateY(1px);}
+
+.modal-panel{
+    color:#f2f2f2;
+}
+
+.modal-head h3{
+    color:#ffffff;
+    font-size:22px;
+    font-weight:600;
+   }
