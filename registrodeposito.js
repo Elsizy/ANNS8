@@ -39,7 +39,7 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 /** RENDER — 100% no estilo da página de retirada */
-function renderItem(dep) {
+/* function renderItem(dep) {
   const item = document.createElement("div");
   item.className = "item";
 
@@ -112,8 +112,186 @@ function renderItem(dep) {
   item.appendChild(left);
   item.appendChild(body);
   listEl.appendChild(item);
+} **/
+
+
+function renderItem(dep) {
+
+  const item = document.createElement("div");
+  item.className = "item";
+
+  /* ==========================
+     COLUNA STATUS
+  ========================== */
+
+  const statusColumn = document.createElement("div");
+  statusColumn.className = "status-column";
+
+  const statusIcon = document.createElement("div");
+  statusIcon.className = "status-icon " + statusClass(dep.status);
+
+  statusIcon.innerHTML = `
+  <svg viewBox="0 0 24 24" fill="none">
+      ${
+        dep.status === "done"
+        ? `<path d="M5 13L10 18L19 7"/>`
+        : dep.status === "rejected"
+        ? `<path d="M7 7L17 17M17 7L7 17"/>`
+        : `<path d="M12 6V12L16 15"/>`
+      }
+  </svg>
+  `;
+
+  const statusText = document.createElement("div");
+  statusText.className = "status-text";
+  statusText.textContent = statusLabel(dep.status);
+
+  statusColumn.appendChild(statusIcon);
+  statusColumn.appendChild(statusText);
+
+  /* ==========================
+     DIVISOR
+  ========================== */
+
+  const divider = document.createElement("div");
+  divider.className = "divider";
+
+  /* ==========================
+     GRID DIREITA
+  ========================== */
+
+  const infoGrid = document.createElement("div");
+  infoGrid.className = "info-grid";
+
+  /* ---------- ENVIADO ---------- */
+
+  const sentColumn = document.createElement("div");
+  sentColumn.className = "sent-column";
+
+  const sentTitle = document.createElement("div");
+  sentTitle.className = "title";
+  sentTitle.textContent = "Enviado em";
+
+  const sentDate = document.createElement("div");
+  sentDate.className = "date";
+  sentDate.textContent = formatDateOnly(dep.createdAt);
+
+  const sentTime = document.createElement("div");
+  sentTime.className = "time";
+  sentTime.textContent = formatTimeOnly(dep.createdAt);
+
+  sentColumn.append(
+      sentTitle,
+      sentDate,
+      sentTime
+  );
+
+  /* ---------- CONFIRMADO ---------- */
+
+  const confirmColumn = document.createElement("div");
+  confirmColumn.className = "confirm-column";
+
+  const confirmTitle = document.createElement("div");
+  confirmTitle.className = "title";
+  confirmTitle.textContent = "Confirmado em";
+
+  const confirmDate = document.createElement("div");
+  confirmDate.className = "date";
+
+  const confirmTime = document.createElement("div");
+  confirmTime.className = "time";
+
+  const confirmedAt = chooseConfirmDate(dep);
+
+  if (confirmedAt) {
+
+      confirmDate.textContent = formatDateOnly(confirmedAt);
+      confirmTime.textContent = formatTimeOnly(confirmedAt);
+
+  } else {
+
+      confirmDate.textContent = "--/--/----";
+      confirmTime.textContent = "--:--";
+
+  }
+
+  confirmColumn.append(
+      confirmTitle,
+      confirmDate,
+      confirmTime
+  );
+
+  /* ---------- VALOR ---------- */
+
+  const valueColumn = document.createElement("div");
+  valueColumn.className = "value-column";
+
+  const valueTitle = document.createElement("div");
+  valueTitle.className = "title";
+  valueTitle.textContent = "Valor depositado";
+
+  const amount = document.createElement("div");
+  amount.className = "amount";
+
+  amount.innerHTML =
+      `<span class="currency">KZ</span> ${formatNumber(chooseAmount(dep))}`;
+
+  valueColumn.append(
+      valueTitle,
+      amount
+  );
+
+  /* ==========================
+     MONTAGEM
+  ========================== */
+
+  infoGrid.append(
+      sentColumn,
+      confirmColumn,
+      valueColumn
+  );
+
+  item.append(
+      statusColumn,
+      divider,
+      infoGrid
+  );
+
+  listEl.appendChild(item);
+
+}
+/** date */
+
+function formatDateOnly(ts){
+
+    if(!ts) return "--/--/----";
+
+    const d=new Date(Number(ts)||ts);
+
+    const dd=String(d.getDate()).padStart(2,"0");
+
+    const mm=String(d.getMonth()+1).padStart(2,"0");
+
+    const yyyy=d.getFullYear();
+
+    return `${dd}/${mm}/${yyyy}`;
+
 }
 
+function formatTimeOnly(ts){
+
+    if(!ts) return "--:--";
+
+    const d=new Date(Number(ts)||ts);
+
+    const hh=String(d.getHours()).padStart(2,"0");
+
+    const mi=String(d.getMinutes()).padStart(2,"0");
+
+    return `${hh}:${mi}`;
+
+}
+/* fim do novo código*/ 
 /** Valor a exibir (preferências + *fallbacks*) */
 function chooseAmount(d) {
   return Number(
@@ -207,10 +385,10 @@ function formatDate(ts) {
   return `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
 }
 
-function maskIban(iban) {
+/*  function maskIban(iban) {
   const digits = (iban || "").replace(/\D+/g, "");
   if (digits.length <= 7) return digits;
   const visible = digits.slice(0, 7);
   const hiddenCount = Math.max(0, digits.length - 7);
   return `${visible}${"•".repeat(hiddenCount)}`;
-}
+} */
