@@ -70,7 +70,7 @@ background-color:#030303;
 .empty{opacity:.7; text-align:center; padding:28px 0; margin:0; color:var(--muted)}
 
 /* === CARD (idêntico ao da retirada) === */
-.deposit-list .item{
+/*.deposit-list .item{
   position:relative;
   display:grid;
   grid-template-columns: 86px 1fr;
@@ -82,7 +82,7 @@ background-color:#030303;
   padding:16px 16px;
   margin-bottom:14px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-}
+} */
 
 /* Coluna esquerda: ícone + legenda */
 .status-col{
