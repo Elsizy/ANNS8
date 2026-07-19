@@ -346,6 +346,12 @@ button:focus, input:focus, .picker-btn:focus, .bank-list li:focus { outline: 3px
   --err2:#b63f3f;
 
   --overlay:rgba(0,0,0,.82);
+  --modal-overlay: rgba(0,0,0,0.82);
+  --modal-panel-bg:
+linear-gradient(
+180deg,
+#0d0d0d,
+#050505);
 }
 
 .app-modal{
