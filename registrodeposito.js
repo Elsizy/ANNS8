@@ -424,7 +424,7 @@ function renderItem(dep){
 
     const confirmTitle=document.createElement("span");
     confirmTitle.className="grid-title";
-    confirmTitle.textContent="Confirmado em";
+    confirmTitle.textContent="Confirmado";
 
     const confirmDate=document.createElement("span");
     confirmDate.className="grid-date";
@@ -452,7 +452,7 @@ function renderItem(dep){
 
     const amountTitle=document.createElement("span");
     amountTitle.className="grid-title";
-    amountTitle.textContent="Valor";
+    amountTitle.textContent="Valor depositado";
 
     const amountValue=document.createElement("span");
     amountValue.className="amount-value";
