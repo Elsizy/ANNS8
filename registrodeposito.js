@@ -192,6 +192,14 @@ function renderItem(dep) {
 
   const item = document.createElement("div");
   item.className = "item";
+  const confirm = formatDateParts(confirmedAt);
+
+confirm.date
+confirm.time
+  const sent = formatDateParts(dep.createdAt);
+
+sent.date   // 26/09/2025
+sent.time   // 09:44
 
   //=========================
   // COLUNA 1 - STATUS
