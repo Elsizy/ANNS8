@@ -219,12 +219,12 @@ display:grid;
 
 grid-template-columns:
 
-1fr
-1.15fr
+1.35fr
+1.35fr
 1.15fr
 0.95fr;
 
-column-gap:26px;
+column-gap:5px;
 
 align-items:flex-start;
 
@@ -346,18 +346,18 @@ color:rgba(255,255,255,.52);
 
 grid-template-columns:
 
-1fr
-1fr
+1.35fr
+1.35fr
 1fr
 .85fr;
 
-column-gap:14px;
+column-gap:5px;
 
 }
 
 .amount-value{
 
-font-size:18px;
+font-size:10px;
 
 }
 
@@ -438,8 +438,8 @@ display:grid;
 
 grid-template-columns:
 
-1.25fr
-1.25fr
+1.35fr
+1.35fr
 1.18fr;
 
 column-gap:10px;
