@@ -207,10 +207,10 @@ function formatDate(ts) {
   return `${yyyy}/${mm}/${dd} ${hh}:${mi}`;
 }
 
-/** function maskIban(iban) {
+function maskIban(iban) {
   const digits = (iban || "").replace(/\D+/g, "");
   if (digits.length <= 7) return digits;
   const visible = digits.slice(0, 7);
   const hiddenCount = Math.max(0, digits.length - 7);
   return `${visible}${"•".repeat(hiddenCount)}`;
-} *//
+}
