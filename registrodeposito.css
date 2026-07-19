@@ -89,9 +89,14 @@ background-color:#030303;
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
 }
 .status-dot{
-  width:38px; height:38px; border-radius:999px;
-  display:inline-block; position:relative;
+  width:38px; 
+  height:38px; 
+  border-radius:999px;
+  display:inline-block; 
+  position:relative;
 }
+
+
 .status-dot::after{
   content:""; position:absolute; inset:0;
   background-repeat:no-repeat; background-position:center; background-size:22px 22px;
@@ -369,3 +374,16 @@ font-size:11px;
 }
 
 }
+.status-dot{
+
+width:84px;
+
+height:84px;
+
+border-radius:50%;
+
+border:6px solid #1fd865;
+
+background:transparent;
+
+  }
