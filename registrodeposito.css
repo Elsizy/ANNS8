@@ -376,9 +376,9 @@ font-size:11px;
 }
 .status-dot{
 
-width:40px;
+width:35px;
 
-height:40px;
+height:35px;
 
 border-radius:50%;
 
@@ -389,6 +389,6 @@ background:transparent;
   }
 .status-dot::after{
 
-background-size:20px;
+background-size:25px;
 
   }
