@@ -492,7 +492,7 @@ color:#f0bd45;
   }
 .amount-unit{
 
-font-size:18px;
+font-size:12px;
 
 margin-top:14px;
 
@@ -523,9 +523,9 @@ border-radius:22px;
 
 .status-dot{
 
-width:66px;
+width:30px;
 
-height:66px;
+height:30px;
 
 border-width:5px;
 
@@ -547,37 +547,37 @@ grid-template-columns:
 1fr
 1.05fr;
 
-column-gap:16px;
+column-gap:10px;
 
 }
 
 .grid-title{
 
-font-size:10px;
+font-size:12px;
 
 }
 
 .grid-date{
 
-font-size:13px;
+font-size:12px;
 
 }
 
 .grid-time{
 
-font-size:10px;
+font-size:12px;
 
 }
 
 .amount-value{
 
-font-size:20px;
+font-size:12px;
 
 }
 
 .amount-unit{
 
-font-size:10px;
+font-size:12px;
 
 }
 
