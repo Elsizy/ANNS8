@@ -511,7 +511,7 @@ justify-content:center;
 
 display:grid;
 
-grid-template-columns:12% 90%;
+grid-template-columns:14% 86%;
 
 align-items:center;
 
@@ -616,9 +616,9 @@ display:grid;
 
 grid-template-columns:
 
-31%
-31%
-37%;
+28%
+28%
+34%;
 
 column-gap:5%;
 
