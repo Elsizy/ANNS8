@@ -174,9 +174,9 @@ grid-template-columns:
 135px
 1fr;
 align-items:center;
-padding:5px 5px;
+padding:10px 10px;
 margin-bottom:24px;
-border-radius:28px;
+border-radius:10px;
 background:
 linear-gradient(
 180deg,
