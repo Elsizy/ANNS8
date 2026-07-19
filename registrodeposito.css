@@ -438,11 +438,11 @@ display:grid;
 
 grid-template-columns:
 
-1.05fr
-1.05fr
+1.25fr
+1.25fr
 1.18fr;
 
-column-gap:52px;
+column-gap:10px;
 
   }
 .grid-title{
