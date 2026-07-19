@@ -445,3 +445,14 @@ grid-template-columns:
 column-gap:52px;
 
   }
+.grid-title{
+
+font-size:18px;
+
+font-weight:400;
+
+color:#9f9f9f;
+
+margin-bottom:1px;
+
+  }
