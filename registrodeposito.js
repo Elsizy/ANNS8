@@ -342,8 +342,8 @@ function renderItem(dep){
     status.className="status-text";
     status.textContent=statusLabel(dep.status);
 
-    //left.append(dot,status);
-    left.append(dot);
+    left.append(dot,status);
+    
 
 
 
@@ -368,7 +368,7 @@ function renderItem(dep){
        ESTADO
     =========================== */
 
-    const colStatus=document.createElement("div");
+    /* const colStatus=document.createElement("div");
     colStatus.className="grid-col";
 
     const stTitle=document.createElement("span");
@@ -382,7 +382,7 @@ function renderItem(dep){
     colStatus.append(
         stTitle,
         stValue
-    );
+    ); */
 
 
 
@@ -473,7 +473,7 @@ function renderItem(dep){
 
 
     grid.append(
-        colStatus,
+        //colStatus,
         colSent,
         colConfirm,
         colAmount
