@@ -705,3 +705,16 @@ font-weight:700;
 letter-spacing:-0.03em;
 
 }
+.status-col{
+    position:relative;
+}
+
+.status-col::after{
+    content:"";
+    position:absolute;
+    right:-14px;
+    top:10%;
+    bottom:10%;
+    width:1px;
+    background:rgba(225,170,55,.45);
+                }
