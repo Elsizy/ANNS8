@@ -65,15 +65,7 @@ background-color:#030303;
   padding:0 14px
 }
 
-.container{
 
-max-width:480px;
-
-padding:0 14px;
-
-margin:auto;
-
-}
 .list-wrap{margin-top:8px}
 .empty{opacity:.7; text-align:center; padding:28px 0; margin:0; color:var(--muted)}
 
@@ -160,32 +152,43 @@ margin:auto;
 /*********/
 .deposit-list .item{
 
-display:grid;
-
 grid-template-columns:72px 1fr;
-
-align-items:center;
-
 gap:18px;
-
 padding:18px 18px;
-
 margin-bottom:14px;
-
 background:
 linear-gradient(
 180deg,
 rgba(255,255,255,.03),
 rgba(255,255,255,.015)
 );
-
 border:1px solid rgba(255,255,255,.05);
-
 border-radius:14px;
-
 box-shadow:
 0 8px 22px rgba(0,0,0,.28);
+}
 
+.deposit-list .item{
+display:grid;
+grid-template-columns:
+135px
+1fr;
+align-items:center;
+padding:34px 34px;
+margin-bottom:24px;
+border-radius:28px;
+background:
+linear-gradient(
+180deg,
+#080808,
+#040404
+);
+border:
+1px solid rgba(225,170,55,.45);
+box-shadow:
+0 0 35px rgba(255,190,40,.08);
+position:relative;
+overflow:hidden;
 }
 .status-col{
 
