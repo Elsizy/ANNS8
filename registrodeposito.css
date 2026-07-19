@@ -718,3 +718,6 @@ letter-spacing:-0.03em;
     width:1px;
     background:rgba(225,170,55,.45);
                 }
+.item-body{
+    padding-left:5%;
+  }
