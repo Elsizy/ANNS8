@@ -290,7 +290,29 @@ input:focus{ box-shadow: 0 10px 30px rgba(111,102,255,0.08); border-color: rgba(
 .modal-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px; }
 .modal-close{ background:transparent; border:none; color:var(--muted); font-size:18px; cursor:pointer; }
 .bank-list{ max-height:320px; overflow:auto; list-style:none; margin:0; padding:0; display:grid; gap:8px; }
-.bank-list li{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-radius:10px; background: rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.02); cursor:pointer; font-weight:600; }
+.bank-list li{ 
+   display:flex; 
+   align-items:center; 
+   justify-content:space-between; 
+   gap:12px; 
+   padding:12px; 
+   border-radius:10px; 
+   background: rgba(255,255,255,0.01); 
+   border:1px solid rgba(255,255,255,0.02); 
+   cursor:pointer; 
+   font-weight:600; 
+}
+
+.bank-list li{
+
+    padding:14px 18px;
+    color:#f2f2f2;
+    font-size:16px;
+    background:rgba(255,255,255,.02);
+    border:1px solid rgba(216,174,73,.12);
+    transition:.20s;
+}
+
 .bank-list li:hover{ transform:translateY(-4px); background: rgba(255,255,255,0.02); }
 
 /* modal actions: keep small buttons */
