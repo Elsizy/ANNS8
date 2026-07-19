@@ -350,8 +350,12 @@ button:focus, input:focus, .picker-btn:focus, .bank-list li:focus { outline: 3px
     transition:.22s;
 }
 
-.app-modal.show{opacity:1; pointer-events:auto;}
-.app-modal.hidden{display:none;} /* caso queira começar invisível */
+.app-modal.show{
+   opacity:1; 
+   pointer-events:auto;
+}
+
+/*.app-modal.hidden{display:none;} /* caso queira começar invisível */ */
 
 .modal-card{
     width:min(92vw,430px);
