@@ -712,7 +712,7 @@ letter-spacing:-0.03em;
 .status-col::after{
     content:"";
     position:absolute;
-    right:-14px;
+    right:-10px;
     top:10%;
     bottom:10%;
     width:1px;
