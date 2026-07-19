@@ -188,18 +188,11 @@ onAuthStateChanged(auth, async (user) => {
 
 } */
 
-function renderItem(dep) {
+/** function renderItem(dep) {
 
   const item = document.createElement("div");
   item.className = "item";
-  const confirm = formatDateParts(confirmedAt);
-
-confirm.date
-confirm.time
-  const sent = formatDateParts(dep.createdAt);
-
-sent.date   // 26/09/2025
-sent.time   // 09:44
+  
 
   //=========================
   // COLUNA 1 - STATUS
@@ -318,7 +311,186 @@ sent.time   // 09:44
 
   listEl.appendChild(item);
 
+} */
+
+function renderItem(dep){
+
+    const confirmedAt = chooseConfirmDate(dep);
+
+    const sent = formatDateParts(dep.createdAt);
+
+    const confirm = confirmedAt
+        ? formatDateParts(confirmedAt)
+        : {date:"—",time:"—"};
+
+    const item = document.createElement("div");
+    item.className="item";
+
+
+
+    /* ===========================
+       COLUNA ESQUERDA
+    =========================== */
+
+    const left=document.createElement("div");
+    left.className="status-col";
+
+    const dot=document.createElement("span");
+    dot.className="status-dot "+statusClass(dep.status);
+
+    const status=document.createElement("span");
+    status.className="status-text";
+    status.textContent=statusLabel(dep.status);
+
+    left.append(dot,status);
+
+
+
+    /* ===========================
+       CORPO
+    =========================== */
+
+    const body=document.createElement("div");
+    body.className="item-body";
+
+
+
+    /* GRID PRINCIPAL */
+
+    const grid=document.createElement("div");
+    grid.className="deposit-grid";
+
+
+
+    /* ===========================
+       COLUNA 1
+       ESTADO
+    =========================== */
+
+    const colStatus=document.createElement("div");
+    colStatus.className="grid-col";
+
+    const stTitle=document.createElement("span");
+    stTitle.className="grid-title";
+    stTitle.textContent="Estado";
+
+    const stValue=document.createElement("span");
+    stValue.className="grid-value status-"+dep.status;
+    stValue.textContent=statusLabel(dep.status);
+
+    colStatus.append(
+        stTitle,
+        stValue
+    );
+
+
+
+    /* ===========================
+       COLUNA 2
+       ENVIADO
+    =========================== */
+
+    const colSent=document.createElement("div");
+    colSent.className="grid-col";
+
+    const sentTitle=document.createElement("span");
+    sentTitle.className="grid-title";
+    sentTitle.textContent="Enviado em";
+
+    const sentDate=document.createElement("span");
+    sentDate.className="grid-date";
+    sentDate.textContent=sent.date;
+
+    const sentTime=document.createElement("span");
+    sentTime.className="grid-time";
+    sentTime.textContent=sent.time;
+
+    colSent.append(
+        sentTitle,
+        sentDate,
+        sentTime
+    );
+
+
+
+    /* ===========================
+       COLUNA 3
+       CONFIRMADO
+    =========================== */
+
+    const colConfirm=document.createElement("div");
+    colConfirm.className="grid-col";
+
+    const confirmTitle=document.createElement("span");
+    confirmTitle.className="grid-title";
+    confirmTitle.textContent="Confirmado em";
+
+    const confirmDate=document.createElement("span");
+    confirmDate.className="grid-date";
+    confirmDate.textContent=confirm.date;
+
+    const confirmTime=document.createElement("span");
+    confirmTime.className="grid-time";
+    confirmTime.textContent=confirm.time;
+
+    colConfirm.append(
+        confirmTitle,
+        confirmDate,
+        confirmTime
+    );
+
+
+
+    /* ===========================
+       COLUNA 4
+       VALOR
+    =========================== */
+
+    const colAmount=document.createElement("div");
+    colAmount.className="grid-col amount-col";
+
+    const amountTitle=document.createElement("span");
+    amountTitle.className="grid-title";
+    amountTitle.textContent="Valor";
+
+    const amountValue=document.createElement("span");
+    amountValue.className="amount-value";
+    amountValue.textContent=formatNumber(
+        chooseAmount(dep)
+    );
+
+    const kz=document.createElement("span");
+    kz.className="amount-unit";
+    kz.textContent="Kz";
+
+    colAmount.append(
+        amountTitle,
+        amountValue,
+        kz
+    );
+
+
+
+    grid.append(
+        colStatus,
+        colSent,
+        colConfirm,
+        colAmount
+    );
+
+
+
+    body.appendChild(grid);
+
+    item.append(
+        left,
+        body
+    );
+
+    listEl.appendChild(item);
+
 }
+
 /** date */
 
 function formatDateOnly(ts){
