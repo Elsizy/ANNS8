@@ -128,7 +128,7 @@ function chooseConfirmDate(d) {
 
 /** Linha de detalhes (banco + IBAN mascarado ou método) */
 /** Linha de detalhes (banco + IBAN SEM máscara ou método) */
-/** function buildDetails(d) {
+function buildDetails(d) {
   const bank = d.bank || d.bankName;
   const method = d.method;
   const iban = d?.bankData?.iban ?? null; // <-- sem máscara
@@ -150,7 +150,7 @@ function chooseConfirmDate(d) {
   wrap.appendChild(left);
   wrap.appendChild(right);
   return wrap;
-}  *//
+}  
 
 function normalizeStatus(st) {
   if (!st) return "pending";
