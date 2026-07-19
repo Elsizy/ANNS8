@@ -148,7 +148,11 @@ background-color:#030303;
 
 /* Responsivo */
 @media (max-width:420px){
-  .deposit-list .item{ grid-template-columns:76px 1fr; padding:14px 14px }
+  .deposit-list .item{ 
+    grid-template-columns:76px 1fr; 
+    padding:14px 14px 
+  }
+  
   .status-dot{ width:34px; height:34px }
   .amount{ font-size:18px }
   .ref{ max-width:58% }
@@ -176,7 +180,7 @@ box-shadow:
 .deposit-list .item{
 display:grid;
 grid-template-columns:
-135px
+35px
 1fr;
 align-items:center;
 padding:5px 5px;
