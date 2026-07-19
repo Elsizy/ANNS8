@@ -512,7 +512,7 @@ justify-content:center;
 
 grid-template-columns:
 
-95px
+50px
 1fr;
 
 padding:24px;
@@ -543,9 +543,9 @@ margin-top:12px;
 
 grid-template-columns:
 
-1fr
-1fr
-1.05fr;
+1.2fr
+1.2fr
+1.25fr;
 
 column-gap:10px;
 
