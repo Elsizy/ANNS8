@@ -355,7 +355,7 @@ button:focus, input:focus, .picker-btn:focus, .bank-list li:focus { outline: 3px
    pointer-events:auto;
 }
 
-/*.app-modal.hidden{display:none;} /* caso queira começar invisível */ */
+.app-modal.hidden{display:none;} /* caso queira começar invisível */ 
 
 .modal-card{
     width:min(92vw,430px);
@@ -407,7 +407,20 @@ button:focus, input:focus, .picker-btn:focus, .bank-list li:focus { outline: 3px
     0 0 16px rgba(255,190,40,.10);
    }
 
-.app-modal.success .modal-icon{background:linear-gradient(135deg,var(--ok1),var(--ok2));}
+.app-modal.success .modal-icon{
+   background:linear-gradient(135deg,var(--ok1),var(--ok2));
+}
+.app-modal.success .modal-icon{
+
+    background:
+
+    linear-gradient(
+    135deg,
+    #e8c15a,
+    #b88618);
+
+}
+
 .app-modal.error   .modal-icon{background:linear-gradient(135deg,var(--err1),var(--err2));}
 
 .modal-text{margin:0 8px 12px; color:#fff; font:600 15px/1.35 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;}
