@@ -1,4 +1,4 @@
-
+ 
 
 :root{
   --bg:#000;
@@ -65,11 +65,14 @@ text-decoration:none;
   font-size: 18px;
 }
 
-.card {
-  background: var(--card);
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+
+
+.card{
+background:#050505;
+border:1px solid rgba(216,166,58,.38);
+border-radius:15px;
+padding:16px;
+box-shadow:none;
 }
 
 h2 {
@@ -90,6 +93,7 @@ h2 {
   padding: 8px 10px;
   cursor: pointer;
 }
+
 .preset.active {
   background: var(--primary);
   color: #fff;
