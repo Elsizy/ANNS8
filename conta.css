@@ -79,6 +79,19 @@ button{font-family:inherit;border:0;background:none;cursor:pointer}
    color:var(--white); 
    font-weight:700;
 }
+.back-btn{
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+border:1px solid rgba(255,170,40,.45);
+background:#090909;
+font-size:20px;
+color:#f4b43a;
+text-decoration:none;
+}
 
 .title-block{ flex:1; }
 .title{ margin:0; font-size:20px; font-weight:700; color:#fff; }
