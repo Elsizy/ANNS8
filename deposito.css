@@ -80,6 +80,18 @@ h2 {
   font-size: 18px;
 }
 
+h2{
+
+font-size:18px;
+
+font-weight:700;
+
+color:white;
+
+margin-bottom:14px;
+
+ }
+
 .preset-values {
   display: flex;
   flex-wrap: wrap;
