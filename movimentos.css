@@ -90,7 +90,7 @@ html,body{
 
   /* borda e sombra (mantém aparência) */
   border: 1px solid rgba(255,170,40,0.45);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.35);
 
   /* ---------- Nova parte — evita bandas visuais ---------- */
   /* base sólida translúcida (evita somatório de gradientes) */
