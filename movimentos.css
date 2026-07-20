@@ -144,11 +144,11 @@ position:absolute;
 
 right:-8px;
 
-top:5px;
+top:4px;
 
 width:1px;
 
-height:50px;
+height:55px;
 
 background:rgba(255,170,40,.35);
 
@@ -186,7 +186,7 @@ background:rgba(255,170,40,.35);
 /* valor (direita) */
 .mov-amount{
   font-weight:800;
-  font-size:15px;
+  font-size:13px;
   min-width:110px;
   text-align:right;
 }
