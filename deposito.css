@@ -89,7 +89,8 @@ font-weight:700;
 color:white;
 
 margin-bottom:14px;
-align-item:center;
+align-items:center;
+border: 1px solid rgba(255, 255, 175, 0.45);
 
  }
 
