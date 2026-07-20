@@ -119,10 +119,18 @@ font-weight:700;
 transition:.25s;
  }
 
-.preset.active {
+/*.preset.active {
   background: var(--primary);
   color: #fff;
   border-color: var(--primary);
+} */
+
+.preset.active{
+
+background:#d8a63a;
+
+color:#000;
+
 }
 
 .form-group {
