@@ -100,11 +100,12 @@ text-decoration:none;
 .status-pending + .status-text{ color:#ffb74d }
 .status-rejected + .status-text{ color:var(--rej) }
 
-.mov-icon svg{
-display:block
+.status-col svg{
+display:block;
 
+}
 .status-col{
-  position:r   }tive;
+  position:relative;
 }
 
 .status-col::after{
