@@ -132,6 +132,27 @@ html,body{
 0 6px 18px rgba(0,0,0,.35);
 }
 .mov-icon svg{ display:block; }
+.mov-icon{
+position:relative;
+}
+
+.mov-icon::after{
+
+content:"";
+
+position:absolute;
+
+right:-22px;
+
+top:-2px;
+
+width:1px;
+
+height:82px;
+
+background:rgba(255,170,40,.35);
+
+}
 
 /* texto (centro) */
 .mov-info{
