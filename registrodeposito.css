@@ -63,7 +63,7 @@ background-color:#030303;
   align-items:center; 
   justify-content:center
 }
-.header .back{
+.back{
 width:40px;
 height:40px;
 display:flex;
