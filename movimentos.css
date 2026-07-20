@@ -162,6 +162,7 @@ background:rgba(255,170,40,.35);
   gap:6px;
   min-width:0;
   flex:1;
+  
 }
 .mov-type{
   font-weight:700;
@@ -173,11 +174,12 @@ background:rgba(255,170,40,.35);
 }
 .mov-meta{
   font-size:13px;
-  color:var(--muted-2);
+  color:#8f8f8f;
   display:flex;
   justify-content:space-between;
   gap:8px;
   align-items:center;
+  line-height:1.5px;
 }
 
 /* quando meta contém data e meta adicional, deixamos alinhado à esquerda (data fica à direita via flex) */
