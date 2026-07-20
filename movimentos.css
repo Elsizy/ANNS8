@@ -6,8 +6,8 @@
   --muted-2: rgba(255,255,255,0.28);
   --accent-purple: #3a2b55;
   --icon-bg: rgba(59,55,82,0.9);
-  --in-red: #2ecc71; /* conforme referência (Rendimentos: vermelho) */
-  --out-green: #ff4d4d; /*   conforme referência (Retirada: verde) */
+  --in-red:#53ee87; /* conforme referência (Rendimentos: vermelho) */
+  --out-green:#ff5b63; /*   conforme referência (Retirada: verde) */
   --card-radius: 12px;
   --gap: 12px;
   --text: #e7f3ff;
