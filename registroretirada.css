@@ -1,5 +1,5 @@
 :root{
-  --bg:#071733;
+  --bg:#000000;
   --bg-2:#05132a;
   --card:#0b1f33;
   --text:#ffffff;
@@ -15,7 +15,7 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{
-  background: linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 75%);
+  background: #000;
   color:var(--text);
   font-family:'Poppins',system-ui,Arial,sans-serif;
   -webkit-font-smoothing:antialiased;
