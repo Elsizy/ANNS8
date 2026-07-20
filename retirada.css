@@ -23,6 +23,19 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 .info-panel ol{margin:0;padding-left:18px}
 .info-panel li{margin:6px 0;font-size:13px;line-height:1.35}
 
+.back-btn{
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+border:1px solid rgba(255,170,40,.45);
+background:#090909;
+font-size:20px;
+color:#f4b43a;
+text-decoration:none;
+  }
 /* Dashboard container */
 .dashboard{max-width:720px;margin:14px auto;padding:0 16px 90px}
 
