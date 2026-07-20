@@ -107,9 +107,9 @@ margin-bottom:14px;
 
 .preset{
 
-/*flex:1;
-min-width:180px;
-height:68px;*/
+/*flex:1; */
+min-width:40px;
+height:10px;*/
 background:#080808;
 border:1px solid rgba(216,166,58,.45);
 border-radius:8px;
