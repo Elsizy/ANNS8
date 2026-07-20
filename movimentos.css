@@ -1,5 +1,5 @@
 :root{
-  --bg-page: #071528;        /* fundo escuro / azul profundo */
+  --bg-page: #000000;        /* fundo escuro / azul profundo */
   --panel: #0b2136;
   --card-bg: #07162a;
   --muted: rgba(255,255,255,0.64);
@@ -15,7 +15,14 @@
 
 /* base */
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;background: linear-gradient(180deg,var(--bg-page) 0%, #051021 100%);font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial; color:var(--text); -webkit-font-smoothing:antialiased;}
+html,body{
+  height:100%;
+  margin:0;
+  background: #000;
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial; 
+  color:var(--text); 
+  -webkit-font-smoothing:antialiased;
+ }
 
 .dashboard{
   max-width: 420px; /* mobile-first, a imagem parece mobile */
@@ -82,12 +89,12 @@ html,body{height:100%;margin:0;background: linear-gradient(180deg,var(--bg-page)
   position:relative;
 
   /* borda e sombra (mantém aparência) */
-  border: 1px solid rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,170,40,0.45);
   box-shadow: 0 6px 18px rgba(0,0,0,0.45);
 
   /* ---------- Nova parte — evita bandas visuais ---------- */
   /* base sólida translúcida (evita somatório de gradientes) */
-  background-color: rgba(255,255,255,0.012);
+  background-color: #050505;
 
   /* evita que a cor "vaze" por baixo da borda arredondada */
   background-clip: padding-box;
