@@ -122,12 +122,14 @@ html,body{
   width:56px;
   height:56px;
   border-radius:14px;
-  background: var(--icon-bg);
+  background: #0a0a0a;
   display:flex;
   align-items:center;
   justify-content:center;
   flex-shrink:0;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  box-shadow:
+0 0 0 1px rgba(255,170,40,.32),
+0 6px 18px rgba(0,0,0,.35);
 }
 .mov-icon svg{ display:block; }
 
