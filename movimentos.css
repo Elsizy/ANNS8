@@ -38,7 +38,27 @@ html,body{
   background: transparent;
   margin-bottom:14px;
 }
-.header .back{ color:var(--text); text-decoration:none; font-size:20px; padding:6px 8px; background: rgba(255,255,255,0.02); border-radius:8px; }
+.header .back{ 
+  color:var(--text); 
+  text-decoration:none; 
+  font-size:20px; 
+  padding:6px 8px; 
+  background: rgba(255,255,255,0.02); 
+  border-radius:8px; 
+}
+.header .back{
+width:64px;
+height:64px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:18px;
+border:1px solid rgba(255,170,40,.45);
+background:#090909;
+font-size:20px;
+color:#f4b43a;
+text-decoration:none;
+}
 .header h1{ margin:0; font-size:18px; font-weight:700; color:var(--text); flex:1; text-align:center; letter-spacing:0.2px;}
 .header .spacer{ width:34px; }
 
