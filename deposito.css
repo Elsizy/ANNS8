@@ -88,14 +88,14 @@ font-weight:700;
 
 color:white;
 
-margin-bottom:14px;
+margin-bottom:15px;
  }
 
 .preset-values {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 15px;
+  margin-bottom: 13px;
 }
 .preset {
   background: #f0f2f7;
@@ -136,6 +136,7 @@ color:#000;
 
 .form-group {
   margin-bottom: 14px;
+  padding:8;
 }
 .form-group label {
   display: block;
