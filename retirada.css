@@ -388,7 +388,7 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 
   font-family: inherit;
 
-  font-size: 15px;
+  font-size: 12px;
 
   font-weight: 600;
 
@@ -439,7 +439,7 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
   justify-content: space-between;
   gap: 12px;
   width: 100%;
-  margin-bottom:10px;
+  margin-bottom:14px;
 }
 
 .modal-head h3 {
