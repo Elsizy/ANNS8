@@ -514,7 +514,7 @@ display:block;
 
 position:absolute;
 
-top:16;
+top:0;
 
 right:0;
 
@@ -522,7 +522,7 @@ bottom:0;
 
 width:56%;
 
-padding:10px 22px;
+padding:0px 22px;
 
 display:flex;
 
