@@ -533,3 +533,60 @@ justify-content:center;
 gap:18px;
 
   }
+
+.rule{
+
+display:flex;
+
+gap:14px;
+
+align-items:flex-start;
+
+  }
+.num{
+
+width:34px;
+
+height:34px;
+
+border-radius:50%;
+
+border:2px solid #d8ae49;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:700;
+
+color:#d8ae49;
+
+font-size:16px;
+
+flex:none;
+
+}
+.rule strong{
+
+display:block;
+
+font-size:15px;
+
+font-weight:600;
+
+color:white;
+
+  }
+.rule small{
+
+display:block;
+
+margin-top:2px;
+
+font-size:13px;
+
+color:#bcbcbc;
+
+  }
