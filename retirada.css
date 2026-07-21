@@ -514,7 +514,7 @@ display:block;
 
 position:absolute;
 
-top:5;
+top:16;
 
 right:0;
 
@@ -530,7 +530,7 @@ flex-direction:column;
 
 justify-content:center;
 
-gap:15px;
+gap:10px;
 
   }
 
@@ -538,7 +538,7 @@ gap:15px;
 
 display:flex;
 
-gap:9px;
+gap:8px;
 
 align-items:flex-start;
 
@@ -574,7 +574,7 @@ display:block;
 
 font-size:12px;
 
-font-weight:600;
+font-weight:500;
 
 color:white;
 
