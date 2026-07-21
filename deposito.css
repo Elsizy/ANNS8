@@ -136,7 +136,7 @@ color:#000;
 
 .form-group {
   margin-bottom: 14px;
-  padding:8px 0px;
+  padding:6px 0px;
 }
 .form-group label {
   display: block;
@@ -228,7 +228,7 @@ color:#9f9f9f;
 
 .notes{
 
-margin:18px 0;
+margin:20px 0;
 
 }
 
@@ -240,11 +240,11 @@ align-items:center;
 
 gap:14px;
 
-font-size:13px;
+font-size:16px;
 
 color:white;
 
-margin:15px 0;
+margin:20px 0;
 
 }
 
