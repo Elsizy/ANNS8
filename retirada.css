@@ -530,7 +530,7 @@ flex-direction:column;
 
 justify-content:center;
 
-gap:13px;
+gap:15px;
 
   }
 
@@ -563,7 +563,7 @@ font-weight:600;
 
 color:#d8ae49;
 
-font-size:11px;
+font-size:12px;
 
 flex:none;
 
@@ -572,7 +572,7 @@ flex:none;
 
 display:block;
 
-font-size:10px;
+font-size:12px;
 
 font-weight:500;
 letter-spacing: 0.1px;
