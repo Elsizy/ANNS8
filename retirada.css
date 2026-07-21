@@ -538,7 +538,7 @@ gap:10px;
 
 display:flex;
 
-gap:8px;
+gap:30px;
 
 align-items:flex-start;
 
@@ -574,7 +574,7 @@ display:block;
 
 font-size:11px;
 
-font-weight:450;
+font-weight:400;
 letter-spacing: 0.1px;
 
 color:white;
