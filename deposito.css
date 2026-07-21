@@ -377,7 +377,7 @@ font-weight:700;
    O layout e o texto de .notes permanecem intactos.
    ========================================================= */
 
-.notes .note-icon{
+/*.notes .note-icon{
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -400,9 +400,9 @@ font-weight:700;
     0 0 12px rgba(255,193,7,.05);
 
   vertical-align:middle;
-}
+} */
 
-/*.notes .note-icon svg{
+.notes .note-icon svg{
   width:20px;
   height:20px;
 
@@ -417,4 +417,4 @@ font-weight:700;
   stroke-linecap:round;
 
   stroke-linejoin:round;
-}*/
+}
