@@ -439,6 +439,7 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
   justify-content: space-between;
   gap: 12px;
   width: 100%;
+  margin-bottom:6px;
 }
 
 .modal-head h3 {
