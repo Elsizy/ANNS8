@@ -168,6 +168,23 @@ const closeModalBtn  = document.getElementById("close-modal");
 const feedbackModal = document.getElementById("feedback-modal");
 const feedbackText  = document.getElementById("feedback-text");
 const feedbackClose = document.getElementById("feedback-close");
+// ===============================
+// LISTENERS — registrados imediatamente
+// Não esperar o Firebase terminar de carregar
+// ===============================
+
+bankBtn?.addEventListener("click", () => {
+  modal?.classList.remove("hidden");
+});
+
+closeModalBtn?.addEventListener("click", () => {
+  modal?.classList.add("hidden");
+});
+
+valorInput?.addEventListener("input", calcResumo);
+
+enviarBtn?.addEventListener("click", onSubmit);
+
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -216,10 +233,7 @@ onAuthStateChanged(auth, async (user) => {
     buildBankList(accounts);
 
     // listeners
-    bankBtn.addEventListener("click", () => modal.classList.remove("hidden"));
-    closeModalBtn.addEventListener("click", () => modal.classList.add("hidden"));
-    valorInput.addEventListener("input", calcResumo);
-    enviarBtn.addEventListener("click", onSubmit);
+    
   } catch (e) {
     console.error("Erro ao carregar dados de retirada:", e);
     showFeedback("error", "Falha ao carregar dados. Tente novamente.");
