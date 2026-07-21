@@ -242,6 +242,8 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
   padding: 26px;
 
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
 
   background:
     linear-gradient(
@@ -251,11 +253,11 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
     );
 
   border:
-    1px solid rgba(216, 174, 73, 0.30);
+    1px solid rgba(216, 174, 73, 0.42);
 
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.70),
-    0 0 22px rgba(216, 174, 73, 0.08);
+    0 0 22px rgba(216, 174, 73, 0.06);
 
   text-align: center;
 
@@ -372,7 +374,10 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 
 .modal-close {
   height: 30px;
-  align-items:left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
 
   padding:
     0 24px;
