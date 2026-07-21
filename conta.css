@@ -711,9 +711,9 @@ transform:scale(.97);
 ========================================================= */
 
 .bank-badge {
-  width: 104px;
-  height: 104px;
-  flex: 0 0 104px;
+  width: 75px;
+  height: 75px;
+  flex: 0 0 75px;
 
   display: flex;
   align-items: center;
