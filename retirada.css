@@ -488,7 +488,7 @@ position:relative;
 
 overflow:hidden;
 
-border-radius:22px;
+border-radius:16px;
 
 border:1px solid rgba(216,174,73,.45);
 
@@ -516,9 +516,9 @@ position:absolute;
 
 top:0;
 
-right:0;
+right:5;
 
-bottom:0;
+bottom:5;
 
 width:56%;
 
