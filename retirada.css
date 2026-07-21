@@ -168,7 +168,263 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
   box-shadow:0 2px 10px rgba(57,210,199,.25);}
 .modal-close:active{transform:translateY(1px);}
 
+/* =========================================================
+   MODAL PREMIUM — PADRÃO VISUAL DO PROJETO
+   Baseado no último modal definido em conta.css
+========================================================= */
 
+:root {
+  --brand: #D8AE49;
+
+  --ok1: #e8c15a;
+  --ok2: #b88618;
+
+  --err1: #ff7a7a;
+  --err2: #b63f3f;
+
+  --overlay: rgba(0, 0, 0, 0.82);
+}
+
+
+/* =========================================================
+   OVERLAY DO MODAL
+========================================================= */
+
+.app-modal {
+  position: fixed;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(0, 0, 0, 0.30),
+      rgba(0, 0, 0, 0.86)
+    );
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  z-index: 9999;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition:
+    opacity 0.22s ease;
+}
+
+
+/* Modal visível */
+
+.app-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+/* Estado inicial oculto */
+
+.app-modal.hidden {
+  display: none;
+}
+
+
+/* =========================================================
+   PAINEL PRINCIPAL DO MODAL
+========================================================= */
+
+.modal-card {
+  width: min(92vw, 430px);
+
+  padding: 26px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0d0d0d,
+      #050505
+    );
+
+  border:
+    1px solid rgba(216, 174, 73, 0.30);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.70),
+    0 0 22px rgba(216, 174, 73, 0.08);
+
+  text-align: center;
+
+  transform:
+    translateY(8px)
+    scale(0.96);
+
+  transition:
+    transform 0.22s ease;
+}
+
+
+/* Animação de entrada */
+
+.app-modal.show .modal-card {
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+
+/* =========================================================
+   ÍCONE DO MODAL
+========================================================= */
+
+.modal-icon {
+  width: 56px;
+  height: 56px;
+
+  margin: 0 auto 10px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  color: #000;
+
+  border:
+    1px solid rgba(216, 174, 73, 0.45);
+
+  box-shadow:
+    inset 0 0 18px rgba(255, 190, 40, 0.15),
+    0 0 16px rgba(255, 190, 40, 0.10);
+}
+
+
+/* =========================================================
+   ÍCONE — SUCESSO
+========================================================= */
+
+.app-modal.success .modal-icon {
+  background:
+    linear-gradient(
+      135deg,
+      var(--ok1),
+      var(--ok2)
+    );
+}
+
+
+/* =========================================================
+   ÍCONE — ERRO
+========================================================= */
+
+.app-modal.error .modal-icon {
+  background:
+    linear-gradient(
+      135deg,
+      var(--err1),
+      var(--err2)
+    );
+
+  color: #fff;
+}
+
+
+/* =========================================================
+   TEXTO DO MODAL
+========================================================= */
+
+.modal-text {
+  margin:
+    0 8px
+    12px;
+
+  color: #f2f2f2;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  line-height: 1.6;
+
+  letter-spacing: 0.2px;
+}
+
+
+/* =========================================================
+   BOTÃO FECHAR
+========================================================= */
+
+.modal-close {
+  height: 30px;
+
+  padding:
+    0 24px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  color: #161616;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e5bc56,
+      #b88618
+    );
+
+  box-shadow:
+    0 6px 18px
+    rgba(216, 174, 73, 0.20);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+
+/* Hover */
+
+.modal-close:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 10px 22px
+    rgba(216, 174, 73, 0.28);
+}
+
+
+/* Clique */
+
+.modal-close:active {
+  transform:
+    scale(0.97);
+}
 .back-btn{
 width:40px;
 height:40px;
