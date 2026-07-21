@@ -225,6 +225,36 @@ color:#9f9f9f;
 /*margin-bottom:10px;*/
 
  }
+
+.notes{
+
+margin:18px 0;
+
+}
+
+.notes p{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+font-size:13px;
+
+color:white;
+
+margin:15px 0;
+
+}
+
+.notes strong{
+
+color:#d8a63a;
+
+font-weight:700;
+
+}
 /* Modal */
 .modal.hidden { display: none; }
 .modal {
