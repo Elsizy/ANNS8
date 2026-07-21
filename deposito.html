@@ -17,7 +17,11 @@
 
       <!-- ícone para o histórico -->
       <a href="registrodeposito.html" class="history" title="Registros de depósitos">
-        📜
+        <svg width="22" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="1" width="24" height="2" rx="1" fill="currentColor"/>
+          <rect x="0" y="8" width="24" height="2" rx="1" fill="currentColor"/>
+          <rect x="0" y="15" width="24" height="2" rx="1" fill="currentColor"/>
+</svg>
       </a>
     </header>
 
@@ -46,10 +50,94 @@
       </div>
 
       <!-- NOVO: Nota de horário -->
-      <div class="notes">
+      <!-- <div class="notes">
         <p>🕘 Depósitos disponíveis entre: <strong>9h</strong> e <strong>21h</strong>.</p>
         <p>🪪 Depósito mínimo: <strong>5.000 kz</strong>.</p>
-      </div>
+      </div> -->
+      <div class="notes">
+
+  <!-- Depósitos disponíveis -->
+  <div class="deposit-info-item">
+    <div class="info-icon">
+      <svg
+        class="info-icon-svg"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="9.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        />
+
+        <path
+          d="M12 6.5V12L8.5 14"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+    <p class="info-text">
+      <span>Depósitos disponíveis entre:</span>
+      <strong>9h e 21h.</strong>
+    </p>
+  </div>
+
+
+  <!-- Depósito mínimo -->
+  <div class="deposit-info-item">
+    <div class="info-icon">
+      <svg
+        class="info-icon-svg"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <rect
+          x="3"
+          y="6"
+          width="18"
+          height="12"
+          rx="2"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        />
+
+        <circle
+          cx="12"
+          cy="12"
+          r="2.2"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+        />
+
+        <path
+          d="M6 9.5V14.5M18 9.5V14.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        />
+      </svg>
+    </div>
+
+    <p class="info-text">
+      <span>Depósito mínimo:</span>
+      <strong>5.000 kz.</strong>
+    </p>
+  </div>
+
+                         </div>
 
       <button id="continue" class="btn-primary">Continuar</button>
 
