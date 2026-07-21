@@ -522,7 +522,7 @@ bottom:0;
 
 width:50%;
 
-padding:-20px 35px;
+padding:-20px 50px;
 
 display:flex;
 
@@ -530,7 +530,7 @@ flex-direction:column;
 
 justify-content:center;
 
-gap:30px;
+gap:8px;
 
   }
 
