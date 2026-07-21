@@ -369,3 +369,52 @@ font-weight:700;
   font-weight: 500;
   display: none; /* começa oculto */
 }
+
+
+/* =========================================================
+   ÍCONES SVG DOS AVISOS — DEPÓSITO
+   Apenas os SVG são estilizados aqui.
+   O layout e o texto de .notes permanecem intactos.
+   ========================================================= */
+
+.notes .note-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  width:42px;
+  height:42px;
+
+  margin-right:12px;
+
+  flex:0 0 42px;
+
+  border:1px solid rgba(255,193,7,.55);
+
+  border-radius:50%;
+
+  background:rgba(255,193,7,.025);
+
+  box-shadow:
+    0 0 0 1px rgba(255,193,7,.03),
+    0 0 12px rgba(255,193,7,.05);
+
+  vertical-align:middle;
+}
+
+.notes .note-icon svg{
+  width:25px;
+  height:25px;
+
+  display:block;
+
+  fill:none;
+
+  stroke:#d9a91e;
+
+  stroke-width:1.8;
+
+  stroke-linecap:round;
+
+  stroke-linejoin:round;
+}
