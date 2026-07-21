@@ -216,6 +216,41 @@ color:white;
   margin-top: 6px;
 }
 
+.btn-primary{
+
+height:49px;
+
+border-radius:8px;
+
+background:#0b0b0b;
+
+border:1px solid rgba(216,166,58,.75);
+
+color:#d8a63a;
+
+/*font-size:22px;*/
+
+font-weight:700;
+
+box-shadow:
+
+0 0 18px rgba(216,166,58,.20),
+
+inset 0 0 14px rgba(216,166,58,.08);
+
+transition:.25s;
+
+}
+
+.btn-primary:hover{
+
+box-shadow:
+
+0 0 26px rgba(216,166,58,.35),
+
+inset 0 0 18px rgba(216,166,58,.15);
+
+}
 .form-group label{
 
 /*font-size:18px;*/
