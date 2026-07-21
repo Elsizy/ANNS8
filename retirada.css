@@ -433,7 +433,28 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 }
 
 
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
 
+.modal-head h3 {
+  margin: 0;
+  flex: 1;
+}
+
+.modal-head .modal-close {
+  flex-shrink: 0;
+  margin: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
     }
 .back-btn{
 width:40px;
