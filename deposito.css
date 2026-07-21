@@ -190,6 +190,16 @@ color:#666;
   align-items: center;
   cursor: pointer;
 }
+
+.picker{
+height:40px;
+background:#070707;
+border:1px solid rgba(216,166,58,.45);
+border-radius:8px;
+/*padding:0 18px;*/
+color:white;
+/*font-size:18px;*/
+}
 .picker .chev {
   opacity: .6;
 }
