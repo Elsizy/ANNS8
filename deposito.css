@@ -402,9 +402,9 @@ font-weight:700;
   vertical-align:middle;
 }
 
-.notes .note-icon svg{
-  width:15px;
-  height:15px;
+/*.notes .note-icon svg{
+  width:20px;
+  height:20px;
 
   display:block;
 
@@ -417,4 +417,4 @@ font-weight:700;
   stroke-linecap:round;
 
   stroke-linejoin:round;
-}
+}*/
