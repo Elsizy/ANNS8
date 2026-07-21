@@ -129,7 +129,7 @@ transition:.25s;
 
 background:#d8a63a;
 
-color:#000;
+color:white;
 
 }
 
@@ -159,9 +159,9 @@ background:#070707;
 
 border:1px solid rgba(216,166,58,.45);
 
-border-radius:16px;
+border-radius:8px;
 
-height:62px;
+height:35px;
 
 padding:0 18px;
 
