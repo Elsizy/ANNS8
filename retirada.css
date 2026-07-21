@@ -479,3 +479,57 @@ font-size:20px;
 color:#f4b43a;
 text-decoration:none;
 }
+
+/* Novo */
+
+.hero-card{
+
+position:relative;
+
+overflow:hidden;
+
+border-radius:22px;
+
+border:1px solid rgba(216,174,73,.45);
+
+background:#050505;
+
+height:230px;
+
+  }
+
+    .hero-image{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+display:block;
+
+  }
+
+.hero-overlay{
+
+position:absolute;
+
+top:0;
+
+right:0;
+
+bottom:0;
+
+width:56%;
+
+padding:26px 22px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+gap:18px;
+
+  }
