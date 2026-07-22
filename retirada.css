@@ -72,9 +72,9 @@ color:white;
 
 display:none;
   }
-.value-area .underline{
+/*.value-area .underline{
   height:1px; width:100%; background:rgba(255,255,255,0.12); margin-top:3px; border-radius:1px;
-}
+}*/
 
 /* Bank picker row (baixo do valor) */
 .bank-row{margin-top:18px}
