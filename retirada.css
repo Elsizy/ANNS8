@@ -26,9 +26,9 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 
 /* Dashboard container */
 .dashboard{
-  max-width:710px;
-  margin:6px auto;
-  padding:0 16px 90px;
+  max-width:720px;
+  margin:5px auto;
+  padding:0 18px 90px;
 }
 
 /* hidden but present for JS */
