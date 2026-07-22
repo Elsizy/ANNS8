@@ -153,6 +153,7 @@ function hideWithdrawSuccessModal() {
 // DOM
 // ===============================
 const saldoEl        = document.getElementById("saldo-total");
+const saldoDisponivelEl = document.getElementById("saldo-disponivel");
 const bankBtn        = document.getElementById("bank-btn");
 const bankPickedEl   = document.getElementById("bank-picked");
 const valorInput     = document.getElementById("valor");
@@ -228,6 +229,10 @@ onAuthStateChanged(auth, async (user) => {
 
     // mostra saldo
     saldoEl.textContent = formatKz(saldoAtual);
+
+if (saldoDisponivelEl) {
+    saldoDisponivelEl.textContent = formatKz(saldoAtual);
+}
 
     // monta lista de bancos
     buildBankList(accounts);
