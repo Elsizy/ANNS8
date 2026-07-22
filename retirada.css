@@ -83,7 +83,7 @@ display:none;
 }
 
 /* Bank picker row (baixo do valor) */
-.bank-row{margin-top:18px}
+.bank-row{margin-top:0px}
 .bank-picker{
   display:flex;
   align-items:center;
