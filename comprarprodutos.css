@@ -1,0 +1,15 @@
+
+
+.header .history {
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: bold;
+  background: rgba(71,43,145,.08);
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.header .history {
+  font-size: 18px;
+}
+
+page-title{margin:0;font-size:15px;font-weight:500;flex:1;text-align:center
