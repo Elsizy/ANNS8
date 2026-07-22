@@ -68,10 +68,10 @@ font-weight:600;
 color:white;
 }
 
-.value-area .underline{
+/*.value-area .underline{
 
 display:none;
-  }
+  }*/
 /*.value-area .underline{
   height:1px; width:100%; background:rgba(255,255,255,0.12); margin-top:3px; border-radius:1px;
 }*/
@@ -101,7 +101,7 @@ border-radius:15px;
 border:1.6px solid rgba(216,174,73,.48);
 background:#090909;
 font-size:16px;
-font-weight:500;
+font-weight:300;
 }
 
 .bank-picker .chev{opacity:0.8}
