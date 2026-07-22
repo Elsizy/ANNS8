@@ -1663,10 +1663,10 @@ body::before{
     display:none;
 }
 
-/* Remove a linha dourada no topo dos cards */
+/* Remove a linha dourada no topo dos cards 
 .produto::after{
     display:none;
-}
+} */
 
 /* Espaçamento entre os cards */
 .produtos-container{
