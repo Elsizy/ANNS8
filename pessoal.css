@@ -732,13 +732,3 @@ background-attachment:scroll;
      color:#f2bd47;
   }
 
-
-   .quick-actions{
-  position: relative;
-  z-index: 10;
-}
-
-.btn-retirada{
-  position: relative;
-  z-index: 20;
-}
