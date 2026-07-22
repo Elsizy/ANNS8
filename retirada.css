@@ -25,7 +25,11 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 
 
 /* Dashboard container */
-.dashboard{max-width:720px;margin:14px auto;padding:0 16px 90px}
+.dashboard{
+  max-width:710px;
+  margin:6px auto;
+  padding:0 16px 90px;
+}
 
 /* hidden but present for JS */
 .visually-hidden{position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap;}
