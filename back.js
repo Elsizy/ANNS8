@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".back-btn").forEach(btn => {
+  document.querySelectorAll(".back-btn, .back").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
 
