@@ -37,7 +37,7 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 /* Card */
 .card{
   background:transparent;
-  margin-top:10px;
+  margin-top:15px;
   padding:8px 0 0;
   border-radius:14px
 }
