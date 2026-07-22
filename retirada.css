@@ -114,7 +114,7 @@ font-weight:300;
 
 /* Send button (large rounded gradient) */
 .submit-row{margin-top:26px;display:flex;justify-content:center}
-/*.btn-primary{
+.btn-primary{
   width:100%;
   max-width:520px;
   padding:14px 18px;
@@ -126,7 +126,7 @@ font-weight:300;
   font-size:16px;
   cursor:pointer;
   box-shadow:0 12px 32px rgba(79,179,255,0.12);
-}*/
+}
 
 .btn-primary{
 height:60px;
