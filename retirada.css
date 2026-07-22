@@ -724,3 +724,7 @@ margin:18px 0;
 height:1px;
 background:rgba(255,255,255,.08);
 }
+.value-area{
+    margin-top:0;
+   /* margin-bottom:12px;*/
+}
