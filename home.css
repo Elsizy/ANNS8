@@ -1654,3 +1654,24 @@ body{
 padding-bottom:env(safe-area-inset-bottom);
 
 }
+/* =========================================
+   AJUSTE FINAL DO FUNDO E ESPAÇAMENTO
+========================================= */
+
+/* Remove a grade dourada do fundo */
+body::before{
+    display:none;
+}
+
+/* Remove a linha dourada no topo dos cards */
+.produto::after{
+    display:none;
+}
+
+/* Espaçamento entre os cards */
+.produtos-container{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+    margin:10px 0;
+}
