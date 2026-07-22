@@ -186,23 +186,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const backBtn = document.querySelector(".back-btn");
 
     if (backBtn) {
-        backBtn.addEventListener("click", function(e) {
+
+        backBtn.addEventListener("click", function(e){
 
             e.preventDefault();
 
-            const origem = localStorage.getItem("origemRetirada");
+            const params = new URLSearchParams(window.location.search);
+            const origem = params.get("origem");
 
             if (origem === "pessoal") {
                 window.location.href = "pessoal.html";
-            } 
-            else {
+            } else {
                 window.location.href = "home.html";
             }
 
         });
+
     }
 
 });
-                           </script>
+  </script>
 </body>
 </html>
