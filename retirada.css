@@ -27,7 +27,7 @@ html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;
 /* Dashboard container */
 .dashboard{
   max-width:720px;
-  margin:5px auto;
+  margin:3px auto;
   padding:0 18px 90px;
 }
 
