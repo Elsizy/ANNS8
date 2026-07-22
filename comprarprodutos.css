@@ -6,6 +6,12 @@
   
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
 
 .header .history {
   text-decoration: none;
@@ -15,13 +21,14 @@
   padding: 6px 10px;
   border-radius: 6px;
 }
+
 .header .history {
   font-size: 18px;
 }
 
 .page-title{
   margin:0;
-  font-size:15px;
+  font-size:20px;
   font-weight:500;
   flex:1;
   text-align:center;
