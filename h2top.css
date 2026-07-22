@@ -1,0 +1,193 @@
+/*======================================================
+TÍTULO PREMIUM
+======================================================*/
+
+.page-title-wrap{
+
+position:relative;
+
+margin:18px auto 36px;
+
+padding-bottom:30px;
+
+display:flex;
+
+justify-content:center;
+
+overflow:visible;
+
+}
+
+/* brilho dourado atrás */
+
+.page-title-wrap::before{
+
+content:"";
+
+position:absolute;
+
+bottom:9px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+width:420px;
+
+height:120px;
+
+background:
+
+radial-gradient(
+
+ellipse at center,
+
+rgba(215,170,60,.22) 0%,
+
+rgba(215,170,60,.10) 26%,
+
+rgba(215,170,60,.04) 45%,
+
+transparent 78%
+
+);
+
+pointer-events:none;
+
+filter:blur(12px);
+
+}
+
+/* linha dourada */
+
+.page-title-wrap::after{
+
+content:"";
+
+position:absolute;
+
+left:50%;
+
+bottom:14px;
+
+transform:translateX(-50%);
+
+width:300px;
+
+height:2px;
+
+border-radius:50px;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+transparent,
+
+rgba(255,194,58,.45),
+
+#f4c44b,
+
+rgba(255,194,58,.45),
+
+transparent
+
+);
+
+box-shadow:
+
+0 0 8px rgba(244,196,75,.45),
+
+0 0 16px rgba(244,196,75,.18);
+
+}
+
+/* ponto central */
+
+.page-title{
+
+position:relative;
+
+margin:0;
+
+font-family:'Poppins',sans-serif;
+
+font-size:20px;
+
+font-weight:600;
+
+letter-spacing:-0.8px;
+
+line-height:1.05;
+
+color:#ffffff;
+
+text-align:center;
+
+text-shadow:
+
+0 1px 1px rgba(0,0,0,.6);
+
+}
+
+.page-title::after{
+
+content:"";
+
+position:absolute;
+
+left:50%;
+
+bottom:-18px;
+
+transform:translateX(-50%);
+
+width:9px;
+
+height:9px;
+
+border-radius:50%;
+
+background:#ffd85f;
+
+box-shadow:
+
+0 0 6px #ffd85f,
+
+0 0 16px #f4b321,
+
+0 0 28px rgba(255,196,60,.75);
+
+}
+
+/* palavra produtos */
+
+.page-title span{
+
+background:
+
+linear-gradient(
+
+180deg,
+
+#ffe38c 0%,
+
+#ffd04b 45%,
+
+#e8ad23 100%
+
+);
+
+-webkit-background-clip:text;
+
+background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+font-weight:700;
+
+text-shadow:none;
+
+  }
