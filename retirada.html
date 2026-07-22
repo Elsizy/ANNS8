@@ -180,6 +180,29 @@
   <!-- scripts (sem alteração) -->
   <script type="module" src="./firebase-config.js"></script>
   <script type="module" src="./retirada.js"></script>
-  <script src="back.js" ></script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const backBtn = document.querySelector(".back-btn");
+
+    if (backBtn) {
+        backBtn.addEventListener("click", function(e) {
+
+            e.preventDefault();
+
+            const origem = localStorage.getItem("origemRetirada");
+
+            if (origem === "pessoal") {
+                window.location.href = "pessoal.html";
+            } 
+            else {
+                window.location.href = "home.html";
+            }
+
+        });
+    }
+
+});
+                           </script>
 </body>
 </html>
