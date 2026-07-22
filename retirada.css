@@ -78,7 +78,7 @@ display:none;
 
 /* Bank picker row (baixo do valor) */
 .bank-row{margin-top:18px}
-/*.bank-picker{
+.bank-picker{
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -93,7 +93,7 @@ display:none;
   cursor:pointer;
   
 }
-*/
+
 .bank-picker{
 height:50px;
 padding:0 18px;
