@@ -101,12 +101,12 @@ display:none;
 }
 
 .bank-picker{
-height:50px;
+height:35px;
 padding:0 18px;
 border-radius:15px;
-border:1.6px solid rgba(216,174,73,.48);
+border:1px solid rgba(216,174,73,.48);
 background:#090909;
-font-size:16px;
+font-size:14px;
 font-weight:300;
 }
 
@@ -203,14 +203,14 @@ font-weight:300;
   }
 
 .value-area input{
-height:50px;
-padding-left:68px;
+height:35px;
+padding-left:50px;
 padding-right:18px;
 border-radius:15px;
-border:1.6px solid rgba(216,174,73,.48);
+border:1px solid rgba(216,174,73,.48);
 background:#090909;
-font-size:16px;
-font-weight:600;
+font-size:14px;
+font-weight:400;
 color:white;
 }
 .value-area .underline{
