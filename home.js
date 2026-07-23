@@ -239,7 +239,15 @@ text-align:center;
 color:#d2d2d2;
 margin-bottom:16px;
 }
-    .annc-actions{display:flex; gap:10px; flex-wrap:wrap}
+    .annc-actions{
+    display:flex; 
+    gap:10px; 
+    align-items:center;
+    justify-content:center;
+    }
+
+
+    
     .annc-btn{
       appearance:none; border:0; border-radius:12px; padding:10px 14px; font-weight:700; cursor:pointer;
       background:#6f66ff; color:#fff; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
@@ -303,7 +311,7 @@ color:#d0d0d0;
        <!--  /* <a id="annc-go" class="annc-btn" href="https://t.me/STNGinc_tank" target="_blank" rel="noopener noreferrer">
           Canal
         </a> */ -->
-       <button id="annc-later"  class="annc-btn annc-ghost" type="button">Acessar</button> -->
+       <button id="annc-later"  class="annc-btn annc-ghost" type="button">Acessar</button>
       </div>
     </div>
   `;
