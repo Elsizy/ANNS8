@@ -17,6 +17,8 @@ import { PRODUTOS, MAX_COMPRAS_POR_PRODUTO } from "./products.js";
 const feedbackModal = document.getElementById("feedback-modal");
 const feedbackText  = document.getElementById("feedback-text");
 const feedbackClose = document.getElementById("feedback-close");
+const ANNOUNCEMENT_KEY = "announcement_last_shown";
+const ONE_DAY = 24 * 60 * 60 * 1000;
 
 
 
@@ -345,7 +347,7 @@ color:#d0d0d0;
   overlay.__annc_card__ = card;
 }
 
-function showAnnouncementModal() {
+/*function showAnnouncementModal() {
   ensureAnnouncementModal();
   const ov = document.getElementById("annc-overlay");
   ov.style.display = "flex";
@@ -362,7 +364,38 @@ function showAnnouncementModal() {
   // tecla ESC para fechar
   const onKey = (e) => { if (e.key === "Escape") ov.__annc_hide__?.(); };
   document.addEventListener("keydown", onKey);
-}
+}*/
+
+function showAnnouncementModal() {
+  const lastShown = Number(localStorage.getItem(ANNOUNCEMENT_KEY) || 0);
+
+  // Já mostrou nas últimas 24 horas
+  if (Date.now() - lastShown < ONE_DAY) {
+    return;
+  }
+
+  // Guarda o momento em que foi exibido
+  localStorage.setItem(ANNOUNCEMENT_KEY, Date.now());
+
+  ensureAnnouncementModal();
+
+  const ov = document.getElementById("annc-overlay");
+
+  ov.style.display = "flex";
+
+  document.documentElement.style.overflow = "hidden";
+
+  requestAnimationFrame(() => ov.classList.add("show"));
+
+  const goBtn = document.getElementById("annc-go");
+  goBtn?.focus();
+
+  const onKey = (e) => {
+    if (e.key === "Escape") ov.__annc_hide__?.();
+  };
+
+  document.addEventListener("keydown", onKey);
+      }
 
 // Abre assim que o DOM estiver pronto (é a primeira coisa que o visitante vê)
 document.addEventListener("DOMContentLoaded", () => {
