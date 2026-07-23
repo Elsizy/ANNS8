@@ -240,6 +240,11 @@ color:#d2d2d2;
 margin-bottom:16px;
 }
     .annc-actions{display:flex; gap:10px; flex-wrap:wrap}
+    .annc-btn{
+      appearance:none; border:0; border-radius:12px; padding:10px 14px; font-weight:700; cursor:pointer;
+      background:#6f66ff; color:#fff; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+      transition:filter .15s ease, transform .05s ease;
+    }
  
     .annc-btn{
 height:48px;
@@ -258,7 +263,11 @@ box-shadow:
 }
     .annc-btn:active{transform:translateY(1px)}
     .annc-btn:focus{outline:2px solid rgba(111,102,255,.45); outline-offset:2px}
-    .annc-ghost{background:#1a1f2a; color:#d6deea}
+    .annc-ghost{
+background:#151515;
+border:1px solid rgba(255,190,40,.28);
+color:#d0d0d0;
+}
     .annc-ghost:hover{filter:brightness(1.1)}
     .annc-btn:hover{filter:brightness(1.05)}
     .annc-close{
@@ -285,14 +294,14 @@ box-shadow:
         </svg>
       </button>
 
-      <h3 id="annc-title" class="annc-title">Canal de discussão oficial</h3>
+      <h3 id="annc-title" class="annc-title">Canal oficial</h3>
       <p class="annc-text">
-      Acessa Ao nosso canal para ter acesso à todas informações, actualizações e promoções da empresa. 
+      Acessa Ao nosso canal para ter acesso à todas informações e eventos promocionais da empresa. 
       </p>
 
       <div class="annc-actions">
         <a id="annc-go" class="annc-btn" href="https://t.me/STNGinc_tank" target="_blank" rel="noopener noreferrer">
-          Acessar o canal
+          Canal
         </a>
         <button id="annc-later" class="annc-btn annc-ghost" type="button">Agora não</button>
       </div>
