@@ -32,13 +32,21 @@ body {
   border-bottom: 1px solid var(--border);
 }
 .header h1 {
-  font-size: 18px;
-  font-weight: 500;
-}
-.header .back {
-  text-decoration: none;
-  color: var(--text);
   font-size: 20px;
+  font-weight: 600;
+}
+.header .back{
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+border:1px solid rgba(255,170,40,.45);
+background:#090909;
+font-size:20px;
+color:#f4b43a;
+text-decoration:none;
 }
 
 /* Tabs */
@@ -298,7 +306,7 @@ background-position:-200%;
     0 6px 16px rgba(215,166,59,.25);
 }
 
-#teams{
+teams{
 
     padding-bottom:28px;
 
