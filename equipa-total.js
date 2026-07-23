@@ -110,6 +110,8 @@ function fillList(containerId, uids, users, nivel) {
     <span>Comissão</span>
     <strong>${formatKz(comissao)}</strong>
 </div>
+
+
 `;
     container.appendChild(div);
   });
