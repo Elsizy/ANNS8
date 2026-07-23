@@ -46,12 +46,12 @@ body{
 .page-root{min-height:100vh;padding-bottom:64px}
 
 /* Topbar – igual ao restante do projeto */
-/*.topbar{
+.topbar{
   position:sticky; top:0; z-index:10;
   display:flex; align-items:center; justify-content:space-between;
   gap:12px; padding:16px 14px 8px;
   background:linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.2) 120%);
-}*/
+}
 
 .topbar{
 
