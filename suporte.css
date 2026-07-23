@@ -1,7 +1,7 @@
 /* suporte.css — design premium, alinhado com o projeto */
 :root{
-  --bg-top: #07102b;
-  --bg-mid: #0f1a36;
+  --bg-top: #050505;
+  --bg-mid: #050505;
   --accent-left: #6f66ff;
   --accent-right: #c254ff;
   --glass: rgba(255,255,255,0.04);
@@ -44,9 +44,24 @@ html,body{height:100%; margin:0; font-family:'Poppins',system-ui,-apple-system,"
 }
 .back-btn svg{ color: #fff; opacity:0.95; }
 
+
+.back{
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+border:1px solid rgba(255,170,40,.45);
+background:#090909;
+font-size:20px;
+color:#f4b43a;
+text-decoration:none;
+}
+
 /* title group */
 .title-group{ margin-left:6px; }
-.page-title{ margin:0; font-size:18px; letter-spacing:0.2px; font-weight:600; color:#fff; }
+.page-title{ margin:0; font-size:20px; letter-spacing:0.2px; font-weight:600; color:#fff; }
 .page-sub{ margin:6px 0 0 0; color:var(--muted); font-size:13px; }
 
 /* main container */
