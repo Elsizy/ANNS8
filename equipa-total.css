@@ -109,3 +109,218 @@ body {
   line-height: 2;        /* aumenta distância vertical */
   margin: 0;
 }
+
+
+
+/* ==========================
+   CARD DOS MEMBROS
+========================== */
+
+.item{
+    position:relative;
+    overflow:hidden;
+
+    background:
+        linear-gradient(180deg,#121212 0%,#0c0c0c 100%);
+
+    border:1px solid rgba(214,166,59,.28);
+    border-radius:22px;
+
+    padding:18px;
+
+    margin-bottom:16px;
+
+    box-shadow:
+        0 8px 24px rgba(0,0,0,.45),
+        inset 0 1px rgba(255,255,255,.04);
+
+    transition:.25s;
+}
+
+.item:hover{
+
+    border-color:#D7A63B;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.55),
+        0 0 18px rgba(215,166,59,.08);
+  }
+
+.item::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:4px;
+
+    background:
+    linear-gradient(90deg,
+    transparent,
+    #D7A63B,
+    transparent);
+
+  }
+
+  .id{
+
+    color:#F4D37D;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    letter-spacing:.3px;
+
+    margin-bottom:14px;
+
+    word-break:break-all;
+       } 
+
+.meta{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px 0;
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+    color:#B8B8B8;
+
+    font-size:14px;
+  }
+
+.meta strong{
+
+    color:#D7A63B;
+
+    font-size:16px;
+
+    font-weight:700;
+    }
+
+.list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+    padding:20px;
+  }
+
+
+.sk-row{
+
+    height:95px;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+    90deg,
+    #1b1b1b,
+    #272727,
+    #1b1b1b);
+
+    background-size:250%;
+
+    animation:loading 1.2s infinite;
+}
+
+@keyframes loading{
+
+0%{
+background-position:200%;
+}
+
+100%{
+background-position:-200%;
+}
+
+  }
+
+.tabs{
+
+    display:flex;
+
+    gap:12px;
+
+    padding:18px 18px 8px;
+}
+
+.tab{
+
+    flex:1;
+
+    height:48px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(215,166,59,.25);
+
+    background:#111;
+
+    color:#9c9c9c;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.25s;
+}
+
+.tab.active{
+
+    background:
+
+    linear-gradient(180deg,
+    #D7A63B,
+    #BC8B26);
+
+    color:#111;
+
+    border:none;
+
+    box-shadow:
+
+    0 6px 16px rgba(215,166,59,.25);
+}
+
+#teams{
+
+    padding-bottom:28px;
+
+    animation:fade .35s;
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(8px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
