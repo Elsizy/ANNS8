@@ -82,7 +82,7 @@ text-decoration:none;
   font-size: 14px;
 }
 .list .meta {
-  font-size: 13px;
+  font-size: 14px;
   opacity: 0.8;
 }
 
@@ -104,14 +104,14 @@ text-decoration:none;
   100% { opacity: .6; }
 }
 .info-text {
-  font-size: 12px;       /* ← tamanho do texto */
+  font-size: 14px;       /* ← tamanho do texto */
   letter-spacing: 0.5px; /* ← espaçamento entre letras */
   line-height: 1.4;      /* ← distância vertical entre linhas */
   margin-top: 9px;       /* ← espaço externo acima do texto */
 }
 /* Metadados (Primeira recarga, Comissão) — aqui aplicamos as alterações pedidas */
 .list .item .meta {
-  font-size: 10px;         /* menor */
+  font-size: 12px;         /* menor */
   font-weight: 500;
   letter-spacing: -0.3px;  /* diminuir espaço entre caracteres */
   line-height: 2;        /* aumenta distância vertical */
@@ -136,7 +136,7 @@ text-decoration:none;
 
     padding:18px;
 
-    margin-bottom:0px;
+    margin-bottom:3px;
 
     box-shadow:
         0 8px 24px rgba(0,0,0,.45),
@@ -199,7 +199,7 @@ text-decoration:none;
 
     align-items:center;
 
-    padding:3px 0;
+    padding:2px 0;
 
     border-top:1px solid rgba(255,255,255,.05);
 
