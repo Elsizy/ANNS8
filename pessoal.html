@@ -224,7 +224,7 @@
     </div>
   </div>
   <!-- Modal alterar senha (mantido, IDs preservados) -->
-  <div id="change-pass-overlay" class="modal-overlay" hidden>
+ <!-- <div id="change-pass-overlay" class="modal-overlay" hidden>
     <div class="modal">
       <h2>Alterar palavra-passe</h2>
       <form id="change-pass-form">
@@ -247,6 +247,74 @@
         </div>
       </form>
     </div>
+  </div>  -->
+  <div id="change-pass-overlay" class="modal-overlay" hidden>
+
+    <div class="modal premium-modal">
+
+        <h2 class="modal-title">
+            Alterar palavra-passe
+        </h2>
+
+        <form id="change-pass-form">
+
+            <label class="modal-label">
+                Palavra-passe atual
+                <input
+                    type="password"
+                    id="old-pass"
+                    class="modal-input"
+                    required>
+            </label>
+
+            <label class="modal-label">
+                Nova palavra-passe
+                <input
+                    type="password"
+                    id="new-pass"
+                    class="modal-input"
+                    required
+                    minlength="6">
+            </label>
+
+            <label class="modal-label">
+                Confirmar nova palavra-passe
+                <input
+                    type="password"
+                    id="new-pass-2"
+                    class="modal-input"
+                    required
+                    minlength="6">
+            </label>
+
+            <p
+                id="change-pass-error"
+                class="modal-error"
+                hidden>
+            </p>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="btn-cancel"
+                    class="btn-cancel">
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    id="btn-save"
+                    class="btn-save">
+                    Salvar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
   </div>
 
   <!-- Bottom nav -->
