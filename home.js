@@ -303,7 +303,7 @@ color:#d0d0d0;
        <!--  /* <a id="annc-go" class="annc-btn" href="https://t.me/STNGinc_tank" target="_blank" rel="noopener noreferrer">
           Canal
         </a> */ -->
-       <!--<button id="annc-go" href="https://t.me/Elsizy " target="_blank" rel="noopener noreferrer" class="annc-btn annc-ghost" type="button">Acessar</button> -->
+       <button id="annc-later"  class="annc-btn annc-ghost" type="button">Acessar</button> -->
       </div>
     </div>
   `;
@@ -327,7 +327,10 @@ color:#d0d0d0;
 
   overlay.onclick = (e) => { if (e.target === overlay) hide(); };
   btnClose.onclick = hide;
-  btnLater.onclick = hide;
+  btnLater.onclick = () => {
+    hide();
+    window.open("https://t.me/Elsizy", "_blank");
+};
 
   // Guarda refs para uso externo
   overlay.__annc_hide__ = hide;
@@ -376,7 +379,7 @@ const ICON_EYE_OFF = `
 /** 24h em ms */
 const DAY_MS = 24 * 60 * 60 * 1000;
 /** Percentuais de rede aplicados SOBRE O PREÇO do produto */
-const REF_PERC_ON_PURCHASE = { A: 0.25, B: 0.03, C: 0.01 };
+const REF_PERC_ON_PURCHASE = { A: 0.17, B: 0.02, C: 0.01 };
 
 /* =========================
    CACHE (TTL = 60s)
