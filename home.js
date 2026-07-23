@@ -190,21 +190,76 @@ function ensureAnnouncementModal() {
   const style = document.createElement("style");
   style.id = "annc-style";
   style.textContent = `
-    .annc-overlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.6); z-index:100000}
+    .annc-overlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.82); backdrop-filter:blur(7px); z-index:100000}
     .annc-card{
-      position:relative; background:#0b0d12; color:#e9eef5; border-radius:16px;
-      padding:22px 20px 18px; width:min(92vw, 520px); box-shadow:0 16px 48px rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.06); transform:scale(.98); opacity:0; transition:opacity .18s ease, transform .18s ease;
-    }
+position:relative;
+width:min(92vw,430px);
+padding:26px;
+border-radius:22px;
+background:
+linear-gradient(
+180deg,
+#111111 0%,
+#060606 100%
+);
+border:1px solid rgba(225,180,60,.45);
+box-shadow:
+0 0 0 1px rgba(255,210,120,.08) inset,
+0 0 35px rgba(255,190,40,.12),
+0 18px 55px rgba(0,0,0,.65);
+overflow:hidden;                                   
+}
+    .annc-card::before{
+content:"";
+position:absolute;
+top:-40%;
+left:-25%;
+width:150%;
+height:150%;
+background:
+radial-gradient(
+circle,
+rgba(255,190,40,.12),
+transparent 65%
+);
+pointer-events:none;
+}
     .annc-overlay.show .annc-card{opacity:1; transform:scale(1)}
-    .annc-title{font-size:18px; line-height:1.2; margin:0 0 10px; font-weight:700; letter-spacing:.2px}
-    .annc-text{font-size:14px; line-height:1.55; margin:0 0 16px; color:#c8d1dc}
+    .annc-title{
+font-size:18px;
+font-weight:700;
+color:#ffd45d;
+text-align:center;
+margin-bottom:10px;
+}
+    .annc-text{
+font-size:14px;
+line-height:1.55;
+text-align:center;
+color:#d2d2d2;
+margin-bottom:16px;
+}
     .annc-actions{display:flex; gap:10px; flex-wrap:wrap}
-    .annc-btn{
+ .annc-btn{
       appearance:none; border:0; border-radius:12px; padding:10px 14px; font-weight:700; cursor:pointer;
       background:#6f66ff; color:#fff; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
       transition:filter .15s ease, transform .05s ease;
     }
+    .annc-btn{
+height:48px;
+border-radius:12px;
+font-weight:600;
+font-size:15px;
+background:
+linear-gradient(
+180deg,
+#f7d36d,
+#b98a1d
+);
+color:#111;
+box-shadow:
+0 0 18px rgba(255,190,40,.25);
+}
     .annc-btn:active{transform:translateY(1px)}
     .annc-btn:focus{outline:2px solid rgba(111,102,255,.45); outline-offset:2px}
     .annc-ghost{background:#1a1f2a; color:#d6deea}
