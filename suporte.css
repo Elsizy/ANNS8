@@ -71,21 +71,6 @@ text-decoration:none;
   padding: 0 16px 80px 16px;
 }
 
-/* hero */
-.hero-card{
-  display:flex;
-  gap:18px;
-  align-items:center;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 16px;
-  padding:20px;
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(255,255,255,0.03);
-}
-.hero-ill{ flex: 0 0 auto; }
-.hero-txt h2{ margin:0 0 6px 0; font-size:20px; color:var(--accent-right); }
-.hero-txt p{ margin:0 0 12px 0; color:var(--muted); font-size:14px; max-width:64ch; }
-.hero-actions{ display:flex; gap:10px; align-items:center; }
 
 /* buttons */
 .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:10px; font-weight:700; text-decoration:none; cursor:pointer; border: 0; }
@@ -158,19 +143,9 @@ text-decoration:none;
   font-size:18px;
   cursor:pointer;
 }
-.modal-header{ display:flex; gap:12px; align-items:center; margin-bottom:12px; }
-.modal-avatar{ width:56px; height:56px; border-radius:10px; display:flex; align-items:center; justify-content:center; background: linear-gradient(90deg,var(--accent-left), var(--accent-right)); box-shadow: 0 8px 24px rgba(111,102,255,0.12); }
-.modal-body{ display:flex; flex-direction:column; gap:12px; margin-top:6px; }
-.modal-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px; border-radius:10px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.02); }
-.modal-row-left{ max-width:70%; }
-.modal-row-left strong{ display:block; font-size:14px; color:#fff; }
-.modal-row-left .muted{ font-size:13px; color:var(--muted); }
-.modal-row-actions{ display:flex; gap:8px; align-items:center; }
-.modal-note{ display:flex; gap:8px; align-items:flex-start; color:var(--muted); font-size:13px; padding-top:6px; }
-.modal-foot{ display:flex; justify-content:flex-end; margin-top:8px; }
 
 /* Toast */
-.toast{
+/*.toast{
   position: fixed;
   right: 18px;
   bottom: 18px;
@@ -182,7 +157,7 @@ text-decoration:none;
   opacity: 0;
   transition: opacity .28s ease;
   z-index:13000;
-}
+}*/
 
 /* small helpers */
 .muted{ color:var(--muted); font-size:13px; }
