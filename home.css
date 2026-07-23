@@ -1691,8 +1691,8 @@ gap:2px;
 
 .hm-lang-circle{
 
-width:46px;
-height:46px;
+width:35px;
+height:35px;
 
 border-radius:50%;
 
@@ -1710,7 +1710,7 @@ border:1.2px solid rgba(218,177,71,.95);
 
 color:#ffffff;
 
-font-size:17px;
+font-size:14px;
 font-weight:500;
 
 box-shadow:
@@ -1721,7 +1721,7 @@ inset 0 1px rgba(255,255,255,.05);
 
 .hm-lang-r{
 
-font-size:12px;
+font-size:10px;
 
 font-weight:600;
 
@@ -1737,8 +1737,8 @@ margin-top:2px;
 
 position:relative;
 
-width:46px;
-height:46px;
+width:35px;
+height:35px;
 
 display:flex;
 align-items:center;
@@ -1772,8 +1772,8 @@ transform:scale(.97);
 
 .hm-notify-icon{
 
-width:23px;
-height:23px;
+width:20px;
+height:20px;
 
 color:#f0c65d;
 
@@ -1800,3 +1800,7 @@ box-shadow:
 0 0 8px rgba(240,198,93,.65);
 
    }
+
+.top-bar{
+    padding-bottom:20px;
+}
