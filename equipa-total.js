@@ -91,14 +91,15 @@ function fillList(containerId, uids, users, nivel) {
     const u = users[uid];
     if (!u) return;
 
-    const idDisplay = u.email || u.nome || "(Sem nome)";
+   // const idDisplay = u.email || u.nome || "(Sem nome)";
+    const idDisplay = ocultarEmail(u.email || u.nome || "(Sem nome)");g
     const firstDeposit = getFirstDeposit(u);
     const comissao = calcularComissao(firstDeposit, nivel);
 
     const div = document.createElement("div");
     div.className = "item";
     div.innerHTML = `
-      <div class="id">ID: ${idDisplay}</div>
+      <div class="id">${idDisplay}</div>
       <div class="meta">Primeira recarga: ${formatKz(firstDeposit)}</div>
       <div class="meta">Comissão: ${formatKz(comissao)}</div>
     `;
@@ -123,8 +124,8 @@ function getFirstDeposit(userObj) {
 
 function calcularComissao(valorDeposito, nivel) {
   let percentual = 0;
-  if (nivel === 1) percentual = 0.25; // 25%
-  if (nivel === 2) percentual = 0.03; // 3%
+  if (nivel === 1) percentual = 0.17; // 25%
+  if (nivel === 2) percentual = 0.02; // 3%
   if (nivel === 3) percentual = 0.01; // 1%
   return valorDeposito * percentual;
 }
@@ -135,3 +136,18 @@ function formatKz(v) {
     maximumFractionDigits: 2
   })}`;
   }
+
+function ocultarEmail(email) {
+  if (!email) return "(Sem nome)";
+
+  const partes = email.split("@");
+
+  if (partes.length !== 2) return email;
+
+  const nome = partes[0];
+  const dominio = partes[1];
+
+  const visivel = nome.substring(0, 4);
+
+  return `${visivel}***@${dominio}`;
+      }
