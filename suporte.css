@@ -172,7 +172,25 @@ color:#fff;
 letter-spacing:.1px;
 
   }
-.sc-body p{ margin:6px 0 0 0; color:var(--muted); font-size:13px; }
+.sc-body p{ 
+  margin:6px 0 0 0; 
+  color:var(--muted); 
+  font-size:13px; 
+}
+
+.sc-body p{
+
+margin-top:8px;
+
+line-height:1.3;
+
+font-size:13px;
+
+color:
+
+rgba(255,255,255,.62);
+
+}
 .sc-action{ display:flex; gap:8px; align-items:center; }
 
 /* responsiveness */
