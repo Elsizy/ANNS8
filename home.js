@@ -240,11 +240,7 @@ color:#d2d2d2;
 margin-bottom:16px;
 }
     .annc-actions{display:flex; gap:10px; flex-wrap:wrap}
- .annc-btn{
-      appearance:none; border:0; border-radius:12px; padding:10px 14px; font-weight:700; cursor:pointer;
-      background:#6f66ff; color:#fff; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
-      transition:filter .15s ease, transform .05s ease;
-    }
+ 
     .annc-btn{
 height:48px;
 border-radius:12px;
