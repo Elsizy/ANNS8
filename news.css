@@ -101,7 +101,22 @@ font-size:20px;
 color:#f4b43a;
 text-decoration:none;
   }
-.page-title{margin:0; font-size:18px; font-weight:700; text-align:center; flex:1}
+.page-title{
+  margin:0;
+  font-size:18px; 
+  font-weight:700; 
+  text-align:center; 
+  flex:1
+}
+
+.page-title{
+font-size:20px;
+font-weight:700;
+letter-spacing:-.4px;
+color:white;
+
+}
+
 .right-placeholder{width:36px;height:36px;display:inline-block}
 
 /* Container */
@@ -122,11 +137,77 @@ text-decoration:none;
   margin-bottom:14px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
 }
+
+.notif-list .item{
+
+display:grid;
+
+grid-template-columns:74px 1fr;
+
+gap:18px;
+
+padding:18px;
+
+margin-bottom:16px;
+
+border-radius:20px;
+
+background:
+
+linear-gradient(
+180deg,
+#090909,
+#050505);
+
+border:
+
+1px solid rgba(222,170,55,.32);
+
+box-shadow:
+
+0 0 34px rgba(255,188,40,.06);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
 .notif-ico{
   width:40px;height:40px;border-radius:999px;
   display:grid; place-items:center;
   background:var(--soft); color:var(--text);
 }
+
+.notif-ico{
+
+width:52px;
+height:52px;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+color:#FFD24A;
+
+background:
+
+rgba(255,188,40,.08);
+
+border:
+
+2px solid rgba(255,188,40,.45);
+
+box-shadow:
+
+0 0 20px rgba(255,188,40,.18);
+
+}
+
 .item-body .title{font-weight:700; font-size:15px; margin-bottom:4px}
 .item-body .desc{font-size:13px; color:var(--muted)}
 .item-body .date{font-size:12px; color:rgba(255,255,255,.50); margin-top:6px}
