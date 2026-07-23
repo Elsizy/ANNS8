@@ -127,3 +127,28 @@ rgba(0,0,0,.45);
 .btn-ghost.small{ padding:7px 10px; border-radius:8px; }
 
 /* end */
+.support-card::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+
+top:0;
+
+width:100%;
+
+height:3px;
+
+background:
+
+linear-gradient(
+90deg,
+transparent,
+#D7A63B,
+transparent);
+
+opacity:.8;
+
+  }
