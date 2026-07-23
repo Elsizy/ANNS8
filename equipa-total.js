@@ -99,10 +99,18 @@ function fillList(containerId, uids, users, nivel) {
     const div = document.createElement("div");
     div.className = "item";
     div.innerHTML = `
-      <div class="id">${idDisplay}</div>
-      <div class="meta">Primeira recarga: ${formatKz(firstDeposit)}</div>
-      <div class="meta">Comissão: ${formatKz(comissao)}</div>
-    `;
+<div class="id">${idDisplay}</div>
+
+<div class="meta">
+    <span>Primeira recarga</span>
+    <strong>${formatKz(firstDeposit)}</strong>
+</div>
+
+<div class="meta">
+    <span>Comissão</span>
+    <strong>${formatKz(comissao)}</strong>
+</div>
+`;
     container.appendChild(div);
   });
 }
