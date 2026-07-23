@@ -14,21 +14,70 @@
 
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
-body{
+/*body{
   background: linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 75%);
   color:var(--text);
   font-family:'Poppins',system-ui,Arial,sans-serif;
   -webkit-font-smoothing:antialiased;
+}*/
+
+body{
+    margin:0;
+    padding:0;
+    font-family:'Poppins',sans-serif;
+    color:#fff;
+
+    background:
+    radial-gradient(circle at top,
+    rgba(255,188,40,.08),
+    transparent 42%),
+
+    linear-gradient(
+    180deg,
+    #040404 0%,
+    #060606 45%,
+    #020202 100%);
+
+    background-color:#030303;
+
+    -webkit-font-smoothing:antialiased;
 }
+
 .page-root{min-height:100vh;padding-bottom:64px}
 
 /* Topbar – igual ao restante do projeto */
-.topbar{
+/*.topbar{
   position:sticky; top:0; z-index:10;
   display:flex; align-items:center; justify-content:space-between;
   gap:12px; padding:16px 14px 8px;
   background:linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.2) 120%);
-}
+}*/
+
+.topbar{
+
+position:sticky;
+top:0;
+z-index:30;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:16px 16px 10px;
+
+background:
+
+linear-gradient(
+180deg,
+rgba(0,0,0,.88),
+rgba(0,0,0,.35),
+transparent);
+
+backdrop-filter:blur(6px);
+
+  }
+
+
 .back{color:var(--text); text-decoration:none; display:inline-flex; width:36px; height:36px; align-items:center; justify-content:center}
 .page-title{margin:0; font-size:18px; font-weight:700; text-align:center; flex:1}
 .right-placeholder{width:36px;height:36px;display:inline-block}
