@@ -134,9 +134,9 @@ function getFirstDeposit(userObj) {
 
 function calcularComissao(valorDeposito, nivel) {
   let percentual = 0;
-  if (nivel === 1) percentual = 0.17; // 25%
-  if (nivel === 2) percentual = 0.02; // 3%
-  if (nivel === 3) percentual = 0.01; // 1%
+  if (nivel === 1) percentual = 0.15; // 25%
+  if (nivel === 2) percentual = 0.03; // 3%
+  if (nivel === 3) percentual = 0.02; // 1%
   return valorDeposito * percentual;
 }
 
