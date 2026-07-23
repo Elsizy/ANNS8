@@ -300,10 +300,10 @@ color:#d0d0d0;
       </p>
 
       <div class="annc-actions">
-        <a id="annc-go" class="annc-btn" href="https://t.me/STNGinc_tank" target="_blank" rel="noopener noreferrer">
+       <!--  /* <a id="annc-go" class="annc-btn" href="https://t.me/STNGinc_tank" target="_blank" rel="noopener noreferrer">
           Canal
-        </a>
-        <button id="annc-later" class="annc-btn annc-ghost" type="button">Agora não</button>
+        </a> */ -->
+        <button id="annc-later" class="annc-btn annc-ghost" type="button">Acessar</button>
       </div>
     </div>
   `;
