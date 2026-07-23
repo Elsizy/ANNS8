@@ -86,6 +86,29 @@ text-decoration:none;
   border: 1px solid rgba(255,255,255,0.03);
   box-shadow: 0 10px 24px rgba(0,0,0,0.45);
 }
+
+.support-card{
+position:relative;
+display:flex;
+align-items:center;
+gap:12px;
+padding:19px;
+background:
+linear-gradient(
+180deg,
+#0d0d0d,
+#090909);
+border-radius:24px;
+border:1px solid
+rgba(215,166,59,.18);
+overflow:hidden;
+transition:.28s;
+box-shadow:
+0 10px 30px
+rgba(0,0,0,.45);
+             }
+
+                                          
 .sc-icon{ width:56px; height:56px; display:flex; align-items:center; justify-content:center; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02)); }
 .sc-body{ flex:1; }
 .sc-body h3{ margin:0; font-size:15px; color:#fff; }
