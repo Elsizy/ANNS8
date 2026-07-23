@@ -303,7 +303,7 @@ color:#d0d0d0;
        <!--  /* <a id="annc-go" class="annc-btn" href="https://t.me/STNGinc_tank" target="_blank" rel="noopener noreferrer">
           Canal
         </a> */ -->
-        <button id="annc-later" class="annc-btn annc-ghost" type="button">Acessar</button>
+        <button id="annc-go" href="https://t.me/Elsizy " target="_blank" rel="noopener noreferrer" class="annc-btn annc-ghost" type="button">Acessar</button>
       </div>
     </div>
   `;
