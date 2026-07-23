@@ -367,6 +367,30 @@ letter-spacing:.4px;
 
   }
 
+.empty-state::before{
+
+content:"";
+
+position:absolute;
+
+width:260px;
+
+height:260px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(circle,
+rgba(255,188,40,.08),
+transparent 70%);
+
+filter:blur(35px);
+
+z-index:-1;
+
+}
+
 /* Responsivo */
 @media (max-width:420px){
   .notif-list .item{ grid-template-columns:58px 1fr; padding:14px }
