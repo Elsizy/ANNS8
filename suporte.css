@@ -166,10 +166,10 @@ height:34px;
 
   .sc-body h3{
 margin:0;
-font-size:20px;
+font-size:12px;
 font-weight:700;
 color:#fff;
-letter-spacing:.3px;
+letter-spacing:.1px;
 
   }
 .sc-body p{ margin:6px 0 0 0; color:var(--muted); font-size:13px; }
