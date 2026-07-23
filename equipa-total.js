@@ -7,6 +7,32 @@ function toggleLoading(showSkeleton) {
   document.getElementById("skeleton").classList.toggle("hidden", !showSkeleton);
   document.getElementById("teams").classList.toggle("hidden", showSkeleton);
 }
+function abrirAbaPeloNivel() {
+  const params = new URLSearchParams(window.location.search);
+  const level = params.get("level");
+
+  let target = "list-a";
+
+  if (level === "B") target = "list-b";
+  if (level === "C") target = "list-c";
+
+  // Atualiza as abas
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.classList.remove("active");
+
+    if (tab.dataset.target === target) {
+      tab.classList.add("active");
+    }
+  });
+
+  // Atualiza as listas
+  document.querySelectorAll(".list").forEach(list => {
+    list.classList.add("hidden");
+  });
+
+  document.getElementById(target).classList.remove("hidden");
+}
+
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -27,11 +53,12 @@ onAuthStateChanged(auth, async (user) => {
     fillList("list-b", levelB, users, 2); // nível 2
     fillList("list-c", levelC, users, 3); // nível 3
   } catch (err) {
-    console.error("Erro ao carregar equipa:", err);
-    alert("Erro ao carregar a equipa.");
-  } finally {
-    toggleLoading(false);
-  }
+  console.error("Erro ao carregar equipa:", err);
+  alert("Erro ao carregar a equipa.");
+} finally {
+  toggleLoading(false);
+  abrirAbaPeloNivel();
+}
 });
 
 /**
