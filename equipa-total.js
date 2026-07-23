@@ -92,7 +92,7 @@ function fillList(containerId, uids, users, nivel) {
     if (!u) return;
 
    // const idDisplay = u.email || u.nome || "(Sem nome)";
-    const idDisplay = ocultarEmail(u.email || u.nome || "(Sem nome)");g
+    const idDisplay = ocultarEmail(u.email || u.nome || "(Sem nome)");
     const firstDeposit = getFirstDeposit(u);
     const comissao = calcularComissao(firstDeposit, nivel);
 
