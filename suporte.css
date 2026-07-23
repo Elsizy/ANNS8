@@ -157,7 +157,21 @@ height:34px;
 
 }
 .sc-body{ flex:1; }
-.sc-body h3{ margin:0; font-size:15px; color:#fff; }
+
+.sc-body h3{ 
+  margin:0; 
+  font-size:15px; 
+  color:#fff; 
+}
+
+  .sc-body h3{
+margin:0;
+font-size:20px;
+font-weight:700;
+color:#fff;
+letter-spacing:.3px;
+
+  }
 .sc-body p{ margin:6px 0 0 0; color:var(--muted); font-size:13px; }
 .sc-action{ display:flex; gap:8px; align-items:center; }
 
