@@ -1693,7 +1693,7 @@ gap:2px;
 
 width:35px;
 height:35px;
-
+top:10px;
 border-radius:50%;
 
 display:flex;
@@ -1786,11 +1786,11 @@ drop-shadow(0 0 3px rgba(216,174,73,.30));
 
 position:absolute;
 
-top:7px;
-right:7px;
+top:5px;
+right:5px;
 
-width:8px;
-height:8px;
+width:5px;
+height:5px;
 
 border-radius:50%;
 
