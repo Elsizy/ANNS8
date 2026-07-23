@@ -102,60 +102,7 @@
     </section>
   </main>
 
-  <!-- Modal: Gerente -->
-  <div id="manager-modal" class="modal-overlay" hidden aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="manager-title">
-      <button id="manager-close" class="modal-close" aria-label="Fechar modal">✕</button>
 
-      <div class="modal-header">
-        <div class="modal-avatar" aria-hidden="true">
-          <svg viewBox="0 0 48 48" width="48" height="48">
-            <circle cx="24" cy="18" r="8" fill="#6f66ff"/>
-            <rect x="8" y="30" width="32" height="12" rx="6" fill="#9ecfff"/>
-          </svg>
-        </div>
-        <div>
-          <h2 id="manager-title">Fale com o Gerente</h2>
-          <p class="muted">Escolha como prefere estabelecer contacto.</p>
-        </div>
-      </div>
-
-      <div class="modal-body">
-        <div class="modal-row">
-          <div class="modal-row-left">
-            <strong>Telegram</strong>
-            <div class="muted">Chat directo via Telegram</div>
-          </div>
-          <div class="modal-row-actions">
-            <a id="mgr-open-tg" class="btn btn-primary small" href="https://t.me/Alex132531" target="_blank" rel="noopener">Abrir o Telegram</a>
-           <!--<button id="mgr-copy" class="btn btn-outline small" data-handle="@Alex132531">Copiar handle</button> -->
-          </div>
-        </div>
-
-       <!-- <div class="modal-row">
-          <div class="modal-row-left">
-            <strong>Email</strong>
-            <div class="muted">Enviar mensagem por email</div>
-          </div>
-          <div class="modal-row-actions">
-            <a class="btn btn-ghost small" href="mailto:suporte-aes@hotmail.com">Enviar e-mail</a>
-          </div>
-        </div> -->
-
-        <div class="modal-note">
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2z" fill="#ffd27a"/></svg>
-          <small>Para assuntos sensíveis, indique sempre o seu UID na mensagem.</small>
-        </div>
-      </div>
-
-      <div class="modal-foot">
-        <button id="mgr-done" class="btn btn-cancel">Fechar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast pequeno para feedback (copiar) -->
-  <div id="toast" class="toast" aria-live="polite" role="status" hidden></div>
 
   <!-- Script (inline para não exigir ficheiro extra) -->
   <script>
