@@ -2,10 +2,11 @@
 :root {
   --nav-bg: linear-gradient(90deg, #0b0716 0%, #181029 100%);
   --nav-bg-active: linear-gradient(90deg, #28335c, #2d2044); /* não será mais usado no ativo */
-  --nav-text: rgba(195, 200, 255, 0.68);
-  --nav-text-active: #42a5ff;
+  --nav-text: #8a8a90;
+  --nav-text-active: #d8cf64;
   --nav-icon-size: 22px;
   --nav-height: 64px;
+  
 }
 
 .has-bottom-nav {
@@ -76,14 +77,18 @@
 .bottom-nav .nav-item:active {
   transform: scale(0.95);
 }
-.nav-item{
-
-color:#a5a5a5;
-
+.bottom-nav .nav-item .icon{
+    color:#8e8e93;
+    transition:all .25s ease;
 }
 
-.nav-item.active{
-
-color:#42a5ff;
-
+.bottom-nav .nav-item.active .icon{
+    color:#e0d86a;
+    transform:none;
+    filter:none;
 }
+
+.bottom-nav .nav-item.active{
+    color:#d8cf64;
+    font-weight:500;
+  }
