@@ -67,6 +67,19 @@ body.has-bottom-nav {
   text-align:center;
   line-height:1;
 }
+.header .back{
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+border:1px solid rgba(255,170,40,.45);
+background:#090909;
+font-size:20px;
+color:#f4b43a;
+text-decoration:none;
+}
 
 /* ==========================
    Cartão superior (Receitas totais / Quantidade total)
