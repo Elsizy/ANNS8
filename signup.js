@@ -236,7 +236,7 @@ function ensureSignupSuccessModal() {
 </svg>
       <h3 id="su-title" class="su-title">Conta criada com sucesso</h3>
       <p class="su-desc">Bem-vindo(a) à <strong>STNG Inc. </strong> </p>
-   <!--  <button id="su-ok" class="su-btn su-btn-primary" type="button">login</button> -->
+   <button id="su-ok" class="su-btn su-btn-primary" type="button">login</button>
     </div>
   `;
   document.body.appendChild(overlay);
