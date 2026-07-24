@@ -33,7 +33,7 @@
 
 .bottom-nav .nav-item {
   height: 100%;
-  color: var(--nav-text);
+  color: #a5a5a5;
   text-decoration: none;
   display: flex;
   flex-direction: column;
@@ -68,7 +68,7 @@
 
 /* Texto ativo mantém cor azul */
 .bottom-nav .nav-item.active {
-  color: var(--nav-text-active);
+  color: #42a5ff;
   font-weight: 600;
 }
 
