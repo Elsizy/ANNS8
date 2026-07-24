@@ -1,4 +1,4 @@
-const CACHE_NAME = "stng-incorpo-v1";
+const CACHE_NAME = "stng-incorpo-v2";
 
 // Arquivos principais que serão guardados em cache
 const FILES_TO_CACHE = [
