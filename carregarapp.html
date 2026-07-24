@@ -147,6 +147,12 @@
       .app-name{ font-size:20px }
     }
   </style>
+  <link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#d8a63a">
+
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 </head>
 <body>
   <!-- Topbar padrão -->
@@ -193,6 +199,14 @@
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
   <script type="module" src="back.js"></script>
-  
+  <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then(() => console.log("Service Worker registrado."))
+      .catch(err => console.error("Erro ao registrar:", err));
+  });
+}
+  </script>
 </body>
 </html>
