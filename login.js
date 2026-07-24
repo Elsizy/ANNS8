@@ -180,28 +180,48 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 4) clique no botão (login manual)
   btn.addEventListener("click", async (e) => {
-    e.preventDefault();
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value.trim();
+  e.preventDefault();
 
-    if (!email || !senha) {
-      showFeedback("error", "Preencha todos os campos!");
-      return;
-    }
+  const email = document.getElementById("email").value.trim();
+  const senha = document.getElementById("senha").value.trim();
+
+  if (!email || !senha) {
+    showFeedback("error", "Preencha todos os campos!");
+    return;
+  }
+
+  // Desativa o botão imediatamente
+  btn.disabled = true;
+  btn.textContent = "Entrando...";
+
+  try {
+    const { user } = await signInWithEmailAndPassword(auth, email, senha);
 
     try {
-      const { user } = await signInWithEmailAndPassword(auth, email, senha);
-      try { await reload(user); } catch (_) {}
-      const admin = await isAdmin(user);
-      showLoginSuccessModal();
-      setTimeout(() => {
-        window.location.replace(admin ? "admin.html" : "home.html");
-      }, 4000);
-    } catch (err) {
-      console.error("Erro de login:", err);
-      showFeedback("error", "Erro ao fazer login: Usuário não existe, verifica sua senha ou email");
-    }
-  });
+      await reload(user);
+    } catch (_) {}
+
+    const admin = await isAdmin(user);
+
+    showLoginSuccessModal();
+
+    setTimeout(() => {
+      window.location.replace(admin ? "admin.html" : "home.html");
+    }, 4000);
+
+  } catch (err) {
+    console.error("Erro de login:", err);
+
+    // Se o login falhar, devolve o botão ao estado normal
+    btn.disabled = false;
+    btn.textContent = "Entrar";
+
+    showFeedback(
+      "error",
+      "Erro ao fazer login: Usuário não existe, verifica sua senha ou email"
+    );
+  }
+});
 
   // 5) Enter para submeter
   document.getElementById("senha")?.addEventListener("keydown", (ev) => {
