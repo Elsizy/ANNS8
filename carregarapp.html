@@ -166,9 +166,9 @@
 
   <main class="container">
     <section class="card" aria-labelledby="app-title">
-      <img src="atlas-logo.png" alt="Ícone do app" class="app-icon" />
-      <h2 id="app-title" class="app-name">Atlas Energy</h2>
-      <p class="subtitle">Aplicativo oficial. Rápido, seguro e otimizado para o teu dispositivo.</p>
+      <img src="icon-192.png" alt="Ícone do app" class="app-icon" />
+      <h2 id="app-title" class="app-name">STNG incorp</h2>
+      <p class="subtitle">Aplicativo oficial. Rápido, seguro e otimizado.</p>
 
       <div class="meta">
         <span>Android (.apk)</span>
@@ -177,19 +177,20 @@
       </div>
 
       <!-- 🔗 Substitui o href abaixo pelo MESMO link de download que já usas no projeto -->
-     <a class="btn btn-primary">⬇ Baixar app</a>
+     <button id="installBtn" class="btn btn-primary" style="display: none;">
+  ⬇ Instalar app
+     </button>
 
       <a href="pessoal.html" class="btn btn-secondary">Voltar</a>
 
       <p class="helper">
         Dica: se o download não começar, <strong>toca novamente</strong> no botão.
-        Em alguns dispositivos, verifica a pasta <strong>Downloads</strong> para instalar o arquivo.
       </p>
     </section>
   </main>
 
   <footer class="foot">
-    © <span id="y"></span> ATLAS inc. Todos os direitos reservados.
+    © <span id="y"></span> STNG inc. Todos os direitos reservados.
   </footer>
 
   <script>
@@ -206,5 +207,53 @@ if ("serviceWorker" in navigator) {
   });
 }
   </script>
+<script>
+  let deferredPrompt;
+
+  const installBtn = document.getElementById("installBtn");
+
+  // O navegador informa que a aplicação pode ser instalada
+  window.addEventListener("beforeinstallprompt", (event) => {
+    // Impede o navegador de mostrar o aviso automaticamente
+    event.preventDefault();
+
+    // Guarda o evento para usar quando o usuário clicar
+    deferredPrompt = event;
+
+    // Mostra o botão de instalação
+    installBtn.style.display = "inline-flex";
+  });
+
+  // Quando o usuário clicar em "Instalar app"
+  installBtn.addEventListener("click", async () => {
+    if (!deferredPrompt) {
+      return;
+    }
+
+    // Mostra a janela nativa de instalação
+    deferredPrompt.prompt();
+
+    // Aguarda a escolha do usuário
+    const { outcome } = await deferredPrompt.userChoice;
+
+    console.log(
+      outcome === "accepted"
+        ? "Aplicativo instalado."
+        : "Instalação cancelada."
+    );
+
+    // O evento só pode ser usado uma vez
+    deferredPrompt = null;
+
+    // Esconde o botão depois da tentativa
+    installBtn.style.display = "none";
+  });
+
+  // Detecta quando o aplicativo foi instalado
+  window.addEventListener("appinstalled", () => {
+    console.log("STNG instalado com sucesso!");
+    installBtn.style.display = "none";
+  });
+</script>
 </body>
 </html>
