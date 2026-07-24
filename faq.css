@@ -1,114 +1,527 @@
+/* =========================================================
+   FAQ.CSS — DESIGN PREMIUM
+   Estilo alinhado ao suporte.css
+   ========================================================= */
+
 :root{
-  --bg:#050505;
-  --bg-2:#050505;
-  --card:#0b1f33;
+  --bg-top:#050505;
+  --bg-mid:#050505;
+  --surface:#0b0b0b;
+  --surface-2:#090909;
+
   --text:#ffffff;
-  --muted:rgba(255,255,255,0.65);
-  --soft:rgba(255,255,255,0.12);
-  --accent:#14b46f;      /* usa o mesmo verde de status "done" como destaque */
-  --radius:14px;
+  --muted:rgba(255,255,255,.62);
+
+  --gold:#D7A63B;
+  --gold-dark:#C69328;
+  --gold-soft:rgba(215,166,59,.08);
+  --gold-border:rgba(215,166,59,.18);
+
+  --soft:rgba(255,255,255,.06);
+
+  --radius:24px;
   --maxw:460px;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%;margin:0}
+/* =========================================================
+   BASE
+   ========================================================= */
+
+*{
+  box-sizing:border-box;
+}
+
+html,
 body{
-  background: linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 75%);
+  height:100%;
+  margin:0;
+}
+
+body{
+  background:
+    linear-gradient(
+      180deg,
+      var(--bg-top) 0%,
+      var(--bg-mid) 55%,
+      #071226 100%
+    );
+
   color:var(--text);
-  font-family:'Poppins',system-ui,Arial,sans-serif;
+
+  font-family:
+    'Poppins',
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
   -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
-.page-root{min-height:100vh;padding-bottom:64px}
 
-/* Topbar (idêntico ao registro de retirada) */
+.page-root{
+  min-height:100vh;
+  padding-bottom:80px;
+}
+
+
+/* =========================================================
+   TOPBAR
+   ========================================================= */
+
 .topbar{
-  position:sticky; top:0; z-index:10;
-  display:flex; align-items:center; justify-content:space-between;
-  gap:12px; padding:16px 14px 8px;
-  background:linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.2) 120%);
+  position:sticky;
+  top:0;
+  z-index:10;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  padding:16px 14px 10px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5,5,5,.98),
+      rgba(5,5,5,.92),
+      rgba(5,5,5,.75)
+    );
+
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+
+  box-shadow:
+    0 6px 18px rgba(0,0,0,.35);
 }
 
+
+/* =========================================================
+   BOTÃO VOLTAR
+   ========================================================= */
 
 .back{
-width:40px;
-height:40px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:10px;
-border:1px solid rgba(255,170,40,.45);
-background:#090909;
-font-size:20px;
-color:#f4b43a;
-text-decoration:none;
+  width:40px;
+  height:40px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  border:
+    1px solid
+    rgba(215,166,59,.45);
+
+  background:#090909;
+
+  font-size:20px;
+
+  color:var(--gold);
+
+  text-decoration:none;
+
+  transition:
+    .25s ease;
 }
-.page-title{margin:0; font-size:18px; font-weight:700; text-align:center; flex:1}
-.right-placeholder{width:36px;height:36px;display:inline-block}
 
-/* Container */
-.container{max-width:var(--maxw); margin:10px auto; padding:0 14px}
+.back:hover{
+  transform:translateY(-2px);
 
-/* Lista FAQ (cards iguais ao “estilo 2ª imagem”) */
-.faq-list{margin-top:8px}
+  border-color:var(--gold);
+
+  box-shadow:
+    0 8px 22px
+    rgba(215,166,59,.12);
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.page-title{
+  margin:0;
+
+  font-size:18px;
+
+  font-weight:700;
+
+  letter-spacing:.2px;
+
+  text-align:center;
+
+  flex:1;
+
+  color:#fff;
+}
+
+.right-placeholder{
+  width:40px;
+  height:40px;
+
+  display:inline-block;
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.container{
+  max-width:var(--maxw);
+
+  margin:20px auto;
+
+  padding:
+    0 14px 20px;
+}
+
+
+/* =========================================================
+   LISTA FAQ
+   ========================================================= */
+
+.faq-list{
+  margin-top:18px;
+}
+
+
+/* =========================================================
+   CARD FAQ
+   ========================================================= */
+
 .faq-item{
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
-  border:1px solid rgba(255,255,255,0.05);
-  border-radius: var(--radius);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-  overflow: clip;
-}
-.faq-item + .faq-item{ margin-top:12px }
+  position:relative;
 
-/* Cabeçalho do item */
+  background:
+    linear-gradient(
+      180deg,
+      #0d0d0d,
+      #090909
+    );
+
+  border-radius:var(--radius);
+
+  border:
+    1px solid
+    var(--gold-border);
+
+  box-shadow:
+    0 10px 30px
+    rgba(0,0,0,.45);
+
+  overflow:hidden;
+
+  transition:
+    .28s ease;
+}
+
+
+/* Linha dourada superior */
+
+.faq-item::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+
+  width:100%;
+  height:3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--gold),
+      transparent
+    );
+
+  opacity:.8;
+
+  pointer-events:none;
+}
+
+
+.faq-item + .faq-item{
+  margin-top:14px;
+}
+
+
+/* Hover */
+
+.faq-item:hover{
+  transform:translateY(-3px);
+
+  border-color:var(--gold);
+
+  box-shadow:
+    0 18px 35px
+    rgba(0,0,0,.6),
+
+    0 0 18px
+    rgba(215,166,59,.08);
+}
+
+
+/* =========================================================
+   CABEÇALHO DO FAQ
+   ========================================================= */
+
 .faq-item > summary{
   list-style:none;
-  display:flex; align-items:center; justify-content:space-between;
-  gap:12px; padding:16px 16px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:12px;
+
+  padding:19px;
+
   cursor:pointer;
+
   user-select:none;
+
+  position:relative;
 }
-.faq-item > summary::-webkit-details-marker{ display:none }
+
+.faq-item > summary::-webkit-details-marker{
+  display:none;
+}
+
+
+/* =========================================================
+   PERGUNTA
+   ========================================================= */
 
 .q{
-  display:flex; align-items:center; gap:10px;
-  font-weight:700; letter-spacing:.2px;
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  font-size:13px;
+
+  font-weight:700;
+
+  letter-spacing:.1px;
+
+  color:#fff;
 }
+
+
+/* =========================================================
+   ÍCONE / PONTO DA PERGUNTA
+   ========================================================= */
+
 .qdot{
-  width:28px; height:28px; border-radius:999px;
-  display:inline-flex; align-items:center; justify-content:center;
-  background:var(--accent); color:#0b1f33; font-weight:900;
+  width:42px;
+  height:42px;
+
+  flex-shrink:0;
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(215,166,59,.10),
+      rgba(215,166,59,.03)
+    );
+
+  border:
+    1px solid
+    rgba(215,166,59,.15);
+
+  color:var(--gold);
+
+  font-size:16px;
+
+  font-weight:900;
+
+  transition:.25s ease;
 }
 
-/* Ícone seta gira ao abrir */
-.chev{ display:inline-flex; transform:rotate(0deg); transition:transform .22s ease }
-.faq-item[open] .chev{ transform:rotate(180deg) }
 
-/* Corpo da resposta */
+/* Quando o FAQ está aberto */
+
+.faq-item[open] .qdot{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(215,166,59,.18),
+      rgba(215,166,59,.05)
+    );
+
+  border-color:
+    rgba(215,166,59,.35);
+
+  box-shadow:
+    0 0 15px
+    rgba(215,166,59,.08);
+}
+
+
+/* =========================================================
+   SETA
+   ========================================================= */
+
+.chev{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  color:var(--gold);
+
+  transition:
+    transform .22s ease;
+
+  flex-shrink:0;
+}
+
+.faq-item[open] .chev{
+  transform:rotate(180deg);
+}
+
+
+/* =========================================================
+   CORPO DA RESPOSTA
+   ========================================================= */
+
 .answer{
-  padding:0 16px 16px 16px;
-  border-top:1px solid var(--soft);
+  padding:
+    0 19px 19px 19px;
+
+  margin-top:0;
+
+  border-top:
+    1px solid
+    rgba(215,166,59,.10);
+
   color:var(--muted);
-  font-size:14px;
-  line-height:1.5;
+
+  font-size:13px;
+
+  line-height:1.6;
 }
-.answer strong{ color:var(--text) }
 
-.levels{ margin:8px 0 0 0; padding-left:18px }
-.levels li + li{ margin-top:4px }
+.answer strong{
+  color:#fff;
+}
 
-/* Rodapé */
-.end-note{ text-align:center; color:rgba(255,255,255,0.36); margin-top:10px; font-size:11px }
 
-/* Acessibilidade foco */
+/* =========================================================
+   LISTA DE NÍVEIS
+   ========================================================= */
+
+.levels{
+  margin:
+    10px 0 0 0;
+
+  padding-left:20px;
+}
+
+.levels li + li{
+  margin-top:6px;
+}
+
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+.end-note{
+  text-align:center;
+
+  color:
+    rgba(255,255,255,.36);
+
+  margin-top:18px;
+
+  font-size:11px;
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
 .faq-item > summary:focus-visible{
-  outline:2px solid color-mix(in srgb, var(--accent), transparent 30%);
+
+  outline:
+    2px solid
+    rgba(215,166,59,.65);
+
   outline-offset:2px;
-  border-radius:var(--radius);
+
+  border-radius:
+    var(--radius);
 }
 
-/* Responsivo */
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
 @media (max-width:420px){
-  .qdot{ width:26px; height:26px }
-  .page-title{ font-size:17px }
+
+  .qdot{
+    width:40px;
+    height:40px;
+
+    border-radius:13px;
   }
-/* === FAQ: busca === */
+
+  .page-title{
+    font-size:17px;
+  }
+
+  .faq-item > summary{
+    padding:17px;
+  }
+
+  .answer{
+    padding:
+      0 17px 17px 17px;
+  }
+
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+   ========================================================= */
+
+@media (max-width:350px){
+
+  .q{
+    font-size:12px;
+  }
+
+  .qdot{
+    width:38px;
+    height:38px;
+  }
+
+  .faq-item > summary{
+    gap:8px;
+  }
+
+  }
