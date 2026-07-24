@@ -525,3 +525,44 @@ body{
   }
 
   }
+
+
+html,
+body{
+  min-height:100%;
+  margin:0;
+  background:#050505;
+}
+
+body{
+  background:
+    linear-gradient(
+      180deg,
+      #050505 0%,
+      #050505 45%,
+      #071226 75%,
+      #0a0a18 100%
+    );
+
+  background-attachment:fixed;
+
+  color:#fff;
+
+  font-family:
+    'Poppins',
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.page-root{
+  min-height:100vh;
+  padding-bottom:80px;
+  background:transparent;
+}
