@@ -60,6 +60,9 @@ function ensureLoginSuccessModal() {
     .lg-desc{font-size:14px; color:#555; margin:0 0 4px}
     .lg-hint{font-size:12px; color:#777}
     .lg-icon{width:44px; height:44px}
+    .lg-card{
+  color: #D7A63B;
+}
   `;
   document.head.appendChild(style);
 
@@ -67,13 +70,26 @@ function ensureLoginSuccessModal() {
   overlay.id = "login-success-overlay";
   overlay.className = "lg-overlay";
   overlay.innerHTML = `
-    <div class="lg-card" role="dialog" aria-modal="true" aria-labelledby="lg-title" tabindex="-1">
+   <!--<div class="lg-card" role="dialog" aria-modal="true" aria-labelledby="lg-title" tabindex="-1">
       <svg class="lg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#2ecc71">
         <path d="M20 6L9 17l-5-5"/>
         <circle cx="12" cy="12" r="10" stroke-opacity="0.2"></circle>
-      </svg>
+      </ssvg -->
+      <svg class="lg-card"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+  <circle cx="12" cy="12" r="10" stroke-opacity="0.22"></circle>
+
+  <path d="M7 12.5l3.2 3.2L17.5 8.5"></path>
+
+</svg>
       <h3 id="lg-title" class="lg-title">Sessão iniciada com sucesso</h3>
-      <p class="lg-desc"><strong>Atlas Energy</strong>.</p>
+      <p class="lg-desc"><strong>STNG inc. </strong>.</p>
       
     </div>
   `;
