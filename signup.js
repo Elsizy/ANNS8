@@ -205,6 +205,9 @@ function ensureSignupSuccessModal() {
     .su-btn{display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:10px; border:0; cursor:pointer; font-weight:600}
     .su-btn-primary{background:#3da5ff; color:#fff}
     .su-icon{width:44px; height:44px}
+    .su-icon {
+  color: #D7A63B;
+}
   `;
   document.head.appendChild(style);
 
@@ -214,10 +217,23 @@ function ensureSignupSuccessModal() {
   overlay.className = "su-overlay";
   overlay.innerHTML = `
     <div class="su-card" role="dialog" aria-modal="true" aria-labelledby="su-title">
-      <svg class="su-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#2ecc71">
+     <!--<svg class="su-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#2ecc71">
         <path d="M20 6L9 17l-5-5"/>
         <circle cx="12" cy="12" r="10" stroke-opacity="0.2"></circle>
-      </svg>
+      </svg> -->
+     <svg class="su-icon"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+  <circle cx="12" cy="12" r="10" stroke-opacity="0.22"></circle>
+
+  <path d="M7 12.5l3.2 3.2L17.5 8.5"></path>
+
+</svg>
       <h3 id="su-title" class="su-title">Conta criada com sucesso</h3>
       <p class="su-desc">Bem-vindo(a) à <strong>Atlas Energy</strong> </p>
       <button id="su-ok" class="su-btn su-btn-primary" type="button">login</button> 
