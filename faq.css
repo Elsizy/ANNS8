@@ -1,5 +1,5 @@
 :root{
-  --bg:#071733;
+  --bg:#050505;
   --bg-2:#05132a;
   --card:#0b1f33;
   --text:#ffffff;
@@ -27,7 +27,27 @@ body{
   gap:12px; padding:16px 14px 8px;
   background:linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.2) 120%);
 }
-.back{color:var(--text); text-decoration:none; display:inline-flex; width:36px; height:36px; align-items:center; justify-content:center}
+/*.back{color:var(--text); 
+text-decoration:none; 
+display:inline-flex; 
+width:36px; 
+height:36px; 
+align-items:center; 
+justify-content:center} */
+
+back{
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+border:1px solid rgba(255,170,40,.45);
+background:#090909;
+font-size:20px;
+color:#f4b43a;
+text-decoration:none;
+}
 .page-title{margin:0; font-size:18px; font-weight:700; text-align:center; flex:1}
 .right-placeholder{width:36px;height:36px;display:inline-block}
 
