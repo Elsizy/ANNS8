@@ -10,6 +10,12 @@
   <link rel="stylesheet" href="market.css">
   <link rel="stylesheet" href="Overlay.css" />
   <link rel="stylesheet" href="CN0123.css" />
+  <link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#d8a63a">
+
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 </head>
 <body>
   <!-- Barra superior fixa -->
@@ -342,5 +348,14 @@
   <script src="bottom-nav.js" defer></script>
   <script type="module" src="bottom-nav.js"></script>
   <script type="module" src="market.js"></script>
+  <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then(() => console.log("Service Worker registrado."))
+      .catch(err => console.error("Erro ao registrar:", err));
+  });
+}
+  </script>
 </body>
   </html>
