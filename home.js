@@ -122,7 +122,22 @@ function ensureBuyConfirmModal() {
     .buy-btn-cancel{background:#f2f3f5; color:#333}
     .buy-btn-ok{background:#6f66ff; color:#fff}
     .buy-btn:focus{outline:2px solid rgba(111,102,255,.35); outline-offset:2px}
-    .buy-icon{width:40px; height:40px; color:#6f66ff}
+    .buy-icon{width:40px; height:40px; color:#D7A63B}
+    .buy-btn-ok {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+  color: #D7A63B;
+  border: 1px solid #D7A63B;
+  box-shadow: 0 0 12px rgba(215, 166, 59, 0.18);
+}
+
+.buy-btn-ok:hover {
+  filter: brightness(1.15);
+}
+
+.buy-btn-ok:focus {
+  outline: 2px solid rgba(215, 166, 59, 0.4);
+  outline-offset: 2px;
+}
   `;
   document.head.appendChild(style);
 
@@ -131,10 +146,20 @@ function ensureBuyConfirmModal() {
   overlay.className = "buy-overlay";
   overlay.innerHTML = `
     <div class="buy-confirm-card" role="dialog" aria-modal="true" aria-labelledby="buy-confirm-title" tabindex="-1">
-      <svg class="buy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10" stroke-opacity="0.2"></circle>
-        <path d="M12 8v5"></path><circle cx="12" cy="16" r="1"></circle>
-      </svg>
+      <svg class="buy-icon" viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+  <circle cx="12" cy="12" r="10" stroke-opacity="0.22"></circle>
+
+  <path d="M12 7v6"></path>
+
+  <circle cx="12" cy="16.5" r="0.8" fill="currentColor" stroke="none"></circle>
+
+</svg>
       <h3 id="buy-confirm-title" class="buy-title">Confirmar compra</h3>
       <p id="buy-confirm-desc" class="buy-desc"></p>
       <div class="buy-actions">
