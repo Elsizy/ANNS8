@@ -70,6 +70,7 @@ function ensureLoginSuccessModal() {
   overlay.id = "login-success-overlay";
   overlay.className = "lg-overlay";
   overlay.innerHTML = `
+      <div class="lg-card" role="dialog" aria-modal="true" aria-labelledby="lg-title" tabindex="-1">
       <svg class="lg-icon" viewBox="0 0 24 24"
      fill="none"
      stroke="currentColor"
