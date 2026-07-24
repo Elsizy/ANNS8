@@ -60,7 +60,7 @@ function ensureLoginSuccessModal() {
     .lg-desc{font-size:14px; color:#555; margin:0 0 4px}
     .lg-hint{font-size:12px; color:#777}
     .lg-icon{width:44px; height:44px}
-    .lg-card{
+    .lg-icon{
   color: #D7A63B;
 }
   `;
@@ -75,8 +75,7 @@ function ensureLoginSuccessModal() {
         <path d="M20 6L9 17l-5-5"/>
         <circle cx="12" cy="12" r="10" stroke-opacity="0.2"></circle>
       </ssvg -->
-      <svg class="lg-card"
-     viewBox="0 0 24 24"
+      <svg class="lg-icon" viewBox="0 0 24 24"
      fill="none"
      stroke="currentColor"
      stroke-width="1.8"
