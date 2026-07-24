@@ -9,6 +9,12 @@
   <link rel="stylesheet" href="home.css" />
   <link rel="stylesheet" href="bottom-nav.css" />
   <link rel="stylesheet" href="h2top.css" />
+  <link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#d8a63a">
+
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 </head>
 
 <body>
@@ -119,6 +125,16 @@
 
 <script src="bottom-nav.js" defer></script>
 <script type="module" src="bottom-nav.js"></script>
+  
   </div>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then(() => console.log("Service Worker registrado."))
+      .catch(err => console.error("Erro ao registrar:", err));
+  });
+}
+</script>
 </body>
 </html>
