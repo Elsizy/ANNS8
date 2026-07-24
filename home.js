@@ -72,6 +72,9 @@ function ensureBuySuccessModal() {
     .buy-desc{font-size:14px; color:#555; margin:0 0 4px}
     .buy-hint{font-size:12px; color:#777}
     .buy-icon{width:44px; height:44px}
+    .buy-success-icon {
+  color: #D7A63B;
+}
   `;
   document.head.appendChild(style);
 
@@ -80,9 +83,18 @@ function ensureBuySuccessModal() {
   overlay.className = "buy-overlay";
   overlay.innerHTML = `
     <div class="buy-card" role="dialog" aria-modal="true" aria-labelledby="buy-title" tabindex="-1">
-      <svg class="buy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#2ecc71">
-  <path d="M20 6L9 17l-5-5"/>
-  <circle cx="12" cy="12" r="10" stroke-opacity="0.2"></circle>
+      <svg class="buy-icon buy-success-icon"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+  <circle cx="12" cy="12" r="10" stroke-opacity="0.22"></circle>
+
+  <path d="M7 12.5l3.2 3.2L17.5 8.5"></path>
+
 </svg>
       <h3 id="buy-title" class="buy-title">Compra concluída</h3>
       <p id="buy-desc" class="buy-desc"></p>
@@ -138,9 +150,7 @@ function ensureBuyConfirmModal() {
   outline: 2px solid rgba(215, 166, 59, 0.4);
   outline-offset: 2px;
 }
-.buy-success-icon {
-  color: #D7A63B;
-}
+
   `;
   document.head.appendChild(style);
 
@@ -149,8 +159,7 @@ function ensureBuyConfirmModal() {
   overlay.className = "buy-overlay";
   overlay.innerHTML = `
     <div class="buy-confirm-card" role="dialog" aria-modal="true" aria-labelledby="buy-confirm-title" tabindex="-1">
-      <svg class="buy-icon buy-success-icon"
-     viewBox="0 0 24 24"
+      <svg class="buy-icon" viewBox="0 0 24 24"
      fill="none"
      stroke="currentColor"
      stroke-width="1.8"
@@ -159,7 +168,9 @@ function ensureBuyConfirmModal() {
 
   <circle cx="12" cy="12" r="10" stroke-opacity="0.22"></circle>
 
-  <path d="M7 12.5l3.2 3.2L17.5 8.5"></path>
+  <path d="M12 7v6"></path>
+
+  <circle cx="12" cy="16.5" r="0.8" fill="currentColor" stroke="none"></circle>
 
 </svg>
       <h3 id="buy-confirm-title" class="buy-title">Confirmar compra</h3>
