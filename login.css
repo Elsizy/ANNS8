@@ -2,7 +2,7 @@
 
 /* cores / variáveis inspiradas em pessoal.css */
 :root{
-  --bg-page: #07061a;
+  --bg-page: #050504;
   --panel-grad-left: #8b5cf6;
   --panel-grad-right:#ff5aa8;
   --muted: rgba(255,255,255,0.75);
@@ -174,4 +174,54 @@ html,body { height: 100%; margin: 0; font-family: 'Poppins', system-ui, -apple-s
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
+  }
+
+
+.hm-lang-box{
+
+display:flex;
+align-items:flex-start;
+gap:2px;
+
+}
+
+.hm-lang-circle{
+
+width:35px;
+height:35px;
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:
+linear-gradient(
+180deg,
+#101010,
+#050505);
+
+border:1.2px solid rgba(218,177,71,.95);
+
+color:#ffffff;
+
+font-size:14px;
+font-weight:500;
+
+box-shadow:
+0 0 12px rgba(218,177,71,.10),
+inset 0 1px rgba(255,255,255,.05);
+
+}
+
+.hm-lang-r{
+
+font-size:10px;
+
+font-weight:600;
+
+color:#d8ae49;
+
+margin-top:2px;
+
   }
