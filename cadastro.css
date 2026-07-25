@@ -1,8 +1,8 @@
 /* cadastro.css — visual moderno alinhado ao projeto (use as cores do projeto) */
 :root{
-  --bg-page: #07061a;
-  --accent-left: #6f66ff;
-  --accent-right: #c254ff;
+  --bg-page: #050505;
+  --accent-left: #D89A05;
+  --accent-right: #F2AE09;
   --card-bg: rgba(255,255,255,0.04);
   --card-plain: #f6f7fb;
   --text-dark: #192433;
@@ -22,6 +22,10 @@ body{
   min-height:100vh;
   padding:20px;
 }
+.card-head h2 span{
+    color:#D89A05;
+}
+
 
 /* wrapper */
 .signup-wrapper{
@@ -50,7 +54,8 @@ body{
 /* form card */
 .signup-card{
   flex:1 1 54%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.98));
+ /* background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.98));*/
+  background:#FFFDFB;
   padding:36px;
   color:var(--text-dark);
   min-width:320px;
@@ -75,7 +80,7 @@ input[type="text"]{
   color:var(--text-dark);
   transition: box-shadow .18s, border-color .18s;
 }
-input::placeholder{ color:#9aa3b2; }
+input::placeholder{ color:#B5B5C0;}
 
 input:focus{
   outline:none;
@@ -121,7 +126,8 @@ input:focus{
   border-radius:12px;
   border:none;
   font-weight:700;
-  background: linear-gradient(90deg,var(--accent-left),var(--accent-right));
+  /*background: linear-gradient(90deg,var(--accent-left),var(--accent-right)); */
+  background: linear-gradient(90deg,#D89000,#F0A600);
   color:#fff;
   cursor:pointer;
   box-shadow: 0 10px 30px rgba(47, 64, 255, 0.12);
