@@ -257,8 +257,8 @@
 
 .info-icon{
 
-    width:42px;
-    height:42px;
+    width: 38px;
+    height:38px;
 
     flex-shrink:0;
 
@@ -323,7 +323,7 @@
 
     color:#E0B956;
 
-    font-size:17px;
+    font-size:15px;
 
     font-weight:600;
 
@@ -338,7 +338,7 @@
 
     font-size:14px;
 
-    line-height:1.45;
+    line-height:1.25;
 
     font-weight:500;
   }
@@ -452,7 +452,7 @@
 
 .info-icon{
 
-    transition:
+    transition: 
         transform .25s,
         box-shadow .25s;
 }
@@ -474,15 +474,14 @@
 
 /* data pode quebrar */
 
-.info-date{
-
+.info-
     white-space:normal;
 }
 
 /* responsividade */
 
-@media(max-width:390px){
-
+@media(max-.:390px){
+. 
     .produto-card{
 
         padding:20px;
@@ -490,21 +489,22 @@
 
     .produto-title{
 
-        font-size:17px;
+        font-size:16
+           5px;
     }
 
     .timer{
 
-        font-size:16px;
+        font-size:14px;
 
-        letter-spacing:2px;
+        letter-spacing:1.px;
     }
 
     .produto-body{
 
-        column-gap:18px;
+        column-gap:17px;
     }
-
+.. 
     .produto-column{
 
         gap:20px;
@@ -512,13 +512,13 @@
 
    .info-icon{
 
-        width:44px;
-        height:44px;
+        width:35px;
+        height:35px;
     }
 
    .info-value{
 
-      font-size:16px;
+      font-size:12px;
     
 
         font-size:12px;
@@ -539,8 +539,8 @@
 
 .icon{
 
-    width:22px;
-    height:22px;
+    width:20px;
+    height:20px;
 
     display:block;
 
@@ -559,9 +559,9 @@
 
 .info-icon{
 
-    width:46px;
+    width:40px;
 
-    height:46px;
+    height:40px;
 
     border-radius:12px;
 
