@@ -229,7 +229,7 @@
 
 /* Linha vertical central */
 
-.produto-divider{
+..produto-divider-vertical{
 
     width:1px;
 
@@ -246,8 +246,8 @@
 
 /* ===========================================================
    PARTE 3 — ITENS DAS DUAS COLUNAS
-==========================================================
-info-item{
+==========================================================*/
+.info-item{
     display:flex;
     align-items:center;
     gap:14px;
@@ -255,7 +255,7 @@ info-item{
 
 /* ---------- Caixa do SVG ---------- */
 
-.produto-icon{
+.info-icon{
 
     width:48px;
     height:48px;
@@ -292,7 +292,7 @@ info-item{
 
 /* ---------- Texto ---------- */
 
-.produto-texto{
+.info-content{
 
     display:flex;
     flex-direction:column;
@@ -302,7 +302,7 @@ info-item{
 
 /* Nome do campo */
 
-.produto-label{
+.info-label{
 
     margin:0;
 
@@ -317,7 +317,7 @@ info-item{
 
 /* Valor */
 
-.produto-value{
+.info-value{
 
     margin-top:3px;
 
@@ -334,7 +334,7 @@ info-item{
 
 /* Campo da data */
 
-.produto-value.data{
+.info.data{
 
     font-size:14px;
 
@@ -398,7 +398,7 @@ info-item{
 
 /* efeito suave ao tocar */
 
-.produto{
+.produto-card{
 
     transition:
         transform .22s ease,
@@ -450,14 +450,14 @@ info-item{
 
 /* ícone ganha leve brilho */
 
-.produto-icon{
+.info-icon{
 
     transition:
         transform .25s,
         box-shadow .25s;
 }
 
-.produto:hover .produto-icon{
+.produto-card:hover .info-icon{
 
     transform:translateY(-1px);
 
@@ -467,14 +467,14 @@ info-item{
 
 /* evita quebrar valores */
 
-.produto-value{
+.info-value{
 
     white-space:nowrap;
 }
 
 /* data pode quebrar */
 
-.produto-value.data{
+.infor-value.data{
 
     white-space:normal;
 }
@@ -483,7 +483,7 @@ info-item{
 
 @media(max-width:390px){
 
-    .produto{
+    .produto-card{
 
         padding:20px;
     }
@@ -500,7 +500,7 @@ info-item{
         letter-spacing:2px;
     }
 
-    .produto-card-body{
+    .produto-body{
 
         column-gap:18px;
     }
@@ -510,25 +510,20 @@ info-item{
         gap:20px;
     }
 
-    .produto-icon{
+   .info-icon{
 
         width:44px;
         height:44px;
     }
 
-    .produto-value{
+   .info-value{
 
-        font-size:16px;
-    }
-
-    .produto-label{
+      font-sizeze:16px;
+    
 
         font-size:12px;
     }
-
-}
-
-/* melhora renderização */
+   /*melhora melhora renderização */
 
 .produto,
 .produto *{
