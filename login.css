@@ -111,20 +111,13 @@ pointer-events:none;
 .brand-side .benefits { margin: 12px 0 0 18px; padding:0; list-style: disc; color:var(--text-dim); }
 .brand-side .benefits li { margin:6px 0; font-size:14px; }
 
-/* form-side */
-.form-side {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
-  border-radius: var(--card-radius);
-  padding: 22px;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.6);
-  border:1px solid rgba(255,255,255,0.03);
-}
-.form-side h2 { margin:0 0 12px 0; font-size:20px; color:var(--white); }
+
+/*.form-side h2 { margin:0 0 12px 0; font-size:20px; color:var(--white); }
 .form-field { margin-bottom: 12px; display:flex; flex-direction:column; gap:6px; }
 .form-field label { font-size:13px; color:var(--text-dim); }
 .form-field input { padding:12px 14px; border-radius:10px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); color:var(--text-strong); outline:none; font-size:15px; }
 .form-field input::placeholder { color: rgba(230,240,255,0.22); }
-
+*/
 /* input-group (senha com eye) */
 .input-group { position:relative; }
 .toggle-pass {
