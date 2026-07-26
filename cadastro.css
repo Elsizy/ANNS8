@@ -126,7 +126,6 @@ input:focus{
   border-radius:12px;
   border:none;
   font-weight:700;
-  /*background: linear-gradient(90deg,var(--accent-left),var(--accent-right)); */
   background: linear-gradient(90deg,#D89000,#F0A600);
   color:#fff;
   cursor:pointer;
