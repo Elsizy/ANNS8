@@ -164,12 +164,12 @@ text-decoration:none;
 /* ==========================
    Lista de produtos / cards
    ========================== */
-.produtos-container{
+/*.produtos-container{
   margin-top: 6px;
-}
+}*/
 
 /* Cada produto */
-.produtos-container .produto{
+/*.produtos-container .produto{
   position:relative;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
   border-radius: 14px;
@@ -179,76 +179,76 @@ text-decoration:none;
   box-shadow: 0 6px 22px rgba(0,0,0,0.45);
   color: var(--muted);
   overflow:visible;
-}
+}*/
 
 /* Linha pontilhada abaixo do título (como na referência) */
-.produtos-container .produto .produto-info > p:first-child{
+/*.produtos-container .produto .produto-info > p:first-child{
   margin:0 0 8px 0;
   font-weight:600;
   color: var(--white);
   position:relative;
   padding-bottom:10px;
   font-size:15px;
-}
-.produtos-container .produto .produto-info > p:first-child::after{
+}*/
+/*.produtos-container .produto .produto-info > p:first-child::after{
   content:"";
   position:absolute;
   left:0;
   right:0;
   bottom:0;
   border-bottom: 1px dotted rgba(255,255,255,0.06);
-}
+}*/
 
 /* Estrutura interna em duas colunas (esquerda infos / direita valores) */
-.produtos-container .produto .produto-info{
+/*.produtos-container .produto .produto-info{
   display:grid;
   grid-template-columns: 1fr 1fr;
   gap:6px 18px;
   align-items:start;
   margin-top:4px;
-}
+}*/
 
 /* Força o primeiro parágrafo (título) a ocupar as duas colunas */
-.produtos-container .produto .produto-info > p:first-child{
+/*.produtos-container .produto .produto-info > p:first-child{
   grid-column: 1 / -1;
 }
-
+*/
 /* Estilo dos parágrafos de informação */
-.produto-info p{
+/*.produto-info p{
   margin:0px 0;
   font-size:10px;
   color: var(--muted);
   line-height:0,1;
-}
+}*/
 
 /* Força os valores inline (quando há inline style) a assumir a cor azul de destaque */
-.produto-info p[style],
+/*.produto-info p[style],
 .produto-info p strong,
 .produto-info p .valor{
   /* cuidado: alguns valores já vêm com <span style="color:..."> do JS; aqui normalizamos */
-}
+}*/
 
 /* Específicos para destacar números/chaves (preço, montante, etc.) */
-.produto-info p{
+/*.produto-info p{
   /* deixa o texto claro */
   color: var(--muted);
-}
-.produto-info p em,
+}*/
+/*.produto-info p em,
 .produto-info p .value,
 .produto-info p span.value{
   color: var(--accent-blue);
   font-weight:600;
-}
+}*/
 
 /* Se o JS colocou inline style="color: orange" (como na versão anterior),
    esta regra força a cor azul (importante para reproduzir o layout da imagem). */
-.produto-info p[style]{
+/*.produto-info p[style]{
   color: var(--accent-blue) !important;
   font-weight:600;
-}
+}*/
 
 /* Timer posicionado no canto superior direito do card, com cor verde */
-.produtos-container .produto .timer{
+/*.produtos-container .produto .timer{
   position:absolute;
   top:14px;
   right:14px;
@@ -261,7 +261,7 @@ text-decoration:none;
   padding: 4px 6px;
   border-radius: 8px;
   text-shadow: 0 1px 0 rgba(0,0,0,0.55);
-}
+}*/
 
 /* pequeno ajuste para o strong dentro do card */
 .produto-info strong{
