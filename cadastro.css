@@ -24,7 +24,7 @@ body{
   padding:20px;
 }
 .card-head h2 span{
-    color:#D89A05;
+    color:var(--gold);
 }
 
 
@@ -76,9 +76,6 @@ letter-spacing:-0.2px;
 line-height:1.1;
 }
 
-.title-gold{
-color:var(--gold);
-}
 
 .title-dark{
 color:#111;
