@@ -52,12 +52,12 @@ body.has-bottom-nav {
 }
 
 /* Header (titulo centralizado tipo da imagem) */
-.header{
+/*.header{
   display:flex;
   align-items:center;
   justify-content:center;
   margin-bottom: 12px;
-}
+}*/
 
 
 .header{
@@ -79,6 +79,7 @@ body.has-bottom-nav {
   letter-spacing:0.2px;
   text-align:center;
   line-height:1;
+  flex: 1;
 }
 .header .back{
 width:40px;
