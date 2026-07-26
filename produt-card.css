@@ -161,7 +161,7 @@
     justify-content:space-between;
 
     padding:0 0 18px;
-    margin-bottom:16px;
+    margin-bottom:22px;
 
     border-bottom:1px solid rgba(214,170,73,.22);
 }
@@ -171,9 +171,9 @@
 
     color:#ffffff;
 
-    font-size:18px;
+    font-size:15px;
     font-weight:700;
-    letter-spacing:.4px;
+    letter-spacing:.3px;
     text-transform:uppercase;
 }
 
@@ -188,11 +188,11 @@
 
     color:#E5C25F;
 
-    font-size:17px;
+    font-size:14px;
     font-weight:700;
 
     font-family:monospace;
-    letter-spacing:3px;
+    letter-spacing:2px;
 }
 
 .timer-label{
@@ -213,7 +213,7 @@
 
     grid-template-columns:1fr 1px 1fr;
 
-    column-gap:26px;
+    column-gap:20px;
 
     align-items:start;
 }
