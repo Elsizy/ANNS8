@@ -70,7 +70,7 @@ function renderProdutosComprados(compras) {
       totalComissaoGerada += earned;
 
       const card = document.createElement("div");
-      card.className = "produto";
+      card.className = "produto-card";
       card.innerHTML = `
        <div class="produto-card">
 
