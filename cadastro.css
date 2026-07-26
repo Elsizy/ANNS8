@@ -49,6 +49,12 @@ body{
   justify-content:center;
   min-height:420px;
 }
+
+.gold-link {
+  color:var(--gold);
+}
+
+
 .hero-content h1{margin:0;font-size:28px;color:#fff;letter-spacing:0.2px}
 .hero-content p{margin-top:8px;color: rgba(255,255,255,0.92);line-height:1.4}
 
