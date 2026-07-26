@@ -1,0 +1,585 @@
+/* ==========================================================
+   PRODUCT CARD
+   Estrutura principal do card
+========================================================== */
+
+.produto-card{
+
+    position: relative;
+
+    width: 100%;
+
+    margin-bottom: 18px;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background:
+        radial-gradient(circle at top center,
+        rgba(255,205,80,.05) 0%,
+        transparent 42%),
+
+        linear-gradient(
+        180deg,
+        #141414 0%,
+        #0f0f0f 55%,
+        #0b0b0b 100%);
+
+    border:1.4px solid rgba(214,170,62,.78);
+
+    box-shadow:
+        0 0 0 1px rgba(255,215,120,.05) inset,
+        0 10px 28px rgba(0,0,0,.55),
+        0 0 20px rgba(210,170,60,.08);
+
+}
+
+
+/* pequeno brilho dourado superior */
+
+.produto-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-1px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:120px;
+
+    height:2px;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,223,120,.95),
+        transparent);
+
+}
+
+
+/* brilho inferior */
+
+.produto-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    bottom:-1px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:78px;
+
+    height:2px;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,206,70,.95),
+        transparent);
+
+}
+
+
+/* remove margens internas padrão */
+
+.produto-card *{
+
+    box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+
+/* evita seleção acidental */
+
+.produto-card{
+
+    user-select:none;
+
+}
+
+
+/* efeito de profundidade */
+
+.produto-card:hover{
+
+    box-shadow:
+
+        0 0 0 1px rgba(255,220,120,.08) inset,
+
+        0 14px 34px rgba(0,0,0,.60),
+
+        0 0 28px rgba(214,170,60,.10);
+
+}
+
+
+/* espaço interno geral */
+
+.produto-card{
+
+    padding:22px 24px;
+
+}
+
+
+/* mantém todos os textos acima dos brilhos */
+
+.produto-card>*{
+
+    position:relative;
+
+    z-index:2;
+
+      }
+
+
+/* ===========================================================
+   PARTE 2 — CABEÇALHO DO CARD
+=========================================================== */
+
+.produto-header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+
+    padding:0 0 18px;
+    margin-bottom:22px;
+
+    border-bottom:1px solid rgba(214,170,73,.22);
+}
+
+.produto-title{
+    margin:0;
+
+    color:#ffffff;
+
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+}
+
+.produto-timer{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+}
+
+.timer{
+    margin:0;
+
+    color:#E5C25F;
+
+    font-size:17px;
+    font-weight:700;
+
+    font-family:monospace;
+    letter-spacing:3px;
+}
+
+.timer-label{
+    margin-top:2px;
+
+    color:rgba(255,255,255,.65);
+
+    font-size:12px;
+    font-weight:400;
+}
+
+/* ===========================================================
+   PARTE 2 — CORPO DO CARD
+==========================================================*/
+.produto-body{
+
+    display:grid;
+
+    grid-template-columns:1fr 1px 1fr;
+
+    column-gap:26px;
+
+    align-items:start;
+}
+
+.produto-column{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:24px;
+}
+
+/* Linha vertical central */
+
+.produto-divider{
+
+    width:1px;
+
+    height:100%;
+
+    background:linear-gradient(
+        to bottom,
+        transparent,
+        rgba(214,170,73,.35),
+        transparent
+    );
+  }
+
+
+/* ===========================================================
+   PARTE 3 — ITENS DAS DUAS COLUNAS
+==========================================================
+info-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+/* ---------- Caixa do SVG ---------- */
+
+.produto-icon{
+
+    width:48px;
+    height:48px;
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    border:1px solid rgba(218,170,63,.55);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,205,95,.10),
+            rgba(255,205,95,.03)
+        );
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.05),
+        0 0 12px rgba(215,169,67,.08);
+}
+
+/* O SVG será colocado depois */
+
+.produto-icon svg{
+
+    width:23px;
+    height:23px;
+}
+
+/* ---------- Texto ---------- */
+
+.produto-texto{
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+}
+
+/* Nome do campo */
+
+.produto-label{
+
+    margin:0;
+
+    color:rgba(255,255,255,.78);
+
+    font-size:13px;
+
+    font-weight:400;
+
+    line-height:1.15;
+}
+
+/* Valor */
+
+.produto-value{
+
+    margin-top:3px;
+
+    color:#E0B956;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    line-height:1.25;
+
+    word-break:break-word;
+}
+
+/* Campo da data */
+
+.produto-value.data{
+
+    font-size:14px;
+
+    line-height:1.45;
+
+    font-weight:500;
+  }
+
+
+/* ===========================================================
+   PARTE 4 — ACABAMENTOS E DETALHES FINAIS
+=========================================================== */
+
+/* brilho superior */
+
+.produto::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-1px;
+    left:28%;
+
+    width:44%;
+    height:2px;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,214,92,.95),
+        transparent
+    );
+
+    filter:blur(.4px);
+}
+
+/* brilho inferior */
+
+.produto::after{
+
+    content:"";
+
+    position:absolute;
+
+    bottom:-1px;
+    left:38%;
+
+    width:24%;
+    height:2px;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,214,92,.95),
+        transparent
+    );
+
+    filter:blur(.5px);
+}
+
+/* efeito suave ao tocar */
+
+.produto{
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease;
+}
+
+.produto:active{
+
+    transform:scale(.992);
+
+    border-color:#d9b04d;
+
+    box-shadow:
+        0 0 26px rgba(218,170,63,.18);
+}
+
+/* animação do contador */
+
+.timer{
+
+    animation:timerGlow 2.2s ease-in-out infinite;
+}
+
+@keyframes timerGlow{
+
+    0%{
+
+        text-shadow:
+        0 0 0 rgba(255,214,92,0);
+
+    }
+
+    50%{
+
+        text-shadow:
+        0 0 10px rgba(255,214,92,.35);
+
+    }
+
+    100%{
+
+        text-shadow:
+        0 0 0 rgba(255,214,92,0);
+
+    }
+
+}
+
+/* ícone ganha leve brilho */
+
+.produto-icon{
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+}
+
+.produto:hover .produto-icon{
+
+    transform:translateY(-1px);
+
+    box-shadow:
+        0 0 14px rgba(217,176,77,.18);
+}
+
+/* evita quebrar valores */
+
+.produto-value{
+
+    white-space:nowrap;
+}
+
+/* data pode quebrar */
+
+.produto-value.data{
+
+    white-space:normal;
+}
+
+/* responsividade */
+
+@media(max-width:390px){
+
+    .produto{
+
+        padding:20px;
+    }
+
+    .produto-title{
+
+        font-size:17px;
+    }
+
+    .timer{
+
+        font-size:16px;
+
+        letter-spacing:2px;
+    }
+
+    .produto-card-body{
+
+        column-gap:18px;
+    }
+
+    .produto-column{
+
+        gap:20px;
+    }
+
+    .produto-icon{
+
+        width:44px;
+        height:44px;
+    }
+
+    .produto-value{
+
+        font-size:16px;
+    }
+
+    .produto-label{
+
+        font-size:12px;
+    }
+
+}
+
+/* melhora renderização */
+
+.produto,
+.produto *{
+
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+/* ======================================================
+   SVGs
+====================================================== */
+
+.icon{
+
+    width:22px;
+    height:22px;
+
+    display:block;
+
+    stroke:#DDB24F;
+
+    stroke-width:1.8;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+    fill:none;
+
+    flex-shrink:0;
+}
+
+.info-icon{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:linear-gradient(
+        180deg,
+        rgba(255,215,110,.10),
+        rgba(255,215,110,.03)
+    );
+
+    border:1px solid rgba(221,178,79,.30);
+}
