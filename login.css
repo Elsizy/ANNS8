@@ -228,7 +228,7 @@ margin-top:2px;
 
   }
 
-.toggle-pass .icon-eye-off{
+/*.toggle-pass .icon-eye-off{
     display:none;
 }
 
@@ -238,6 +238,22 @@ margin-top:2px;
 
 .toggle-pass.showing .icon-eye-off{
     display:block;
+}*/
+
+.eye-button .icon-eye {
+    display: block;
+}
+
+.eye-button .icon-eye-off {
+    display: none;
+}
+
+.eye-button.showing .icon-eye {
+    display: none;
+}
+
+.eye-button.showing .icon-eye-off {
+    display: block;
 }
 
 /*==================================================
