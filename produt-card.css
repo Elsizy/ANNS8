@@ -350,7 +350,7 @@
 
 /* brilho superior */
 
-.produto::before{
+.produto-card::before{
 
     content:"";
 
@@ -374,7 +374,7 @@
 
 /* brilho inferior */
 
-.produto::after{
+.produto-card::after{
 
     content:"";
 
@@ -406,7 +406,7 @@
         border-color .22s ease;
 }
 
-.produto:active{
+.produto-card:active{
 
     transform:scale(.992);
 
@@ -525,8 +525,8 @@
     }
    /*melhora melhora renderização */
 
-.produto,
-.produto *{
+.produto-card,
+.produto-card *{
 
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
