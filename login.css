@@ -500,6 +500,11 @@ color:var(--gold);
 
 transition:.25s;
 
+top:50%;
+transform:translateY(-50%) scale(1.08);
+padding:0;
+line-height:0;
+
 }
 
 .eye-button:hover{
@@ -515,6 +520,7 @@ color:var(--gold-dark);
 
 width:20px;
 height:20px;
+display:block;
 
 }
 
