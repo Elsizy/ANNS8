@@ -43,18 +43,88 @@
 
         <!-- right / form area -->
         <section class="form-side" aria-labelledby="login-title">
-          <h2 id="login-title"><span>Entrar </span>na <span>Conta</span></h2>
+          <h2 id="login-title" class="login-title">
+    <span class="title-gold">Entrar</span>
+    <span class="title-dark">na</span>
+    <span class="title-gold">Conta</span>
+</h2>
 
-          <div class="form-field">
+<div class="title-line"></div>
+          
+         <!-- <div class="form-field">
             <label for="email">Email</label>
             <input id="email" type="email" autocomplete="email" placeholder="Digite o seu email" />
-          </div>
+          </div> -->
+          <div class="form-field">
+    <label for="email">Email</label>
 
-          <div class="form-field input-group">
+    <div class="input-box">
+        <span class="input-icon email-icon">
+
+            <!-- SVG Email -->
+            <svg viewBox="0 0 24 24" class="icon-svg">
+                <path d="M3 6h18v12H3z"/>
+                <path d="M3 7l9 7 9-7"/>
+            </svg>
+
+        </span>
+
+        <input
+            id="email"
+            type="email"
+            autocomplete="email"
+            placeholder="Digite o seu email"
+        >
+    </div>
+      </div>
+
+         <!--<div class="form-field input-group">
             <label for="senha">Senha</label>
             <input id="senha" type="password" autocomplete="current-password" placeholder="Digite a sua palavra passe" />
             <!-- botão do olho (funciona com o pequeno script abaixo) -->
-            <button type="button" class="toggle-pass" data-target="senha" aria-label="Mostrar/ocultar senha"></button>
+          <!--  <button type="button" class="toggle-pass" data-target="senha" aria-label="Mostrar/ocultar senha"></button>
+          </div> -->
+          <div class="form-field">
+
+    <label for="senha">Senha</label>
+
+    <div class="input-box">
+
+        <span class="input-icon lock-icon">
+
+            <!-- SVG Cadeado -->
+
+            <svg viewBox="0 0 24 24" class="icon-svg">
+                <rect x="5" y="11" width="14" height="10" rx="2"/>
+                <path d="M8 11V8a4 4 0 118 0v3"/>
+            </svg>
+
+        </span>
+
+        <input
+            id="senha"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Digite a sua palavra passe"
+        >
+
+        <button
+            type="button"
+            class="toggle-pass"
+            data-target="senha"
+            aria-label="Mostrar senha">
+
+            <!-- SVG Olho -->
+
+            <svg viewBox="0 0 24 24" class="icon-eye">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
+                <circle cx="12" cy="12" r="3"/>
+            </svg>
+
+        </button>
+
+    </div>
+
           </div>
 
           <div class="form-actions">
@@ -62,11 +132,61 @@
           </div>
 
           <div class="links-row">
-            <a href="index.html" class="link-muted">Não tem conta? Cadastre-se</a>
-            <a href="recuperar.html" class="link-muted">Esqueceu a senha?</a>
+
+    <div class="link-card">
+
+        <span class="link-title">
+            Não tem conta?
+        </span>
+
+        <a href="index.html" class="gold-link">
+
+            Cadastre-se
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+    </div>
+
+    <div class="links-divider"></div>
+
+    <div class="link-card">
+
+        <span class="link-title">
+            Esqueceu a
+            senha?
+        </span>
+
+        <a href="recuperar.html" class="gold-link">
+
+            Recuperar
+
+            <span class="arrow">
+                →
+            </span>
+
+        </a>
+
+    </div>
+
           </div>
 
-          <div class="legal-note">Ao fazer login aceita os termos de serviço.</div>
+          <div class="legal-note">
+
+    Ao fazer login aceita os
+
+    <a href="#" class="legal-link">
+
+        termos de serviço
+
+    </a>
+
+    .
+
+          </div>
         </section>
       </div>
     </main>
