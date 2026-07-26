@@ -255,7 +255,7 @@ text-decoration:none;
   color: var(--accent-green);
   font-weight:700;
   font-family: 'Courier New', Courier, monospace; /* aparência tipo contador */
-  font-size:14px;
+/*  font-size:14px;
   letter-spacing:1px;
   background: transparent;
   padding: 4px 6px;
@@ -264,10 +264,10 @@ text-decoration:none;
 }*/
 
 /* pequeno ajuste para o strong dentro do card */
-.produto-info strong{
+/*.produto-info strong{
   color: var(--white);
   font-weight:700;
-}
+}*/
 
 /* ==========
    Skeleton
