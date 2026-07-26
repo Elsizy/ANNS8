@@ -501,7 +501,7 @@ color:var(--gold);
 transition:.25s;
 
 top:50%;
-transform:translateY(-50%) scale(1.08);
+transform:translateY(-50%);
 padding:0;
 line-height:0;
 
@@ -509,11 +509,11 @@ line-height:0;
 
 .eye-button:hover{
 
-transform:scale(1.08);
+transform:translateY(-50%) scale(1.08);
 
 color:var(--gold-dark);
 
-}
+  }
 
 .icon-eye,
 .icon-eye-off{
