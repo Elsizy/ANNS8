@@ -72,7 +72,7 @@ function renderProdutosComprados(compras) {
       const card = document.createElement("div");
       card.className = "produto-card";
       card.innerHTML = `
-       <div class="produto-card">
+       <!--<div class="produto-card">-->
 
     <!-- Cabeçalho -->
     <div class="produto-header">
@@ -253,7 +253,7 @@ function renderProdutosComprados(compras) {
 
     </div>
 
-</div>
+<!--</div>-->
       `;
       container.appendChild(card);
     });
