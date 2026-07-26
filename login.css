@@ -349,7 +349,7 @@ padding:26px;
 .auth-card{
 
 width:100%;
-max-width:560px;
+max-width:500px;
 
 display:block;
 
@@ -375,7 +375,7 @@ background:#fff;
 
 border-radius:30px;
 
-padding:42px;
+padding:25px;
 
 box-shadow:var(--shadow);
 
@@ -391,7 +391,7 @@ TÍTULO
 
 margin:0;
 
-font-size:54px;
+font-size:30px;
 
 font-weight:700;
 
@@ -421,7 +421,7 @@ width:84px;
 height:3px;
 
 margin-top:16px;
-margin-bottom:34px;
+margin-bottom:24px;
 
 border-radius:50px;
 
@@ -445,7 +445,7 @@ LABELS
 
 .form-field{
 
-margin-bottom:26px;
+margin-bottom:16px;
 
 }
 
@@ -607,7 +607,7 @@ BOTÃO ENTRAR
 
 .form-actions{
 
-margin-top:34px;
+margin-top:20px;
 
 }
 
@@ -737,7 +737,7 @@ RODAPÉ
 
 .legal-note{
 
-margin-top:36px;
+margin-top:20px;
 
 text-align:center;
 
