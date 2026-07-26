@@ -10,7 +10,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 :root{
-  --bg-top: #071426;       /* tom bem escuro no topo */
+  --bg-top: #050505;       /* tom bem escuro no topo */
   --bg-mid: #0a2740;
   --bg-bottom: #041427;    /* tom mais escuro no fim */
   --panel-left: #5a2df6;   /* roxo esquerdo do cartão superior */
