@@ -104,7 +104,7 @@ flex-direction:column;
 
 width:100%;
 
-padding:26px 24px 6px;
+padding:8px 26px 8px;
 
 display:flex;
 align-items:center;
@@ -116,8 +116,8 @@ justify-content:flex-start;
 
 position:fixed;
 
-top:9px;
-left:9px;
+top:5px;
+left:5px;
 right:18px;
 
 display:flex;
@@ -366,7 +366,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 
-padding:90px 26px 26px;
+padding:100px 10px 10px;
 
   }
 .form-side{
