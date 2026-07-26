@@ -86,10 +86,6 @@ justify-content:flex-start;
 z-index:1000;
 
 }
-/*.brand { display:flex; align-items:center; gap:12px; }
-.logo-circle { width:44px; height:44px; border-radius:50%; background:linear-gradient(90deg,var(--panel-grad-left),var(--panel-grad-right)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
-.brand-title{ font-weight:700; font-size:14px; color:var(--white); }
-.brand-sub{ font-size:12px; color:var(--text-dim); }*/
 
 /* lang/registered */
 .lang-verify .lang { background:var(--glass); padding:6px 10px; border-radius:12px; color:var(--text-strong); font-weight:700; display:flex; align-items:center; gap:8px; }
@@ -100,7 +96,7 @@ z-index:1000;
 
 /* input-group (senha com eye) */
 .input-group { position:relative; }
-.toggle-pass {
+/*.toggle-pass {
   position:absolute;
   right:10px;
   top:50%;
@@ -114,12 +110,12 @@ z-index:1000;
   background-repeat:no-repeat;
   background-position:center;
   opacity:0.95;
-}
+}*/
 /* olho fechado */
-.toggle-pass:not(.showing) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23dbe9ff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.46 12C3.73 7.94 7.52 5 12 5s8.27 2.94 9.54 7c-1.27 4.06-5.06 7-9.54 7S3.73 16.06 2.46 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E"); }
-/* olho aberto (mostrando) */
+/*.toggle-pass:not(.showing) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23dbe9ff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.46 12C3.73 7.94 7.52 5 12 5s8.27 2.94 9.54 7c-1.27 4.06-5.06 7-9.54 7S3.73 16.06 2.46 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E"); }
+/* olho aberto (mostrando) 
 .toggle-pass.showing { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23dbe9ff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 3l18 18'/%3E%3C/path%3E%3C/svg%3E"); }
-
+*/
 /* button */
 .btn-primary {
   width:100%;
