@@ -225,3 +225,15 @@ color:#d8ae49;
 margin-top:2px;
 
   }
+
+.toggle-pass .icon-eye-off{
+    display:none;
+}
+
+.toggle-pass.showing .icon-eye{
+    display:none;
+}
+
+.toggle-pass.showing .icon-eye-off{
+    display:block;
+}
