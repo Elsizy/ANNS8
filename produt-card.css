@@ -213,7 +213,7 @@
 
     grid-template-columns:1fr 1px 1fr;
 
-    column-gap:5px;
+    column-gap:18px;
 
     align-items:start;
 }
@@ -224,7 +224,7 @@
 
     flex-direction:column;
 
-    gap:24px;
+    gap:15px;
 }
 
 /* Linha vertical central */
