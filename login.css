@@ -112,12 +112,12 @@ pointer-events:none;
 .brand-side .benefits li { margin:6px 0; font-size:14px; }
 
 
-/*.form-side h2 { margin:0 0 12px 0; font-size:20px; color:var(--white); }
+.form-side h2 { margin:0 0 12px 0; font-size:20px; color:var(--white); }
 .form-field { margin-bottom: 12px; display:flex; flex-direction:column; gap:6px; }
 .form-field label { font-size:13px; color:var(--text-dim); }
 .form-field input { padding:12px 14px; border-radius:10px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); color:var(--text-strong); outline:none; font-size:15px; }
 .form-field input::placeholder { color: rgba(230,240,255,0.22); }
-*/
+
 /* input-group (senha com eye) */
 .input-group { position:relative; }
 .toggle-pass {
