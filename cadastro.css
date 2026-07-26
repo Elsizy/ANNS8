@@ -7,6 +7,7 @@
   --card-plain: #f6f7fb;
   --text-dark: #192433;
   --muted: rgba(255,255,255,0.75);
+  --gold:#d8a63a;
 }
 
 *{box-sizing:border-box}
@@ -63,6 +64,23 @@ body{
 .card-head{ text-align:center; margin-bottom:8px }
 .card-head h2{ margin:0; color:var(--text-dark); font-size:22px }
 .card-head p.muted{ margin:6px 0 18px; color:#6b7380; font-size:13px }
+
+.login-title{
+margin:0;
+font-size:24px;
+font-weight:700;
+letter-spacing:-0.2px;
+line-height:1.1;
+}
+
+.title-gold{
+color:var(--gold);
+}
+
+.title-dark{
+color:#111;
+margin:0 8px;
+}
 
 /* form controls */
 form{ display:block }
