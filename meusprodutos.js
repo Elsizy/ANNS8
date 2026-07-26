@@ -72,25 +72,188 @@ function renderProdutosComprados(compras) {
       const card = document.createElement("div");
       card.className = "produto";
       card.innerHTML = `
-        <div class="produto-info" style="text-align:left; font-size:13px; line-height:1.4;">
-          <p class="produto-nome"><strong>${produto.nome}</strong></p>
-          <p><font color:"#fff">Preço:</font> <span style="color:#3da5ff;">${formatKz(produto.preco)}</span></p>
-          <p>Ciclo: <span style="color:#3da5ff;">45 dias</span></p>
-          <p>Taxa de lucro: <span style="color:#3da5ff;">12%</span></p>
-          <p>Renda diária: <span style="color:#3da5ff;">${formatKz(produto.preco * 0.12)}</span></p>
-          <p>Renda total : <span style="color:#3da5ff;">${formatKz(produto.preco * 0.12 * 45)}</span></p>
-         <!-- <p>Disponível : <span style="color:#3da5ff;">5</span></p> -->
+       <div class="produto-card">
 
-          <p class="status">Comprado em: ${formatDate(compradoEm)}</p>
+    <!-- Cabeçalho -->
+    <div class="produto-header">
 
-          <p class="timer" 
-            data-prod="${prodId}" 
-            data-item="${itemId}" 
-            data-lastpay="${lastPayAt}" 
-            data-comissao="${item.comissao}">
-            00:00:00
-          </p>
+        <div class="produto-title">
+            <h2 class="produto-nome">${produto.nome}</h2>
         </div>
+
+        <div class="produto-timer">
+
+            <p class="timer"
+                data-prod="${prodId}"
+                data-item="${itemId}"
+                data-lastpay="${lastPayAt}"
+                data-comissao="${item.comissao}">
+                00:00:00
+            </p>
+
+            <span class="timer-label">
+                Próxima comissão
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- Linha horizontal -->
+    <div class="produto-divider"></div>
+
+
+    <!-- Corpo -->
+    <div class="produto-body">
+
+        <!-- Coluna esquerda -->
+        <div class="produto-column">
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    <svg class="icon-preco"></svg>
+                </div>
+
+                <div class="info-content">
+
+                    <span class="info-label">
+                        Preço
+                    </span>
+
+                    <span class="info-value">
+                        ${formatKz(produto.preco)}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    <svg class="icon-lucro"></svg>
+                </div>
+
+                <div class="info-content">
+
+                    <span class="info-label">
+                        Taxa de lucro
+                    </span>
+
+                    <span class="info-value">
+                        12%
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    <svg class="icon-ciclo"></svg>
+                </div>
+
+                <div class="info-content">
+
+                    <span class="info-label">
+                        Ciclo
+                    </span>
+
+                    <span class="info-value">
+                        45 dias
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Linha vertical -->
+        <div class="produto-divider-vertical"></div>
+
+
+
+        <!-- Coluna direita -->
+        <div class="produto-column">
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    <svg class="icon-renda-dia"></svg>
+                </div>
+
+                <div class="info-content">
+
+                    <span class="info-label">
+                        Renda diária
+                    </span>
+
+                    <span class="info-value">
+                        ${formatKz(produto.preco * 0.12)}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    <svg class="icon-renda-total"></svg>
+                </div>
+
+                <div class="info-content">
+
+                    <span class="info-label">
+                        Renda total
+                    </span>
+
+                    <span class="info-value">
+                        ${formatKz(produto.preco * 0.12 * 45)}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    <svg class="icon-data"></svg>
+                </div>
+
+                <div class="info-content">
+
+                    <span class="info-label">
+                        Comprado em
+                    </span>
+
+                    <span class="info-date">
+                        ${formatDate(compradoEm)}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
       `;
       container.appendChild(card);
     });
