@@ -441,14 +441,14 @@ color:#111;
     width:0;
     height:52px;
 
-    padding-left:52px;
+    padding-left:50px;
     padding-right:48px;
 
     border:none;
     outline:none;
     background:transparent;
 
-    font-size:15px;
+    font-size:13px;
     font-weight:500;
     color:#111;
 }
