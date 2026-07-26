@@ -213,7 +213,7 @@
 
     grid-template-columns:1fr 1px 1fr;
 
-    column-gap:20px;
+    column-gap:5px;
 
     align-items:start;
 }
