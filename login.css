@@ -62,7 +62,7 @@ html,body { height: 100%; margin: 0; font-family: 'Poppins', system-ui, -apple-s
   top: 0;
   z-index: 30;
 }*/
-.topbar-inner {
+/*.topbar-inner {
   max-width: 960px;
   margin: 0 auto;
   padding: 0 18px;
@@ -70,7 +70,7 @@ html,body { height: 100%; margin: 0; font-family: 'Poppins', system-ui, -apple-s
   align-items:center;
   justify-content:space-between;
   gap:12px;
-}
+}*/
 
 /*==================================================
 FUNDO DA PÁGINA
@@ -109,6 +109,24 @@ padding:26px 24px 6px;
 display:flex;
 align-items:center;
 justify-content:flex-start;
+
+}
+
+.top-bar{
+
+position:fixed;
+
+top:18px;
+left:18px;
+right:18px;
+
+display:flex;
+align-items:flex-start;
+justify-content:flex-start;
+
+z-index:1000;
+
+pointer-events:none;
 
 }
 .brand { display:flex; align-items:center; gap:12px; }
