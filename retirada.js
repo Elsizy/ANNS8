@@ -10,8 +10,8 @@ import {
   update
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const TAXA = 0.10;
-const MIN_WITHDRAW = 2500; // <<< mantém
+const TAXA = 0.08;
+const MIN_WITHDRAW = 1600; // <<< mantém
 const WITHDRAW_SUCCESS_DELAY_MS = 3000; // tempo antes de redirecionar após sucesso
 
 let uid = null;
