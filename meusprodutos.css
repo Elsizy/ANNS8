@@ -138,6 +138,11 @@ body.has-bottom-nav {
   align-items:center;
 }*/
 
+.two-col{
+display:flex;
+width:100%;
+align-items:center;
+}
 
 .two-col .left,
 .two-col .right{
