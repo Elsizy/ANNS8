@@ -1,8 +1,8 @@
 // products.js
 export const PRODUTOS = [
   { id: "nex-1",  
-   nome: "TANK 1",  
-   preco: 5000,    
+   nome: "BetterHash",  
+   preco: 6500,    
    duracao: 90,
    percentage: 0.08,
    get comissao() {
@@ -12,8 +12,8 @@ export const PRODUTOS = [
   },
   
   { id: "nex-2",  
-   nome: "TANK 2",  
-   preco: 12000,   
+   nome: "Kryptex",  
+   preco: 12750,   
    duracao: 90,
    percentage: 0.08,
    get comissao() {
@@ -22,60 +22,60 @@ export const PRODUTOS = [
    imagem:"bot2.png"
   },
   { id: "nex-3",  
-   nome: "TANK 3",  
-   preco: 32000,    
-   duracao: 60,
-   percentage: 0.10,
+   nome: "NiceHash",  
+   preco: 34000,    
+   duracao: 90,
+   percentage: 0.09,
    get comissao() {
    return this.preco * this.percentage;
    }, 
    imagem:"bot3.png"
   },
   { id: "nex-4",  
-   nome: "TANK 4",  
-   preco: 53000,   
+   nome: "XMRig",  
+   preco: 56850,   
    duracao: 90,
-   percentage: 0.08,
+   percentage: 0.095,
    get comissao() {
    return this.preco * this.percentage;
   }, 
    imagem:"bot4.png"
   },
   { id: "nex-5",  
-   nome: "TANK 5",  
-   preco: 112000,  
+   nome: "AutoHash",  
+   preco: 118800,  
    duracao: 90,
-   percentage: 0.08,
+   percentage: 0.095,
    get comissao() {
    return this.preco * this.percentage;
       }, 
    imagem:"bot5.png"
   },
   { id: "nex-6",  
-   nome: "TANK 6",  
-   preco: 300000,  
-   duracao: 90,
-   percentage: 0.08,
+   nome: "BinancePool",  
+   preco: 324000,  
+   duracao: 60,
+   percentage: 0.098,
    get comissao() {
    return this.preco * this.percentage;
     }, 
    imagem:"bot6.png"
   },
   { id: "nex-7",  
-   nome: "TANK 7", 
-   preco: 750000,  
-   duracao: 90,
-   percentage: 0.08,
+   nome: "Minerstat BTC", 
+   preco: 816500,  
+   duracao: 60,
+   percentage: 0.098,
    get comissao() {
    return this.preco * this.percentage;
   }, 
    imagem:"bot7.png"
   },
   { id: "nex-8",  
-   nome: "TANK 8",  
-   preco: 1650000, 
-   duracao: 90, 
-   percentage: 0.08,
+   nome: "Antminer S21",  
+   preco: 1899000, 
+   duracao: 60, 
+   percentage: 0.10,
    get comissao() {
    return this.preco * this.percentage;
     }, 
