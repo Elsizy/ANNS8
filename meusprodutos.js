@@ -123,7 +123,7 @@ function renderProdutosComprados(compras) {
   <!-- Haste -->
   <path
     d="M12 1.8V5.2"
-    stroke="currentColor"
+    stroke="#F2C94C"
     stroke-width="1.5"
     stroke-linecap="round"
   />
@@ -131,7 +131,7 @@ function renderProdutosComprados(compras) {
   <!-- Haste inferior -->
   <path
     d="M12 20V21.4"
-    stroke="currentColor"
+    stroke="#F2C94C"
     stroke-width="1.5"
     stroke-linecap="round"
   />
@@ -147,7 +147,7 @@ function renderProdutosComprados(compras) {
       C16.2 16.3 14.5 17.7 11.9 17.7
       C10.0 17.7 8.5 17.1 7.5 15.9
     "
-    stroke="currentColor"
+    stroke="#F2C94C"
     stroke-width="1.5"
     stroke-linecap="round"
     stroke-linejoin="round"
