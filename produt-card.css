@@ -1,7 +1,7 @@
 .produto-title h2{
-    font-size:16px;
+    font-size:15px;
     margin:0;
-    font-weight:700px;
+    font-weight:600px;
     margin:5px;
 }
 
@@ -592,3 +592,6 @@
 .info-label-date{
     white-space:nowrap;
        }
+.produto-nome {
+    text-transform: none;
+        }
