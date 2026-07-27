@@ -112,7 +112,46 @@ function renderProdutosComprados(compras) {
             <div class="info-item">
 
                 <div class="info-icon">
-                    <svg class="icon-preco"></svg>
+                   <!--<svg class="icon-preco"></svg>-->
+                    <svg
+  class="icon-preco"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+>
+  <!-- Haste -->
+  <path
+    d="M12 1.8V5.2"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Haste inferior -->
+  <path
+    d="M12 20V21.4"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Corpo do $ -->
+  <path
+    d="
+      M16.2 6.2
+      C15.4 5.1 14.0 4.5 12.2 4.5
+      C9.6 4.5 8.0 5.8 8.0 7.8
+      C8.0 9.6 9.4 10.5 12.1 11.0
+      C14.9 11.5 16.2 12.2 16.2 14.1
+      C16.2 16.3 14.5 17.7 11.9 17.7
+      C10.0 17.7 8.5 17.1 7.5 15.9
+    "
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
                 </div>
 
                 <div class="info-content">
