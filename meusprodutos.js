@@ -225,7 +225,13 @@ function renderProdutosComprados(compras) {
             <div class="info-item">
 
                 <div class="info-icon">
-                    <svg class="icon-renda-total"></svg>
+                    <!-- <svg class="icon-renda-total"></svg>-->
+                    <svg class="icon-renda-total" xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="#F2C94C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse cx="12" cy="6" rx="5.5" ry="2.5"/>
+  <path d="M6.5 6v4c0 1.4 2.5 2.5 5.5 2.5s5.5-1.1 5.5-2.5V6"/>
+  <path d="M6.5 10v4c0 1.4 2.5 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4"/>
+  <path d="M6.5 14v4c0 1.4 2.5 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4"/>
+</svg>
                 </div>
 
                 <div class="info-content">
@@ -247,7 +253,12 @@ function renderProdutosComprados(compras) {
             <div class="info-item">
 
                 <div class="info-icon">
-                    <svg class="icon-data"></svg>
+                    <!--<svg class="icon-data"></svg>-->
+                    <svg class="icon-data" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#F2C94C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="20" r="1.2"/>
+  <circle cx="18" cy="20" r="1.2"/>
+  <path d="M3 4h2l2.2 10.5h10.8l2-7.5H7"/>
+</svg>
                 </div>
 
                 <div class="info-content">
