@@ -135,9 +135,10 @@ function renderProdutosComprados(compras) {
 
                 <div class="info-icon">
                     <!-- <svg class="icon-lucro"></svg>-->
-                    <svg class="icon-lucro" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="#F2C94C" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 2v20"/>
-  <path d="M16.5 6.5c0-1.7-1.8-3-4.5-3S7.5 4.8 7.5 6.5 9.3 9 12 9s4.5 1.3 4.5 3-1.8 3-4.5 3S7.5 13.7 7.5 12"/>
+                    <svg  class="icon-lucro" xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="#F2C94C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="7" cy="7" r="2"/>
+  <circle cx="17" cy="17" r="2"/>
+  <path d="M6 18L18 6"/>
 </svg>
                 </div>
 
@@ -160,7 +161,13 @@ function renderProdutosComprados(compras) {
             <div class="info-item">
 
                 <div class="info-icon">
-                    <svg class="icon-ciclo"></svg>
+                    <!-- <svg class="icon-ciclo"></svg>-->
+                    <svg class="icon-ciclo" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="#F2C94C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="4" y="5" width="16" height="15" rx="2"/>
+  <path d="M8 3v4"/>
+  <path d="M16 3v4"/>
+  <path d="M4 9h16"/>
+</svg>
                 </div>
 
                 <div class="info-content">
@@ -192,7 +199,11 @@ function renderProdutosComprados(compras) {
             <div class="info-item">
 
                 <div class="info-icon">
-                    <svg class="icon-renda-dia"></svg>
+                    <!-- <svg class="icon-renda-dia"></svg> -->
+                    <svg class="icon-renda-dia" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#F2C94C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 16l5-5 4 4 7-7"/>
+  <path d="M17 8h3v3"/>
+</svg>
                 </div>
 
                 <div class="info-content">
