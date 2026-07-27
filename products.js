@@ -1,7 +1,7 @@
 // products.js
 export const PRODUTOS = [
   { id: "nex-1",  
-   nome: "BetterHash",  
+   nome: "Kryptex",  
    preco: 6500,    
    duracao: 90,
    percentage: 0.08,
@@ -12,7 +12,7 @@ export const PRODUTOS = [
   },
   
   { id: "nex-2",  
-   nome: "Kryptex",  
+   nome: "XMRig",  
    preco: 12750,   
    duracao: 90,
    percentage: 0.08,
@@ -32,7 +32,7 @@ export const PRODUTOS = [
    imagem:"bot3.png"
   },
   { id: "nex-4",  
-   nome: "XMRig",  
+   nome: "BetterHash",  
    preco: 56850,   
    duracao: 90,
    percentage: 0.095,
@@ -69,7 +69,7 @@ export const PRODUTOS = [
    get comissao() {
    return this.preco * this.percentage;
   }, 
-   imagem:"bot7.png"
+   imagem:"bot8.png"
   },
   { id: "nex-8",  
    nome: "Antminer S21",  
@@ -79,7 +79,7 @@ export const PRODUTOS = [
    get comissao() {
    return this.preco * this.percentage;
     }, 
-   imagem:"bot8.png"
+   imagem:"bot7.png"
   }
 ];
 
