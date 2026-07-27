@@ -4,34 +4,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 :root{
-  --bg-top: #050505;       /* tom bem escuro no topo */
-  --bg-mid: #0a2740;
-  --bg-bottom: #041427;    /* tom mais escuro no fim */
-  --panel-left: #5a2df6;   /* roxo esquerdo do cartão superior */
-  --panel-right: #c23bd8;  /* rosa/roxo direito do cartão superior */
-  --card-bg: rgba(255,255,255,0.03); /* cartaões internos escuros translúcidos */
-  --card-border: rgba(255,255,255,0.04);
-  --muted: rgba(255,255,255,0.78);
-  --muted-2: rgba(255,255,255,0.65);
-  --accent-blue: #4db8ff;  /* cor dos números em azul como na imagem */
-  --accent-green: #2dd67a; /* cor do timer em verde */
-  --white: #ffffff;
-  --container-width: 420px; /* largura máxima para layout mobile-like */
+  --bg:#050505;
+  --gold:#e8bb55;
+  --gold-2:#a9761d;
+  --gold-soft:rgba(232,187,85,.25);
+  --text:#ffffff;
+  --text2:#bcbcbc;
 }
 
 /* --- Layout base --- */
 *{box-sizing:border-box}
 html,body{
-  height:100%;
-  margin:0;
-  padding:0;
-  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 45%, var(--bg-bottom) 100%);
-  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: var(--white);
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   -webkit-text-size-adjust:100%;
 }
+
+html,
+body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    font-family:'Poppins',sans-serif;
+    color:#fff;
+    background:
+        radial-gradient(circle at 50% 25%, rgba(255,190,70,.06), transparent 30%),
+        radial-gradient(circle at 50% 80%, rgba(255,190,70,.04), transparent 35%),
+        #050505;
+  }
 
 /* Espaço inferior para a bottom-nav (mantém compatibilidade com o arquivo bottom-nav.css) */
 body.has-bottom-nav {
@@ -80,6 +80,43 @@ font-size:20px;
 color:#f4b43a;
 text-decoration:none;
 }
+
+.header{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:72px;
+    margin-bottom:12px;
+}
+
+.header h1{
+    font-size:20px;
+    font-weight:600;
+    color:#fff;
+    margin:0;
+}
+
+.back{
+    position:absolute;
+    left:0;
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    color:#d6a13b;
+
+    background:#0b0b0b;
+
+    border:1.3px solid rgba(218,165,32,.45);
+
+    box-shadow:
+    inset 0 0 10px rgba(255,186,70,.05),
+    0 0 10px rgba(255,180,50,.05);
+  }
 
 /* ==========================
    Cartão superior (Receitas totais / Quantidade total)
