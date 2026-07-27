@@ -458,7 +458,7 @@ const ICON_EYE_OFF = `
 /** 24h em ms */
 const DAY_MS = 24 * 60 * 60 * 1000;
 /** Percentuais de rede aplicados SOBRE O PREÇO do produto */
-const REF_PERC_ON_PURCHASE = { A: 0.17, B: 0.02, C: 0.01 };
+const REF_PERC_ON_PURCHASE = { A: 0.15, B: 0.03, C: 0.02 };
 
 /* =========================
    CACHE (TTL = 60s)
@@ -691,9 +691,9 @@ const count = infoCompra?.count || 0;
 const disabled = count >= MAX_COMPRAS_POR_PRODUTO;
 
 
-const rendaDiaria = p.preco * 0.12;
+const rendaDiaria = p.preco * p.percentage;
 
-const rendaTotal = rendaDiaria * 45;
+const rendaTotal = rendaDiaria * p.duracao;
 
 
 
