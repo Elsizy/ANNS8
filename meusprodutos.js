@@ -303,7 +303,7 @@ function renderProdutosComprados(compras) {
 
                 <div class="info-content">
 
-                    <span class="info-label">
+                    <span class="info-label info-label-date">
                         Comprado em
                     </span>
 
