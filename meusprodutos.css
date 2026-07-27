@@ -172,15 +172,15 @@ body.has-bottom-nav {
 .two-col .right { align-items:flex-end; text-align:right; }
 
 /* Pequeno divisor vertical sutil (parecido com a imagem onde se vê separação visual) */
-.summary-box::after {
+/*.summary-box::after {
   content: "";
   position: absolute;
-  top: 12px; /* margem de cima */
-  bottom: 12px; /* margem de baixo */
-  left: 50%; /* no centro exato */
-  width: 2px; /* espessura visível */
+  top: 12px;  margem de cima 
+  bottom: 12px;  margem de baixo 
+  left: 50%;  no centro exato 
+  width: 2px;  espessura visível 
   background-color: rgba(255, 255, 255, 0.3); /* cor do divisor */
-}
+}*/
 
 
 .summary-box::before{
@@ -196,6 +196,28 @@ transparent,
 transparent);
 filter:blur(.5px);
 }
+
+.summary-box::after{
+
+content:"";
+
+position:absolute;
+
+left:36%;
+
+bottom:-2px;
+
+width:28%;
+
+height:3px;
+
+background:linear-gradient(90deg,
+transparent,
+#f2cb66,
+transparent);
+
+}
+
 
 /* ==========
    Skeleton
