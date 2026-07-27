@@ -340,7 +340,7 @@
 
     line-height:1.05;
     color:#F2C94C;
-    margin:15;
+    margin-top:15px;
 
     font-weight:400;
     white-space:nowrap;
@@ -493,12 +493,12 @@
 
     .produto-title{
 
-        font-size:16 5px;
+        font-size:15px;
     }
 
     .timer{
 
-        font-size:14px;
+        font-size:12px;
 
         letter-spacing:1.px;
     }
