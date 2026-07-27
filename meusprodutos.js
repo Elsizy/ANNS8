@@ -189,7 +189,7 @@ function renderProdutosComprados(compras) {
                     </span>
 
                     <span class="info-value">
-                        ${produto.nome*100}%
+                        ${produto.percentage*100}%
                     </span>
 
                 </div>
