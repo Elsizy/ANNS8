@@ -67,19 +67,6 @@ body.has-bottom-nav {
   line-height:1;
   flex: 1;
 }
-.header .back{
-width:40px;
-height:40px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:10px;
-border:1px solid rgba(255,170,40,.45);
-background:#090909;
-font-size:20px;
-color:#f4b43a;
-text-decoration:none;
-}
 
 .header{
     position:relative;
@@ -99,6 +86,7 @@ text-decoration:none;
 
 .back{
     position:absolute;
+    font-size:20px;
     left:0;
     width:40px;
     height:40px;
