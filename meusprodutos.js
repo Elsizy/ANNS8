@@ -189,7 +189,7 @@ function renderProdutosComprados(compras) {
                     </span>
 
                     <span class="info-value">
-                        12%
+                        ${produto.nome*100}%
                     </span>
 
                 </div>
@@ -217,7 +217,7 @@ function renderProdutosComprados(compras) {
                     </span>
 
                     <span class="info-value">
-                        45 dias
+                        ${produto.duracao} dias
                     </span>
 
                 </div>
@@ -253,7 +253,7 @@ function renderProdutosComprados(compras) {
                     </span>
 
                     <span class="info-value">
-                        ${formatKz(produto.preco * 0.12)}
+                        ${formatKz(produto.comissao)}
                     </span>
 
                 </div>
@@ -281,7 +281,7 @@ function renderProdutosComprados(compras) {
                     </span>
 
                     <span class="info-value">
-                        ${formatKz(produto.preco * 0.12 * 45)}
+                        ${formatKz(produto.comissao* produto.duracao)}
                     </span>
 
                 </div>
