@@ -67,7 +67,7 @@ continueBtn.addEventListener("click", () => {
 
   const raw = parseFloat(amountInput.value || "0");
   if (!raw || raw <= 0) {
-    alert("Informe um valor válido.");
+    showError(`Informe um valor válido.`);
     return;
   }
 
@@ -79,7 +79,7 @@ continueBtn.addEventListener("click", () => {
 
   const methodId = pickMethodBtn.dataset.method || "";
   if (!methodId) {
-    alert("Selecione o método.");
+    showError(`Selecione o método.`);
     return;
   }
 
