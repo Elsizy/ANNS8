@@ -132,11 +132,13 @@ body.has-bottom-nav {
 }
 
 /* A estrutura .two-col .left .right é mantida no HTML */
-.two-col{
+/*.two-col{
   display:flex;
   gap: 8px;
   align-items:center;
-}
+}*/
+
+
 .two-col .left,
 .two-col .right{
   flex:1;
