@@ -307,7 +307,7 @@ function renderProdutosComprados(compras) {
                         Comprado em
                     </span>
 
-                    <span class="info-date">
+                    <span class="info-date info-label-date">
                         ${formatDate(compradoEm)}
                     </span>
 
