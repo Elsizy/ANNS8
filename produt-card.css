@@ -191,7 +191,7 @@
 }
 
 .timer{
-    margin:5px 5px 0;
+    margin:5px 5px 1px;
 
     color:#E5C25F;
 
@@ -199,7 +199,7 @@
     font-weight:700;
 
     font-family:monospace;
-    letter-spacing:1.6px;
+    letter-spacing:1.9px;
 }
 
 .timer-label{
@@ -208,7 +208,7 @@
 
     color:rgba(255,255,255,.65);
 
-    font-size:8px;
+    font-size:9px;
     font-weight:400;
 }
 
