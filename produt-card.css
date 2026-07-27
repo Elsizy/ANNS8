@@ -135,7 +135,7 @@
 
 .produto-card{
 
-    padding:5px 10px;
+    padding:5px 10px 10px;
 
 }
 
@@ -160,8 +160,8 @@
     align-items:flex-start;
     justify-content:space-between;
 
-    padding:0 0 12px;
-    margin-bottom:14px;
+    padding:0 0 6px;
+    margin-bottom:6px;
 
     border-bottom:1px solid rgba(214,170,73,.22);
 }
@@ -200,7 +200,7 @@
 
     color:rgba(255,255,255,.65);
 
-    font-size:12px;
+    font-size:8px;
     font-weight:400;
 }
 
