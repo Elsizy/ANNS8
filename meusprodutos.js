@@ -114,7 +114,7 @@ function renderProdutosComprados(compras) {
                 <div class="info-icon">
                    <!--<svg class="icon-preco"></svg>-->
                     <svg
-  class="icon-preco"
+  class="icon"
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 24 24"
   stroke="#F2C94C"
