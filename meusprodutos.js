@@ -175,7 +175,7 @@ function renderProdutosComprados(compras) {
 
                 <div class="info-icon">
                     <!-- <svg class="icon-lucro"></svg>-->
-                    <svg  class="icon-lucro" xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="#F2C94C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg  class="icon" xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="#F2C94C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
   <circle cx="7" cy="7" r="2"/>
   <circle cx="17" cy="17" r="2"/>
   <path d="M6 18L18 6"/>
