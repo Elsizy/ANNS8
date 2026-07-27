@@ -308,7 +308,8 @@ h1 {
   margin: 0;
 }
 
-  .big-value{
+  .two-col .left .big-value,
+.two-col .right .big-value{
 
 font-size:24px;
 
@@ -324,9 +325,11 @@ line-height:1;
 
 
 
-.small-label{
+  
 
-font-size:15px;
+.two-col .left .small-label, .two-col .right .small-label{
+
+font-size:12px;
 
 font-weight:400;
 
@@ -335,3 +338,4 @@ color:#b9b9b9;
 margin-bottom:8px;
 
 }
+ 
