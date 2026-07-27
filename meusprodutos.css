@@ -58,9 +58,7 @@ body.has-bottom-nav {
 }
 
 .header h1{
-  font-weight:600;
   letter-spacing:0.2px;
-  -align:cent
   line-height:1;
 }
 
@@ -78,6 +76,8 @@ body.has-bottom-nav {
     font-weight:600;
     color:#fff;
     margin:0;
+    letter-spacing:0.2px;
+    line-height:1;
 }
 
 .back{
