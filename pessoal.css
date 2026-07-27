@@ -124,6 +124,10 @@ body::after {
   flex-shrink:0;
 }
 
+.logo-name{
+   color:#0b0b0b;
+}
+
 /* Dashboard container */
 .dashboard{
   padding: 18px;
