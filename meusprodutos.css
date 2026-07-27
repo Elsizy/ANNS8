@@ -180,7 +180,7 @@ flex-direction:column;
 .two-col .left .big-value,
 .two-col .right .big-value{
   margin:0;
-  color: var(--white);
+  color:#e6bc58;
   font-size:16px;
   font-weight:700;
   line-height:1;
@@ -192,8 +192,8 @@ flex-direction:column;
 content:"";
 position:absolute;
 left:50%;
-top:22px;
-bottom:22px;
+top:20px;
+bottom:20px;
 width:1px;
 background:rgba(220,175,70,.45);
 transform:translateX(-50%);
@@ -308,21 +308,7 @@ h1 {
   margin: 0;
 }
 
-  .two-col .left .big-value,
-.two-col .right .big-value{
-
-font-size:24px;
-
-font-weight:700;
-
-color:#e6bc58;
-
-letter-spacing:.3px;
-
-line-height:1;
-
-         }
-
+  
 
 
   
