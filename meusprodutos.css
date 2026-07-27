@@ -120,7 +120,7 @@ body.has-bottom-nav {
     position:relative;
     display:flex;
     align-items:center;
-    border-radius:7px;
+    border-radius:12px;
     overflow:hidden;
     margin-bottom:16px;
     padding:0px;
@@ -182,6 +182,20 @@ body.has-bottom-nav {
   background-color: rgba(255, 255, 255, 0.3); /* cor do divisor */
 }
 
+
+.summary-box::before{
+content:"";
+position:absolute;
+left:36%;
+top:-2px;
+width:28%;
+height:3px;
+background:linear-gradient(90deg,
+transparent,
+#f2cb66,
+transparent);
+filter:blur(.5px);
+}
 
 /* ==========
    Skeleton
