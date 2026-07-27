@@ -20,8 +20,8 @@ export const PRODUTOS = [
    nome: "TANK 3",  
    preco: 32000,   
    comissao: 3440, 
-   duracao: 90,
-   percentage: 0.08,
+   duracao: 60,
+   percentage: 0.10,
    imagem:"bot3.png"
   },
   { id: "nex-4",  
