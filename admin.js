@@ -18,7 +18,7 @@ import {
  * CONFIG
  * ===========================
  */
-const TAXA_RETIRADA = 0.10; // já usada no front do usuário
+const TAXA_RETIRADA = 0.08; // já usada no front do usuário
 let ADMIN_UID = null;       // uid do admin logado
 let editingBankId = null;
 
@@ -369,7 +369,7 @@ function attachWithdrawalListeners() {
           </p>
           <p class="meta">
             Valor bruto: <strong>${formatKz(wd.amountGross)}</strong> •
-            Valor líquido ( -10% ): <strong>${formatKz(wd.amountNet)}</strong>
+            Valor líquido ( -8% ): <strong>${formatKz(wd.amountNet)}</strong>
           </p>
           <p class="meta">Solicitado em: ${tsToPt(wd.createdAt)}</p>
           <span class="status ${wd.status}">${wd.status}</span>
