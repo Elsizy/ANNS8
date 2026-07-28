@@ -17,7 +17,7 @@ const DEPOSIT_START_H = 9;   // 09h
 const DEPOSIT_END_H   = 21;  // 21h (exclusivo)
 
 // ==== NOVO: depósito mínimo ====
-const MIN_DEPOSIT = 5000; // ajuste aqui o valor mínimo desejado
+const MIN_DEPOSIT = 6500; // ajuste aqui o valor mínimo desejado
 
 // DOM
 const amountInput   = document.getElementById("deposit-amount");
