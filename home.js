@@ -377,7 +377,7 @@ color:#d0d0d0;
   btnClose.onclick = hide;
   btnLater.onclick = () => {
     hide();
-    window.open("https://t.me/Elsizy", "_blank");
+    window.open("https://t.me/+FmjsJMXgsvg2ZTA0", "_blank");
 };
 
   // Guarda refs para uso externo
