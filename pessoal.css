@@ -106,7 +106,7 @@ body::after {
 /* Greeting */
 .greeting{ display:flex; flex-direction:column; }
 .g-ola{ font-size:14px; color: rgba(255,255,255,0.92); margin-bottom:6px; } /* levemente menor */
-.g-name{ font-size:14px; font-weight:600; letter-spacing:0.10px; line-height:normal; } /* reduzido */
+.g-name{ font-size:14px; font-weight:600; letter-spacing:0.10px; line-height:1.1; } /* reduzido */
 .g-sub{ margin-top:8px; font-size:11px; color: rgba(255,255,255,0.58); }
 
 /* Logo circle */
