@@ -377,7 +377,7 @@ color:#d0d0d0;
   btnClose.onclick = hide;
   btnLater.onclick = () => {
     hide();
-    window.open("https://t.me/+FmjsJMXgsvg2ZTA0", "_blank");
+    window.open("https://t.me/STNG_inc", "_blank");
 };
 
   // Guarda refs para uso externo
